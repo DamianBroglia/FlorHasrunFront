@@ -25,7 +25,7 @@ const Agenda = () => {
     const [turnState, setTurnState] = useState({})
     const [areYouShure, setAreYouShore] = useState(null)
     const [isAlert, setIsAlert] = useState(false)
-   
+
 
     useEffect(() => {
         dispatch(getTurnByDayAction(dateSpanish))
@@ -93,23 +93,33 @@ const Agenda = () => {
                         <View style={style.cardUsers}>
                             <Text style={style.textInfo}>{item.hourInit} | {item.product.name}</Text>
                             <Text style={style.titleInfo}>{item.user.name} {item.user.lastname}</Text>
-                            {item.state === "toTake" ?
-                                <View style={{ flexDirection: "row" }}>
-                                    <TouchableOpacity style={style.button} onPress={() => setStateTurn(item.id, "takedIt")}>
-                                        <Text style={style.buttonText}>Asistió</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={style.button} onPress={() => setStateTurn(item.id, "failed")}>
-                                        <Text style={style.buttonText}>Falló</Text>
-                                    </TouchableOpacity>
-                                </View> :
+                            {item.cancel ?
+                                <View style={style.buttonNoSelect}>
+                                    <Text style={style.buttonText}>Cancelado</Text>
+                                </View>
+                                :
                                 <View>
-                                    {item.state === "takedIt" ?
-                                        <Text style={style.textInfo}>Asistió</Text>
-                                        :
-                                        <Text style={style.textInfo}> No Asistió</Text>
+                                    {
+                                        item.state === "toTake" ?
+                                            <View style={{ flexDirection: "row" }}>
+                                                <TouchableOpacity style={style.button} onPress={() => setStateTurn(item.id, "takedIt")}>
+                                                    <Text style={style.buttonText}>Asistió</Text>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={style.button} onPress={() => setStateTurn(item.id, "failed")}>
+                                                    <Text style={style.buttonText}>Falló</Text>
+                                                </TouchableOpacity>
+                                            </View> :
+                                            <View>
+                                                {item.state === "takedIt" ?
+                                                    <Text style={style.textInfo}>Asistió</Text>
+                                                    :
+                                                    <Text style={style.textInfo}> No Asistió</Text>
+                                                }
+                                            </View>
                                     }
                                 </View>
                             }
+
 
                             {areYouShure === item.id ?
                                 <View style={{ alignItems: "center" }}>

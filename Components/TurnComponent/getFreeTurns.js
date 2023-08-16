@@ -14,6 +14,7 @@ export const getFreeTurns = (turns) => {
         { hour: "17:00", free: true },
         { hour: "17:30", free: true }
     ]
+    turns = turns.filter((e) => e.cancel === false )
 
     if(turns.length > 0){
         turns.forEach(element => {

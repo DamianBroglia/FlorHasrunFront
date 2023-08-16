@@ -1,6 +1,8 @@
 import moment from 'moment';
 import 'moment/locale/es';
 import axios from 'axios';
+import Constants from 'expo-constants';
+const API_URL = Constants.manifest.extra.API_URL;
 
 
 moment.locale('es');
@@ -31,7 +33,7 @@ export const getStadistic = async (dateInit, dateFinish) => {
         while (!finish.isBefore(initInFormatString)) {
             try {
                 const date = initInFormatString.format('dddd D [de] MMMM [de] YYYY')
-                const turnsBythisDay = await axios(`http://192.168.0.111:3001/turns/byDay/${date}`)
+                const turnsBythisDay = await axios(`${API_URL}turns/byDay/${date}`)
                 turnsBythisDay.data.forEach(element => {
                     if (element.state === "takedIt") {
                         totalCollected = totalCollected + element.price
