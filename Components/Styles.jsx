@@ -100,26 +100,26 @@ export const style = StyleSheet.create({
     button: {
         ...buttons
     },
-    buttonStadistic:{
+    buttonStadistic: {
         ...buttons,
-        width:120
+        width: 120
     },
-    buttonNotification:{
+    buttonNotification: {
         ...buttons,
-        width:95,
-        paddingHorizontal:5
+        width: 95,
+        paddingHorizontal: 5
     },
-    buttonNotifNotSelect:{
+    buttonNotifNotSelect: {
         ...buttonsNoSelect,
-        width:95,
-        paddingHorizontal:5
+        width: 95,
+        paddingHorizontal: 5
     },
     littleButton: {
         ...buttons,
         paddingVertical: 4,
         paddingHorizontal: 12,
         marginHorizontal: 1,
-        marginVertical:1,
+        marginVertical: 1,
         backgroundColor: 'rgb(205, 181, 197)',
     },
     buttonServ: {
@@ -180,19 +180,19 @@ export const style = StyleSheet.create({
     },
     cardUserTurns: {
         ...cards,
-        width:149,
-        marginHorizontal:0,
-        marginLeft:20
+        width: 149,
+        marginHorizontal: 0,
+        marginLeft: 20
     },
     cardModalStadistic: {
         ...cards,
-        backgroundColor:'rgb(255,255,255)',
-        marginVertical:30,
-        paddingVertical:30
+        backgroundColor: 'rgb(255,255,255)',
+        marginVertical: 30,
+        paddingVertical: 30
     },
     cardStadistic: {
         ...cards,
-        alignItems:"flex-start",
+        alignItems: "flex-start",
     },
     cardUsersRegis: {
         ...cards,
@@ -310,7 +310,7 @@ export const style = StyleSheet.create({
 
     //________________TEXT________________
 
-        text: {
+    text: {
         textAlign: "center",
         fontSize: 16,
         marginTop: 2,
@@ -514,6 +514,15 @@ export const style = StyleSheet.create({
 
     //________________IMAGE______________
 
+    viewPassword: {
+        position: "absolute",
+        height:20,
+        width:26,
+        opacity: 0.4,
+        left:220,
+        top:-29
+    },
+
     backgroundImage: {
         position: "absolute",
         height: 595,
@@ -592,7 +601,7 @@ export const style = StyleSheet.create({
         objectFit: "cover",
         opacity: 0.6,
         marginVertical: 10,
-        marginHorizontal:25
+        marginHorizontal: 25
     },
     imageIconsTurnCalendar: {
         height: 28,

@@ -16,19 +16,19 @@ function PutUser({ navigation }) {
     })
     const [isAlert, setIsAlert] = useState(false)
     const [isOk, setIsOk] = useState(false)
- 
- 
+    const [disguisePassword, setDisguisePassword] = useState(true)
+
     const putChange = async () => {
         try {
             const userChanged = await axios.put(`${API_URL}users`, changeUser)
-            if(userChanged.data){
+            if (userChanged.data) {
                 dispatch(getUserByIdAction(user.id))
-               setIsOk(true)
+                setIsOk(true)
             }
         } catch (error) {
             console.log(error);
         }
-        
+
     }
 
     const hideAlert = () => {
@@ -49,20 +49,31 @@ function PutUser({ navigation }) {
                     <TextInput
                         style={style.inputText}
                         placeholder='Ej: 1560707'
-                        onChangeText={(celNumber) => setChangeUser({...changeUser, celNumber: celNumber })}
+                        onChangeText={(celNumber) => setChangeUser({ ...changeUser, celNumber: celNumber })}
                         defaultValue={changeUser.ce}
                     />
                 </View>
 
-                <View style={{ alignItems: "flex-start", marginBottom: 15 }}>
+                <View style={{ alignItems: "flex-start", marginBottom: 3 }}>
                     <Text style={style.titlePropForm}> Contraseña: </Text>
                     <TextInput
                         style={style.inputText}
                         placeholder='Ej: Damiangarcia123!!'
-                        onChangeText={password => setChangeUser({...changeUser, password:password.trim()})}
+                        secureTextEntry={disguisePassword}
+                        onChangeText={password => setChangeUser({ ...changeUser, password: password.trim() })}
                         defaultValue={changeUser.password}
+
                     />
+                    {disguisePassword ?
+                        <TouchableOpacity onPress={() => setDisguisePassword(false)}>
+                            <Image style={style.viewPassword} source={require("../../assets/OjoCerrado.png")} />
+                        </TouchableOpacity> :
+                        <TouchableOpacity onPress={() => setDisguisePassword(true)}>
+                             <Image style={style.viewPassword} source={require("../../assets/OjoAbierto.png")} />
+                        </TouchableOpacity>
+                    }
                 </View>
+
 
                 <View style={{ marginVertical: 15 }}>
                     <TouchableOpacity style={style.button} onPress={putChange}>

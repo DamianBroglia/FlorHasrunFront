@@ -169,7 +169,7 @@ function Login({ navigation }) {
     const [isAlert, setIsAlert] = useState(false)
     const [isWelcome, setIsWelcome] = useState(false)
     const [msjError, setMsjError] = useState("")
-
+    const [disguisePassword, setDisguisePassword] = useState(true)
 
 
     const login = async () => {
@@ -227,11 +227,19 @@ function Login({ navigation }) {
                     <Text style={style.titlePropForm}> Contraseña: </Text>
                     <TextInput
                         style={style.inputText}
-                        secureTextEntry={true}
+                        secureTextEntry={disguisePassword}
                         placeholder='Ej: Damiangarcia123!!'
                         onChangeText={password => setUserPassword(password.trim())}
                         defaultValue={userPassword}
                     />
+                    {disguisePassword ?
+                        <TouchableOpacity onPress={() => setDisguisePassword(false)}>
+                            <Image style={style.viewPassword} source={require("../../assets/OjoCerrado.png")} />
+                        </TouchableOpacity> :
+                        <TouchableOpacity onPress={() => setDisguisePassword(true)}>
+                            <Image style={style.viewPassword} source={require("../../assets/OjoAbierto.png")} />
+                        </TouchableOpacity>
+                    }
                 </View>
 
                 <View style={{ marginVertical: 15 }}>

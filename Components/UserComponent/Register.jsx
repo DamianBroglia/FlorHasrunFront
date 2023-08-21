@@ -18,6 +18,8 @@ const Register = ({ navigation }) => {
     const [errors, setErrors] = useState({})
     const [isAlertVisible, setIsAlertVisible] = useState(false)
     const [isWelcomeVis, setIsWelcomeVis] = useState(false)
+    const [disguisePassword, setDisguisePassword] = useState(true)
+
 
 
     useEffect(() => {
@@ -109,11 +111,19 @@ const Register = ({ navigation }) => {
                     <Text style={style.titlePropForm}> Contraseña: </Text>
                     <TextInput
                         style={style.inputText}
-                        secureTextEntry={true}
+                        secureTextEntry={disguisePassword}
                         placeholder='Ej: Damiangarcia123!!'
                         onChangeText={password => setNewUserPassword(password.trim())}
                         defaultValue={newUserPassword}
                     />
+                    {disguisePassword ?
+                        <TouchableOpacity onPress={() => setDisguisePassword(false)}>
+                            <Image style={style.viewPassword} source={require("../../assets/OjoCerrado.png")} />
+                        </TouchableOpacity> :
+                        <TouchableOpacity onPress={() => setDisguisePassword(true)}>
+                            <Image style={style.viewPassword} source={require("../../assets/OjoAbierto.png")} />
+                        </TouchableOpacity>
+                    }
                 </View>
                 {errors.password ? <Text style={style.error}>{errors.password}</Text> : <Text style={style.ok}>✔Contraseña</Text>}
 
