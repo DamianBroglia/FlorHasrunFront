@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Text, TextInput, View, TouchableOpacity, Image, Alert, ImageBackground } from 'react-native';
-import bcrypt from 'bcryptjs';
 import axios from "axios"
 import { getUserByIdAction, getAllUserAction } from '../../Redux/actions/userActions';
 import { validateUser } from './validateUser';
@@ -20,11 +19,10 @@ const Register = ({ navigation }) => {
     const [isAlertVisible, setIsAlertVisible] = useState(false)
     const [isWelcomeVis, setIsWelcomeVis] = useState(false)
 
-    useEffect(() => {
 
+    useEffect(() => {
         const errorSet = validateUser({ name: newUserName, lastname: newUserLastname, celNumber: newUserCelNumber, password: newUserPassword })
         setErrors(errorSet)
-
     }, [newUserName, newUserLastname, newUserCelNumber, newUserPassword])
 
     const dispatch = useDispatch()
@@ -37,14 +35,6 @@ const Register = ({ navigation }) => {
 
         if (!name && !lastname && !password && !celNumber) {
             try {
-                // bcrypt.hash(newUser.password, 10, (error, hash) => {
-                //     if (error) {
-                //         console.error('Error al hashear la contraseña:', error);
-                //         return;
-                //     }
-                //     setNewUser({ ...newUser, password: hash })
-                //     console.log('Contraseña hasheada:', hash);
-                // });
                 const user = await axios.post(`${API_URL}users`, { name: newUserName, lastname: newUserLastname, celNumber: newUserCelNumber, password: newUserPassword })
                 if (user.data) {
                     setIsWelcomeVis(true)
@@ -119,6 +109,7 @@ const Register = ({ navigation }) => {
                     <Text style={style.titlePropForm}> Contraseña: </Text>
                     <TextInput
                         style={style.inputText}
+                        secureTextEntry={true}
                         placeholder='Ej: Damiangarcia123!!'
                         onChangeText={password => setNewUserPassword(password.trim())}
                         defaultValue={newUserPassword}
