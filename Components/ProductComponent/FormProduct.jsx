@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TextInput, StyleSheet, View, TouchableOpacity, FlatList, Image, ScrollView, Alert,ImageBackground } from 'react-native';
+import { Text, TextInput, StyleSheet, View, TouchableOpacity, FlatList, Image, ScrollView, Alert, ImageBackground } from 'react-native';
 import { uploadImage, loadImageFromGalery, deleteImageCloudinary } from '../../Utils/helpers';
 import { useDispatch } from 'react-redux';
 import { getAllViewServi } from '../../Redux/actions/serviceActions';
@@ -92,7 +92,7 @@ const FormProduct = ({ navigation }) => {
         setAlertImg(false);
         setAlertOk(false)
         setIsAlert(false)
-      };
+    };
 
     return (
         <View>
@@ -157,7 +157,7 @@ const FormProduct = ({ navigation }) => {
                     <View style={{ alignItems: "flex-start" }}>
                         <Text style={style.titlePropForm}>Descripción:</Text>
                         <TextInput
-                        multiline={true}
+                            multiline={true}
                             style={style.inputTextDescription}
                             placeholder='Descripcion'
                             onChangeText={description => setProduct({ ...product, description })}
@@ -229,23 +229,24 @@ const FormProduct = ({ navigation }) => {
                 </View>
             </ScrollView>
             <ModalAlert
-        isVisible={isAlert}
-        onClose={() => hideAlert()}
-        title="Error!"
-        message="Faltan completar algún campo para poder postear el servicio!"
-      />
+                isVisible={isAlert}
+                onClose={() => hideAlert()}
+                title="Error!"
+                message="Faltan completar algún campo para poder postear el servicio!"
+            />
             <ModalAlert
-        isVisible={alertOk}
-        onClose={() => hideAlert()}
-        title="Todo OK!"
-        message="Producto creado exitosamente!"
-      />
+                isVisible={alertOk}
+                onClose={() => hideAlert()}
+                title="Todo OK!"
+                message="Producto creado exitosamente!"
+                type="ok"
+            />
             <ModalAlert
-        isVisible={alertImg}
-        onClose={() => hideAlert()}
-        title="Lo sentimos...!"
-        message="No puedes cargar mas de 10 imagenes"
-      />
+                isVisible={alertImg}
+                onClose={() => hideAlert()}
+                title="Lo sentimos...!"
+                message="No puedes cargar mas de 10 imagenes"
+            />
         </View>);
 };
 

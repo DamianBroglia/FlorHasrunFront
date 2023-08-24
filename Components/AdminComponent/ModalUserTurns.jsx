@@ -22,12 +22,12 @@ export const ModalUserTurns = ({ isVisible, onClose, filterTurns, title, noHay }
                     <FlatList
                         data={filterTurns}
                         renderItem={({ item }) =>
-                            <View style={style.cardUsers}>
+                            <View style={style.cardModalUserTurns}>
                                 <Text style={style.titleDate}>{item.dateInit}</Text>
+                                <Text style={style.titleStadistic} >{item.product.name}</Text>
                                 <View style={{ flexDirection: "row" }}>
-                                    <Text style={style.textInfo}>{item.hourInit} hs</Text>
-                                    <Text style={style.textInfoCenter} >{item.product.name}</Text>
-                                    <Text style={style.textInfo} >$ {item.product.price}</Text>
+                                    <Text style={style.textInfo}>{item.hourInit} hs |</Text>
+                                    <Text style={style.textInfo} > $ {item.product.price}</Text>
                                 </View>
                             </View>
                         } />

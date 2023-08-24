@@ -49,7 +49,8 @@ const PutProduct = () => {
                 setImagen([...imagen, urlImage])
                 setImageChange(true)
             } else {
-                Alert.alert("No puedes subir mas de 10 imagenes")
+                setNoMoreImage(true)
+                // Alert.alert("No puedes subir mas de 10 imagenes")
             }
         } catch (error) {
             console.log(error)
@@ -61,27 +62,31 @@ const PutProduct = () => {
             imagen.filter(e => e !== item)
         )
         deleteImageCloudinary(item)
-        Alert.alert("Imagen eliminada con exito")
+        // Alert.alert("Imagen eliminada con exito")
+        setDeletedImage(true)
         setImageChange(true)
     }
 
     const saveChange = async () => {
         if (imageChange) {
             if (imagen.length < 3) {
-                Alert.alert("El servicio debe tener al menos 3 imagenes descriptivas")
+                // Alert.alert("El servicio debe tener al menos 3 imagenes descriptivas")
+                setMinImage(true)
             } else {
                 setProduct(product.image = imagen)
             }
         }
         if (product.price) {
             if (!regexAllNumbers.test(product.price)) {
-                Alert.alert("Recuerda que el precio debe ser un numero entero")
+                // Alert.alert("Recuerda que el precio debe ser un numero entero")
+                setPriceInteger(true)
             }
         }
         try {
             const newProduct = await axios.put(`${API_URL}products`, product)
             if (newProduct.data) {
-                Alert.alert("Producto modificado con exito")
+                // Alert.alert("Producto modificado con exito")
+                setServiceChanged(true)
                 setProduct({
                     productId: service.id,
                     name: "",
@@ -299,7 +304,7 @@ const PutProduct = () => {
                     {product.price ?
                         <View style={{ alignItems: "center" }}>
                             <Text style={style.titleDate}>Nuevo precio</Text>
-                            <Text style={style.priceServ}>{product.price}</Text>
+                            <Text style={style.priceServ}>$ {product.price}</Text>
                         </View> : null
                     }
                     <TouchableOpacity style={style.button} onPress={() => setEdit({ ...edit, price: true })}>
@@ -342,6 +347,7 @@ const PutProduct = () => {
                     onClose={hideAlert}
                     title="Todo OK!"
                     message="Imagen eliminada con exito"
+                    type="ok"
                 />
                 <ModalAlert
                     isVisible={priceInteger}
@@ -354,8 +360,8 @@ const PutProduct = () => {
                     onClose={hideAlert}
                     title="Todo Ok!"
                     message="El servicio fue modificado con exito"
+                    type="ok"
                 />
-
             </View>
         </ScrollView>
     );

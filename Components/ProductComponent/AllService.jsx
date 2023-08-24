@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, FlatList, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllViewServi, getAllServi } from '../../Redux/actions/serviceActions';
 import axios from "axios"
 import { style } from '../Styles';
+import { ModalAlert } from '../ModalAlert';
 import Constants from 'expo-constants';
 const API_URL = Constants.manifest.extra.API_URL;
 
@@ -11,19 +12,23 @@ const API_URL = Constants.manifest.extra.API_URL;
 const AllService = ({ navigation }) => {
     const dispatch = useDispatch()
     const services = useSelector((state) => state.services.allService)
-
+    const [viewModal, setViewModal] = useState(false)
     const restaurar = async (id) => {
         try {
             const newProduct = await axios.put(`${API_URL}products`, { productId: id, view: true })
             if (newProduct.data) {
                 dispatch(getAllViewServi())
                 dispatch(getAllServi())
-                Alert.alert("Servicio restaurado")
+                // Alert.alert("Servicio restaurado")
+                setViewModal(true)
             }
         } catch (error) {
             console.log(error);
         }
 
+    }
+    const hideAlert = () => {
+        setViewModal(false)
     }
 
     return (
@@ -45,11 +50,11 @@ const AllService = ({ navigation }) => {
                             {item.view === false ?
                                 <View>
                                     <TouchableOpacity style={style.button} onPress={() => restaurar(item.id)}>
-                                       
-                                            <Text style={style.buttonText}> Restaurar </Text>
-                                      
+
+                                        <Text style={style.buttonText}> Restaurar </Text>
+
                                     </TouchableOpacity>
-                                    <Image style={style.imageDelete} source={require("../../assets/Eliminado.png")}/>
+                                    <Image style={style.imageDelete} source={require("../../assets/Eliminado.png")} />
                                 </View>
                                 :
                                 null
@@ -61,6 +66,13 @@ const AllService = ({ navigation }) => {
                 <Text style={{ textAlign: "center", fontSize: 20 }}> No hay servicios para mostrar</Text>
             }
 
+            <ModalAlert
+                isVisible={viewModal}
+                onClose={() => hideAlert()}
+                title="Todo OK!"
+                message="Servicio restaurado con exito"
+                type="ok"
+            />
         </View>
 
     );

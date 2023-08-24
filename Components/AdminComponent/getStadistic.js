@@ -10,7 +10,7 @@ moment.locale('es');
 export const getStadistic = async (dateInit, dateFinish) => {
 
     let collectedDay = 0
-    let futurecollectDay= 0
+    let futurecollectDay = 0
     let hoursDay = 0
     let totalCollected = 0
     let totalHours = 0
@@ -33,51 +33,55 @@ export const getStadistic = async (dateInit, dateFinish) => {
         while (!finish.isBefore(initInFormatString)) {
             try {
                 const date = initInFormatString.format('dddd D [de] MMMM [de] YYYY')
-                const turnsBythisDay = await axios(`${API_URL}turns/byDay/${date}`)
-                turnsBythisDay.data.forEach(element => {
-                    if (element.state === "takedIt") {
-                        totalCollected = totalCollected + element.price
-                        totalHours = totalHours + (element.product.duration / 60)
-                        collectedDay = collectedDay + element.price
-                        hoursDay = hoursDay + (element.product.duration / 60)
-                        takedTurn = takedTurn + 1
-                        takedTurnDay = takedTurnDay + 1
-                        totalService.push({ name: element.product.name, count: 1, failed: 0, collected: element.price })
-                    }
-                    if (element.state === "failed") {
-                        totalCollected = totalCollected + (element.price / 2)
-                        collectedDay = collectedDay + (element.price / 2)
-                        failedTurn = failedTurn + 1
-                        failedTurnDay = failedTurnDay + 1
-                        totalService.push({ name: element.product.name, count: 0, failed: 1, collected: element.price / 2 })
-                    }
-                    if (element.state === "toTake") {
-                        futureCollected = futureCollected + element.price
-                        futurecollectDay = futurecollectDay + element.price
-                    }
+                const turnsBythisDayWhitCancel = await axios(`${API_URL}turns/byDay/${date}`)
+                const turnsBythisDay = turnsBythisDayWhitCancel.data.filter(e => e.cancel === false)
+                turnsBythisDay.forEach(element => {
+                    
+                        if (element.state === "takedIt") {
+                            totalCollected = totalCollected + element.price
+                            totalHours = totalHours + (element.product.duration / 60)
+                            collectedDay = collectedDay + element.price
+                            hoursDay = hoursDay + (element.product.duration / 60)
+                            takedTurn = takedTurn + 1
+                            takedTurnDay = takedTurnDay + 1
+                            totalService.push({ name: element.product.name, count: 1, failed: 0, collected: element.price })
+                        }
+                        if (element.state === "failed") {
+                            totalCollected = totalCollected + (element.price / 2)
+                            collectedDay = collectedDay + (element.price / 2)
+                            failedTurn = failedTurn + 1
+                            failedTurnDay = failedTurnDay + 1
+                            totalService.push({ name: element.product.name, count: 0, failed: 1, collected: element.price / 2 })
+                        }
+                        if (element.state === "toTake") {
+                            futureCollected = futureCollected + element.price
+                            futurecollectDay = futurecollectDay + element.price
+                        }
 
-                    // totalService.forEach(el => {
-                    //         if (el.name === element.product.name ) {
-                    //             el.count = el.count + 1
-                    //             el.totalCollect = el.totalCollect + element.price
-                    //         } else {
-                    //             totalService.push({ name: element.product.name, price: element.price })
-                    //         }
-                    // })
+                        // totalService.forEach(el => {
+                        //         if (el.name === element.product.name ) {
+                        //             el.count = el.count + 1
+                        //             el.totalCollect = el.totalCollect + element.price
+                        //         } else {
+                        //             totalService.push({ name: element.product.name, price: element.price })
+                        //         }
+                        // })
 
-                    // totalService.push({ name: element.product.name, count: 1, totalCollect: element.price })
+                        // totalService.push({ name: element.product.name, count: 1, totalCollect: element.price })
 
-                    // if(totalService.hasOwnProperty(element.product.name)){
-                    //         totalService[element.product.name] = totalService[element.product.name] + 1
-                    // }else{
-                    //     totalService[element.product.name] = 1
-                    // }
+                        // if(totalService.hasOwnProperty(element.product.name)){
+                        //         totalService[element.product.name] = totalService[element.product.name] + 1
+                        // }else{
+                        //     totalService[element.product.name] = 1
+                        // }
+
+                    
 
                 });
 
-                allTurns = allTurns + turnsBythisDay.data.length
+                allTurns = allTurns + turnsBythisDay.length
 
-                let futureTurnDay = turnsBythisDay.data.length - takedTurnDay - failedTurnDay
+                let futureTurnDay = turnsBythisDay.length - takedTurnDay - failedTurnDay
 
                 let day = {
                     date,
@@ -87,7 +91,7 @@ export const getStadistic = async (dateInit, dateFinish) => {
                     takedTurnDay,
                     failedTurnDay,
                     futureTurnDay,
-                    totalTurns: turnsBythisDay.data.length
+                    totalTurns: turnsBythisDay.length
                 }
 
                 arrayTurnsByDay.push(day)
@@ -96,7 +100,7 @@ export const getStadistic = async (dateInit, dateFinish) => {
                 hoursDay = 0
                 takedTurnDay = 0
                 failedTurnDay = 0
-                futurecollectDay= 0
+                futurecollectDay = 0
 
             } catch (error) {
                 console.log(error);

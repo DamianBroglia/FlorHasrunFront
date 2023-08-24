@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Image, ScrollView, FlatList } from 'react-native';
+import { Text, View, TouchableOpacity, Image, ScrollView, FlatList, ActivityIndicator } from 'react-native';
 import { style } from '../Styles';
 import { Calendar } from 'react-native-calendars';
 import moment from 'moment';
@@ -93,7 +93,11 @@ const AdminData = () => {
                 />}
 
             </View>
-            {loading && <Text>Calculando...</Text>}
+            {loading &&
+                <View style={{alignItems:"center"}}>
+                    <ActivityIndicator size="large" color='rgb(252, 181, 180)' />
+                    <Text style={style.titleStadistic}>Calculando...</Text>
+                </View>}
             {viewStadistic &&
                 <View>
                     <View style={style.cardStadistic}>

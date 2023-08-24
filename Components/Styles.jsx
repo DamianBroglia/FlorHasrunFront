@@ -178,6 +178,10 @@ export const style = StyleSheet.create({
     cardUsers: {
         ...cards
     },
+    cardModalUserTurns: {
+        ...cards,
+        marginHorizontal:5
+    },
     cardUserTurns: {
         ...cards,
         width: 149,
@@ -303,6 +307,7 @@ export const style = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: 25
     },
+
     cardPutSer: {
         ...cards,
         width: 312,
@@ -595,6 +600,7 @@ export const style = StyleSheet.create({
         opacity: 0.6,
         marginVertical: 18
     },
+
     imageIconsStadistic: {
         height: 60,
         width: 60,

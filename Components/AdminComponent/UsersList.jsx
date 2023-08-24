@@ -200,7 +200,7 @@ const UsersList = ({ navigation }) => {
                                 <View style={style.secondContainer}>
                                     <View style={style.thirdContainer}>
                                         <Text style={style.totals}>Previsto</Text>
-                                        <Text style={style.totals}>{info.totalTime} minutos</Text>
+                                        <Text style={style.totals}>{info.totalTime} min</Text>
                                     </View>
                                     <View style={style.thirdContainerCenter}>
                                         <Text style={style.textInfo}>Cumplido</Text>
@@ -242,12 +242,14 @@ const UsersList = ({ navigation }) => {
                         onClose={hideAlert}
                         title="Perfecto!"
                         message="Has hecho VIP a este usuario"
+                        type="ok"
                     />
                     <ModalAlert
                         isVisible={alertNOVip}
                         onClose={hideAlert}
                         title="Perfecto!"
                         message="Este usuario a dejado de ser VIP"
+                        type="ok"
                     />
                 </View>
             } />

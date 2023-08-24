@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, FlatList, Alert, TouchableOpacity, ScrollView, ImageBackground, Image } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Alert, TouchableOpacity, ScrollView, ImageBackground, Image, ActivityIndicator } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTurnByDayAction } from '../../Redux/actions/turnActions';
@@ -297,7 +297,10 @@ const CalendarScreen = ({ navigation }) => {
           </View>
 
           {loading ?
-            <Text style={{ textAlign: "center" }}>Cargando Turnos</Text>
+            <View style={{ alignItems: "center", marginTop:70 }}>
+              <ActivityIndicator size="large" color='rgb(252, 181, 180)' />
+              <Text style={style.titleStadistic}>Cargando turnos...</Text>
+            </View>
             : <View>
               {confirmTurn ?
                 <FlatList
@@ -383,6 +386,7 @@ const CalendarScreen = ({ navigation }) => {
         onClose={() => hideAlert()}
         title="Todo OK!"
         message="Turno guardado exitosamente!"
+        type="ok"
       />
     </View>
   );

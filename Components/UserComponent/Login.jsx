@@ -260,6 +260,7 @@ function Login({ navigation }) {
                     onClose={hideAlert}
                     title="Hola!"
                     message="Bienvenid@ nuevamente"
+                    type="ok"
                 />
 
             </View>

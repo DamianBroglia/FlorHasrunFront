@@ -60,7 +60,7 @@ const Home = ({ navigation }) => {
                             <Text style={style.buttonText}> Ver Servicios </Text>
 
                         </TouchableOpacity>
-                        {!user.id && <Text style={style.msj}> Puedes navegar sin registrarte, pero no podrás guardar un turno</Text>}
+                        {!user.id && <Text style={{textAlign:"center"}}> Puedes navegar sin registrarte, pero no podrás guardar un turno</Text>}
                     </View>
 
                 </View>

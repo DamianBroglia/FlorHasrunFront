@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllViewServi } from '../../Redux/actions/serviceActions';
 import axios from "axios"
 import { style } from '../Styles';
+import { ModalAlert } from '../ModalAlert';
 import Constants from 'expo-constants';
 const API_URL = Constants.manifest.extra.API_URL;
 
@@ -11,6 +12,7 @@ const API_URL = Constants.manifest.extra.API_URL;
 const ProductDetail = ({ navigation }) => {
     const service = useSelector((state) => state.services.detail)
     const user = useSelector((state) => state.users.user)
+    const [viewModalDelete, setViewModalDelete] = useState(false)
     // const [numImg, setNumImg] = useState(0)
     const dispatch = useDispatch()
     const countImage = [...service.image]
@@ -19,11 +21,16 @@ const ProductDetail = ({ navigation }) => {
         const newProduct = await axios.put(`${API_URL}products`, { productId: id, view: false })
         if (newProduct.data) {
             dispatch(getAllViewServi())
-            Alert.alert("Servicio eliminado con exito")
-            navigation.navigate("Servicios")
+            // Alert.alert("Servicio eliminado con exito")
+            setViewModalDelete(true)
+            // navigation.navigate("Servicios")
         }
     }
 
+    const hideAlert = () => {
+        setViewModalDelete(false)
+        navigation.navigate("Servicios")
+    }
     // const handleImageRight = () => {
     //     if (numImg === countImage.length - 1) {
     //         setNumImg(0)
@@ -80,9 +87,16 @@ const ProductDetail = ({ navigation }) => {
                         </View> : null
                     }
 
-
                 </View>
             </ScrollView>
+            
+            <ModalAlert
+                isVisible={viewModalDelete}
+                onClose={() => hideAlert()}
+                title="Todo OK!"
+                message="Servicio eliminado con exito"
+                type="ok"
+            />
         </View>
     );
 };

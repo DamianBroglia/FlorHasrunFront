@@ -23,7 +23,15 @@ const UserOptions = () => {
 
     useEffect(() => {
         // Solicitar permisos al montar el componente
-        Notifications.requestPermissionsAsync();
+        const requestPermissions = async () => {
+          const { granted } = await Notifications.requestPermissionsAsync();
+          if (!granted) {
+            console.log('Los permisos de notificación no fueron otorgados');
+          }
+          console.log('Los permisos de notificación fueron otorgados');
+
+        };
+        requestPermissions();
       }, []);
 
     const changeNotifications = async () => {
@@ -106,6 +114,7 @@ const UserOptions = () => {
                     onClose={hideModal}
                     title="Perfecto!"
                     message="Se han guardado los cambios"
+                    type="ok"
                 />
 
         </View>

@@ -93,6 +93,7 @@ function PutUser({ navigation }) {
                     onClose={hideAlert}
                     title="Bien!"
                     message="Usuario modificado con exito"
+                    type="ok"
                 />
 
             </View>

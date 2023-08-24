@@ -74,7 +74,7 @@ const SaveTurn = ({ navigation }) => {
                     </View>
                 </View> :
                 <View style={{ alignItems: "center" }}>
-                    <Text style={{ textAlign: "center", fontWeight: "700" }}>Registrate o ingresa para guardar un turno!</Text>
+                    <Text style={{ textAlign: "center", fontSize: 20, marginHorizontal:20 }}>Registrate o ingresa para guardar un turno!</Text>
                     <View style={{ flexDirection: "row" }}>
                         <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Registrarse")}>
                             <Text style={style.buttonText}>Registrarse</Text>

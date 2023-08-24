@@ -142,6 +142,7 @@ const Agenda = () => {
                 onClose={hideAlert}
                 title="Todo Ok!"
                 message="Informacion guardada con exito"
+                type="ok"
             />
         </View>
     );

@@ -68,27 +68,33 @@ const MyTurns = () => {
                             <Text style={style.titleDateTurn}>{item.dateInit}</Text>
                             <Text style={style.textInfo}>{item.hourInit} hs</Text>
                             <Text style={style.titleServ}>{item.product.name}</Text>
-                            <Text style={style.priceServTurns}>Resto a pagar: ${item.product.price / 2}</Text>
+                            {item.state === "toTake" && !item.cancel ? <Text style={style.priceServTurns}>Resto a pagar: ${item.product.price / 2}</Text> : null}
                         </View>
-                        {item.cancel ?
-                            <View style={style.buttonNoSelect}>
-                                <Text style={style.buttonText}> Cancelado </Text>
+                        {item.state === "toTake" &&
+                            <View>
+                                {item.cancel ?
+                                    <Text style={style.titleDate}> Turno Cancelado </Text>
+                                    :
+                                    <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(item.id)}>
+                                        <Text style={style.buttonText}> Cancelar Turno </Text>
+                                    </TouchableOpacity>
+                                }
                             </View>
-                            :
-                            <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(item.id)}>
-                                <Text style={style.buttonText}> Cancelar Turno </Text>
-                            </TouchableOpacity>
                         }
+                        {item.state === "takedIt" && <Text style={style.titleDate}> Tomaste este turno </Text>}
+                        {item.state === "failed" && <Text style={style.titleDate}> No cumpliste con este turno </Text>}
                         {
                             viewCancelTurn === item.id &&
                             <View>
                                 <Text style={style.textInfo}>Seguro que desea cancelar el turno?</Text>
-                                <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(null)}>
-                                    <Text style={style.buttonText}>Volver</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={style.button} onPress={() => cancelTurn(item.id, item.dateInit, false)}>
-                                    <Text style={style.buttonText}>Cancelar Turno</Text>
-                                </TouchableOpacity>
+                                <View style={{ flexDirection: "row" }}>
+                                    <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(null)}>
+                                        <Text style={style.buttonText}>Volver</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={style.button} onPress={() => cancelTurn(item.id, item.dateInit, false)}>
+                                        <Text style={style.buttonText}>Cancelar Turno</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         }
 
@@ -107,6 +113,7 @@ const MyTurns = () => {
                 onClose={() => hideAlert()}
                 title="Cancelado!"
                 message="Se ha cancelado el turno con exito!"
+                type="ok"
             />
         </View>
     );

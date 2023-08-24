@@ -143,6 +143,7 @@ const Register = ({ navigation }) => {
                     onClose={hideWelcome}
                     title="Bienvenid@!"
                     message="App oficial de Flor Hasrun"
+                    type="ok"
                 />
             </View>
         </View>
