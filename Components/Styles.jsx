@@ -178,9 +178,13 @@ export const style = StyleSheet.create({
     cardUsers: {
         ...cards
     },
+    cardUser: {
+        ...cards,
+        alignItems: "flex-start",
+    },
     cardModalUserTurns: {
         ...cards,
-        marginHorizontal:5
+        marginHorizontal: 5
     },
     cardUserTurns: {
         ...cards,
@@ -322,6 +326,15 @@ export const style = StyleSheet.create({
         marginBottom: 15,
         color: "dimgrey",
         marginHorizontal: 7
+    },
+
+    creditsNumber: {
+        fontSize: 18,
+        color: "rgb(210, 174, 109)",
+        marginRight: -16,
+        marginLeft: 6,
+        fontWeight: "600",
+        zIndex: 1
     },
 
     error: {
@@ -483,6 +496,12 @@ export const style = StyleSheet.create({
         borderBottomColor: "red",
         borderTopColor: "red"
     },
+    buttonNot:{
+        fontSize:7,
+        marginBottom:-11,
+        marginLeft:15,
+        zIndex:1
+    },
     //________________IMPUTS______________
 
     inputImage: {
@@ -521,11 +540,11 @@ export const style = StyleSheet.create({
 
     viewPassword: {
         position: "absolute",
-        height:20,
-        width:26,
+        height: 20,
+        width: 26,
         opacity: 0.4,
-        left:220,
-        top:-29
+        left: 220,
+        top: -29
     },
 
     backgroundImage: {
@@ -599,6 +618,12 @@ export const style = StyleSheet.create({
         objectFit: "cover",
         opacity: 0.6,
         marginVertical: 18
+    },
+    imageVerified: {
+        height: 23,
+        width: 23,
+        objectFit: "cover",
+        marginVertical: 4,
     },
 
     imageIconsStadistic: {

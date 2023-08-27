@@ -4,6 +4,7 @@ import { Calendar } from 'react-native-calendars';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTurnByDayAction } from '../../Redux/actions/turnActions';
 import { getFreeTurns } from './getFreeTurns';
+import { getUserByIdAction } from '../../Redux/actions/userActions';
 import axios from "axios"
 import moment from 'moment';
 import 'moment/locale/es';
@@ -36,12 +37,20 @@ const CalendarScreen = ({ navigation }) => {
   const [dateFormat, setDateFormat] = useState(null)
   const [isAlertVisible, setIsAlertVisible] = useState(false)
   const [turnSaved, setTurnSaved] = useState(false)
+  const [turnSavedCredits, setTurnSavedCredits] = useState(false)
   const [dateNotFormat, setDateNotFormta] = useState(null)
+  const [alertNoCredits, setAlertNoCredits] = useState(false)
 
   useEffect(() => {
     setLoading(true)
     dispatch(getTurnByDayAction(selectedDate))
   }, [selectedDate]);
+
+  useEffect(() => {
+    if (user.credits < 2) {
+      navigation.navigate("Home")
+    }
+  }, []);
 
   useEffect(() => {
     const freeTurnsArray = getFreeTurns(turnsDay)
@@ -97,18 +106,33 @@ const CalendarScreen = ({ navigation }) => {
   const hideAlert = () => {
     setIsAlertVisible(false);
     setTurnSaved(false)
+    setTurnSavedCredits(false)
+    setAlertNoCredits(false)
   };
 
   const postTurn = async () => {
     try {
       // if (user.vip) {
-      const newTurnSave = await axios.post(`${API_URL}turns`, newTurn)
-      if (newTurnSave.data) {
-        // Alert.alert("Turno guardado con exito!")
-        setTurnSaved(true)
-        setConfirmTurn(null)
-        dispatch(getTurnByDayAction(selectedDate))
+      if (user.credits > 1 || user.vip) {
+        const newTurnSave = await axios.post(`${API_URL}turns`, newTurn)
+        if (newTurnSave.data) {
+          if (!user.vip) {
+            const setUser = await axios.put(`${API_URL}users`, { userId: user.id, credits: String(Number(user.credits) - 2) })
+            if (setUser.data) {
+              setTurnSavedCredits(true)
+              dispatch(getUserByIdAction(user.id))
+            }
+          } else {
+            setTurnSaved(true)
+          }
+          // Alert.alert("Turno guardado con exito!")
+          setConfirmTurn(null)
+          dispatch(getTurnByDayAction(selectedDate))
+        }
+      } else {
+        setAlertNoCredits(true)
       }
+
       // } else {
       //   navigation.navigate("Seña")
       // }
@@ -118,9 +142,9 @@ const CalendarScreen = ({ navigation }) => {
   }
 
   const handleDatePress = (day) => {
-    if (moment(day.dateString).format("dddd") === "domingo" || moment(day.dateString).format("dddd") === "lunes") {
-      return
-    }
+    // if (moment(day.dateString).format("dddd") === "domingo" || moment(day.dateString).format("dddd") === "lunes") {
+    //   return
+    // }
     setDateNotFormta(moment(day.dateString))
     const fechaFormateada = moment(day.dateString).format('DD-MM-YYYY')
     setDateFormat(fechaFormateada)
@@ -297,7 +321,7 @@ const CalendarScreen = ({ navigation }) => {
           </View>
 
           {loading ?
-            <View style={{ alignItems: "center", marginTop:70 }}>
+            <View style={{ alignItems: "center", marginTop: 70 }}>
               <ActivityIndicator size="large" color='rgb(252, 181, 180)' />
               <Text style={style.titleStadistic}>Cargando turnos...</Text>
             </View>
@@ -384,8 +408,22 @@ const CalendarScreen = ({ navigation }) => {
       <ModalAlert
         isVisible={turnSaved}
         onClose={() => hideAlert()}
-        title="Todo OK!"
-        message="Turno guardado exitosamente!"
+        title="Turno Guardado!"
+        message="Se ha guardado el turno exitosamente!"
+        type="ok"
+      />
+      <ModalAlert
+        isVisible={alertNoCredits}
+        onClose={() => hideAlert()}
+        title="Creditos insuficientes!"
+        message="No puedes guardar el turno por falta de credito"
+        
+      />
+      <ModalAlert
+        isVisible={turnSavedCredits}
+        onClose={() => hideAlert()}
+        title="Turno Guardado!"
+        message="Se ha guardado el turno exitosamente! Se le descontaran 2 creditos, si asiste al turno o cancela dos dias antes del dia del turno, se le retornarán dichos creditos"
         type="ok"
       />
     </View>

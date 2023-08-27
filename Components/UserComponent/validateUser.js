@@ -15,6 +15,8 @@ export function validateUser(user) {
 
     if (!celNumber )  errors.celNumber = 'hace falta un numero de celular';
 
+    if (celNumber < 9999999 ) errors.celNumber = "Numero de telefono invalido, faltan numeros"
+
     if (!password) errors.password = "hace falta una contraseña"
 
     return errors;

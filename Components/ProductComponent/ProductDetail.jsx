@@ -64,7 +64,7 @@ const ProductDetail = ({ navigation }) => {
                     <Text style={style.textPutSer}>{service.description}</Text>
                     <Text style={style.textInfo}>Duración aproximada: {service.duration} minutos</Text>
                     <Text style={style.priceServ}>$ {service.price}</Text>
-                    {user.id ?
+                    {/* {user.id ?
                         <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Elija una fecha")}>
                             <Text style={style.buttonText}> Guardar Turno </Text>
                         </TouchableOpacity> :
@@ -74,7 +74,18 @@ const ProductDetail = ({ navigation }) => {
                             </TouchableOpacity>
                             <Text>Registrate para sacar un turno para este servicio!</Text>
                         </View>
-
+                    } */}
+                    {!user.id && <Text>Registrate para guardar un turno para este servicio!</Text>}
+                    {user.vip || user.credits > 1 ?
+                        <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Elija una fecha")}>
+                            <Text style={style.buttonText}> Guardar Turno </Text>
+                        </TouchableOpacity> :
+                        <View>
+                            <TouchableOpacity style={style.buttonNoSelect}>
+                                <Text style={style.buttonText}> Guardar Turno </Text>
+                            </TouchableOpacity>
+                            <Text>No tienes suficientes creditos para guardar un turno!</Text>
+                        </View>
                     }
                     {user.name === "Flor" && user.lastname === "Hasrun" ?
                         <View style={{ flexDirection: "row" }}>
@@ -89,7 +100,7 @@ const ProductDetail = ({ navigation }) => {
 
                 </View>
             </ScrollView>
-            
+
             <ModalAlert
                 isVisible={viewModalDelete}
                 onClose={() => hideAlert()}

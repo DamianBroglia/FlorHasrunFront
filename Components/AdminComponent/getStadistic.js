@@ -47,11 +47,11 @@ export const getStadistic = async (dateInit, dateFinish) => {
                             totalService.push({ name: element.product.name, count: 1, failed: 0, collected: element.price })
                         }
                         if (element.state === "failed") {
-                            totalCollected = totalCollected + (element.price / 2)
-                            collectedDay = collectedDay + (element.price / 2)
+                            // totalCollected = totalCollected + (element.price / 2)
+                            // collectedDay = collectedDay + (element.price / 2)
                             failedTurn = failedTurn + 1
                             failedTurnDay = failedTurnDay + 1
-                            totalService.push({ name: element.product.name, count: 0, failed: 1, collected: element.price / 2 })
+                            totalService.push({ name: element.product.name, count: 0, failed: 1, collected: 0})
                         }
                         if (element.state === "toTake") {
                             futureCollected = futureCollected + element.price

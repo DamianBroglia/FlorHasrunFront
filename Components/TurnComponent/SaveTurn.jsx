@@ -14,6 +14,7 @@ const SaveTurn = ({ navigation }) => {
     const [save, setSave] = useState(false)
 
     const calendarHandler = (id) => {
+        setSave(false)
         dispatch(getServiceId(id))
         navigation.navigate("Elija una fecha")
     }
@@ -43,13 +44,22 @@ const SaveTurn = ({ navigation }) => {
                     </View>
                     <View style={style.cardUsers}>
                         <Image style={style.imageIcons} source={require("../../assets/Bien.png")} />
-                        <TouchableOpacity style={style.button} onPress={() => setSave(true)}>
-                            <Text style={style.buttonText}>Guardar Turno</Text>
-                        </TouchableOpacity>
+                        {user.credits > 1 || user.vip ?
+                            <TouchableOpacity style={style.button} onPress={() => setSave(true)}>
+                                <Text style={style.buttonText}>Guardar Turno</Text>
+                            </TouchableOpacity> :
+                            <View>
+                                <TouchableOpacity style={style.buttonNoSelect} >
+                                    <Text style={style.buttonText}>Guardar Turno</Text>
+                                </TouchableOpacity>
+                                <Text style={{textAlign:"center"}}> No tiene suficientes creditos para guardar un turno</Text>
+                            </View>
+                        }
+
                         {save && user.id
                             ?
                             <View style={style.container}>
-                                <Text style={{textAlign:"center"}}> Elija un servicio </Text>
+                                <Text style={{ textAlign: "center" }}> Elija un servicio </Text>
                                 <FlatList
                                     data={services}
                                     numColumns={4}
@@ -74,7 +84,7 @@ const SaveTurn = ({ navigation }) => {
                     </View>
                 </View> :
                 <View style={{ alignItems: "center" }}>
-                    <Text style={{ textAlign: "center", fontSize: 20, marginHorizontal:20 }}>Registrate o ingresa para guardar un turno!</Text>
+                    <Text style={{ textAlign: "center", fontSize: 20, marginHorizontal: 20 }}>Registrate o ingresa para guardar un turno!</Text>
                     <View style={{ flexDirection: "row" }}>
                         <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Registrarse")}>
                             <Text style={style.buttonText}>Registrarse</Text>

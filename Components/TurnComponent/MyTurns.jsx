@@ -3,6 +3,7 @@ import { Text, StyleSheet, View, TouchableOpacity, FlatList, Alert } from 'react
 import { useSelector, useDispatch } from 'react-redux';
 import { style } from '../Styles';
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
+import { getUserByIdAction } from '../../Redux/actions/userActions';
 import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/es';
@@ -31,9 +32,15 @@ const MyTurns = () => {
     const cancelTurn = async (turnId, dateInit, cancelAnyWay) => {
         let init = moment(dateInit, 'dddd D [de] MMMM [de] YYYY')
         try {
-            if (init.isAfter(tomarrow) || cancelAnyWay) {
+            if (init.isAfter(tomarrow) || cancelAnyWay || user.vip) {
                 const canceledTurn = await axios.put(`${API_URL}turns`, { turnId, cancel: true })
                 if (canceledTurn.data) {
+                    if (!cancelAnyWay && !user.vip) {
+                        const setUser = await axios.put(`${API_URL}users`, { userId: user.id, credits: String(Number(user.credits) + 2) })
+                        if (setUser.data) {
+                            dispatch(getUserByIdAction(user.id))
+                        }
+                    }
                     dispatch(getTurnsByUserIdAction(user.id))
                     setViewModalAlert(true)
                     setViewCancelTurn(null)
@@ -45,7 +52,6 @@ const MyTurns = () => {
         } catch (error) {
             console.log(error);
         }
-
     }
 
     const hideAlert = () => {
@@ -53,9 +59,18 @@ const MyTurns = () => {
         setViewModalAlert(false)
     };
 
-    const cancelTurnAnyWay = () => {
-        setViewModal(false);
-        cancelTurn(dataToCancel.turnId, dataToCancel.dateInit, true)
+    const cancelTurnAnyWay = async () => {
+        try {
+            setViewModal(false);
+            cancelTurn(dataToCancel.turnId, dataToCancel.dateInit, true)
+            const setUser = await axios.put(`${API_URL}users`, { userId: user.id, credits: String(Number(user.credits) + 1) })
+            if (setUser.data) {
+                dispatch(getUserByIdAction(user.id))
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     return (
@@ -106,7 +121,7 @@ const MyTurns = () => {
                 onClose={() => hideAlert()}
                 cancelAny={() => cancelTurnAnyWay()}
                 title="Atención!"
-                message="Debido a que faltan menos de 48 hs para el turno, no se devolvera la seña al cancelarse, desea cancelar de todos modos?"
+                message="Debido a que el turno se cancelará el dia antes del dia del turno, solo se le devolverá un credito de los dos que usó para guardar el turno, desea cancela de todos modos?"
             />
             <ModalAlert
                 isVisible={viewModalAlert}

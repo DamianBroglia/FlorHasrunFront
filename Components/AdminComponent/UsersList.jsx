@@ -23,6 +23,9 @@ const UsersList = ({ navigation }) => {
     const [searchUser, setSearchUser] = useState("")
     const [alertVip, setAlertVip] = useState(false)
     const [alertNOVip, setAlertNOVip] = useState(false)
+    const [alertCredits, setAlertCredits] = useState(false)
+    const [alertVerified, setAlertVerified] = useState(false)
+    const [opcionCredits, setOpcionCredits] = useState(false)
 
     useEffect(() => {
         dispatch(getAllUserAction())
@@ -69,6 +72,30 @@ const UsersList = ({ navigation }) => {
         }
     }
 
+    const giveCredits = async (userId, credits) => {
+        try {
+            const setUser = await axios.put(`${API_URL}users`, { userId, credits })
+            if (setUser.data) {
+                setAlertCredits(true)
+                dispatch(getAllUserAction())
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const verifiedUser = async (userId) => {
+        try {
+            const setUser = await axios.put(`${API_URL}users`, { userId, verified: true, credits: "4" })
+            if (setUser.data) {
+                setAlertVerified(true)
+                dispatch(getAllUserAction())
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const goToUserInfo = async (id) => {
         dispatch(getTurnsByUserIdAction(id))
         setUserInfo(id)
@@ -82,6 +109,8 @@ const UsersList = ({ navigation }) => {
     const hideAlert = () => {
         setAlertVip(false);
         setAlertNOVip(false);
+        setAlertCredits(false)
+        setAlertVerified(false)
     };
 
     return (
@@ -105,6 +134,59 @@ const UsersList = ({ navigation }) => {
                     <View style={{ marginHorizontal: 10, alignItems: "center" }}>
                         <Text style={style.name}> {item.name} {item.lastname}</Text>
                         <Text style={style.phoneNumber}> {item.celNumber} </Text>
+                        {item.credits === "getCredit" || item.credits === "getCredit+1" ?
+                            <View style={{alignItems:"center"}}>
+                                <Text style={style.phoneNumber}> Creditos: 0 </Text>
+                                <Text>Este usuario está solicitando creditos</Text>
+                                <TouchableOpacity style={style.button} onPress={() => setOpcionCredits(true)}>
+                                    <Text style={style.buttonText}> Dar creditos </Text>
+                                </TouchableOpacity>
+                            </View> :
+                            <Text style={style.phoneNumber}> Creditos: {item.credits} </Text>
+                        }
+
+                        {item.verified ?
+                            <Text>Verificado</Text> :
+                            <TouchableOpacity style={style.button} onPress={() => verifiedUser(item.id)}>
+                                <Text style={style.buttonText}> Verificar </Text>
+                            </TouchableOpacity>
+                        }
+
+                        {opcionCredits &&
+                            <View>
+                                {item.credits === "getCredit+1" &&
+                                    <View style={{ flexDirection: "row" }}>
+                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "2") }}>
+                                            <Text style={style.buttonText}> 1 </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "3") }}>
+                                            <Text style={style.buttonText}> 2 </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "4") }}>
+                                            <Text style={style.buttonText}> 3 </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                }
+
+                                {item.credits === "getCredit" &&
+                                    <View style={{ flexDirection: "row" }}>
+                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "2") }}>
+                                            <Text style={style.buttonText}> 2 </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "3") }}>
+                                            <Text style={style.buttonText}> 3 </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "4") }}>
+                                            <Text style={style.buttonText}> 4 </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                }
+                                <TouchableOpacity style={style.button} onPress={() => setOpcionCredits(false)}>
+                                    <Text style={style.buttonText}> Volver </Text>
+                                </TouchableOpacity>
+                            </View>
+                        }
+
                     </View>
                     <View style={{ flexDirection: "row" }}>
                         {userInfo === item.id ?
@@ -240,15 +322,29 @@ const UsersList = ({ navigation }) => {
                     <ModalAlert
                         isVisible={alertVip}
                         onClose={hideAlert}
-                        title="Perfecto!"
-                        message="Has hecho VIP a este usuario"
+                        title="Usuario VIP!"
+                        message="Este usuario no necesitara creditos para guardar turnos"
                         type="ok"
                     />
                     <ModalAlert
                         isVisible={alertNOVip}
                         onClose={hideAlert}
-                        title="Perfecto!"
-                        message="Este usuario a dejado de ser VIP"
+                        title="Usuario no VIP !"
+                        message="Este usuario necesitara creditos para guardar turnos"
+                        type="ok"
+                    />
+                    <ModalAlert
+                        isVisible={alertCredits}
+                        onClose={hideAlert}
+                        title="Creditos Otorgados!"
+                        message="Le has otorgado creditos a este usuario"
+                        type="ok"
+                    />
+                    <ModalAlert
+                        isVisible={alertVerified}
+                        onClose={hideAlert}
+                        title="Usuario Verificado!"
+                        message="Este usuario ya puede guardar un turno en la app"
                         type="ok"
                     />
                 </View>

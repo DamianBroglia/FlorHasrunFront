@@ -42,14 +42,16 @@ export const getInfoUser = (turnsArray) => {
     info.pasTime = pasTime
 
     filterFail.forEach(ele => {
-        charged = charged + (ele.price / 2)
-        loseForFail = loseForFail + (ele.price / 2)
+        // charged = charged + (ele.price / 2)
+        // loseForFail = loseForFail + (ele.price / 2)
+        loseForFail = loseForFail + ele.price 
         loseTimeForFail = loseTimeForFail + Number(ele.product.duration)
     })
 
     filterFuture.forEach(ele => {
-        charged = charged + (ele.price / 2)
-        toCollect = toCollect + (ele.price / 2)
+        // charged = charged + (ele.price / 2)
+        // toCollect = toCollect + (ele.price / 2)
+        toCollect = toCollect + ele.price 
         futureTime = futureTime + Number(ele.product.duration)
     })
 

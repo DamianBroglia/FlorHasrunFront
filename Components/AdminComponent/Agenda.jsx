@@ -25,6 +25,7 @@ const Agenda = () => {
     const [turnState, setTurnState] = useState({})
     const [areYouShure, setAreYouShore] = useState(null)
     const [isAlert, setIsAlert] = useState(false)
+    const [userCredits, setUserCredits] = useState(false)
 
 
     useEffect(() => {
@@ -50,8 +51,9 @@ const Agenda = () => {
         setSelectdate(dateStringSpanish)
     }
 
-    const setStateTurn = (id, stringState) => {
+    const setStateTurn = (userId, credist, id, stringState) => {
         setTurnState({ turnId: id, state: stringState })
+        setUserCredits({userId, credist})
         setAreYouShore(id)
 
     }
@@ -59,6 +61,9 @@ const Agenda = () => {
         try {
             const changedTurn = await axios.put(`${API_URL}turns`, turnState)
             if (changedTurn.data) {
+                if(turnState.state === "takedIt"){
+                    const setUser = await axios.put(`${API_URL}users`, { userId: userCredits.userId, credits: String(Number(userCredits.credist + 2)) })
+                }
                 setAreYouShore(null)
                 dispatch(getTurnByDayAction(changedTurn.data.dateInit))
                 // Alert.alert("Información guardada con exito")
@@ -102,10 +107,10 @@ const Agenda = () => {
                                     {
                                         item.state === "toTake" ?
                                             <View style={{ flexDirection: "row" }}>
-                                                <TouchableOpacity style={style.button} onPress={() => setStateTurn(item.id, "takedIt")}>
+                                                <TouchableOpacity style={style.button} onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "takedIt")}>
                                                     <Text style={style.buttonText}>Asistió</Text>
                                                 </TouchableOpacity>
-                                                <TouchableOpacity style={style.button} onPress={() => setStateTurn(item.id, "failed")}>
+                                                <TouchableOpacity style={style.button} onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "failed")}>
                                                     <Text style={style.buttonText}>Falló</Text>
                                                 </TouchableOpacity>
                                             </View> :
@@ -140,8 +145,8 @@ const Agenda = () => {
             <ModalAlert
                 isVisible={isAlert}
                 onClose={hideAlert}
-                title="Todo Ok!"
-                message="Informacion guardada con exito"
+                title="Informacion guardada!"
+                message="Se han modificado el estado del turno y los creditos del cliente"
                 type="ok"
             />
         </View>
