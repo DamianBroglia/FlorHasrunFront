@@ -26,6 +26,7 @@ const User = ({ navigation }) => {
     const [modalViewRequest, setModalViewRequest] = useState(false)
     const [modalHaveFutureTurns, setModalHaveFutureTurns] = useState(false)
     const [modalNoVerified, setModalNoVerified] = useState(false)
+    const [modalVip, setModalVip] = useState(false)
 
     useEffect(() => {
         dispatch(getTurnsByUserIdAction(user.id))
@@ -42,7 +43,7 @@ const User = ({ navigation }) => {
     }
 
     const getCredits = async (credits) => {
-        console.log(credits);
+
         try {
             const setUser = await axios.put(`${API_URL}users`, { userId: user.id, credits })
             if (setUser.data) {
@@ -54,6 +55,30 @@ const User = ({ navigation }) => {
         }
     }
 
+    const setModals = () => {
+        if (user.credits > 1) {
+            setModalViewCredits(true)
+        }
+        if (user.credits === "0") {
+            if (user.verified) {
+                if (futureTurns.length === 0) {
+                    setModalgetCredits(true)
+                } else {
+                    setModalHaveFutureTurns(true)
+                }
+            } else {
+                setModalNoVerified(true)
+            }
+        }
+        if (user.credits === "1") {
+            if (futureTurns.length === 0) {
+                setModalgetCreditsOne(true)
+            } else {
+                setModalHaveFutureTurns(true)
+            }
+        }
+    }
+
     const hideAlert = () => {
         setAlertCredits(false)
         setModalViewCredits(false)
@@ -62,6 +87,7 @@ const User = ({ navigation }) => {
         setModalgetCreditsOne(false)
         setModalHaveFutureTurns(false)
         setModalNoVerified(false)
+        setModalVip(false)
     }
 
 
@@ -83,27 +109,55 @@ const User = ({ navigation }) => {
                     </View>
 
                     <Text style={style.textInfo}>Creditos  </Text>
-                    {user.credits !== "getCredit" && user.credits !== "getCredit+1" ?
-                        <Text style={style.creditsNumber}>{user.credits}</Text>
+
+                    {user.vip ?
+                        <View>
+                            <TouchableOpacity onPress={() => setModalVip(true)}>
+                                    <Image style={style.imageVerified} source={require("../../assets/Vip.png")} />
+                                    <Text style={style.creditsVip}>VIP</Text>
+                            </TouchableOpacity>
+                        </View>
                         :
-                        <Text style={style.creditsNumber}>?</Text>
+                        <View>
+                            {user.credits !== "getCredit" && user.credits !== "getCredit+1" ?
+                                <TouchableOpacity onPress={() => setModals()}>
+                                    <View style={{ flexDirection: "row" }}>
+                                        <Text style={style.creditsNumber}>{user.credits}</Text>
+                                        <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
+                                    </View>
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity onPress={() => setModalViewRequest(true)}>
+                                    <View style={{ flexDirection: "row" }}>
+                                        <Text style={style.creditsNumber}>?</Text>
+                                        <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
+                                    </View>
+
+                                </TouchableOpacity>
+                            }
+                        </View>
                     }
 
-                    {user.credits > 1 &&
+                    {user.credits < 2 && user.verified && futureTurns.length === 0 ?
+                        <Text style={style.buttonNot}>🔴</Text> : null
+                    }
+
+
+                    {/* {user.credits > 1 &&
                         <TouchableOpacity onPress={() => setModalViewCredits(true)}>
                             <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
                         </TouchableOpacity>
-                    }
-
+                    } */}
+                    {/* 
                     {user.credits === "getCredit" || user.credits === "getCredit+1" ?
                         <TouchableOpacity onPress={() => setModalViewRequest(true)}>
                             <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
                         </TouchableOpacity>
                         :
                         null
-                    }
+                    } */}
 
-                    {user.credits === "0" && user.verified ?
+                    {/* {user.credits === "0" && user.verified ?
                         <View>
                             {futureTurns.length === 0 ?
                                 <TouchableOpacity onPress={() => setModalgetCredits(true)}>
@@ -118,16 +172,16 @@ const User = ({ navigation }) => {
 
                         </View> :
                         null
-                    }
+                    } */}
 
-                    {user.credits === "0" && !user.verified ?
+                    {/* {user.credits === "0" && !user.verified ?
                         <TouchableOpacity onPress={() => setModalNoVerified(true)}>
                             <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
-                        </TouchableOpacity>:
+                        </TouchableOpacity> :
                         null
-                    }
+                    } */}
 
-                    {user.credits === "1" ?
+                    {/* {user.credits === "1" ?
                         <View>
                             {futureTurns.length === 0 ?
                                 <TouchableOpacity onPress={() => setModalgetCreditsOne(true)}>
@@ -144,7 +198,7 @@ const User = ({ navigation }) => {
                         </View>
                         :
                         null
-                    }
+                    } */}
                 </View>
             </View>
 
@@ -247,9 +301,18 @@ const User = ({ navigation }) => {
                 onClose={() => hideAlert()}
                 getCredits={null}
                 title="No verificado!"
-                message="Cuando el administrador halla verificado tu identidad, recibiras 4 creditos para guardar turnos"
+                message="Cuando el administrador verifique tu identidad recibiras 4 creditos para guardar turnos"
                 credits={null}
             />
+            <ModalCreditsState
+                isVisible={modalVip}
+                onClose={() => hideAlert()}
+                getCredits={null}
+                title="Eres VIP!"
+                message="Como usuario VIP puedes guardar los turnos que quieras"
+                credits={null}
+            />
+
         </View>
     );
 };

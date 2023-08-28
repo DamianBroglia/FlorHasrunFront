@@ -4,6 +4,7 @@ import moment from 'moment';
 import 'moment/locale/es';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTurnByDayAction } from '../../Redux/actions/turnActions';
+import { getAllUserAction } from '../../Redux/actions/userActions';
 import { Calendar } from 'react-native-calendars';
 import axios from "axios"
 import { style } from '../Styles';
@@ -62,7 +63,10 @@ const Agenda = () => {
             const changedTurn = await axios.put(`${API_URL}turns`, turnState)
             if (changedTurn.data) {
                 if(turnState.state === "takedIt"){
-                    const setUser = await axios.put(`${API_URL}users`, { userId: userCredits.userId, credits: String(Number(userCredits.credist + 2)) })
+                    const setUser = await axios.put(`${API_URL}users`, { userId: userCredits.userId, credits: String(Number(userCredits.credist) + 2)})
+                    if(setUser){
+                        dispatch(getAllUserAction())
+                    }
                 }
                 setAreYouShore(null)
                 dispatch(getTurnByDayAction(changedTurn.data.dateInit))

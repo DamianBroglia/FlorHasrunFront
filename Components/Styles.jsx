@@ -334,7 +334,16 @@ export const style = StyleSheet.create({
         marginRight: -16,
         marginLeft: 6,
         fontWeight: "600",
-        zIndex: 1
+        zIndex: 1,
+        marginTop:3
+    },
+    creditsVip: {
+        fontSize: 10,
+        // color: "rgb(210, 174, 109)",
+        fontWeight: "600",
+        zIndex: 1,
+        marginTop:-13,
+        marginLeft:18
     },
 
     error: {
