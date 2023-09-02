@@ -15,7 +15,6 @@ const API_URL = Constants.manifest.extra.API_URL;
 
 moment.locale('es');
 
-
 const MyTurns = () => {
 
     const myTurn = useSelector((state) => state.turns.viewTurns)
@@ -149,7 +148,6 @@ const MyTurns = () => {
                                 </View>
                             </View>
                         }
-
                     </View>
                 }
                 renderItem={({ item }) =>
@@ -187,7 +185,6 @@ const MyTurns = () => {
                                 </View>
                             </View>
                         }
-
                     </View>
                 }
             />
