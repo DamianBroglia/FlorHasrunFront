@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import { style } from '../Styles';
 
-export const CancelModal = ({ isVisible, onClose, cancelAny, title, message }) => {
+export const CancelModal = ({ isVisible, onClose, cancelAny, title, message, buttonText }) => {
     return (
         <Modal
             isVisible={isVisible}
@@ -23,7 +23,7 @@ export const CancelModal = ({ isVisible, onClose, cancelAny, title, message }) =
                         <Text style={style.buttonText}>Volver</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={cancelAny} style={style.buttonAlert}>
-                        <Text style={style.buttonText}>Cancelar igual</Text>
+                        <Text style={style.buttonText}>{buttonText}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

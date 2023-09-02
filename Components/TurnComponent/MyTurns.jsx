@@ -20,10 +20,12 @@ const MyTurns = () => {
 
     const myTurn = useSelector((state) => state.turns.viewTurns)
     const user = useSelector((state) => state.users.user)
+    const [viewTurns, setViewTurns] = useState([...myTurn])
     const [viewModal, setViewModal] = useState(false)
     const [viewModalAlert, setViewModalAlert] = useState(false)
     const [dataToCancel, setDataToCancel] = useState({})
     const [viewCancelTurn, setViewCancelTurn] = useState(false)
+    const [viewFilter, setViewFilter] = useState(false)
     const dispatch = useDispatch()
     const date = new Date()
     const today = moment(date)
@@ -57,7 +59,16 @@ const MyTurns = () => {
     const hideAlert = () => {
         setViewModal(false);
         setViewModalAlert(false)
+        setViewFilter(false)
     };
+
+    const showFilter = () => {
+        if(viewFilter){
+            setViewFilter(false)
+        }else{
+            setViewFilter(true)
+        }
+    }
 
     const cancelTurnAnyWay = async () => {
         try {
@@ -70,13 +81,77 @@ const MyTurns = () => {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const filterTurns = (type) => {
+        if (type === "Todos") {
+            setViewTurns([...myTurn])
+        } else {
+            if (type === "Cancel") {
+                let cancel = myTurn.filter((e) => e.cancel === true)
+                setViewTurns(cancel)
+            }
+            if (type === "Pasado") {
+                let pas = myTurn.filter((e) => e.state !== "toTake")
+                setViewTurns(pas)
+            }
+            if (type === "Future") {
+                let futu = myTurn.filter((e) => e.state === "toTake")
+                let fut = futu.filter((e) => e.cancel !== true)
+                setViewTurns(fut)
+            }
+            if (type === "Cumplidos") {
+                let cum = myTurn.filter((e) => e.state === "takedIt")
+                setViewTurns(cum)
+            }
+            if (type === "Fallados") {
+                let fail = myTurn.filter((e) => e.state === "failed")
+                setViewTurns(fail)
+            }
+        }
 
     }
 
     return (
         <View>
             <FlatList
-                data={myTurn}
+                data={viewTurns}
+                ListHeaderComponent={
+                    <View>
+                        <TouchableOpacity style={style.buttonFilterTurn} onPress={showFilter}>
+                            <Text style={style.buttonText}> Filtrar </Text>
+                        </TouchableOpacity>
+                        {viewFilter &&
+                            <View style={{ flexDirection: "row" }}>
+                                <View>
+                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Todos")}>
+                                        <Text style={style.buttonText}> Todos </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Cancel")}>
+                                        <Text style={style.buttonText}> Cancelados </Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View>
+                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Future")}>
+                                        <Text style={style.buttonText}> Futuros </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Pasado")}>
+                                        <Text style={style.buttonText}> pasados </Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View>
+                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Cumplidos")}>
+                                        <Text style={style.buttonText}> Cumplidos </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Fallados")}>
+                                        <Text style={style.buttonText}> Fallados </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        }
+
+                    </View>
+                }
                 renderItem={({ item }) =>
                     <View style={style.cardUsers}>
                         <View style={{ alignItems: "center" }}>
@@ -122,6 +197,7 @@ const MyTurns = () => {
                 cancelAny={() => cancelTurnAnyWay()}
                 title="Atención!"
                 message="Debido a que el turno se cancelará el dia antes del dia del turno, solo se le devolverá un credito de los dos que usó para guardar el turno, desea cancela de todos modos?"
+                buttonText="Cancelar Igual"
             />
             <ModalAlert
                 isVisible={viewModalAlert}
@@ -134,26 +210,5 @@ const MyTurns = () => {
     );
 };
 
-// const style = StyleSheet.create({
-//     container: {
-//         flexDirection: "row",
-//         alignItems: "center",
-//         backgroundColor: "seashell",
-//         marginTop: 20,
-//         marginHorizontal: 20,
-//         padding: 15,
-//         borderRadius: 10,
-//         justifyContent: "space-around"
-//     },
-
-//     button: {
-//         backgroundColor: "peachpuff",
-//         paddingHorizontal: 7,
-//         height: 40,
-//         paddingVertical: 9,
-//         borderRadius: 5,
-//     },
-
-// })
 
 export default MyTurns;

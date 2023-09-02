@@ -37,6 +37,7 @@ const AllService = ({ navigation }) => {
                 <FlatList
                     data={services}
                     renderItem={({ item }) =>
+                        item.name !== "Turno Bloqueado" &&
                         <View style={style.cardService}>
                             <Text style={style.titleServ}> {item.name} </Text>
                             <View style={{ flexDirection: "row" }}>

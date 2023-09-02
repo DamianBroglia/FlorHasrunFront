@@ -4,12 +4,13 @@ import { Calendar } from 'react-native-calendars';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTurnByDayAction } from '../../Redux/actions/turnActions';
 import { getFreeTurns } from './getFreeTurns';
-import { getUserByIdAction } from '../../Redux/actions/userActions';
+import { getUserByIdAction, getAllUserAction } from '../../Redux/actions/userActions';
 import axios from "axios"
 import moment from 'moment';
 import 'moment/locale/es';
 import { style } from '../Styles';
 import { ModalAlert } from '../ModalAlert';
+import { CancelModal } from './CancelModal';
 import Constants from 'expo-constants';
 const API_URL = Constants.manifest.extra.API_URL;
 
@@ -19,6 +20,7 @@ const CalendarScreen = ({ navigation }) => {
 
   const dispatch = useDispatch()
   const user = useSelector((state) => state.users.user)
+  const allUsers = useSelector((state) => state.users.allUsers)
   const service = useSelector((state) => state.services.detail)
   const turnsDay = useSelector((state) => state.turns.viewTurns)
   const [selectedDate, setSelectedDate] = useState(null);
@@ -30,7 +32,6 @@ const CalendarScreen = ({ navigation }) => {
     userId: user.id,
     productId: ""
   })
-
   const [loading, setLoading] = useState(false)
   const [confirmTurn, setConfirmTurn] = useState(null)
   const [selecDate, setSelecDate] = useState(true)
@@ -40,66 +41,61 @@ const CalendarScreen = ({ navigation }) => {
   const [turnSavedCredits, setTurnSavedCredits] = useState(false)
   const [dateNotFormat, setDateNotFormta] = useState(null)
   const [alertNoCredits, setAlertNoCredits] = useState(false)
+  const [blockTurnAnyWay, setBlockTurnAnyWay] = useState(false)
+  const [blockAlert, setBlockAlert] = useState(false)
+  const [disblockedAlert, setDisblockedAlert] = useState(false)
+  const [disblockAlert, setDisblockAlert] = useState(false)
+  const [alertturnBlock, setAlertTurnBlock] = useState(false)
+  const [dataBlockDisblockTurn, setDataBlockDisblockTurn] = useState({})
+
 
   useEffect(() => {
     setLoading(true)
     dispatch(getTurnByDayAction(selectedDate))
   }, [selectedDate]);
 
-  useEffect(() => {
-    if (user.credits < 2) {
-      navigation.navigate("Home")
-    }
-  }, []);
 
   useEffect(() => {
     const freeTurnsArray = getFreeTurns(turnsDay)
     setFreeTurs([...freeTurnsArray])
-
     setLoading(false)
   }, [turnsDay]);
 
 
-  const saveTurn = async (hour) => {
-    try {
-      setNewTurn({
-        ...newTurn,
-        hourInit: hour,
-        productId: service.id,
-        price: service.price,
-      })
-      const index = freeTurns.findIndex((e) => e.hour === hour)
-      if (hour === "11:30" || hour === "17:30" || service.duration === "30") {
-        setConfirmTurn(hour)
-      } else {
-        if (service.duration === "60") {
+
+  const saveTurn = (hour) => {
+    setNewTurn({
+      ...newTurn,
+      hourInit: hour,
+      productId: service.id,
+      price: service.price,
+    })
+    const index = freeTurns.findIndex((e) => e.hour === hour)
+    if (hour === "11:30" || hour === "17:30" || service.duration === "30") {
+      setConfirmTurn(hour)
+    } else {
+      if (service.duration === "60") {
+        if (freeTurns[index + 1].free === true) {
+          setConfirmTurn(hour)
+        } else {
+          setIsAlertVisible(true)
+        }
+      }
+      if (service.duration === "90") {
+        if (hour === "17:00" || hour === "11:00") {
           if (freeTurns[index + 1].free === true) {
             setConfirmTurn(hour)
           } else {
             setIsAlertVisible(true)
-            // Alert.alert("El turno es muy corto para el servicio que se desea tomar")
           }
-        }
-        if (service.duration === "90") {
-          if (hour === "17:00" || hour === "11:00") {
-            if (freeTurns[index + 1].free === true) {
-              setConfirmTurn(hour)
-            } else {
-              setIsAlertVisible(true)
-              // Alert.alert("El turno es muy corto para el servicio que se desea tomar")
-            }
+        } else {
+          if (freeTurns[index + 1].free === true && freeTurns[index + 2].free === true) {
+            setConfirmTurn(hour)
           } else {
-            if (freeTurns[index + 1].free === true && freeTurns[index + 2].free === true) {
-              setConfirmTurn(hour)
-            } else {
-              setIsAlertVisible(true)
-              // Alert.alert("El turno es muy corto para el servicio que se desea tomar")
-            }
+            setIsAlertVisible(true)
           }
         }
       }
-    } catch (error) {
-      console.log(error);
     }
   }
 
@@ -108,11 +104,15 @@ const CalendarScreen = ({ navigation }) => {
     setTurnSaved(false)
     setTurnSavedCredits(false)
     setAlertNoCredits(false)
+    setBlockTurnAnyWay(false)
+    setBlockAlert(false)
+    setDisblockedAlert(false)
+    setAlertTurnBlock(false)
+    setDisblockAlert(false)
   };
 
   const postTurn = async () => {
     try {
-      // if (user.vip) {
       if (user.credits > 1 || user.vip) {
         const newTurnSave = await axios.post(`${API_URL}turns`, newTurn)
         if (newTurnSave.data) {
@@ -121,11 +121,11 @@ const CalendarScreen = ({ navigation }) => {
             if (setUser.data) {
               setTurnSavedCredits(true)
               dispatch(getUserByIdAction(user.id))
+              dispatch(getAllUserAction())
             }
           } else {
             setTurnSaved(true)
           }
-          // Alert.alert("Turno guardado con exito!")
           setConfirmTurn(null)
           dispatch(getTurnByDayAction(selectedDate))
         }
@@ -133,18 +133,71 @@ const CalendarScreen = ({ navigation }) => {
         setAlertNoCredits(true)
       }
 
-      // } else {
-      //   navigation.navigate("Seña")
-      // }
     } catch (error) {
       console.log(error)
     }
   }
 
+  const blockDisblockTurn = (hour, name, turnId, userId, userCredits, free) => {
+    setNewTurn({
+      ...newTurn,
+      hourInit: hour,
+      productId: service.id,
+      price: service.price,
+    })
+    if (free) {
+      setBlockAlert(true)
+    } else {
+      setDataBlockDisblockTurn({
+        hour,
+        name,
+        turnId,
+        userId,
+        userCredits
+      })
+      if (name === "Turno Bloqueado") {
+        setDisblockAlert(true)
+      } else {
+        setBlockTurnAnyWay(true)
+      }
+    }
+  }
+
+  const cancelTurn = async () => {
+    const canceledTurn = await axios.put(`${API_URL}turns`, { turnId: dataBlockDisblockTurn.turnId, cancel: true })
+    if (canceledTurn.data) {
+      setDisblockedAlert(true)
+      dispatch(getTurnByDayAction(selectedDate))
+    }
+  }
+
+  const postBlockDisblockTurn = async (state) => {
+    try {
+      const newTurnSave = await axios.post(`${API_URL}turns`, newTurn)
+      if (newTurnSave.data) {
+        if (state === "ocuped") {
+          const canceledTurn = await axios.put(`${API_URL}turns`, { turnId: dataBlockDisblockTurn.turnId, cancel: true })
+          if (canceledTurn.data) {
+            const setUser = await axios.put(`${API_URL}users`, { userId: dataBlockDisblockTurn.userId, credits: String(Number(dataBlockDisblockTurn.userCredits) + 2) })
+            if (setUser.data) {
+              setAlertTurnBlock(true)
+              dispatch(getAllUserAction())
+            }
+          }
+        } else {
+          setAlertTurnBlock(true)
+        }
+        dispatch(getTurnByDayAction(selectedDate))
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleDatePress = (day) => {
-    // if (moment(day.dateString).format("dddd") === "domingo" || moment(day.dateString).format("dddd") === "lunes") {
-    //   return
-    // }
+    if (moment(day.dateString).format("dddd") === "domingo" || moment(day.dateString).format("dddd") === "lunes") {
+      return
+    }
     setDateNotFormta(moment(day.dateString))
     const fechaFormateada = moment(day.dateString).format('DD-MM-YYYY')
     setDateFormat(fechaFormateada)
@@ -183,113 +236,6 @@ const CalendarScreen = ({ navigation }) => {
       setNewTurn({ ...newTurn, dateInit: sumDay.format('dddd D [de] MMMM [de] YYYY') })
     }
   }
-
-  // return (
-  //   <View style={{ flex: 1 }}>
-  //     <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
-
-  //     {selecDate ?
-  //       <Calendar
-  //         disableWeekends={true}
-  //         onDayPress={handleDatePress}
-
-  //       /> :
-  //       <View style={{ alignItems: "center" }}>
-  //         <TouchableOpacity style={style.button} onPress={() => setSelecDate(true)}>
-  //           <Text style={style.buttonText} >Elegir fecha</Text>
-  //         </TouchableOpacity>
-  //       </View>
-  //     }
-  //     {selectedDate
-  //       ?
-  //       <View style={{ alignItems: "center" }}>
-
-  //         <Text style={style.titleStadistic}> {selectedDate} </Text>
-  //         {loading ?
-  //           <Text style={{ textAlign: "center" }}>Cargando Turnos</Text>
-  //           :
-  //           <FlatList
-  //             data={freeTurns}
-  //             // numColumns={2}
-  //             horizontal
-  //             renderItem={({ item }) =>
-  //               item.free ?
-  //                 <View>
-  //                   <TouchableOpacity style={style.cardTurn} onPress={() => saveTurn(item.hour)}>
-  //                     <Text style={style.textHoursGreen}>{item.hour} hs</Text>
-  //                     <Image style={style.imageTurn} source={require("../../assets/Llave.png")} />
-  //                     <Text style={style.text2} >Disponible</Text>
-  //                   </TouchableOpacity>
-
-  //                   <ModalAlert
-  //                     isVisible={isAlertVisible}
-  //                     onClose={hideAlert}
-  //                     title="Lo sentimos..."
-  //                     message="El turno es muy corto para el servicio que se desea tomar"
-  //                   />
-  //                   {confirmTurn === item.hour
-  //                     ?
-  //                     <View style={style.cardTurnConf}>
-  //                       <Text style={style.titleDate}> Confirmar turno? </Text>
-  //                       <Text style={style.titleInfo}> {service.name} </Text>
-  //                       <View style={{ flexDirection: "row", marginTop: 18 }}>
-  //                         <View style={style.cardConfTurn}>
-  //                           <Image style={style.imageIconsTurn} source={require("../../assets/Ganancia.png")} />
-  //                           <Text style={style.propTurn}> $ {service.price} </Text>
-  //                         </View>
-  //                         <View style={style.cardConfTurn}>
-  //                           <Image style={style.imageIconsTurn} source={require("../../assets/Duracion.png")} />
-  //                           <Text style={style.propTurn}> {service.duration} minutos </Text>
-  //                         </View>
-  //                       </View>
-  //                       <View style={{ flexDirection: "row", marginTop: 18 }}>
-  //                         <View style={style.cardConfTurn}>
-  //                           <Image style={style.imageIconsTurn} source={require("../../assets/Reloj.png")} />
-  //                           <Text style={style.propTurn}> {newTurn.hourInit} horas </Text>
-  //                         </View>
-  //                         <View style={style.cardConfTurn}>
-  //                           <Image style={style.imageIconsTurn} source={require("../../assets/Calendario.png")} />
-  //                           <Text style={style.propTurn}> {dateFormat} </Text>
-  //                         </View>
-  //                       </View>
-  //                       <View style={{ flexDirection: "row-reverse", marginVertical: 15 }}>
-  //                         <TouchableOpacity style={style.button} onPress={postTurn}>
-  //                           <Text style={style.buttonText}>Confirmar</Text>
-  //                         </TouchableOpacity>
-  //                         <TouchableOpacity style={style.button} onPress={() => setConfirmTurn(null)}>
-  //                           <Text style={style.buttonText} >Volver</Text>
-  //                         </TouchableOpacity>
-  //                       </View>
-  //                     </View>
-  //                     :
-  //                     null
-  //                   }
-  //                 </View>
-  //                 :
-  //                 <View style={style.cardTurnOc} >
-  //                   <Text style={style.textHoursRed}>{item.hour} hs</Text>
-  //                   <Image style={style.imageTurn} source={require("../../assets/Candado.png")} />
-  //                   <Text style={style.text2b} >Ocupado</Text>
-  //                 </View>
-  //             }
-  //           />
-  //         }
-  //       </View>
-  //       :
-  //       <View style={{ marginTop: 40, marginHorizontal: 100 }}>
-  //         <Text style={{ fontSize: 18, textAlign: "center" }}>Elija una fecha para ver los turnos disponibles</Text>
-  //       </View>
-  //     }
-  //     <ModalAlert
-  //       isVisible={turnSaved}
-  //       onClose={() => hideAlert()}
-  //       title="Todo OK!"
-  //       message="Turno guardado exitosamente!"
-  //     />
-  //   </View>
-  // );
-
-
 
   return (
     <View style={{ flex: 1 }}>
@@ -376,21 +322,33 @@ const CalendarScreen = ({ navigation }) => {
                   numColumns={3}
                   renderItem={({ item }) =>
                     <View>
-                      <ModalAlert
-                        isVisible={isAlertVisible}
-                        onClose={hideAlert}
-                        title="Lo sentimos..."
-                        message="El turno es muy corto para el servicio que se desea tomar"
-                      />
-                      {item.free ?
-                        <TouchableOpacity style={style.cardTurn} onPress={() => saveTurn(item.hour)}>
-                          <Text style={style.textHome}>{item.hour} hs</Text>
-                          <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Llave.png")} />
-                        </TouchableOpacity>
+                      {user.name === "Flor" && user.lastname === "Hasrun" ?
+                        <View>
+                          {item.free ?
+                            <TouchableOpacity style={style.cardTurn} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
+                              <Text style={style.textHome}>{item.hour} hs</Text>
+                              <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Llave.png")} />
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity style={style.cardTurnOc} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
+                              <Text style={style.textHome}>{item.hour} hs</Text>
+                              <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Candado.png")} />
+                            </TouchableOpacity>
+                          }
+                        </View>
                         :
-                        <View style={style.cardTurnOc} >
-                          <Text style={style.textHome}>{item.hour} hs</Text>
-                          <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Candado.png")} />
+                        <View>
+                          {item.free ?
+                            <TouchableOpacity style={style.cardTurn} onPress={() => saveTurn(item.hour)}>
+                              <Text style={style.textHome}>{item.hour} hs</Text>
+                              <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Llave.png")} />
+                            </TouchableOpacity>
+                            :
+                            <View style={style.cardTurnOc}>
+                              <Text style={style.textHome}>{item.hour} hs</Text>
+                              <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Candado.png")} />
+                            </View>
+                          }
                         </View>
                       }
                     </View>
@@ -406,6 +364,12 @@ const CalendarScreen = ({ navigation }) => {
         </View>
       }
       <ModalAlert
+        isVisible={isAlertVisible}
+        onClose={hideAlert}
+        title="Lo sentimos..."
+        message="El turno es muy corto para el servicio que se desea tomar"
+      />
+      <ModalAlert
         isVisible={turnSaved}
         onClose={() => hideAlert()}
         title="Turno Guardado!"
@@ -417,7 +381,7 @@ const CalendarScreen = ({ navigation }) => {
         onClose={() => hideAlert()}
         title="Creditos insuficientes!"
         message="No puedes guardar el turno por falta de credito"
-        
+
       />
       <ModalAlert
         isVisible={turnSavedCredits}
@@ -425,6 +389,44 @@ const CalendarScreen = ({ navigation }) => {
         title="Turno Guardado!"
         message="Se ha guardado el turno exitosamente! Se le descontaran 2 creditos, si asiste al turno o cancela dos dias antes del dia del turno, se le retornarán dichos creditos"
         type="ok"
+      />
+      <ModalAlert
+        isVisible={alertturnBlock}
+        onClose={() => hideAlert()}
+        title="Turno Bloqueado"
+        message="Ningun usuario podrá guardar este turno"
+        type="ok"
+      />
+      <ModalAlert
+        isVisible={disblockedAlert}
+        onClose={() => hideAlert()}
+        title="Turno Bloqueado"
+        message="Turno desbloqueado, ahora puede ser guardado por un usuario"
+        type="ok"
+      />
+      <CancelModal
+        isVisible={blockTurnAnyWay}
+        onClose={() => hideAlert()}
+        cancelAny={() => postBlockDisblockTurn("ocuped")}
+        title="Atención!"
+        message="Este turno ya esta guardado por un cliente, si lo bloquea, cuando lo desbloquee se perderá el turno, desea bloquearlo de todos modos?"
+        buttonText="Bloquear igual"
+      />
+      <CancelModal
+        isVisible={blockAlert}
+        onClose={() => hideAlert()}
+        cancelAny={() => postBlockDisblockTurn()}
+        title="Atención!"
+        message="Desea bloquear el turno? nadie podrá guardarlo"
+        buttonText="Bloquear"
+      />
+      <CancelModal
+        isVisible={disblockAlert}
+        onClose={() => hideAlert()}
+        cancelAny={() => cancelTurn()}
+        title="Desbloquear turno"
+        message="Desea desbloquear el turno?"
+        buttonText="Desbloquear"
       />
     </View>
   );

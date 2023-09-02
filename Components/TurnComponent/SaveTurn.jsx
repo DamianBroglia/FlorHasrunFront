@@ -6,6 +6,9 @@ import { getServiceId } from '../../Redux/actions/serviceActions';
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
 import { style } from '../Styles';
 import { ModalSaveTurns } from './ModalSaveTurn';
+import axios from "axios"
+import Constants from 'expo-constants';
+const API_URL = Constants.manifest.extra.API_URL;
 
 const SaveTurn = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -13,10 +16,54 @@ const SaveTurn = ({ navigation }) => {
     const user = useSelector((state) => state.users.user)
     const [save, setSave] = useState(false)
 
-    const calendarHandler = (id) => {
-        setSave(false)
-        dispatch(getServiceId(id))
-        navigation.navigate("Elija una fecha")
+    const calendarHandler = async (id) => {
+        try {
+            if (id === "PostBlock" || id === "PostBlockDay") {
+                if (id === "PostBlock") {
+                    const blocking = services.find(e => e.name === "Turno Bloqueado")
+                    if (blocking) {
+                        dispatch(getServiceId(blocking.id))
+                    } else {
+                        const BlockingTurn = await axios.post(`${API_URL}products`, {
+                            name: "Turno Bloqueado",
+                            image: [1, 2, 3],
+                            minimalDescription: "Bloqueador",
+                            description: "Bloqueador",
+                            duration: "30",
+                            price: 0
+                        })
+                        if (BlockingTurn.data) {
+                            dispatch(getServiceId(BlockingTurn.data.id))
+                        }
+                    }
+                } else {
+                    const blockingDay = services.find(e => e.name === "Dia Bloqueado")
+                    if (blockingDay) {
+                        dispatch(getServiceId(blockingDay.id))
+                    } else {
+                        const BlockingAllDay = await axios.post(`${API_URL}products`, {
+                            name: "Dia Bloqueado",
+                            image: [1, 2, 3],
+                            minimalDescription: "Bloqueador",
+                            description: "Bloqueador",
+                            duration: "30",
+                            price: 0
+                        })
+                        if (BlockingAllDay.data) {
+                            dispatch(getServiceId(BlockingAllDay.data.id))
+                        }
+                    }
+                }
+            } else {
+                setSave(false)
+                dispatch(getServiceId(id))
+            }
+            navigation.navigate("Elija una fecha")
+        } catch (error) {
+            console.log(error);
+        }
+
+
     }
 
     const goMyTurnsHandler = (id) => {
@@ -43,16 +90,20 @@ const SaveTurn = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                     <View style={style.cardUsers}>
-                        <Image style={style.imageIcons} source={require("../../assets/Bien.png")} />
-                        {user.credits > 1 || user.vip ?
-                            <TouchableOpacity style={style.button} onPress={() => setSave(true)}>
-                                <Text style={style.buttonText}>Guardar Turno</Text>
-                            </TouchableOpacity> :
-                            <View>
-                                <TouchableOpacity style={style.buttonNoSelect} >
+
+                        {user.name === "Flor" && user.lastname === "Hasrun" ?
+                            <View style={{alignItems:"center"}}>
+                                <Image style={style.imageIcons} source={require("../../assets/Candado.png")} />
+                                <TouchableOpacity style={style.button} onPress={() => calendarHandler("PostBlock")}>
+                                    <Text style={style.buttonText}>Bloquear Turno</Text>
+                                </TouchableOpacity>
+                            </View>
+                            :
+                            <View style={{alignItems:"center"}}>
+                                <Image style={style.imageIcons} source={require("../../assets/Bien.png")} />
+                                <TouchableOpacity style={style.button} onPress={() => setSave(true)}>
                                     <Text style={style.buttonText}>Guardar Turno</Text>
                                 </TouchableOpacity>
-                                <Text style={{textAlign:"center"}}> No tiene suficientes creditos para guardar un turno</Text>
                             </View>
                         }
 
@@ -64,6 +115,7 @@ const SaveTurn = ({ navigation }) => {
                                     data={services}
                                     numColumns={4}
                                     renderItem={({ item }) =>
+                                    item.name !== "Turno Bloqueado" &&
                                         <TouchableOpacity style={style.buttonServ} onPress={() => calendarHandler(item.id)}>
                                             <Text style={style.buttonTextServ}>{item.name}</Text>
                                         </TouchableOpacity>

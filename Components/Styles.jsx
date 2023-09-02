@@ -100,6 +100,11 @@ export const style = StyleSheet.create({
     button: {
         ...buttons
     },
+    buttonFilterTurn: {
+        ...buttons,
+        width:114,
+        paddingHorizontal:2
+    },
     buttonStadistic: {
         ...buttons,
         width: 120
@@ -507,8 +512,8 @@ export const style = StyleSheet.create({
     },
     buttonNot:{
         fontSize:7,
-        marginBottom:-11,
-        marginLeft:15,
+        marginBottom:15,
+        marginLeft:-6,
         zIndex:1
     },
     //________________IMPUTS______________
