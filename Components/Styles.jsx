@@ -100,6 +100,7 @@ export const style = StyleSheet.create({
     button: {
         ...buttons
     },
+ 
     buttonFilterTurn: {
         ...buttons,
         width:114,
@@ -264,7 +265,14 @@ export const style = StyleSheet.create({
         marginHorizontal: 4,
         marginVertical: 4,
         backgroundColor: 'rgba(240,255,240,0.8)',
-
+    },
+    cardTurnBlockDay: {
+        ...cards,
+        height: 93,
+        width: 110,
+        marginHorizontal: 4,
+        marginVertical: 4,
+        backgroundColor: 'rgba(240,255,240,0.8)',
     },
     // cardTurn: {
     //     ...cards,
@@ -287,6 +295,14 @@ export const style = StyleSheet.create({
     cardTurnOc: {
         ...cards,
         height: 106,
+        width: 110,
+        backgroundColor: 'rgba(255,255,255,0.3)',
+        marginHorizontal: 4,
+        marginVertical: 4
+    },
+    cardTurnOcBlockDay: {
+        ...cards,
+        height: 93,
         width: 110,
         backgroundColor: 'rgba(255,255,255,0.3)',
         marginHorizontal: 4,

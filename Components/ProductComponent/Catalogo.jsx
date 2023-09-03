@@ -53,7 +53,7 @@ const Catalogo = ({ navigation }) => {
                         </View>
                     }
                     renderItem={({ item }) =>
-                        item.name !== "Turno Bloqueado" &&
+                        item.name !== "Turno Bloqueado" && item.name !== "Dia Bloqueado" &&
                         <View style={style.cardService}>
                             <Text style={style.titleServ}> {item.name} </Text>
                             <View style={{ flexDirection: "row" }}>
