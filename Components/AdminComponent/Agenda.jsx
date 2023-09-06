@@ -102,7 +102,7 @@ const Agenda = () => {
                         <View style={style.cardUsers}>
                             <Text style={style.textInfo}>{item.hourInit} | {item.product.name}</Text>
                             <Text style={style.titleInfo}>{item.user.name} {item.user.lastname}</Text>
-                            {item.cancel ?
+                            {item.cancel ? //    <-------------------------------AQUI-------------------------------
                                 <View style={style.buttonNoSelect}>
                                     <Text style={style.buttonText}>Cancelado</Text>
                                 </View>

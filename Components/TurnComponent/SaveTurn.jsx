@@ -96,8 +96,8 @@ const SaveTurn = ({ navigation }) => {
                             <TouchableOpacity style={style.button} onPress={() => goMyTurnsHandler(user.id)}>
                                 <Text style={style.buttonText}>Mis Turnos</Text>
                             </TouchableOpacity>
-                        </View> 
-}
+                        </View>
+                    }
                     <View style={style.cardUsers}>
 
                         {user.name === "Flor" && user.lastname === "Hasrun" ?
@@ -124,7 +124,7 @@ const SaveTurn = ({ navigation }) => {
                                     data={services}
                                     numColumns={4}
                                     renderItem={({ item }) =>
-                                        item.name !== "Turno Bloqueado" &&  item.name !== "Dia Bloqueado" && 
+                                        item.name !== "Turno Bloqueado" && item.name !== "Dia Bloqueado" &&
                                         <TouchableOpacity style={style.buttonServ} onPress={() => calendarHandler(item.id)}>
                                             <Text style={style.buttonTextServ}>{item.name}</Text>
                                         </TouchableOpacity>
@@ -145,12 +145,14 @@ const SaveTurn = ({ navigation }) => {
                     </View>
                 </View> :
                 <View style={{ alignItems: "center" }}>
-                    <Text style={{ textAlign: "center", fontSize: 20, marginHorizontal: 20 }}>Registrate o ingresa para guardar un turno!</Text>
-                    <View style={{ flexDirection: "row" }}>
-                        <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Registrarse")}>
+                    <Text style={{ textAlign: "center", fontSize: 22, marginTop: 15, fontWeight:"800" }}>No puedes guardar un turno!</Text>
+                    <Image style={style.imageBlockPag} source={require("../../assets/Candado.png")} />
+                    <Text style={{ textAlign: "center", fontSize: 18, marginHorizontal: 18 }}>Registrate o ingresa para guardar un turno!</Text>
+                    <View style={{ flexDirection: "row", marginTop:15 }}>
+                        <TouchableOpacity style={style.buttonFilterTurn} onPress={() => navigation.navigate("Registrarse")}>
                             <Text style={style.buttonText}>Registrarse</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Entrar")}>
+                        <TouchableOpacity style={style.buttonFilterTurn} onPress={() => navigation.navigate("Entrar")}>
                             <Text style={style.buttonText}>Ingresar</Text>
                         </TouchableOpacity>
                     </View>

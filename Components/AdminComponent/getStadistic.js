@@ -34,7 +34,7 @@ export const getStadistic = async (dateInit, dateFinish) => {
             try {
                 const date = initInFormatString.format('dddd D [de] MMMM [de] YYYY')
                 const turnsBythisDayWhitCancel = await axios(`${API_URL}turns/byDay/${date}`)
-                const turnsBythisDay = turnsBythisDayWhitCancel.data.filter(e => e.cancel === false)
+                const turnsBythisDay = turnsBythisDayWhitCancel.data.filter(e => e.cancel === false)//    <-------------------------------AQUI-------------------------------
                 turnsBythisDay.forEach(element => {
                     
                         if (element.state === "takedIt") {

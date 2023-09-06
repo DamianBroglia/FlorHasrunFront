@@ -34,7 +34,7 @@ const MyTurns = () => {
         let init = moment(dateInit, 'dddd D [de] MMMM [de] YYYY')
         try {
             if (init.isAfter(tomarrow) || cancelAnyWay || user.vip) {
-                const canceledTurn = await axios.put(`${API_URL}turns`, { turnId, cancel: true })
+                const canceledTurn = await axios.put(`${API_URL}turns`, { turnId, cancel: true })//    <-------------------------------AQUI-------------------------------
                 if (canceledTurn.data) {
                     if (!cancelAnyWay && !user.vip) {
                         const setUser = await axios.put(`${API_URL}users`, { userId: user.id, credits: String(Number(user.credits) + 2) })
@@ -87,7 +87,7 @@ const MyTurns = () => {
             setViewTurns([...myTurn])
         } else {
             if (type === "Cancel") {
-                let cancel = myTurn.filter((e) => e.cancel === true)
+                let cancel = myTurn.filter((e) => e.cancel === true)//    <-------------------------------AQUI-------------------------------
                 setViewTurns(cancel)
             }
             if (type === "Pasado") {
@@ -160,7 +160,7 @@ const MyTurns = () => {
                         </View>
                         {item.state === "toTake" &&
                             <View>
-                                {item.cancel ?
+                                {item.cancel ?//    <-------------------------------AQUI-------------------------------
                                     <Text style={style.titleDate}> Turno Cancelado </Text>
                                     :
                                     <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(item.id)}>

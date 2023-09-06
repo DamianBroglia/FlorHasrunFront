@@ -3,6 +3,8 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import { style } from '../Styles';
 
+// Agregar turnos cancelados
+
 export const ModalTurns = ({ isVisible, onClose, viewStadistic, orderDaysTurns }) => {
     return (
         <Modal

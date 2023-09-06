@@ -54,6 +54,8 @@ const UserTurns = ({ navigation }) => {
         setViewModal(false)
     };
 
+//agregar turnos cancelados
+
     return (
         <View>
 

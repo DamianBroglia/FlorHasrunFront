@@ -70,7 +70,7 @@ const Catalogo = ({ navigation }) => {
                         </View>
                     }
                 /> :
-                <Text style={{ textAlign: "center", fontSize: 20 }}> No hay servicios para mostrar</Text>
+                <Text style={{ textAlign: "center", fontSize: 22, fontWeight:"800", marginTop:15 }}> No hay servicios para mostrar</Text>
             }
         </View>
 

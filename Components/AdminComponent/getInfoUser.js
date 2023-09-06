@@ -18,6 +18,8 @@ export const getInfoUser = (turnsArray) => {
     const filterPast = turnsArray.filter((e) => e.state !== "toTake")
     info.pastTurns = filterPast.length
 
+    // Agregar turnos cancelados por usuario y por admin
+
     const filterCumplidos = turnsArray.filter((e) => e.state === "takedIt")
     info.complied = filterCumplidos.length
 

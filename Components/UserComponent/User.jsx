@@ -34,7 +34,7 @@ const User = ({ navigation }) => {
 
     useEffect(() => {
         const futureTurnsUserWithCancel = turnsUser.filter((e) => e.state === "toTake")
-        const futureTurnsUser = futureTurnsUserWithCancel.filter((e) => e.cancel === false)
+        const futureTurnsUser = futureTurnsUserWithCancel.filter((e) => e.cancel === false)//    <-------------------------------AQUI-------------------------------
         setFutureTurns(futureTurnsUser)
     }, [turnsUser])
 

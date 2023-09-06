@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ImageBackground } from 'react-native';
 import { getAllUserAction, getUserByIdAction } from '../../Redux/actions/userActions';
-import bcrypt from 'bcryptjs';
 import { style } from '../Styles';
 import { ModalAlert } from '../ModalAlert';
 import axios from "axios"

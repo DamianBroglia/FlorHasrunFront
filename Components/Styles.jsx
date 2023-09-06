@@ -100,11 +100,32 @@ export const style = StyleSheet.create({
     button: {
         ...buttons
     },
- 
+    // buttonFacebook: {
+    //     ...buttons,
+    //     width: 305,
+    //     backgroundColor:"rgb(59, 89, 152)"
+    // },
+    buttonInstagram: {
+        ...buttons,
+        width: 150,
+        backgroundColor:"rgb(193, 53, 132)",
+        paddingVertical:8
+    },
+    buttonWhatsapp: {
+        ...buttons,
+        width: 150,
+        backgroundColor:"rgb(37, 211, 102)",
+        paddingVertical:8
+    },
+    buttonHome: {
+        ...buttons,
+        width: 150,
+    },
+
     buttonFilterTurn: {
         ...buttons,
-        width:114,
-        paddingHorizontal:2
+        width: 114,
+        paddingHorizontal: 2
     },
     buttonStadistic: {
         ...buttons,
@@ -337,6 +358,11 @@ export const style = StyleSheet.create({
         ...cards,
         width: 312,
     },
+    containerHomeVideo: {
+        alignItems: "center",
+        backgroundColor: "white",
+        height: 600
+    },
 
     //________________TEXT________________
 
@@ -356,15 +382,15 @@ export const style = StyleSheet.create({
         marginLeft: 6,
         fontWeight: "600",
         zIndex: 1,
-        marginTop:3
+        marginTop: 3
     },
     creditsVip: {
         fontSize: 10,
         // color: "rgb(210, 174, 109)",
         fontWeight: "600",
         zIndex: 1,
-        marginTop:-13,
-        marginLeft:18
+        marginTop: -13,
+        marginLeft: 18
     },
 
     error: {
@@ -526,11 +552,11 @@ export const style = StyleSheet.create({
         borderBottomColor: "red",
         borderTopColor: "red"
     },
-    buttonNot:{
-        fontSize:7,
-        marginBottom:15,
-        marginLeft:-6,
-        zIndex:1
+    buttonNot: {
+        fontSize: 7,
+        marginBottom: 15,
+        marginLeft: -6,
+        zIndex: 1
     },
     //________________IMPUTS______________
 
@@ -649,6 +675,13 @@ export const style = StyleSheet.create({
         opacity: 0.6,
         marginVertical: 18
     },
+    imageBlockPag: {
+        height: 91,
+        width: 90,
+        objectFit: "cover",
+        opacity: 0.8,
+        marginVertical: 18
+    },
     imageVerified: {
         height: 23,
         width: 23,
@@ -700,4 +733,26 @@ export const style = StyleSheet.create({
         top: -270,
         left: 60
     },
+
+    video: {
+        width: 300,
+        height: 300,
+    },
+
+    imageHomeLogo: {
+        width: 227,
+        height: 119,
+        marginLeft:1,
+        marginTop: 80,
+        marginBottom: 50,
+        alignSelf: "center"
+
+    },
+
+    imageSocial: {
+        width: 25,
+        height: 25,
+        marginRight:10
+    },
+
 })
