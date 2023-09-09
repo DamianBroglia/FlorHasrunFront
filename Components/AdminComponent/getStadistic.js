@@ -33,9 +33,8 @@ export const getStadistic = async (dateInit, dateFinish) => {
         while (!finish.isBefore(initInFormatString)) {
             try {
                 const date = initInFormatString.format('dddd D [de] MMMM [de] YYYY')
-                const turnsBythisDayWhitCancel = await axios(`${API_URL}turns/byDay/${date}`)
-                const turnsBythisDay = turnsBythisDayWhitCancel.data.filter(e => e.cancel === false)//    <-------------------------------AQUI-------------------------------
-                turnsBythisDay.forEach(element => {
+                const turnsBythisDay = await axios(`${API_URL}turns/byDay/${date}`)
+                turnsBythisDay.data.forEach(element => {
                     
                         if (element.state === "takedIt") {
                             totalCollected = totalCollected + element.price

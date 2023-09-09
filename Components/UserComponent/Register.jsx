@@ -39,21 +39,22 @@ const Register = ({ navigation }) => {
             try {
                 const user = await axios.post(`${API_URL}users`, { name: newUserName, lastname: newUserLastname, celNumber: newUserCelNumber, password: newUserPassword })
                 if (user.data) {
-                    setIsWelcomeVis(true)
-                    dispatch(getUserByIdAction(user.data.id))
-                    dispatch(getAllUserAction())
-                    // Alert.alert(`Bienvenid@ ${user.data.name}`)
-                    setNewUserName("")
-                    setNewUserLastname("")
-                    setNewUserCelNumber("")
-                    setNewUserPassword("")
+                    const infoUser = await axios.post(`${API_URL}infoUser` , {userId: user.data.id})
+                    if(infoUser.data){
+                        setIsWelcomeVis(true)
+                        dispatch(getUserByIdAction(user.data.id))
+                        dispatch(getAllUserAction())
+                        setNewUserName("")
+                        setNewUserLastname("")
+                        setNewUserCelNumber("")
+                        setNewUserPassword("")
+                    }
                 }
             } catch (error) {
                 console.log(error);
             }
 
         } else {
-            // Alert.alert("Faltan parametros para registrarse")
             setIsAlertVisible(true)
         }
     }

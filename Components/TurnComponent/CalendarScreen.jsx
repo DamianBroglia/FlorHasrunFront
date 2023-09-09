@@ -128,11 +128,11 @@ const CalendarScreen = ({ navigation }) => {
         if (newTurnSave.data) {
           if (!user.vip) {
             const setUser = await axios.put(`${API_URL}users`, { userId: user.id, credits: String(Number(user.credits) - 2) })
-            if (setUser.data) {
-              setTurnSavedCredits(true)
-              dispatch(getUserByIdAction(user.id))
-              dispatch(getAllUserAction())
-            }
+              if(setUser.data){
+                setTurnSavedCredits(true)
+                dispatch(getUserByIdAction(user.id))
+                dispatch(getAllUserAction())
+              }
           } else {
             setTurnSaved(true)
           }
@@ -174,7 +174,7 @@ const CalendarScreen = ({ navigation }) => {
   }
 
   const cancelTurn = async () => {
-    const canceledTurn = await axios.put(`${API_URL}turns`, { turnId: dataBlockDisblockTurn.turnId, cancel: true })//    <-------------------------------AQUI-------------------------------
+    const canceledTurn = await axios.put(`${API_URL}turns`, { turnId: dataBlockDisblockTurn.turnId, state: "cancelByAdmin" })
     if (canceledTurn.data) {
       setDisblockedAlert(true)
       dispatch(getTurnByDayAction(selectedDate))
@@ -186,7 +186,7 @@ const CalendarScreen = ({ navigation }) => {
       const newTurnSave = await axios.post(`${API_URL}turns`, newTurn)
       if (newTurnSave.data) {
         if (state === "ocuped") {
-          const canceledTurn = await axios.put(`${API_URL}turns`, { turnId: dataBlockDisblockTurn.turnId, cancel: true })//    <-------------------------------AQUI-------------------------------
+          const canceledTurn = await axios.put(`${API_URL}turns`, { turnId: dataBlockDisblockTurn.turnId, state: "cancelByAdmin" })
           if (canceledTurn.data) {
             const setUser = await axios.put(`${API_URL}users`, { userId: dataBlockDisblockTurn.userId, credits: String(Number(dataBlockDisblockTurn.userCredits) + 2) })
             if (setUser.data) {
@@ -254,7 +254,7 @@ const CalendarScreen = ({ navigation }) => {
       productId: service.id,
       price: service.price,
     })
-    const turnFiltered = turnsDay.filter((e) => e.cancel === false)//    <-------------------------------AQUI-------------------------------
+    const turnFiltered = turnsDay.filter((e) => e.state !== "cancelByAdmin" && e.state !== "cancelByUser")
     const turnDobleFilter = turnFiltered.filter((e) => e.product.name !== "Turno Bloqueado" && e.product.name !== "Dia Bloqueado")
     if (turnDobleFilter.length > 0) {
       setBlockDayAnyWayAlert(true)
@@ -268,9 +268,9 @@ const CalendarScreen = ({ navigation }) => {
       const newTurnSave = await axios.post(`${API_URL}turns`, newTurn)
       if (newTurnSave.data) {
         if (stateDay === "ocuped") {
-          const filterTurn = turnsDay.filter(e => e.cancel === false)//    <-------------------------------AQUI-------------------------------
+          const filterTurn = turnsDay.filter(e => e.state !== "cancelByAdmin" && e.state !== "cancelByUser")
           for (let i = 0; i < filterTurn.length; i++) {
-            const cancelTurn = await axios.put(`${API_URL}turns`, { turnId: filterTurn[i].id, cancel: true })//    <-------------------------------AQUI-------------------------------
+            const cancelTurn = await axios.put(`${API_URL}turns`, { turnId: filterTurn[i].id, state: "cancelByAdmin" })
             if (cancelTurn.data) {
               const setUser = await axios.put(`${API_URL}users`, { userId: filterTurn[i].user.id, credits: String(Number(filterTurn[i].user.credits) + 2) })
               if (setUser.data) {
@@ -291,7 +291,7 @@ const CalendarScreen = ({ navigation }) => {
 
   const disblockDayHandler = async () => {
     try {
-      const cancelTurn = await axios.put(`${API_URL}turns`, { turnId: freeTurns[0].turnId, cancel: true })//    <-------------------------------AQUI-------------------------------
+      const cancelTurn = await axios.put(`${API_URL}turns`, { turnId: freeTurns[0].turnId, state: "cancelByAdmin" })
       if (cancelTurn.data) {
         setDisblocedkDayAlert(true)
         dispatch(getTurnByDayAction(selectedDate))

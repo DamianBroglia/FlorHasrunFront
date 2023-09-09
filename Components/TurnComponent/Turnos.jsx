@@ -2,7 +2,6 @@ import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import SaveTurn from './SaveTurn';
 import MyTurns from './MyTurns';
-import Pay from './Pay';
 import CalendarScreen from "./CalendarScreen"
 
 
@@ -13,7 +12,6 @@ const Turnos = () => {
             <Stack.Navigator>
                 <Stack.Screen name="Guardar Turno" component={SaveTurn} />
                 <Stack.Screen name="Mis Turnos" component={MyTurns} />
-                <Stack.Screen name="Seña" component={Pay} />
                 <Stack.Screen name="Elija una fecha" component={CalendarScreen} />
             </Stack.Navigator>
     );

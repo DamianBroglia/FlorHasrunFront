@@ -105,17 +105,25 @@ export const style = StyleSheet.create({
     //     width: 305,
     //     backgroundColor:"rgb(59, 89, 152)"
     // },
+    buttonOrderUser: {
+        ...buttons,
+        width: 173,
+        paddingVertical: 2,
+        marginVertical: 2,
+        borderRadius: 3,
+        marginHorizontal: 2
+    },
     buttonInstagram: {
         ...buttons,
         width: 150,
-        backgroundColor:"rgb(193, 53, 132)",
-        paddingVertical:8
+        backgroundColor: "rgb(193, 53, 132)",
+        paddingVertical: 8
     },
     buttonWhatsapp: {
         ...buttons,
         width: 150,
-        backgroundColor:"rgb(37, 211, 102)",
-        paddingVertical:8
+        backgroundColor: "rgb(37, 211, 102)",
+        paddingVertical: 8
     },
     buttonHome: {
         ...buttons,
@@ -742,7 +750,7 @@ export const style = StyleSheet.create({
     imageHomeLogo: {
         width: 227,
         height: 119,
-        marginLeft:1,
+        marginLeft: 1,
         marginTop: 80,
         marginBottom: 50,
         alignSelf: "center"
@@ -752,7 +760,7 @@ export const style = StyleSheet.create({
     imageSocial: {
         width: 25,
         height: 25,
-        marginRight:10
+        marginRight: 10
     },
 
 })

@@ -8,7 +8,7 @@ import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/es';
 import Constants from 'expo-constants';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CancelModal } from './CancelModal';
 import { ModalAlert } from '../ModalAlert';
 const API_URL = Constants.manifest.extra.API_URL;
@@ -19,7 +19,7 @@ const MyTurns = () => {
 
     const myTurn = useSelector((state) => state.turns.viewTurns)
     const user = useSelector((state) => state.users.user)
-    const [viewTurns, setViewTurns] = useState([...myTurn])
+    const [viewTurns, setViewTurns] = useState(myTurn)
     const [viewModal, setViewModal] = useState(false)
     const [viewModalAlert, setViewModalAlert] = useState(false)
     const [dataToCancel, setDataToCancel] = useState({})
@@ -34,12 +34,15 @@ const MyTurns = () => {
         let init = moment(dateInit, 'dddd D [de] MMMM [de] YYYY')
         try {
             if (init.isAfter(tomarrow) || cancelAnyWay || user.vip) {
-                const canceledTurn = await axios.put(`${API_URL}turns`, { turnId, cancel: true })//    <-------------------------------AQUI-------------------------------
+                const canceledTurn = await axios.put(`${API_URL}turns`, { turnId, state: "cancelByUser" })
                 if (canceledTurn.data) {
                     if (!cancelAnyWay && !user.vip) {
                         const setUser = await axios.put(`${API_URL}users`, { userId: user.id, credits: String(Number(user.credits) + 2) })
                         if (setUser.data) {
-                            dispatch(getUserByIdAction(user.id))
+                            const setInfoUser = await axios.put(`${API_URL}infoUser`, { id: setUser.data.id, turnsCancel: Number(setUser.data.infoUser.turnsCancel) + 1 })
+                            if (setInfoUser.data) {
+                                dispatch(getUserByIdAction(user.id))
+                            }
                         }
                     }
                     dispatch(getTurnsByUserIdAction(user.id))
@@ -62,9 +65,9 @@ const MyTurns = () => {
     };
 
     const showFilter = () => {
-        if(viewFilter){
+        if (viewFilter) {
             setViewFilter(false)
-        }else{
+        } else {
             setViewFilter(true)
         }
     }
@@ -75,7 +78,10 @@ const MyTurns = () => {
             cancelTurn(dataToCancel.turnId, dataToCancel.dateInit, true)
             const setUser = await axios.put(`${API_URL}users`, { userId: user.id, credits: String(Number(user.credits) + 1) })
             if (setUser.data) {
-                dispatch(getUserByIdAction(user.id))
+                const setInfoUser = await axios.put(`${API_URL}infoUser`, { id: setUser.data.id, turnsCancel: Number(setUser.data.infoUser.turnsCancel) + 1 })
+                if (setInfoUser.data) {
+                    dispatch(getUserByIdAction(user.id))
+                }
             }
         } catch (error) {
             console.log(error);
@@ -87,17 +93,16 @@ const MyTurns = () => {
             setViewTurns([...myTurn])
         } else {
             if (type === "Cancel") {
-                let cancel = myTurn.filter((e) => e.cancel === true)//    <-------------------------------AQUI-------------------------------
+                let cancel = myTurn.filter((e) => e.state === "cancelByUser" || e.state === "cancelByAmin")
                 setViewTurns(cancel)
             }
             if (type === "Pasado") {
-                let pas = myTurn.filter((e) => e.state !== "toTake")
+                let pas = myTurn.filter((e) => e.state === "takedIt" || e.state === "failed")
                 setViewTurns(pas)
             }
             if (type === "Future") {
                 let futu = myTurn.filter((e) => e.state === "toTake")
-                let fut = futu.filter((e) => e.cancel !== true)
-                setViewTurns(fut)
+                setViewTurns(futu)
             }
             if (type === "Cumplidos") {
                 let cum = myTurn.filter((e) => e.state === "takedIt")
@@ -110,6 +115,10 @@ const MyTurns = () => {
         }
 
     }
+
+    useEffect(() => {
+        setViewTurns(myTurn)
+    }, [myTurn])
 
     return (
         <View>
@@ -156,21 +165,17 @@ const MyTurns = () => {
                             <Text style={style.titleDateTurn}>{item.dateInit}</Text>
                             <Text style={style.textInfo}>{item.hourInit} hs</Text>
                             <Text style={style.titleServ}>{item.product.name}</Text>
-                            {item.state === "toTake" && !item.cancel ? <Text style={style.priceServTurns}>Resto a pagar: ${item.product.price / 2}</Text> : null}
+                            {item.state === "toTake" && <Text style={style.priceServTurns}>A pagar: ${item.product.price}</Text>}
                         </View>
                         {item.state === "toTake" &&
-                            <View>
-                                {item.cancel ?//    <-------------------------------AQUI-------------------------------
-                                    <Text style={style.titleDate}> Turno Cancelado </Text>
-                                    :
-                                    <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(item.id)}>
-                                        <Text style={style.buttonText}> Cancelar Turno </Text>
-                                    </TouchableOpacity>
-                                }
-                            </View>
+                            <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(item.id)}>
+                                <Text style={style.buttonText}> Cancelar Turno </Text>
+                            </TouchableOpacity>
                         }
                         {item.state === "takedIt" && <Text style={style.titleDate}> Tomaste este turno </Text>}
                         {item.state === "failed" && <Text style={style.titleDate}> No cumpliste con este turno </Text>}
+                        {item.state === "cancelByUser" && <Text style={style.titleDate}> Cancelaste este turno </Text>}
+                        {item.state === "cancelByAdmin" && <Text style={style.titleDate}> Cancelado por administrador </Text>}
                         {
                             viewCancelTurn === item.id &&
                             <View>

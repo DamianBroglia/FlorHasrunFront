@@ -4,6 +4,7 @@ import { View, Text, FlatList, Alert, TouchableOpacity, TextInput, Image } from 
 import { getAllUserAction, getUserByNameAction } from "../../Redux/actions/userActions"
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
 import { getInfoUser } from './getInfoUser';
+import { ModalUserTurns } from './ModalUserTurns';
 import axios from "axios"
 import { style } from '../Styles';
 import { ModalAlert } from '../ModalAlert';
@@ -14,27 +15,34 @@ const UsersList = ({ navigation }) => {
 
     const dispatch = useDispatch()
     const allUsers = useSelector((state) => state.users.allUsers)
-    const turns = useSelector((state) => state.turns.viewTurns)
+    const userTurns = useSelector((state) => state.turns.viewTurns)
     const [userPut, setUserPut] = useState({})
     const [areYouShure, setAreYouShure] = useState(null)
     const [msj, setmsj] = useState("")
     const [userInfo, setUserInfo] = useState(null)
-    const [info, setInfo] = useState({})
+    // const [info, setInfo] = useState({})
     const [searchUser, setSearchUser] = useState("")
     const [alertVip, setAlertVip] = useState(false)
     const [alertNOVip, setAlertNOVip] = useState(false)
     const [alertCredits, setAlertCredits] = useState(false)
     const [alertVerified, setAlertVerified] = useState(false)
     const [opcionCredits, setOpcionCredits] = useState(false)
+    const [showModalTurns, setShowModalTurns] = useState(false)
+    const [filteredTurns, setFilteredTurns] = useState([])
+    const [title, setTitle] = useState("")
+    const [noHay, setNoHay] = useState("Seleccione un boton para ver los turnos")
+    const [showOrder, setShowOrder] = useState(false)
+    const [viewOrderUsers, setViewOrderUsers] = useState([...allUsers])
+    const [showProperty, setShowProperty] = useState(null)
 
     useEffect(() => {
         dispatch(getAllUserAction())
     }, [])
 
-    useEffect(() => {
-        const getInfoUserObj = getInfoUser(turns)
-        setInfo(getInfoUserObj)
-    }, [turns])
+    // useEffect(() => {
+    //     const getInfoUserObj = getInfoUser(turns)
+    //     setInfo(getInfoUserObj)
+    // }, [turns])
 
     useEffect(() => {
         dispatch(getUserByNameAction(searchUser))
@@ -58,10 +66,8 @@ const UsersList = ({ navigation }) => {
             const setUser = await axios.put(`${API_URL}users`, userPut)
             if (setUser.data) {
                 if (setUser.data.vip) {
-                    // Alert.alert("Has hecho VIP a este usuario")
                     setAlertVip(true)
                 } else {
-                    // Alert.alert("Has hecho que este usuario NO sea VIP")
                     setAlertNOVip(true)
                 }
                 dispatch(getAllUserAction())
@@ -70,6 +76,11 @@ const UsersList = ({ navigation }) => {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const getUserTurns = (id) => {
+        setUserInfo(id)
+        dispatch(getTurnsByUserIdAction(id))
     }
 
     const giveCredits = async (userId, credits) => {
@@ -96,37 +107,174 @@ const UsersList = ({ navigation }) => {
         }
     }
 
-    const goToUserInfo = async (id) => {
-        dispatch(getTurnsByUserIdAction(id))
-        setUserInfo(id)
-    }
+    // const goToUserInfo = async (id) => {
+    //     dispatch(getTurnsByUserIdAction(id))
+    //     setUserInfo(id)
+    // }
 
     const searchUserName = () => {
         dispatch(getUserByNameAction(searchUser))
     }
-
 
     const hideAlert = () => {
         setAlertVip(false);
         setAlertNOVip(false);
         setAlertCredits(false)
         setAlertVerified(false)
+        setShowModalTurns(false)
     };
+
+    const orderUser = (order) => {
+        let userOrder = [...allUsers]
+        let changed = true
+        if (order === "savedTurns") {
+            while (changed) {
+                changed = false
+                for (let i = 0; i < userOrder.length - 1; i++) {
+                    if (userOrder[i].infoUser.pasTurns < userOrder[i + 1].infoUser.pasTurns) {
+                        let aux = userOrder[i]
+                        userOrder[i] = userOrder[i + 1]
+                        userOrder[i + 1] = aux
+                        changed = true
+                    }
+                }
+            }
+        }
+        if (order === "takedTurns") {
+            while (changed) {
+                changed = false
+                for (let i = 0; i < userOrder.length - 1; i++) {
+                    if (userOrder[i].infoUser.turnsTakedIt < userOrder[i + 1].infoUser.turnsTakedIt) {
+                        let aux = userOrder[i]
+                        userOrder[i] = userOrder[i + 1]
+                        userOrder[i + 1] = aux
+                        changed = true
+                    }
+                }
+            }
+        }
+        if (order === "money") {
+            while (changed) {
+                changed = false
+                for (let i = 0; i < userOrder.length - 1; i++) {
+                    if (userOrder[i].infoUser.totalPay < userOrder[i + 1].infoUser.totalPay) {
+                        let aux = userOrder[i]
+                        userOrder[i] = userOrder[i + 1]
+                        userOrder[i + 1] = aux
+                        changed = true
+                    }
+                }
+            }
+        }
+        if (order === "assists") {
+            while (changed) {
+                changed = false
+                for (let i = 0; i < userOrder.length - 1; i++) {
+                    if (userOrder[i].infoUser.averageAssists < userOrder[i + 1].infoUser.averageAssists) {
+                        let aux = userOrder[i]
+                        userOrder[i] = userOrder[i + 1]
+                        userOrder[i + 1] = aux
+                        changed = true
+                    }
+                }
+            }
+        }
+        setViewOrderUsers(userOrder)
+        setShowProperty(order)
+    }
+
+    const disorderUser = () => {
+        setShowProperty(null)
+        setViewOrderUsers(allUsers)
+        setShowOrder(false)
+    }
+
+    const filterTurns = (filter) => {
+        if (filter === "todos") {
+            setFilteredTurns(userTurns)
+            setTitle("Todos los Turnos")
+            setNoHay("No hay Turnos")
+        }
+        if (filter === "pas") {
+            let turnsPas = userTurns.filter(e => e.state === "takedIt" || e.state === "failed")
+            setFilteredTurns(turnsPas)
+            setTitle("Turnos Pasados")
+            setNoHay("No hay turnos pasados")
+        }
+        if (filter === "fut") {
+            let turnsFut = userTurns.filter(e => e.state === "toTake")
+            setFilteredTurns(turnsFut)
+            setTitle("Turnos Futuros")
+            setNoHay("No hay turnos futuros")
+        }
+        if (filter === "cancel") {
+            let turnscancel = userTurns.filter(e => e.state === "cancelByUser")
+            setFilteredTurns(turnscancel)
+            setTitle("Turnos Fallados")
+            setNoHay("Este cliente no ha fallado ningun turno")
+        }
+        if (filter === "failed") {
+            let turnsfailed = userTurns.filter(e => e.state === "failed")
+            setFilteredTurns(turnsfailed)
+            setTitle("Turnos Fallados")
+            setNoHay("Este cliente no ha fallado ningun turno")
+        }
+        if (filter === "takedIt") {
+            let turnsTaked = userTurns.filter(e => e.state === "takedIt")
+            setFilteredTurns(turnsTaked)
+            setTitle("Turnos Cumplidos")
+            setNoHay("Este cliente no ha cumplido con ningun turno")
+        }
+        setShowModalTurns(true)
+    }
 
     return (
         <FlatList
-            data={allUsers}
+            data={viewOrderUsers}
             ListHeaderComponent={
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                    <TextInput
-                        style={style.searchUser}
-                        placeholder='Buscar usuario'
-                        onChangeText={name => setSearchUser(name.toLowerCase())}
-                        defaultValue={searchUser}
-                    />
-                    <TouchableOpacity style={style.button} onPress={searchUserName}>
-                        <Image style={style.imageLupa} source={require("../../assets/Lupa.png")} />
-                    </TouchableOpacity>
+                <View>
+                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                        <TextInput
+                            style={style.searchUser}
+                            placeholder='Buscar usuario'
+                            onChangeText={name => setSearchUser(name.toLowerCase())}
+                            defaultValue={searchUser}
+                        />
+                        <TouchableOpacity style={style.button} onPress={searchUserName}>
+                            <Image style={style.imageLupa} source={require("../../assets/Lupa.png")} />
+                        </TouchableOpacity>
+                        {showOrder ?
+                            <TouchableOpacity style={style.button} onPress={disorderUser}>
+                                <Text style={style.buttonText}>Aleatorio</Text>
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity style={style.button} onPress={() => setShowOrder(true)}>
+                                <Text style={style.buttonText}>Ordenar</Text>
+                            </TouchableOpacity>
+                        }
+
+                    </View>
+                    {showOrder &&
+                        <View style={{ alignItems: "center" }}>
+                            <View style={{ flexDirection: "row" }}>
+                                <TouchableOpacity style={style.buttonOrderUser} onPress={() => orderUser("savedTurns")}>
+                                    <Text style={style.buttonText}>+ Turnos pasados</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={style.buttonOrderUser} onPress={() => orderUser("takedTurns")}>
+                                    <Text style={style.buttonText}>+ Turnos cumplidos</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flexDirection: "row" }}>
+                                <TouchableOpacity style={style.buttonOrderUser} onPress={() => orderUser("money")}>
+                                    <Text style={style.buttonText}>+ Dinero gastado</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={style.buttonOrderUser} onPress={() => orderUser("assists")}>
+                                    <Text style={style.buttonText}>+ Asistencia</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    }
+
                 </View>
             }
             renderItem={({ item }) =>
@@ -135,8 +283,7 @@ const UsersList = ({ navigation }) => {
                         <Text style={style.name}> {item.name} {item.lastname}</Text>
                         <Text style={style.phoneNumber}> {item.celNumber} </Text>
                         {item.credits === "getCredit" || item.credits === "getCredit+1" ?
-                            <View style={{alignItems:"center"}}>
-                                <Text style={style.phoneNumber}> Creditos: 0 </Text>
+                            <View style={{ alignItems: "center" }}>
                                 <Text>Este usuario está solicitando creditos</Text>
                                 <TouchableOpacity style={style.button} onPress={() => setOpcionCredits(true)}>
                                     <Text style={style.buttonText}> Dar creditos </Text>
@@ -151,6 +298,11 @@ const UsersList = ({ navigation }) => {
                                 <Text style={style.buttonText}> Verificar </Text>
                             </TouchableOpacity>
                         }
+
+                        {showProperty === "savedTurns" && <Text>{item.infoUser.pasTurns}</Text>}
+                        {showProperty === "takedTurns" && <Text>{item.infoUser.turnsTakedIt}</Text>}
+                        {showProperty === "money" && <Text>{item.infoUser.totalPay}</Text>}
+                        {showProperty === "assists" && <Text>{item.infoUser.averageAssists}</Text>}
 
                         {opcionCredits &&
                             <View>
@@ -194,7 +346,7 @@ const UsersList = ({ navigation }) => {
                                 <Text style={style.buttonText}> Ocultar info </Text>
                             </TouchableOpacity>
                             :
-                            <TouchableOpacity style={style.button} onPress={() => goToUserInfo(item.id)}>
+                            <TouchableOpacity style={style.button} onPress={() => getUserTurns(item.id)}>
                                 <Text style={style.buttonText}> Ver Info </Text>
                             </TouchableOpacity>
                         }
@@ -225,100 +377,61 @@ const UsersList = ({ navigation }) => {
                         null
                     }
 
+                    {userInfo === item.id &&
+                        <View>
+                            <Text>Turnos</Text>
 
-                    {userInfo === item.id ?
-                        <View style={{ marginTop: 10 }}>
-                            <View style={{ marginLeft: 45 }}>
-                                <Text style={style.titleInfo}>Turnos</Text>
-
-                                <View style={style.secondContainer}>
-                                    <View style={style.thirdContainer}>
-                                        <Text style={style.totals}>Total</Text>
-                                        <Text style={style.totals}>{turns.length}</Text>
-                                    </View>
-                                    <View style={style.thirdContainerCenter}>
-                                        <Text style={style.textInfo}>Pasados:</Text>
-                                        <Text>{info.pastTurns}</Text>
-                                        <Text style={style.textInfo} >Futuros:</Text>
-                                        <Text>{info.futureTurns}</Text>
-                                    </View>
-                                    <View style={style.thirdContainer}>
-                                        <Text style={style.textInfo} >Cumplidos:</Text>
-                                        <Text>{info.complied}</Text>
-                                        <Text style={style.textInfo} >Cancelados:</Text>
-                                        <Text>0</Text>
-                                        <Text style={style.textInfo} >Fallados:</Text>
-                                        <Text>{info.failed}</Text>
-                                    </View>
-                                </View>
-                            </View>
-                            <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Turnos del Cliente")}>
-                                <Text style={style.buttonText}> Ver Turnos </Text>
+                            <TouchableOpacity onPress={() => { filterTurns("todos") }}>
+                                <Text>Guardados</Text>
+                                <Text> {item.turns.length} </Text>
                             </TouchableOpacity>
 
-                            <View style={{ marginLeft: 45 }}>
-                                <Text style={style.titleInfo}>Ganancias</Text>
-                                <View style={style.secondContainer}>
-                                    <View style={style.thirdContainer}>
-                                        <Text style={style.totals}>Previstas</Text>
-                                        <Text style={style.totals}> $ {info.expectedProfit}</Text>
-                                    </View>
-                                    <View style={style.thirdContainerCenter}>
-                                        <Text style={style.textInfo}>Pagada</Text>
-                                        <Text> $ {info.charged}</Text>
-                                        <Text style={style.textInfo}>A Pagar</Text>
-                                        <Text> $ {info.toCollect}</Text>
-                                    </View>
-                                    <View style={style.thirdContainer}>
-                                        <Text style={style.textInfo}>Perdida</Text>
-                                        <Text style={style.textInfo}>por falta</Text>
-                                        <Text> $ {info.loseForFail}</Text>
-                                    </View>
-                                </View>
+                            <TouchableOpacity onPress={() => { filterTurns("pas") }}>
+                                <Text>Pasados</Text>
+                                <Text> {item.infoUser.pasTurns} </Text>
+                            </TouchableOpacity>
 
-                            </View>
-                            <View style={{ marginLeft: 45 }}>
-                                <Text style={style.titleInfo}>Tiempo</Text>
-                                <View style={style.secondContainer}>
-                                    <View style={style.thirdContainer}>
-                                        <Text style={style.totals}>Previsto</Text>
-                                        <Text style={style.totals}>{info.totalTime} min</Text>
-                                    </View>
-                                    <View style={style.thirdContainerCenter}>
-                                        <Text style={style.textInfo}>Cumplido</Text>
-                                        <Text>{info.pasTime} min</Text>
-                                        <Text style={style.textInfo}>Futuro</Text>
-                                        <Text>{info.futureTime} min</Text>
-                                    </View>
-                                    <View style={style.thirdContainer}>
-                                        <Text style={style.textInfo}>Perdida</Text>
-                                        <Text style={style.textInfo}>por falta</Text>
-                                        <Text>{info.loseTimeForFail} min</Text>
-                                    </View>
-                                </View>
+                            <TouchableOpacity onPress={() => { filterTurns("fut") }}>
+                                <Text>Futuros</Text>
+                                <Text> {item.turns.length - item.infoUser.turnsCancel - item.infoUser.pasTurns} </Text>
+                            </TouchableOpacity>
 
+                            <TouchableOpacity onPress={() => { filterTurns("cancel") }}>
+                                <Text>Cancelados</Text>
+                                <Text> {item.infoUser.turnsCancel} </Text>
+                            </TouchableOpacity>
 
-                            </View>
-                            <View style={{ marginLeft: 45 }}>
-                                <Text style={style.titleInfo}>Puntaje como cliente</Text>
-                                <View style={style.secondContainer}>
-                                    <View style={style.thirdContainer}>
-                                        <Text style={style.totals}>Asistencia:</Text>
-                                        <Text style={style.textInfo}>{info.averageAssists} %</Text>
-                                    </View>
-                                    <View style={style.thirdContainer}>
-                                        <Text style={style.totals}>$xHora</Text>
-                                        <Text style={style.textInfo}> $ {info.promeDurationMoney}/h</Text>
-                                    </View>
-                                    <View style={style.thirdContainer}>
-                                        <Text style={style.totals}>Clase:</Text>
-                                        <Text style={style.textInfo}>{info.class}</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </View> :
-                        null
+                            <TouchableOpacity onPress={() => { filterTurns("failed") }}>
+                                <Text>Fallados</Text>
+                                <Text> {item.infoUser.turnsFailed} </Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => { filterTurns("takedIt") }}>
+                                <Text>Cumplidos</Text>
+                                <Text> {item.infoUser.turnsTakedIt} </Text>
+                            </TouchableOpacity>
+
+                            <Text>Ganancias generadas por el usuario</Text>
+                            <Text>{item.infoUser.totalPay}</Text>
+
+                            <Text>Perdidas por falta</Text>
+                            <Text>{item.infoUser.loseForFail}</Text>
+
+                            <Text>Tiempo dedicado a este ususario</Text>
+                            <Text>{item.infoUser.totalTime}</Text>
+
+                            <Text>Perdida de tiempo por faltas</Text>
+                            <Text>{item.infoUser.loseTime}</Text>
+
+                            <Text>Asistencia</Text>
+                            <Text>{item.infoUser.averageAssists}</Text>
+
+                            <Text>Clase del usuario</Text>
+                            <Text>{item.infoUser.class}</Text>
+
+                        </View>
                     }
+
                     <ModalAlert
                         isVisible={alertVip}
                         onClose={hideAlert}
@@ -346,6 +459,13 @@ const UsersList = ({ navigation }) => {
                         title="Usuario Verificado!"
                         message="Este usuario ya puede guardar un turno en la app"
                         type="ok"
+                    />
+                    <ModalUserTurns
+                        isVisible={showModalTurns}
+                        onClose={() => hideAlert()}
+                        filterTurns={filteredTurns}
+                        title={title}
+                        noHay={noHay}
                     />
                 </View>
             } />

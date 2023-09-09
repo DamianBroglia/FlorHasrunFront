@@ -30,15 +30,6 @@ export const getAllViewServi = () => async (dispatch) => {
 };
 
 
-export const getServiceName = (name) => async (dispatch) => {
-    try {
-        const response = await axios.get(`/activity?name=${name}`);
-        dispatch(getServiceByName(response.data));
-    } catch (error) {
-        dispatch(setError(error.message));
-    }
-};
-
 export const getServiceId = (id) => async (dispatch) => {
     try {
         const response = await axios.get(`${API_URL}products/${id}`);

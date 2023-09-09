@@ -15,7 +15,7 @@ export const getFreeTurns = (turns) => {
         { hour: "17:00", free: true, name: "", turnId: "", userId: "", userCredits: "" },
         { hour: "17:30", free: true, name: "", turnId: "", userId: "", userCredits: "" }
     ]
-    turns = turns.filter((e) => e.cancel === false)//    <-------------------------------AQUI-------------------------------
+    turns = turns.filter((e) => e.state !== "cancelByAdmin" && e.state !== "cancelByUser")
 
     if (turns.length > 0) {
         if (turns[0].product.name === "Dia Bloqueado") {
