@@ -34,10 +34,17 @@ const UsersList = ({ navigation }) => {
     const [showOrder, setShowOrder] = useState(false)
     const [viewOrderUsers, setViewOrderUsers] = useState([...allUsers])
     const [showProperty, setShowProperty] = useState(null)
+    const [numTurnsCancelByAdmin, setNumTurnsCancelByAdmin] = useState(0)
 
     useEffect(() => {
         dispatch(getAllUserAction())
     }, [])
+
+    useEffect(() => {
+        setViewOrderUsers(allUsers)
+        const cancelByAdmin = allUsers.filter(e => e.state === "cancelByAdmin")
+        setNumTurnsCancelByAdmin(cancelByAdmin.length)
+    }, [allUsers])
 
     // useEffect(() => {
     //     const getInfoUserObj = getInfoUser(turns)
@@ -252,8 +259,8 @@ const UsersList = ({ navigation }) => {
                                 <Text style={style.buttonText}>Ordenar</Text>
                             </TouchableOpacity>
                         }
-
                     </View>
+
                     {showOrder &&
                         <View style={{ alignItems: "center" }}>
                             <View style={{ flexDirection: "row" }}>
@@ -278,93 +285,170 @@ const UsersList = ({ navigation }) => {
                 </View>
             }
             renderItem={({ item }) =>
-                <View style={style.cardUsers}>
-                    <View style={{ marginHorizontal: 10, alignItems: "center" }}>
-                        <Text style={style.name}> {item.name} {item.lastname}</Text>
-                        <Text style={style.phoneNumber}> {item.celNumber} </Text>
-                        {item.credits === "getCredit" || item.credits === "getCredit+1" ?
-                            <View style={{ alignItems: "center" }}>
-                                <Text>Este usuario está solicitando creditos</Text>
-                                <TouchableOpacity style={style.button} onPress={() => setOpcionCredits(true)}>
-                                    <Text style={style.buttonText}> Dar creditos </Text>
-                                </TouchableOpacity>
-                            </View> :
-                            <Text style={style.phoneNumber}> Creditos: {item.credits} </Text>
-                        }
+                <View style={style.cardUser}>
+                    <View style={{ marginHorizontal: 3, alignItems: "flex-start" }}>
 
-                        {item.verified ?
-                            <Text>Verificado</Text> :
-                            <TouchableOpacity style={style.button} onPress={() => verifiedUser(item.id)}>
-                                <Text style={style.buttonText}> Verificar </Text>
-                            </TouchableOpacity>
+                        <Text style={style.nameUser}> {item.name} {item.lastname}</Text>
+                        {showProperty !== null &&
+                            <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 15 }}>
+                                {showProperty === "savedTurns" ?
+                                    <View style={style.propertyUser}>
+                                        <Text style={style.propertyTextFilter}> {item.infoUser.pasTurns} </Text>
+                                    </View> :
+                                    <View style={style.propertyUserOpac}>
+                                        <Text style={style.propertyTextFilterOpac}> {item.infoUser.pasTurns} </Text>
+                                    </View>
+                                }
+                                {showProperty === "takedTurns" ?
+                                    <View style={style.propertyUser}>
+                                        <Text style={style.propertyTextFilter}> {item.infoUser.turnsTakedIt} </Text>
+                                    </View> :
+                                    <View style={style.propertyUserOpac}>
+                                        <Text style={style.propertyTextFilterOpac}> {item.infoUser.turnsTakedIt} </Text>
+                                    </View>
+                                }
+                                {showProperty === "money" ?
+                                    <View style={style.propertyUser}>
+                                        <Text style={style.propertyTextFilter}> {item.infoUser.totalPay} </Text>
+                                    </View> :
+                                    <View style={style.propertyUserOpac}>
+                                        <Text style={style.propertyTextFilterOpac}> {item.infoUser.totalPay} </Text>
+                                    </View>
+                                }
+                                {showProperty === "assists" ?
+                                    <View style={style.propertyUser}>
+                                        <Text style={style.propertyTextFilter}> {item.infoUser.averageAssists} </Text>
+                                    </View> :
+                                    <View style={style.propertyUserOpac}>
+                                        <Text style={style.propertyTextFilterOpac}> {item.infoUser.averageAssists} </Text>
+                                    </View>
+                                }
+                            </View>
                         }
+                        <View style={{ flexDirection: "row" }}>
+                            <View>
+                                {item.verified ?
+                                    <View style={{ alignItems: "center", marginRight: 14 }}>
+                                        <Image style={style.imageUserList} source={require("../../assets/OkGreen.png")} />
+                                        <Text style={style.littleMsj}>Verificado</Text>
+                                    </View>
+                                    :
+                                    <View style={{ alignItems: "center", marginRight: 14 }}>
+                                        <TouchableOpacity onPress={() => verifiedUser(item.id)}>
+                                            <Image style={style.imageUserListOpac} source={require("../../assets/Bien.png")} />
+                                        </TouchableOpacity>
+                                        <Text style={style.littleMsj}>No Verific</Text>
+                                    </View>
+                                }
+                            </View>
+                            {item.vip ?
+                                <View style={{ alignItems: "center", marginRight: 14 }}>
+                                    <TouchableOpacity onPress={() => setVip(item)}>
+                                        <Image style={style.imageUserList} source={require("../../assets/VipColor.png")} />
+                                    </TouchableOpacity>
+                                    <Text style={style.littleMsj}>Vip</Text>
+                                </View>
+                                :
+                                <View style={{ alignItems: "center", marginRight: 14 }}>
+                                    <TouchableOpacity onPress={() => setVip(item)}>
+                                        <Image style={style.imageUserListOpac} source={require("../../assets/Vip.png")} />
+                                    </TouchableOpacity>
+                                    <Text style={style.littleMsj}>No Vip</Text>
+                                </View>
+                            }
+                            {item.credits === "getCredit" || item.credits === "getCredit+1" ?
+                                <View style={{ alignItems: "center", marginRight: 14 }}>
+                                    <TouchableOpacity onPress={() => setOpcionCredits(true)}>
+                                        <Image style={style.imageUserList} source={require("../../assets/AlertaCredit.png")} />
+                                    </TouchableOpacity>
+                                    <Text style={style.littleMsj}>Solicitud!</Text>
+                                </View>
+                                :
+                                <View style={{ alignItems: "center", marginRight: 14 }}>
+                                    <Image style={style.imageUserList} source={require("../../assets/Credit.png")} />
+                                    <Text style={style.littleMsj}>Creditos</Text>
+                                    <Text style={style.userCredits}> {item.credits} </Text>
+                                </View>
+                            }
+                            <View style={{ alignItems: "center", marginRight: 14 }}>
+                                <Text style={style.class}> {item.infoUser.class}</Text>
+                                <Text style={style.littleMsj}>Clase</Text>
+                            </View>
+                            <View style={{ alignItems: "center", marginRight: 14 }}>
+                                <Image style={style.imageUserList} source={require("../../assets/WA.png")} />
+                                <Text style={style.littleMsj}>Enviar WA</Text>
+                            </View>
 
-                        {showProperty === "savedTurns" && <Text>{item.infoUser.pasTurns}</Text>}
-                        {showProperty === "takedTurns" && <Text>{item.infoUser.turnsTakedIt}</Text>}
-                        {showProperty === "money" && <Text>{item.infoUser.totalPay}</Text>}
-                        {showProperty === "assists" && <Text>{item.infoUser.averageAssists}</Text>}
+                            {userInfo === item.id ?
+                                <View style={{ alignItems: "center", marginRight: 14 }}>
+                                    <TouchableOpacity onPress={() => setUserInfo(null)}>
+                                        <Image style={style.imageOjo} source={require("../../assets/OjoAbierto.png")} />
+                                    </TouchableOpacity>
+                                    <Text style={style.littleMsj}>Ocultar info</Text>
+                                </View>
+                                :
+                                <View style={{ alignItems: "center", marginRight: 14 }}>
+                                    <TouchableOpacity onPress={() => getUserTurns(item.id)}>
+                                        <Image style={style.imageOjoOpac} source={require("../../assets/OjoCerrado.png")} />
+                                    </TouchableOpacity>
+                                    <Text style={style.littleMsj}>Ver info</Text>
+                                </View>
+                            }
+                        </View>
+
+
 
                         {opcionCredits &&
                             <View>
                                 {item.credits === "getCredit+1" &&
-                                    <View style={{ flexDirection: "row" }}>
-                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "2") }}>
-                                            <Text style={style.buttonText}> 1 </Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "3") }}>
-                                            <Text style={style.buttonText}> 2 </Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "4") }}>
-                                            <Text style={style.buttonText}> 3 </Text>
-                                        </TouchableOpacity>
+                                    <View style={{alignItems:"center", marginTop:10}}>
+                                        <Text style={style.mediumText}>Este Usuario está solicitando creditos, cuantos desea darle?</Text>
+                                        <View style={{ flexDirection: "row" }}>
+                                            <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "2") }}>
+                                                <Text style={style.buttonText}> 1 </Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "3") }}>
+                                                <Text style={style.buttonText}> 2 </Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "4") }}>
+                                                <Text style={style.buttonText}> 3 </Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={style.button} onPress={() => setOpcionCredits(false)}>
+                                                <Text style={style.buttonText}> Volver </Text>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
                                 }
 
                                 {item.credits === "getCredit" &&
-                                    <View style={{ flexDirection: "row" }}>
-                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "2") }}>
-                                            <Text style={style.buttonText}> 2 </Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "3") }}>
-                                            <Text style={style.buttonText}> 3 </Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "4") }}>
-                                            <Text style={style.buttonText}> 4 </Text>
-                                        </TouchableOpacity>
+                                    <View style={{alignItems:"center", marginTop:10}}>
+                                        <Text style={style.mediumText}>Este Usuario está solicitando creditos, cuantos desea darle?</Text>
+                                        <View style={{ flexDirection: "row" }}>
+                                            <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "2") }}>
+                                                <Text style={style.buttonText}> 2 </Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "3") }}>
+                                                <Text style={style.buttonText}> 3 </Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "4") }}>
+                                                <Text style={style.buttonText}> 4 </Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={style.button} onPress={() => setOpcionCredits(false)}>
+                                                <Text style={style.buttonText}> Volver </Text>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
                                 }
-                                <TouchableOpacity style={style.button} onPress={() => setOpcionCredits(false)}>
-                                    <Text style={style.buttonText}> Volver </Text>
-                                </TouchableOpacity>
+
                             </View>
                         }
 
                     </View>
-                    <View style={{ flexDirection: "row" }}>
-                        {userInfo === item.id ?
-                            <TouchableOpacity style={style.button} onPress={() => setUserInfo(null)}>
-                                <Text style={style.buttonText}> Ocultar info </Text>
-                            </TouchableOpacity>
-                            :
-                            <TouchableOpacity style={style.button} onPress={() => getUserTurns(item.id)}>
-                                <Text style={style.buttonText}> Ver Info </Text>
-                            </TouchableOpacity>
-                        }
 
-                        {item.vip ?
-                            <TouchableOpacity style={style.button} onPress={() => setVip(item)}>
-                                <Text style={style.buttonText}> VIP </Text>
-                            </TouchableOpacity>
-                            :
-                            <TouchableOpacity style={style.buttonNoSelect} onPress={() => setVip(item)}>
-                                <Text style={style.buttonText} > VIP </Text>
-                            </TouchableOpacity>
-                        }
-                    </View>
 
                     {areYouShure === item.id ?
-                        <View style={{ alignItems: "center" }}>
-                            <Text style={style.message}>{msj}</Text>
+                        <View style={{ alignItems: "center", marginStart: 14, marginTop: 10 }}>
+                            <Text style={style.mediumText}>{msj}</Text>
                             <View style={{ flexDirection: "row" }}>
                                 <TouchableOpacity style={style.button} onPress={() => setAreYouShure(null)}>
                                     <Text style={style.buttonText}> Cancelar </Text>
@@ -379,56 +463,77 @@ const UsersList = ({ navigation }) => {
 
                     {userInfo === item.id &&
                         <View>
-                            <Text>Turnos</Text>
+                            <Text style={style.titleTurnUser}>Turnos___________________________</Text>
 
-                            <TouchableOpacity onPress={() => { filterTurns("todos") }}>
-                                <Text>Guardados</Text>
-                                <Text> {item.turns.length} </Text>
-                            </TouchableOpacity>
+                            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                                <View style={{ alignItems: "center" }}>
+                                    <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("todos") }}>
+                                        <Text style={style.propertyText}> {item.turns.length} </Text>
+                                    </TouchableOpacity>
+                                    <Text style={style.mediumMsj}>Guardados</Text>
+                                </View>
+                                <View style={{ alignItems: "center" }}>
+                                    <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("pas") }}>
+                                        <Text style={style.propertyText}> {item.infoUser.pasTurns} </Text>
+                                    </TouchableOpacity>
+                                    <Text style={style.mediumMsj}>Pasados</Text>
+                                </View>
+                                <View style={{ alignItems: "center" }}>
+                                    <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("fut") }}>
+                                        <Text style={style.propertyText}> {item.turns.length - item.infoUser.turnsCancel - item.infoUser.pasTurns - numTurnsCancelByAdmin} </Text>
+                                    </TouchableOpacity>
+                                    <Text style={style.mediumMsj}>Futuros</Text>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: "row", marginBottom: 8, justifyContent: "space-around" }}>
+                                <View style={{ alignItems: "center" }}>
+                                    <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("cancel") }}>
+                                        <Text style={style.propertyText}> {item.infoUser.turnsCancel} </Text>
+                                    </TouchableOpacity>
+                                    <Text style={style.mediumMsj}>Cancelados</Text>
+                                </View>
+                                <View style={{ alignItems: "center" }}>
+                                    <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("failed") }}>
+                                        <Text style={style.propertyText}> {item.infoUser.turnsFailed} </Text>
+                                    </TouchableOpacity>
+                                    <Text style={style.mediumMsj}>Fallados</Text>
+                                </View>
+                                <View style={{ alignItems: "center" }}>
+                                    <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("takedIt") }}>
+                                        <Text style={style.propertyText}> {item.infoUser.turnsTakedIt} </Text>
+                                    </TouchableOpacity>
+                                    <Text style={style.mediumMsj}>Cumplidos</Text>
+                                </View>
+                            </View>
 
-                            <TouchableOpacity onPress={() => { filterTurns("pas") }}>
-                                <Text>Pasados</Text>
-                                <Text> {item.infoUser.pasTurns} </Text>
-                            </TouchableOpacity>
+                            <Text style={style.titleTurnUser}>Ganancias_______________________</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                                <View style={{ alignItems: "center" }}>
+                                    <Text style={style.propertyText}>${item.infoUser.totalPay}</Text>
+                                    <Text style={style.mediumMsj}>Generadas</Text>
+                                </View>
+                                <View style={{ alignItems: "center" }}>
+                                    <Text style={style.propertyText}>${item.infoUser.loseForFail}</Text>
+                                    <Text style={style.mediumMsj}>Perdidas por falta</Text>
+                                </View>
+                            </View>
 
-                            <TouchableOpacity onPress={() => { filterTurns("fut") }}>
-                                <Text>Futuros</Text>
-                                <Text> {item.turns.length - item.infoUser.turnsCancel - item.infoUser.pasTurns} </Text>
-                            </TouchableOpacity>
+                            <Text style={style.titleTurnUser}>Tiempo__________________________</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                                <View style={{ alignItems: "center" }}>
+                                    <Text style={style.propertyText}>{item.infoUser.totalTime / 60} Hs</Text>
+                                    <Text style={style.mediumMsj}>Dedicado</Text>
+                                </View>
+                                <View style={{ alignItems: "center" }}>
+                                    <Text style={style.propertyText}>{item.infoUser.loseTime / 60} Hs</Text>
+                                    <Text style={style.mediumMsj}>Perdido por faltas</Text>
+                                </View>
+                            </View>
 
-                            <TouchableOpacity onPress={() => { filterTurns("cancel") }}>
-                                <Text>Cancelados</Text>
-                                <Text> {item.infoUser.turnsCancel} </Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => { filterTurns("failed") }}>
-                                <Text>Fallados</Text>
-                                <Text> {item.infoUser.turnsFailed} </Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => { filterTurns("takedIt") }}>
-                                <Text>Cumplidos</Text>
-                                <Text> {item.infoUser.turnsTakedIt} </Text>
-                            </TouchableOpacity>
-
-                            <Text>Ganancias generadas por el usuario</Text>
-                            <Text>{item.infoUser.totalPay}</Text>
-
-                            <Text>Perdidas por falta</Text>
-                            <Text>{item.infoUser.loseForFail}</Text>
-
-                            <Text>Tiempo dedicado a este ususario</Text>
-                            <Text>{item.infoUser.totalTime}</Text>
-
-                            <Text>Perdida de tiempo por faltas</Text>
-                            <Text>{item.infoUser.loseTime}</Text>
-
-                            <Text>Asistencia</Text>
-                            <Text>{item.infoUser.averageAssists}</Text>
-
-                            <Text>Clase del usuario</Text>
-                            <Text>{item.infoUser.class}</Text>
-
+                            <Text style={style.titleTurnUser}>Asistencia_______________________</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 20 }}>
+                                <Text style={style.propertyText}> {item.infoUser.averageAssists} %</Text>
+                            </View>
                         </View>
                     }
 

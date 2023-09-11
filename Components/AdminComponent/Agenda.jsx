@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
 import moment from 'moment';
 import 'moment/locale/es';
 import { useDispatch, useSelector } from 'react-redux';
@@ -76,7 +76,7 @@ const Agenda = () => {
                             id: setUser.data.id,
                             turnsTakedIt: setUser.data.infoUser.turnsTakedIt + 1,
                             totalPay: setUser.data.infoUser.totalPay + turnInfo.price,
-                            totalTime: setUser.data.infoUser.totalTime + Number(turnInfo.duration) 
+                            totalTime: setUser.data.infoUser.totalTime + Number(turnInfo.duration)
                         })
                         if (infoUser.data) {
                             dispatch(getAllUserAction())
@@ -88,7 +88,7 @@ const Agenda = () => {
                         id: modifUser.id,
                         turnsFailed: modifUser.infoUser.turnsFailed + 1,
                         loseForFail: modifUser.infoUser.loseForFail + turnInfo.price,
-                        loseTime: (modifUser.infoUser.loseTime + Number(turnInfo.duration)) 
+                        loseTime: (modifUser.infoUser.loseTime + Number(turnInfo.duration))
                     })
                     if (infoUser.data) {
                         dispatch(getAllUserAction())
@@ -121,32 +121,61 @@ const Agenda = () => {
                             <TouchableOpacity style={style.button} onPress={viewCalenarHandler}>
                                 <Text style={style.buttonText}>Seleccionar fecha</Text>
                             </TouchableOpacity>
-                            <Text style={style.titleInfo}>{selecDate}</Text>
+                            <Text style={style.titleDateTurn}>{selecDate}</Text>
                         </View>
                     }
                     renderItem={({ item }) =>
-                        <View style={style.cardUsers}>
-                            <Text style={style.textInfo}>{item.hourInit} | {item.product.name}</Text>
-                            <Text style={style.titleInfo}>{item.user.name} {item.user.lastname}</Text>
-                            {item.state === "cancelByUser" && <Text style={style.textInfo}>El usuario cancelo este turno</Text>}
-                            {item.state === "cancelByAdmin" && <Text style={style.textInfo}>Cancelaste este turno</Text>}
-                            {item.state === "toTake" &&
-                                <View style={{ flexDirection: "row" }}>
-                                    <TouchableOpacity style={style.button} onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "takedIt", item.price, item.product.duration, item.user.vip)}>
-                                        <Text style={style.buttonText}>Asistió</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={style.button} onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "failed", item.price, item.product.duration)}>
-                                        <Text style={style.buttonText}>Falló</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            }
-                            {item.state === "takedIt" && <Text style={style.textInfo}>Asistió</Text>}
-                            {item.state === "failed" && <Text style={style.textInfo}>No Asistió</Text>}
+                        item.state !== "cancelByUser" && item.state !== "cancelByAdmin" &&
+                        <View style={style.cardAgenda}>
+                            <Text style={style.mediumText}>{item.hourInit} | {item.product.name}</Text>
+                            <View style={{ flexDirection: "row", alignItems: "baseline", marginTop: -17, marginBottom: -15 }}>
+                                <Text style={style.titleTurnUser2}>{item.user.name} {item.user.lastname}</Text>
+                                {item.state === "takedIt" &&
+                                    <View style={{ flexDirection: "row" }}>
+                                        <View style={{ alignItems: "center", marginRight: 8 }}>
+                                            <Image style={style.imageUserList} source={require("../../assets/OkGreen.png")} />
+                                            <Text style={style.littleMsj}>Asistió</Text>
+                                        </View>
+                                        <View style={{ alignItems: "center" }}>
+                                            <Image style={style.imageUserListOpac} source={require("../../assets/Mal.png")} />
+                                            <Text style={style.littleMsj}>No asistió</Text>
+                                        </View>
+                                    </View>
+                                }
+                                {item.state === "failed" &&
+                                    <View style={{ flexDirection: "row" }}>
+                                        <View style={{ alignItems: "center", marginRight: 8 }}>
+                                            <Image style={style.imageUserListOpac} source={require("../../assets/Bien.png")} />
+                                            <Text style={style.littleMsj}>Asistió</Text>
+                                        </View>
+                                        <View style={{ alignItems: "center" }}>
+                                            <Image style={style.imageUserList} source={require("../../assets/MalRed.png")} />
+                                            <Text style={style.littleMsj}>No asistió</Text>
+                                        </View>
+                                    </View>
+                                }
+                                {item.state === "toTake" &&
+                                    <View style={{ flexDirection: "row" }}>
+                                        <View style={{ alignItems: "center", marginRight:8 }}>
+                                            <TouchableOpacity onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "takedIt", item.price, item.product.duration, item.user.vip)}>
+                                                <Image style={style.imageUserListOpac} source={require("../../assets/Bien.png")} />
+                                            </TouchableOpacity>
+                                            <Text style={style.littleMsj}>Asistió</Text>
+                                        </View>
+                                        <View style={{ alignItems: "center" }}>
+                                            <TouchableOpacity  onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "failed", item.price, item.product.duration)}>
+                                                <Image style={style.imageUserListOpac} source={require("../../assets/Mal.png")} />
+                                            </TouchableOpacity>
+                                            <Text style={style.littleMsj}>Falló</Text>
+                                        </View>
+                                    </View>
+                                }
+                            </View>
 
 
                             {areYouShure === item.id ?
                                 <View style={{ alignItems: "center" }}>
-                                    <Text style={style.textInfo}>Confirmar?</Text>
+                                    <Text style={style.mediumText}>Confirmar?</Text>
                                     <TouchableOpacity style={style.button} onPress={putTurn}>
                                         {turnState.state === "takedIt" ?
                                             <Text style={style.buttonText}>Presente</Text> :

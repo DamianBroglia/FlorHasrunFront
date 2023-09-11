@@ -219,7 +219,20 @@ export const style = StyleSheet.create({
     },
     cardModalUserTurns: {
         ...cards,
-        marginHorizontal: 5
+        // marginHorizontal: 5,
+        borderColor:"rgb(252, 181, 180)",
+        borderStyle:"solid",
+        borderWidth:2,
+        paddingHorizontal:15
+    },
+    cardAgenda: {
+        ...cards,
+        // marginHorizontal: 5,
+        borderColor:"rgb(252, 181, 180)",
+        borderStyle:"solid",
+        borderWidth:2,
+        paddingHorizontal:15,
+        alignItems:"flex-start"
     },
     cardUserTurns: {
         ...cards,
@@ -374,6 +387,101 @@ export const style = StyleSheet.create({
 
     //________________TEXT________________
 
+    class:{
+        fontSize:20,
+        borderColor:'rgb(252, 181, 180)',
+        borderWidth:3,
+        borderStyle:"solid",
+        width:35,
+        height:35,
+        borderRadius:20,
+        paddingHorizontal:6,
+        paddingVertical:3,
+        fontWeight:"700",
+        color:'rgb(212, 141, 140)',
+        // marginRight:14
+    },
+    propertyUser:{
+        borderColor:'rgb(252, 181, 180)',
+        borderWidth:5,
+        borderStyle:"solid",
+        borderRadius:100,
+        paddingHorizontal:9,
+        paddingVertical:5,
+        alignItems:"center",
+        // backgroundColor:"rgba(252, 181, 180, 0.3)"
+    },
+    propertyUserOpac:{
+        borderColor:'rgba(252, 181, 180, 0.3)',
+        borderWidth:5,
+        borderStyle:"solid",
+        borderRadius:100,
+        paddingHorizontal:9,
+        paddingVertical:5,
+        alignItems:"center",
+        // backgroundColor:"rgba(252, 181, 180, 0.3)"
+    },
+    propertyText:{
+        fontSize:28,
+        fontWeight:"800",
+        color:'rgb(212, 141, 140)',
+    },
+    propertyTextFilter:{
+        fontSize:20,
+        fontWeight:"800",
+        color:'rgb(212, 141, 140)',
+    },
+    propertyTextOpac:{
+        fontSize:28,
+        fontWeight:"800",
+        color:'rgba(212, 141, 140, 0.3)',
+    },
+    propertyTextFilterOpac:{
+        fontSize:20,
+        fontWeight:"600",
+        color:'rgba(212, 141, 140, 0.3)',
+    },
+
+    littleMsj:{
+        fontSize:8,
+        fontWeight:"500",
+        color:"rgb(80,80,80)",
+    },
+    mediumMsj:{
+        fontSize:12,
+        fontWeight:"600",
+        color:"rgb(80,80,80)",
+        marginTop:-2,
+        marginBottom:6
+    },
+    mediumText:{
+        fontSize:14,
+        fontWeight:"600",
+        color:"rgb(80,80,80)",
+        textAlign:"center"
+    },
+
+    titleTurnUser:{
+        fontSize:20,
+        color:'rgb(202, 131, 130)',
+        marginBottom:15
+    },
+    titleTurnUser2:{
+        fontSize:22,
+        color:'rgb(202, 131, 130)',
+        marginBottom:15,
+        fontWeight:"600",
+        width:215
+    },
+
+    userCredits:{
+        fontSize:20,
+        marginTop:-43,
+        marginLeft:-1,
+        fontWeight:"700",
+        color:"rgb(210, 174, 104)"
+    },
+
     text: {
         textAlign: "center",
         fontSize: 16,
@@ -520,6 +628,12 @@ export const style = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold'
     },
+    nameUser: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        width:265,
+        marginBottom:5
+    },
     titleInfo: {
         fontSize: 22,
         fontWeight: 'bold',
@@ -654,6 +768,32 @@ export const style = StyleSheet.create({
         height: 24,
         width: 23,
         objectFit: "cover",
+    },
+    imageUserList: {
+        height: 35,
+        width: 35,
+        objectFit: "cover",
+        // marginRight:14
+    },
+    imageUserListOpac: {
+        height: 35,
+        width: 35,
+        objectFit: "cover",
+        opacity: 0.3,
+        // marginRight:14
+    },
+    imageOjo: {
+        height: 35,
+        width: 47,
+        objectFit: "cover",
+        // marginRight:14
+    },
+    imageOjoOpac: {
+        height: 35,
+        width: 47,
+        objectFit: "cover",
+        opacity: 0.3,
+        // marginRight:14
     },
     imageHome: {
         height: 330,
