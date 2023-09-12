@@ -509,11 +509,11 @@ const UsersList = ({ navigation }) => {
                             <Text style={style.titleTurnUser}>Ganancias_______________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                 <View style={{ alignItems: "center" }}>
-                                    <Text style={style.propertyText}>${item.infoUser.totalPay}</Text>
+                                    <Text style={style.propertyTextLong}>${item.infoUser.totalPay}</Text>
                                     <Text style={style.mediumMsj}>Generadas</Text>
                                 </View>
                                 <View style={{ alignItems: "center" }}>
-                                    <Text style={style.propertyText}>${item.infoUser.loseForFail}</Text>
+                                    <Text style={style.propertyTextLong}>${item.infoUser.loseForFail}</Text>
                                     <Text style={style.mediumMsj}>Perdidas por falta</Text>
                                 </View>
                             </View>
@@ -521,18 +521,18 @@ const UsersList = ({ navigation }) => {
                             <Text style={style.titleTurnUser}>Tiempo__________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                 <View style={{ alignItems: "center" }}>
-                                    <Text style={style.propertyText}>{item.infoUser.totalTime / 60} Hs</Text>
+                                    <Text style={style.propertyTextLong}>{item.infoUser.totalTime / 60} Hs</Text>
                                     <Text style={style.mediumMsj}>Dedicado</Text>
                                 </View>
                                 <View style={{ alignItems: "center" }}>
-                                    <Text style={style.propertyText}>{item.infoUser.loseTime / 60} Hs</Text>
+                                    <Text style={style.propertyTextLong}>{item.infoUser.loseTime / 60} Hs</Text>
                                     <Text style={style.mediumMsj}>Perdido por faltas</Text>
                                 </View>
                             </View>
 
                             <Text style={style.titleTurnUser}>Asistencia_______________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 20 }}>
-                                <Text style={style.propertyText}> {item.infoUser.averageAssists} %</Text>
+                                <Text style={style.propertyText}> {item.infoUser.averageAssists}%</Text>
                             </View>
                         </View>
                     }

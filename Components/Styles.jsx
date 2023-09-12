@@ -225,6 +225,14 @@ export const style = StyleSheet.create({
         borderWidth:2,
         paddingHorizontal:15
     },
+    cardModalUserTurns2: {
+        ...cards,
+        // marginHorizontal: 5,
+        borderColor:"rgb(252, 181, 180)",
+        borderStyle:"solid",
+        borderWidth:2,
+     
+    },
     cardAgenda: {
         ...cards,
         // marginHorizontal: 5,
@@ -411,6 +419,16 @@ export const style = StyleSheet.create({
         alignItems:"center",
         // backgroundColor:"rgba(252, 181, 180, 0.3)"
     },
+    propertyUserSmall:{
+        borderColor:'rgb(252, 181, 180)',
+        borderWidth:3,
+        borderStyle:"solid",
+        borderRadius:100,
+        paddingHorizontal:7,
+        paddingVertical:4,
+        alignItems:"center",
+        // backgroundColor:"rgba(252, 181, 180, 0.3)"
+    },
     propertyUserOpac:{
         borderColor:'rgba(252, 181, 180, 0.3)',
         borderWidth:5,
@@ -425,11 +443,66 @@ export const style = StyleSheet.create({
         fontSize:28,
         fontWeight:"800",
         color:'rgb(212, 141, 140)',
+        width:60,
+        textAlign:"center"
+    },
+    propertyTextLong:{
+        fontSize:28,
+        fontWeight:"800",
+        color:'rgb(212, 141, 140)',
     },
     propertyTextFilter:{
         fontSize:20,
         fontWeight:"800",
         color:'rgb(212, 141, 140)',
+    },
+    propertyTextSmall:{
+        fontSize:20,
+        fontWeight:"800",
+        color:'rgb(212, 141, 140)',
+        width:40,
+        textAlign:"center"
+    },
+    propertyTextMedium:{
+        fontSize:20,
+        fontWeight:"800",
+        color:'rgb(212, 141, 140)',
+        width:70,
+        textAlign:"center"
+    },
+    propertyTextLittle:{
+        fontSize:17,
+        fontWeight:"800",
+        color:'rgb(212, 141, 140)',
+        textAlign:"center"
+    },
+    propertyTextLittleLimit:{
+        fontSize:17,
+        fontWeight:"800",
+        color:'rgb(212, 141, 140)',
+        textAlign:"center",
+        width:80,
+    },
+    propertyTextLittleLimit3:{
+        fontSize:13,
+        fontWeight:"700",
+        color:'rgb(212, 141, 140)',
+        textAlign:"center",
+        width:47,
+    },
+    propertyTextLittleLimit4:{
+        fontSize:13,
+        fontWeight:"700",
+        color:'rgb(212, 141, 140)',
+        textAlign:"center",
+        width:18,
+    },
+    propertyTextLittleLimit2:{
+        fontSize:17,
+        fontWeight:"800",
+        color:'rgb(212, 141, 140)',
+        textAlign:"center",
+        width:35,
     },
     propertyTextOpac:{
         fontSize:28,
@@ -446,6 +519,13 @@ export const style = StyleSheet.create({
         fontSize:8,
         fontWeight:"500",
         color:"rgb(80,80,80)",
+    },
+    littleMediumMsj:{
+        fontSize:11,
+        fontWeight:"500",
+        color:"rgb(80,80,80)",
+        marginTop:-2,
+        marginBottom:-3
     },
     mediumMsj:{
         fontSize:12,
@@ -465,6 +545,12 @@ export const style = StyleSheet.create({
         fontSize:20,
         color:'rgb(202, 131, 130)',
         marginBottom:15
+    },
+    titleBig:{
+        fontSize:26,
+        color:'rgb(202, 131, 130)',
+        marginBottom:8,
+        fontWeight:"600"
     },
     titleTurnUser2:{
         fontSize:22,

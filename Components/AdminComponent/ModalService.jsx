@@ -19,7 +19,7 @@ export const ModalService = ({ isVisible, onClose, viewStadistic }) => {
             <FlatList
                 ListHeaderComponent={
                     <View style={{ alignItems: "center" }}>
-                        <Text style={style.titleStadistic}>Servicios</Text>
+                        <Text style={style.titleBig}>Servicios</Text>
                     </View>
 
                 }
@@ -31,13 +31,29 @@ export const ModalService = ({ isVisible, onClose, viewStadistic }) => {
                 data={viewStadistic.totalService}
                 style={{ marginTop: 5 }}
                 renderItem={({ item }) =>
-                    <View style={style.infoStadisticDay}>
-                        <Text style={{ fontWeight: "500", fontSize: 15 }} >
-                            <Text>{item.name}</Text> |
-                            <Text style={{ color: "orange" }}> {item.count}</Text> |
-                            <Text style={{ color: "red" }}> {item.failed}</Text> |
-                            <Text> $ {item.collected}</Text>
-                        </Text>
+                    <View style={style.cardModalUserTurns}>
+                        <Text style={style.titleStadistic}>{item.name}</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "space-around", width: 240, marginTop: 3 }}>
+                            <View style={{ alignItems: "center" }}>
+                                <View style={style.propertyUserSmall}>
+                                    <Text style={style.propertyTextLittleLimit2}>{item.count}</Text>
+                                </View>
+                                <Text style={style.mediumMsj}>Turnos</Text>
+                            </View>
+
+                            <View style={{ alignItems: "center" }}>
+                                <View style={style.propertyUserSmall}>
+                                    <Text style={style.propertyTextLittleLimit}>${item.collected}</Text>
+                                </View>
+                                <Text style={style.mediumMsj}>Ganancia</Text>
+                            </View>
+                            <View style={{ alignItems: "center" }}>
+                                <View style={style.propertyUserSmall}>
+                                    <Text style={style.propertyTextLittleLimit2}>{item.failed}</Text>
+                                </View>
+                                <Text style={style.mediumMsj}>Fallados</Text>
+                            </View>
+                        </View>
                     </View>
                 }
             />
