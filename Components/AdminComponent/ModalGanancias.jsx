@@ -54,9 +54,6 @@ export const ModalGanancias = ({ isVisible, onClose, viewStadistic, orderDaysCol
                                 <Text style={style.littleMediumMsj}>Promedio</Text>
                                 <Text style={style.littleMediumMsj}>por día</Text>
                             </View>
-
-
-
                         </View>
                         <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 12 }}>
                             <View style={{ alignItems: "center" }}>

@@ -619,6 +619,10 @@ export const style = StyleSheet.create({
     titleDateTurn: {
         ...titleBrow,
     },
+    titleDateTurn2: {
+        ...titleBrow,
+        color:'rgb(212, 141, 140)',
+    },
     titleStadistic: {
         fontSize: 20,
         fontWeight: "500"

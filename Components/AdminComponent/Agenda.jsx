@@ -29,11 +29,48 @@ const Agenda = () => {
     const [isAlert, setIsAlert] = useState(false)
     const [userCredits, setUserCredits] = useState(false)
     const [turnInfo, setTurnInfo] = useState({})
+    const [collectedDay, setColectedDay] = useState(0)
+    const [workedHours, setWorkedHours] = useState(0)
+    const [loseForFaild, setLoseForFaild] = useState(0)
+    const [futureCollect, setFutureCollect] = useState(0)
+    const [cancelTurn, setCancelTurn] = useState(0)
 
 
     useEffect(() => {
         dispatch(getTurnByDayAction(dateSpanish))
     }, [dateSpanish])
+
+    useEffect(() => {
+        infoDay(turnsOfTheDay)
+    }, [turnsOfTheDay])
+
+    const infoDay = (turns) => {
+        let collected = 0
+        let worked = 0
+        let lose = 0
+        let future = 0
+        let cancel = 0
+        turns.forEach((el) => {
+            if (el.state === "takedIt") {
+                collected = collected + el.price
+                worked = worked + (Number(el.product.duration) / 60)
+            }
+            if (el.state === "failed") {
+                lose = lose + el.price
+            }
+            if (el.state === "toTake") {
+                future = future + el.price
+            }
+            if (el.state === "cancelByAdmin" || el.state === "cancelByUser") {
+                cancel = cancel + 1
+            }
+        })
+        setColectedDay(collected)
+        setWorkedHours(worked)
+        setLoseForFaild(lose)
+        setFutureCollect(future)
+        setCancelTurn(cancel)
+    }
 
     const viewCalenarHandler = () => {
         if (viewCalendar) {
@@ -117,19 +154,93 @@ const Agenda = () => {
                 <FlatList
                     data={turnsOfTheDay}
                     ListHeaderComponent={
-                        <View style={{ alignItems: "center" }}>
-                            <TouchableOpacity style={style.button} onPress={viewCalenarHandler}>
-                                <Text style={style.buttonText}>Seleccionar fecha</Text>
-                            </TouchableOpacity>
-                            <Text style={style.titleDateTurn}>{selecDate}</Text>
+                        <View>
+                            <View style={{ alignItems: "center" }}>
+                                <TouchableOpacity style={style.button} onPress={viewCalenarHandler}>
+                                    <Text style={style.buttonText}>Seleccionar fecha</Text>
+                                </TouchableOpacity>
+                                <View style={style.cardModalUserTurns2}>
+                                <Text style={style.titleDateTurn2}>{selecDate}</Text>
+                                </View>
+
+                            </View>
+                            <View style={style.cardModalUserTurns}>
+                                <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10, width: 310, marginTop: 12 }}>
+
+                                    <View style={{ alignItems: "center" }}>
+                                        <View style={style.propertyUserSmall}>
+                                            <Text style={style.propertyTextLittleLimit}>${collectedDay}</Text>
+                                        </View>
+                                        <Text style={style.littleMediumMsj}>Ganancia</Text>
+                                        <Text style={style.littleMediumMsj}>del día</Text>
+                                    </View>
+
+                                    <View style={{ alignItems: "center" }}>
+                                        <View style={style.propertyUserSmall}>
+                                            <Text style={style.propertyTextLittleLimit2}>{workedHours}</Text>
+                                        </View>
+                                        <Text style={style.littleMediumMsj}>Horas</Text>
+                                        <Text style={style.littleMediumMsj}>trabajadas</Text>
+                                    </View>
+
+                                    <View style={{ alignItems: "center" }}>
+                                        <View style={style.propertyUserSmall}>
+                                            <Text style={style.propertyTextLittleLimit}>${collectedDay / workedHours}</Text>
+                                        </View>
+                                        <Text style={style.littleMediumMsj}>Promedio</Text>
+                                        <Text style={style.littleMediumMsj}>por hora</Text>
+                                    </View>
+
+                                </View>
+                                <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10, width: 310 }}>
+
+                                    <View style={{ alignItems: "center" }}>
+                                        <View style={style.propertyUserSmall}>
+                                            <Text style={style.propertyTextLittleLimit}>${loseForFaild}</Text>
+                                        </View>
+                                        <Text style={style.littleMediumMsj}>Perdida</Text>
+                                        <Text style={style.littleMediumMsj}>por falta</Text>
+                                    </View>
+
+                                    <View style={{ alignItems: "center" }}>
+                                        <View style={style.propertyUserSmall}>
+                                            <Text style={style.propertyTextLittleLimit2}>{cancelTurn}</Text>
+                                        </View>
+                                        <Text style={style.littleMediumMsj}>Turnos</Text>
+                                        <Text style={style.littleMediumMsj}>cancelados</Text>
+                                    </View>
+
+                                    <View style={{ alignItems: "center" }}>
+                                        <View style={style.propertyUserSmall}>
+                                            <Text style={style.propertyTextLittleLimit}>${futureCollect}</Text>
+                                        </View>
+                                        <Text style={style.littleMediumMsj}>Ganancia</Text>
+                                        <Text style={style.littleMediumMsj}>Futura</Text>
+                                    </View>
+                                </View>
+                            </View>
                         </View>
                     }
+
                     renderItem={({ item }) =>
                         item.state !== "cancelByUser" && item.state !== "cancelByAdmin" &&
                         <View style={style.cardAgenda}>
                             <Text style={style.mediumText}>{item.hourInit} | {item.product.name}</Text>
-                            <View style={{ flexDirection: "row", alignItems: "baseline", marginTop: -17, marginBottom: -15 }}>
-                                <Text style={style.titleTurnUser2}>{item.user.name} {item.user.lastname}</Text>
+                            <Text style={style.titleTurnUser2}>{item.user.name} {item.user.lastname}</Text>
+
+                            <View style={{flexDirection:"row", marginTop:-12,  alignItems:"center"}}>
+                                <View style={{ alignItems: "center" }}>
+                                    <View style={style.propertyUserSmall}>
+                                        <Text style={style.propertyTextLittleLimit3}>${item.price}</Text>
+                                    </View>
+                                    <Text style={style.littleMsj}>Precio</Text>
+                                </View>
+                                <View style={{ alignItems: "center",marginLeft:8, marginRight:70 }}>
+                                    <View style={style.propertyUserSmall}>
+                                        <Text style={style.propertyTextLittleLimit3}>{item.product.duration} min</Text>
+                                    </View>
+                                    <Text style={style.littleMsj}>Duración</Text>
+                                </View>
                                 {item.state === "takedIt" &&
                                     <View style={{ flexDirection: "row" }}>
                                         <View style={{ alignItems: "center", marginRight: 8 }}>
@@ -156,23 +267,27 @@ const Agenda = () => {
                                 }
                                 {item.state === "toTake" &&
                                     <View style={{ flexDirection: "row" }}>
-                                        <View style={{ alignItems: "center", marginRight:8 }}>
+                                        <View style={{ alignItems: "center", marginRight: 8 }}>
                                             <TouchableOpacity onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "takedIt", item.price, item.product.duration, item.user.vip)}>
                                                 <Image style={style.imageUserListOpac} source={require("../../assets/Bien.png")} />
                                             </TouchableOpacity>
                                             <Text style={style.littleMsj}>Asistió</Text>
                                         </View>
                                         <View style={{ alignItems: "center" }}>
-                                            <TouchableOpacity  onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "failed", item.price, item.product.duration)}>
+                                            <TouchableOpacity onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "failed", item.price, item.product.duration)}>
                                                 <Image style={style.imageUserListOpac} source={require("../../assets/Mal.png")} />
                                             </TouchableOpacity>
                                             <Text style={style.littleMsj}>Falló</Text>
                                         </View>
                                     </View>
                                 }
+                                {/* <View style={{ alignItems: "center", marginLeft:10 }}>
+                                    <View style={style.propertyUserSmall}>
+                                        <Text style={style.propertyTextLittleLimit4}>{item.user.credits}</Text>
+                                    </View>
+                                    <Text style={style.littleMsj}>Creditos</Text>
+                                </View> */}
                             </View>
-
-
                             {areYouShure === item.id ?
                                 <View style={{ alignItems: "center" }}>
                                     <Text style={style.mediumText}>Confirmar?</Text>

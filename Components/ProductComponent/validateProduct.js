@@ -9,7 +9,7 @@ export function validateProduct(product, images) {
 
     if (!name) errors.name = 'hace falta un nombre';
 
-    // if (!images || images.length < 3) errors.image = "El servicio debe tener minimo 3 imagenes"
+    if (!images || images.length < 3) errors.image = "El servicio debe tener minimo 3 imagenes"
 
     if (!minimalDescription || !regexAnyLetter.test(minimalDescription)) errors.minimalDescription = 'tiene que haber una descripción';
 
