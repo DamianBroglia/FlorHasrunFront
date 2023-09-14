@@ -100,6 +100,17 @@ export const style = StyleSheet.create({
     button: {
         ...buttons
     },
+    buttonPage: {
+        ...buttons,
+        paddingVertical: 3,
+        paddingHorizontal: 6,
+    },
+    buttonPageNoSelected: {
+        ...buttonsNoSelect,
+        marginVertical:5,
+        paddingVertical: 3,
+        paddingHorizontal: 6,
+    },
     // buttonFacebook: {
     //     ...buttons,
     //     width: 305,
@@ -180,6 +191,7 @@ export const style = StyleSheet.create({
     buttonNoSelect: {
         ...buttonsNoSelect
     },
+
     buttonDurationNoSelect: {
         ...buttonsNoSelect,
         paddingHorizontal: 10,
@@ -197,6 +209,7 @@ export const style = StyleSheet.create({
     },
 
     //_______________CARS_______________
+
 
     containerStadistic: {
         ...topBorderContainer,
