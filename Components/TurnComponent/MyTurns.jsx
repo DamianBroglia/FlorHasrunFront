@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, TouchableOpacity, FlatList, Alert } from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity, FlatList, Alert, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { style } from '../Styles';
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
@@ -160,22 +160,59 @@ const MyTurns = () => {
                     </View>
                 }
                 renderItem={({ item }) =>
-                    <View style={style.cardUsers}>
-                        <View style={{ alignItems: "center" }}>
-                            <Text style={style.titleDateTurn}>{item.dateInit}</Text>
-                            <Text style={style.textInfo}>{item.hourInit} hs</Text>
-                            <Text style={style.titleServ}>{item.product.name}</Text>
-                            {item.state === "toTake" && <Text style={style.priceServTurns}>A pagar: ${item.product.price}</Text>}
+                    <View style={style.cardAgenda}>
+                        <View style={{ alignItems: "flex-start" }}>
+                            <Text style={style.titleTurnUser3}>{item.dateInit}</Text>
+                            <Text style={style.mediumText}>{item.hourInit} | {item.product.name}</Text>
+                            <View style={{ flexDirection: "row", marginTop: 6 }}>
+                                <View style={{ alignItems: "center", marginRight: 2 }}>
+                                    <View style={style.propertyUserSmall}>
+                                        <Text style={style.propertyTextLittle}>${item.price}</Text>
+                                    </View>
+                                    <Text style={style.littleMsj}> Precio </Text>
+                                </View>
+                                <View style={{ alignItems: "center" }}>
+                                    <View style={style.propertyUserSmall}>
+                                        <Text style={style.propertyTextLittle}>{item.product.duration} min</Text>
+                                    </View>
+                                    <Text style={style.littleMsj}> Duración </Text>
+                                </View>
+                                {item.state === "toTake" &&
+                                    <View style={{ marginTop: -6 }}>
+                                        <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(item.id)}>
+                                            <Text style={style.buttonText}>Cancelar Turno</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                }
+                                {item.state === "takedIt" &&
+                                    <View style={{ marginLeft: 100, alignItems: "center" }}>
+                                        <Image style={style.imageUserList} source={require("../../assets/OkGreen.png")} />
+                                        <Text style={style.littleMsj}>Asistido</Text>
+                                    </View>
+                                }
+                                {item.state === "failed" &&
+                                    <View style={{ marginLeft: 100, alignItems: "center" }}>
+                                        <Image style={style.imageUserList} source={require("../../assets/MalRed.png")} />
+                                        <Text style={style.littleMsj}>Fallado</Text>
+                                    </View>
+                                }
+                                {item.state === "cancelByUser" &&
+                                    <View style={{ marginLeft: 94, alignItems: "center" }}>
+                                        <Image style={style.imageUserList} source={require("../../assets/Candado.png")} />
+                                        <Text style={style.littleMsj}>Cancel por ti</Text>
+                                    </View>
+                                }
+                                {item.state === "cancelByAdmin" &&
+                                    <View style={{ marginLeft: 100, alignItems: "center" }}>
+                                        <Image style={style.imageUserList} source={require("../../assets/Candado.png")} />
+                                        <Text style={style.littleMsj}>Cancel por admin</Text>
+                                    </View>
+                                }
+                            </View>
                         </View>
-                        {item.state === "toTake" &&
-                            <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(item.id)}>
-                                <Text style={style.buttonText}> Cancelar Turno </Text>
-                            </TouchableOpacity>
-                        }
-                        {item.state === "takedIt" && <Text style={style.titleDate}> Tomaste este turno </Text>}
-                        {item.state === "failed" && <Text style={style.titleDate}> No cumpliste con este turno </Text>}
-                        {item.state === "cancelByUser" && <Text style={style.titleDate}> Cancelaste este turno </Text>}
-                        {item.state === "cancelByAdmin" && <Text style={style.titleDate}> Cancelado por administrador </Text>}
+
+
+
                         {
                             viewCancelTurn === item.id &&
                             <View>

@@ -572,6 +572,11 @@ export const style = StyleSheet.create({
         fontWeight:"600",
         width:215
     },
+    titleTurnUser3:{
+        fontSize:18,
+        color:'rgb(202, 131, 130)',
+        fontWeight:"600",
+    },
 
     userCredits:{
         fontSize:20,
