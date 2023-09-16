@@ -35,7 +35,7 @@ const UsersList = ({ navigation }) => {
     const [viewOrderUsers, setViewOrderUsers] = useState([...allUsers])
     const [showProperty, setShowProperty] = useState(null)
     const [numTurnsCancelByAdmin, setNumTurnsCancelByAdmin] = useState(0)
-    const [renderUsers, setRenderUsers] = useState(viewOrderUsers.slice(1, 6))
+    const [renderUsers, setRenderUsers] = useState(viewOrderUsers.slice(0, 5))
     const [initNumUser, setInitNumUser] = useState(1)
     const [endNumUser, setEndNumUser] = useState(6)
     const [page, setPage] = useState([])
@@ -58,6 +58,13 @@ const UsersList = ({ navigation }) => {
         setViewOrderUsers(allUsers)
         setRenderUsers(allUsers.slice(initNumUser, endNumUser))
     }, [allUsers])
+
+    useEffect(() => {
+        setRenderUsers(viewOrderUsers.slice(0, 5))
+        setActualPage(1)
+        setInitNumUser(0)
+        setEndNumUser(5)
+    }, [viewOrderUsers])
 
     useEffect(() => {
         const cancelByAdmin = userTurns.filter(e => e.state === "cancelByAdmin")
@@ -196,6 +203,7 @@ const UsersList = ({ navigation }) => {
         }
         setViewOrderUsers(userOrder)
         setShowProperty(order)
+
     }
 
     const disorderUser = () => {
@@ -246,7 +254,7 @@ const UsersList = ({ navigation }) => {
     const backPage = () => {
         let init = initNumUser - 5
         let end = endNumUser - 5
-        setRenderUsers(allUsers.slice(init, end))
+        setRenderUsers(viewOrderUsers.slice(init, end))
         setActualPage(actualPage - 1)
         setInitNumUser(init)
         setEndNumUser(end)
@@ -254,15 +262,15 @@ const UsersList = ({ navigation }) => {
     const nextPage = () => {
         let init = initNumUser + 5
         let end = endNumUser + 5
-        setRenderUsers(allUsers.slice(init, end))
+        setRenderUsers(viewOrderUsers.slice(init, end))
         setActualPage(actualPage + 1)
         setInitNumUser(init)
         setEndNumUser(end)
     }
     const goPage = (item) => {
-        let init = (item * 5) - 4
-        let end = (item * 5) + 1
-        setRenderUsers(allUsers.slice(init, end))
+        let init = (item * 5) - 5
+        let end = (item * 5)
+        setRenderUsers(viewOrderUsers.slice(init, end))
         setInitNumUser(init)
         setEndNumUser(end)
         setActualPage(item)
@@ -322,7 +330,7 @@ const UsersList = ({ navigation }) => {
                     </View>
                 }
                 ListFooterComponent={
-                    <View style={{alignItems:"center"}}>
+                    <View style={{ alignItems: "center" }}>
                         <FlatList
                             horizontal
                             data={page}
@@ -460,7 +468,11 @@ const UsersList = ({ navigation }) => {
                                     </View>
                                 }
                                 <View style={{ alignItems: "center", marginRight: 14 }}>
-                                    <Text style={style.class}> {item.infoUser.class}</Text>
+                                    {item.infoUser.class === "new" ?
+                                        <Text style={style.class}> N</Text>
+                                        :
+                                        <Text style={style.class}> {item.infoUser.class}</Text>
+                                    }
                                     <Text style={style.littleMsj}>Clase</Text>
                                 </View>
                                 <View style={{ alignItems: "center", marginRight: 14 }}>
