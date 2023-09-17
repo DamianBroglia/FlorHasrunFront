@@ -143,7 +143,7 @@ export const ModalTurns = ({ isVisible, onClose, viewStadistic, orderDaysTurns }
                                     </View>
                                     <View style={{ alignItems: "center", width: 44 }}>
                                         <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittle}> {item.hoursDay} </Text>
+                                            <Text style={style.propertyTextLittle}> {Math.round(item.hoursDay)} </Text>
                                         </View>
                                         <Text style={style.littleMsj}> Horas </Text>
                                     </View>

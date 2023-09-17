@@ -345,8 +345,8 @@ const PutProduct = () => {
                 <ModalAlert
                     isVisible={deletedImage}
                     onClose={hideAlert}
-                    title="Todo OK!"
-                    message="Imagen eliminada con exito"
+                    title="Imagen eliminada!"
+                    message="La imagen ha sido eliminada con exito"
                     type="ok"
                 />
                 <ModalAlert
@@ -358,8 +358,8 @@ const PutProduct = () => {
                 <ModalAlert
                     isVisible={serviceChanged}
                     onClose={hideAlert}
-                    title="Todo Ok!"
-                    message="El servicio fue modificado con exito"
+                    title="Servicio modificado!"
+                    message="El servicio ha sido modificado con exito"
                     type="ok"
                 />
             </View>
@@ -367,60 +367,5 @@ const PutProduct = () => {
     );
 }
 
-// const style = StyleSheet.create({
-//     container: {
-//         alignItems: "center",
-//         marginVertical: 10,
-//         backgroundColor: "seashell"
-//     },
-//     containerChico: {
-//         alignItems: "center",
-//         borderColor: "grey",
-//         borderStyle: "solid",
-//         borderWidth: 1,
-//         paddingHorizontal: 10,
-//         marginHorizontal: 10,
-//         borderRadius: 5,
-//         marginTop: 7
-//     },
-//     containerMediano: {
-//         alignItems: "center",
-//         borderColor: "grey",
-//         borderStyle: "solid",
-//         borderWidth: 1,
-//         width: 330,
-//         borderRadius: 5,
-//         marginTop: 10,
-//         backgroundColor:"mintcream"
-//     },
-//     price: {
-//         fontSize: 18,
-//         color: "green",
-//         marginVertical: 10
-//     },
-//     title: {
-//         fontSize: 16
-//     },
-//     title2: {
-//         fontSize: 16,
-//         color: "gray"
-//     },
-//     image: {
-//         height: 80,
-//         width: 80,
-//         objectFit: "cover",
-//         marginHorizontal: 4,
-//         borderRadius: 3
-//     },
-//     button: {
-//         backgroundColor: "peachpuff",
-//         paddingHorizontal: 15,
-//         marginVertical: 10,
-//         height: 40,
-//         paddingVertical: 9,
-//         borderRadius: 5
-//     },
-
-// })
 
 export default PutProduct;

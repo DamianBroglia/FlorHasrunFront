@@ -8,12 +8,10 @@ import { ModalAlert } from '../ModalAlert';
 import Constants from 'expo-constants';
 const API_URL = Constants.manifest.extra.API_URL;
 
-
 const ProductDetail = ({ navigation }) => {
     const service = useSelector((state) => state.services.detail)
     const user = useSelector((state) => state.users.user)
     const [viewModalDelete, setViewModalDelete] = useState(false)
-    // const [numImg, setNumImg] = useState(0)
     const dispatch = useDispatch()
     const countImage = [...service.image]
 
@@ -21,9 +19,7 @@ const ProductDetail = ({ navigation }) => {
         const newProduct = await axios.put(`${API_URL}products`, { productId: id, view: false })
         if (newProduct.data) {
             dispatch(getAllViewServi())
-            // Alert.alert("Servicio eliminado con exito")
             setViewModalDelete(true)
-            // navigation.navigate("Servicios")
         }
     }
 
@@ -31,21 +27,6 @@ const ProductDetail = ({ navigation }) => {
         setViewModalDelete(false)
         navigation.navigate("Servicios")
     }
-    // const handleImageRight = () => {
-    //     if (numImg === countImage.length - 1) {
-    //         setNumImg(0)
-    //     } else {
-    //         setNumImg(numImg + 1)
-    //     }
-    // }
-
-    // const handleImageLeft = () => {
-    //     if (numImg === 0) {
-    //         setNumImg(countImage.length - 1)
-    //     } else {
-    //         setNumImg(numImg - 1)
-    //     }
-    // }
 
     return (
         <View>
@@ -53,7 +34,6 @@ const ProductDetail = ({ navigation }) => {
             <ScrollView>
                 <View style={style.cardService}>
                     <Text style={style.titleServ}>{service.name}</Text>
-
                     <FlatList
                         horizontal
                         data={countImage}
@@ -64,27 +44,14 @@ const ProductDetail = ({ navigation }) => {
                     <Text style={style.textPutSer}>{service.description}</Text>
                     <Text style={style.textInfo}>Duración aproximada: {service.duration} minutos</Text>
                     <Text style={style.priceServ}>$ {service.price}</Text>
-                    {/* {user.id ?
-                        <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Elija una fecha")}>
-                            <Text style={style.buttonText}> Guardar Turno </Text>
-                        </TouchableOpacity> :
+                    {!user.id ? <Text>Registrate para guardar un turno para este servicio!</Text> :
                         <View>
-                            <TouchableOpacity style={style.buttonNoSelect}>
-                                <Text style={style.buttonText}> Guardar Turno </Text>
-                            </TouchableOpacity>
-                            <Text>Registrate para sacar un turno para este servicio!</Text>
-                        </View>
-                    } */}
-                    {!user.id && <Text>Registrate para guardar un turno para este servicio!</Text>}
-                    {user.vip || user.credits > 1 ?
-                        <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Elija una fecha")}>
-                            <Text style={style.buttonText}> Guardar Turno </Text>
-                        </TouchableOpacity> :
-                        <View>
-                            <TouchableOpacity style={style.buttonNoSelect}>
-                                <Text style={style.buttonText}> Guardar Turno </Text>
-                            </TouchableOpacity>
-                            <Text>No tienes suficientes creditos para guardar un turno!</Text>
+                            {user.vip || user.credits > 1 ?
+                                <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Elija una fecha")}>
+                                    <Text style={style.buttonText}> Guardar Turno </Text>
+                                </TouchableOpacity> :
+                                <Text>No tienes suficientes creditos para guardar un turno!</Text>
+                            }
                         </View>
                     }
                     {user.name === "Flor" && user.lastname === "Hasrun" ?
@@ -97,15 +64,14 @@ const ProductDetail = ({ navigation }) => {
                             </TouchableOpacity>
                         </View> : null
                     }
-
                 </View>
             </ScrollView>
 
             <ModalAlert
                 isVisible={viewModalDelete}
                 onClose={() => hideAlert()}
-                title="Todo OK!"
-                message="Servicio eliminado con exito"
+                title="Servicio Eliminado!"
+                message="Se ha eliminado el servicio con exito"
                 type="ok"
             />
         </View>

@@ -442,6 +442,7 @@ export const style = StyleSheet.create({
         alignItems:"center",
         // backgroundColor:"rgba(252, 181, 180, 0.3)"
     },
+
     propertyUserOpac:{
         borderColor:'rgba(252, 181, 180, 0.3)',
         borderWidth:5,
@@ -508,8 +509,9 @@ export const style = StyleSheet.create({
         fontWeight:"700",
         color:'rgb(212, 141, 140)',
         textAlign:"center",
-        width:18,
+        width:19,
     },
+
     propertyTextLittleLimit2:{
         fontSize:17,
         fontWeight:"800",

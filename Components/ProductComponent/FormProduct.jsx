@@ -231,14 +231,14 @@ const FormProduct = ({ navigation }) => {
             <ModalAlert
                 isVisible={isAlert}
                 onClose={() => hideAlert()}
-                title="Error!"
+                title="Atención!"
                 message="Faltan completar algún campo para poder postear el servicio!"
             />
             <ModalAlert
                 isVisible={alertOk}
                 onClose={() => hideAlert()}
-                title="Todo OK!"
-                message="Producto creado exitosamente!"
+                title="Servivio creado!"
+                message="El servivio ha sido creado exitosamente!"
                 type="ok"
             />
             <ModalAlert
