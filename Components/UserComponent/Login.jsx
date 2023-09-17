@@ -9,7 +9,7 @@ import Constants from 'expo-constants';
 const API_URL = Constants.manifest.extra.API_URL;
 
 
-function Login({ navigation }) {
+function Login() {
     const dispatch = useDispatch()
     const [userName, setUserName] = useState("")
     const [userLastname, setUserLastname] = useState("")
@@ -42,7 +42,6 @@ function Login({ navigation }) {
     const hideAlert = () => {
         setIsAlert(false);
         setIsWelcome(false)
-
     };
 
 
@@ -105,7 +104,7 @@ function Login({ navigation }) {
 
                 <ModalAlert
                     isVisible={isWelcome}
-                    onClose={hideAlert}
+                    onClose={()=>hideAlert()}
                     title="Hola!"
                     message="Bienvenid@ nuevamente"
                     type="ok"

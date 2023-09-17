@@ -100,6 +100,11 @@ export const style = StyleSheet.create({
     button: {
         ...buttons
     },
+    buttonFino: {
+        ...buttons,
+        paddingVertical:3,
+        marginBottom:3
+    },
     buttonPage: {
         ...buttons,
         paddingVertical: 3,
@@ -107,7 +112,7 @@ export const style = StyleSheet.create({
     },
     buttonPageNoSelected: {
         ...buttonsNoSelect,
-        marginVertical:5,
+        marginVertical: 5,
         paddingVertical: 3,
         paddingHorizontal: 6,
     },
@@ -233,27 +238,37 @@ export const style = StyleSheet.create({
     cardModalUserTurns: {
         ...cards,
         // marginHorizontal: 5,
-        borderColor:"rgb(252, 181, 180)",
-        borderStyle:"solid",
-        borderWidth:2,
-        paddingHorizontal:15
+        borderColor: "rgb(252, 181, 180)",
+        borderStyle: "solid",
+        borderWidth: 2,
+        paddingHorizontal: 15
     },
     cardModalUserTurns2: {
         ...cards,
         // marginHorizontal: 5,
-        borderColor:"rgb(252, 181, 180)",
-        borderStyle:"solid",
-        borderWidth:2,
-     
+        borderColor: "rgb(252, 181, 180)",
+        borderStyle: "solid",
+        borderWidth: 2,
+
+    },
+    cardModalUserTurns3: {
+        ...cards,
+        paddingHorizontal:3,
+        borderColor: "rgb(252, 181, 180)",
+        borderStyle: "solid",
+        borderWidth: 2,
+        width: 300,
+        marginVertical:2,
+        paddingVertical:2
     },
     cardAgenda: {
         ...cards,
         // marginHorizontal: 5,
-        borderColor:"rgb(252, 181, 180)",
-        borderStyle:"solid",
-        borderWidth:2,
-        paddingHorizontal:15,
-        alignItems:"flex-start"
+        borderColor: "rgb(252, 181, 180)",
+        borderStyle: "solid",
+        borderWidth: 2,
+        paddingHorizontal: 15,
+        alignItems: "flex-start"
     },
     cardUserTurns: {
         ...cards,
@@ -408,184 +423,192 @@ export const style = StyleSheet.create({
 
     //________________TEXT________________
 
-    class:{
-        fontSize:20,
-        borderColor:'rgb(252, 181, 180)',
-        borderWidth:3,
-        borderStyle:"solid",
-        width:35,
-        height:35,
-        borderRadius:20,
-        paddingHorizontal:6,
-        paddingVertical:3,
-        fontWeight:"700",
-        color:'rgb(212, 141, 140)',
+    class: {
+        fontSize: 20,
+        borderColor: 'rgb(252, 181, 180)',
+        borderWidth: 3,
+        borderStyle: "solid",
+        width: 35,
+        height: 35,
+        borderRadius: 20,
+        paddingHorizontal: 6,
+        paddingVertical: 3,
+        fontWeight: "700",
+        color: 'rgb(212, 141, 140)',
         // marginRight:14
     },
-    propertyUser:{
-        borderColor:'rgb(252, 181, 180)',
-        borderWidth:5,
-        borderStyle:"solid",
-        borderRadius:100,
-        paddingHorizontal:9,
-        paddingVertical:5,
-        alignItems:"center",
+    propertyUser: {
+        borderColor: 'rgb(252, 181, 180)',
+        borderWidth: 5,
+        borderStyle: "solid",
+        borderRadius: 100,
+        paddingHorizontal: 9,
+        paddingVertical: 5,
+        alignItems: "center",
         // backgroundColor:"rgba(252, 181, 180, 0.3)"
     },
-    propertyUserSmall:{
-        borderColor:'rgb(252, 181, 180)',
-        borderWidth:3,
-        borderStyle:"solid",
-        borderRadius:100,
-        paddingHorizontal:7,
-        paddingVertical:4,
-        alignItems:"center",
+    propertyUserSmall: {
+        borderColor: 'rgb(252, 181, 180)',
+        borderWidth: 3,
+        borderStyle: "solid",
+        borderRadius: 100,
+        paddingHorizontal: 7,
+        paddingVertical: 4,
+        alignItems: "center",
         // backgroundColor:"rgba(252, 181, 180, 0.3)"
     },
 
-    propertyUserOpac:{
-        borderColor:'rgba(252, 181, 180, 0.3)',
-        borderWidth:5,
-        borderStyle:"solid",
-        borderRadius:100,
-        paddingHorizontal:9,
-        paddingVertical:5,
-        alignItems:"center",
+    propertyUserOpac: {
+        borderColor: 'rgba(252, 181, 180, 0.3)',
+        borderWidth: 5,
+        borderStyle: "solid",
+        borderRadius: 100,
+        paddingHorizontal: 9,
+        paddingVertical: 5,
+        alignItems: "center",
         // backgroundColor:"rgba(252, 181, 180, 0.3)"
     },
-    propertyText:{
-        fontSize:28,
-        fontWeight:"800",
-        color:'rgb(212, 141, 140)',
-        width:60,
-        textAlign:"center"
+    propertyText: {
+        fontSize: 28,
+        fontWeight: "800",
+        color: 'rgb(212, 141, 140)',
+        width: 60,
+        textAlign: "center"
     },
-    propertyTextLong:{
-        fontSize:28,
-        fontWeight:"800",
-        color:'rgb(212, 141, 140)',
+    propertyTextLong: {
+        fontSize: 28,
+        fontWeight: "800",
+        color: 'rgb(212, 141, 140)',
     },
-    propertyTextFilter:{
-        fontSize:20,
-        fontWeight:"800",
-        color:'rgb(212, 141, 140)',
+    propertyTextFilter: {
+        fontSize: 20,
+        fontWeight: "800",
+        color: 'rgb(212, 141, 140)',
     },
-    propertyTextSmall:{
-        fontSize:20,
-        fontWeight:"800",
-        color:'rgb(212, 141, 140)',
-        width:40,
-        textAlign:"center"
+    propertyTextSmall: {
+        fontSize: 20,
+        fontWeight: "800",
+        color: 'rgb(212, 141, 140)',
+        width: 40,
+        textAlign: "center"
     },
-    propertyTextMedium:{
-        fontSize:20,
-        fontWeight:"800",
-        color:'rgb(212, 141, 140)',
-        width:70,
-        textAlign:"center"
+    propertyTextMedium: {
+        fontSize: 20,
+        fontWeight: "800",
+        color: 'rgb(212, 141, 140)',
+        width: 70,
+        textAlign: "center"
     },
-    propertyTextLittle:{
-        fontSize:17,
-        fontWeight:"800",
-        color:'rgb(212, 141, 140)',
-        textAlign:"center"
+    propertyTextLittle: {
+        fontSize: 17,
+        fontWeight: "800",
+        color: 'rgb(212, 141, 140)',
+        textAlign: "center"
     },
-    propertyTextLittleLimit:{
-        fontSize:17,
-        fontWeight:"800",
-        color:'rgb(212, 141, 140)',
-        textAlign:"center",
-        width:80,
+    propertyTextLittleLimit: {
+        fontSize: 17,
+        fontWeight: "800",
+        color: 'rgb(212, 141, 140)',
+        textAlign: "center",
+        width: 80,
     },
-    propertyTextLittleLimit3:{
-        fontSize:13,
-        fontWeight:"700",
-        color:'rgb(212, 141, 140)',
-        textAlign:"center",
-        width:47,
+    propertyTextLittleLimit3: {
+        fontSize: 13,
+        fontWeight: "700",
+        color: 'rgb(212, 141, 140)',
+        textAlign: "center",
+        width: 47,
     },
-    propertyTextLittleLimit4:{
-        fontSize:13,
-        fontWeight:"700",
-        color:'rgb(212, 141, 140)',
-        textAlign:"center",
-        width:19,
-    },
-
-    propertyTextLittleLimit2:{
-        fontSize:17,
-        fontWeight:"800",
-        color:'rgb(212, 141, 140)',
-        textAlign:"center",
-        width:35,
-    },
-    propertyTextOpac:{
-        fontSize:28,
-        fontWeight:"800",
-        color:'rgba(212, 141, 140, 0.3)',
-    },
-    propertyTextFilterOpac:{
-        fontSize:20,
-        fontWeight:"600",
-        color:'rgba(212, 141, 140, 0.3)',
+    propertyTextLittleLimit4: {
+        fontSize: 13,
+        fontWeight: "700",
+        color: 'rgb(212, 141, 140)',
+        textAlign: "center",
+        width: 19,
     },
 
-    littleMsj:{
-        fontSize:8,
-        fontWeight:"500",
-        color:"rgb(80,80,80)",
+    propertyTextLittleLimit2: {
+        fontSize: 17,
+        fontWeight: "800",
+        color: 'rgb(212, 141, 140)',
+        textAlign: "center",
+        width: 35,
     },
-    littleMediumMsj:{
-        fontSize:11,
-        fontWeight:"500",
-        color:"rgb(80,80,80)",
-        marginTop:-2,
-        marginBottom:-3
+    propertyTextOpac: {
+        fontSize: 28,
+        fontWeight: "800",
+        color: 'rgba(212, 141, 140, 0.3)',
     },
-    mediumMsj:{
-        fontSize:12,
-        fontWeight:"600",
-        color:"rgb(80,80,80)",
-        marginTop:-2,
-        marginBottom:6
-    },
-    mediumText:{
-        fontSize:14,
-        fontWeight:"600",
-        color:"rgb(80,80,80)",
-        textAlign:"center"
+    propertyTextFilterOpac: {
+        fontSize: 20,
+        fontWeight: "600",
+        color: 'rgba(212, 141, 140, 0.3)',
     },
 
-    titleTurnUser:{
-        fontSize:20,
-        color:'rgb(202, 131, 130)',
-        marginBottom:15
+    littleMsj: {
+        fontSize: 8,
+        fontWeight: "500",
+        color: "rgb(80,80,80)",
     },
-    titleBig:{
-        fontSize:26,
-        color:'rgb(202, 131, 130)',
-        marginBottom:8,
-        fontWeight:"600"
+    littleMediumMsj: {
+        fontSize: 11,
+        fontWeight: "500",
+        color: "rgb(80,80,80)",
+        marginTop: -2,
+        marginBottom: -3
     },
-    titleTurnUser2:{
-        fontSize:22,
-        color:'rgb(202, 131, 130)',
-        marginBottom:15,
-        fontWeight:"600",
-        width:215
+    mediumMsj: {
+        fontSize: 12,
+        fontWeight: "600",
+        color: "rgb(80,80,80)",
+        marginTop: -2,
+        marginBottom: 6
     },
-    titleTurnUser3:{
-        fontSize:18,
-        color:'rgb(202, 131, 130)',
-        fontWeight:"600",
+    mediumMsj2: {
+        fontSize: 12,
+        fontWeight: "600",
+        color: "rgb(80,80,80)",
+        marginTop: -2,
+        marginBottom: 6,
+        textAlign: "center"
+    },
+    mediumText: {
+        fontSize: 14,
+        fontWeight: "600",
+        color: "rgb(80,80,80)",
+        textAlign: "center"
     },
 
-    userCredits:{
-        fontSize:20,
-        marginTop:-43,
-        marginLeft:-1,
-        fontWeight:"700",
-        color:"rgb(210, 174, 104)"
+    titleTurnUser: {
+        fontSize: 20,
+        color: 'rgb(202, 131, 130)',
+        marginBottom: 15
+    },
+    titleBig: {
+        fontSize: 26,
+        color: 'rgb(202, 131, 130)',
+        marginBottom: 8,
+        fontWeight: "600"
+    },
+    titleTurnUser2: {
+        fontSize: 22,
+        color: 'rgb(202, 131, 130)',
+        marginBottom: 15,
+        fontWeight: "600",
+        width: 215
+    },
+    titleTurnUser3: {
+        fontSize: 18,
+        color: 'rgb(202, 131, 130)',
+        fontWeight: "600",
+    },
+
+    userCredits: {
+        fontSize: 20,
+        marginTop: -43,
+        marginLeft: -1,
+        fontWeight: "700",
+        color: "rgb(210, 174, 104)"
     },
 
     text: {
@@ -641,7 +664,7 @@ export const style = StyleSheet.create({
     },
     titleDateTurn2: {
         ...titleBrow,
-        color:'rgb(212, 141, 140)',
+        color: 'rgb(212, 141, 140)',
     },
     titleStadistic: {
         fontSize: 20,
@@ -741,8 +764,8 @@ export const style = StyleSheet.create({
     nameUser: {
         fontSize: 22,
         fontWeight: 'bold',
-        width:265,
-        marginBottom:5
+        width: 265,
+        marginBottom: 5
     },
     titleInfo: {
         fontSize: 22,
