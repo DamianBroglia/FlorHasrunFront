@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, Text, Image, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,14 +11,15 @@ const Catalogo = ({ navigation }) => {
     const dispatch = useDispatch()
     const services = useSelector((state) => state.services.viewService)
     const user = useSelector((state) => state.users.user)
+    const [viewMore, setViewMore] = useState(null)
 
     useEffect(() => {
         dispatch(getAllViewServi());
     }, []);
 
-    const goToDetail = (id) => {
+    const seeMore = (id) => {
         dispatch(getServiceId(id))
-        navigation.navigate("Detalle")
+        setViewMore(id)
     }
 
     const seeAllService = () => {
@@ -64,13 +65,26 @@ const Catalogo = ({ navigation }) => {
                                 </View>
                             </View>
                             <Text style={style.textPutSer}> {item.minimalDescription} </Text>
-                            <TouchableOpacity style={style.button} onPress={() => goToDetail(item.id)}>
-                                <Text style={style.buttonText}> Ver mas </Text>
-                            </TouchableOpacity>
+                            {viewMore === item.id ?
+                                <View>
+                                    <Text style={style.textPutSer}> {item.description} </Text>
+                                    <Text style={style.textPutSer}> ${item.price} </Text>
+                                    <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Detalle")}>
+                                        <Text style={style.buttonText}> Ir al detalle </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={style.button} onPress={() => setViewMore(null)}>
+                                        <Text style={style.buttonText}> Ver menos </Text>
+                                    </TouchableOpacity>
+                                </View> :
+                                <TouchableOpacity style={style.button} onPress={() => seeMore(item.id)}>
+                                    <Text style={style.buttonText}> Ver mas </Text>
+                                </TouchableOpacity>
+                            }
+
                         </View>
                     }
                 /> :
-                <Text style={{ textAlign: "center", fontSize: 22, fontWeight:"800", marginTop:15 }}> No hay servicios para mostrar</Text>
+                <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "800", marginTop: 15 }}> No hay servicios para mostrar</Text>
             }
         </View>
 

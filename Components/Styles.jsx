@@ -174,11 +174,13 @@ export const style = StyleSheet.create({
         backgroundColor: 'rgb(205, 181, 197)',
     },
     buttonServ: {
-        ...buttons,
-        width: 75,
+        ...buttonsNoSelect,
+    backgroundColor: 'rgba(252, 181, 180, 0.7)',
+        borderRadius:0,
+        width: 216,
         marginHorizontal: 1,
         marginVertical: 1,
-        height: 35,
+        height: 40,
         paddingHorizontal: 2,
         paddingVertical: 1,
         justifyContent: "center"

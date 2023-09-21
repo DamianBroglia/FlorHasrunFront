@@ -20,10 +20,10 @@ const Agenda = () => {
     const dispatch = useDispatch()
     const turnsOfTheDay = useSelector((state) => state.turns.viewTurns)
     const allUsers = useSelector((state) => state.users.allUsers)
-    const [viewCalendar, setViewCalendar] = useState(false)
-    const date = new Date()
-    const dateSpanish = moment(date).format('dddd D [de] MMMM [de] YYYY');
-    const [selecDate, setSelectdate] = useState(dateSpanish)
+    const [viewCalendar, setViewCalendar] = useState(true)
+    // const date = new Date()
+    // const dateSpanish = moment(date).format('dddd D [de] MMMM [de] YYYY');
+    const [selecDate, setSelectdate] = useState("")
     const [turnState, setTurnState] = useState({})
     const [areYouShure, setAreYouShore] = useState(null)
     const [isAlert, setIsAlert] = useState(false)
@@ -36,9 +36,9 @@ const Agenda = () => {
     const [cancelTurn, setCancelTurn] = useState(0)
 
 
-    useEffect(() => {
-        dispatch(getTurnByDayAction(dateSpanish))
-    }, [dateSpanish])
+    // useEffect(() => {
+    //     dispatch(getTurnByDayAction(dateSpanish))
+    // }, [dateSpanish])
 
     useEffect(() => {
         infoDay(turnsOfTheDay)
@@ -160,9 +160,8 @@ const Agenda = () => {
                                     <Text style={style.buttonText}>Seleccionar fecha</Text>
                                 </TouchableOpacity>
                                 <View style={style.cardModalUserTurns2}>
-                                <Text style={style.titleDateTurn2}>{selecDate}</Text>
+                                    <Text style={style.titleDateTurn2}>{selecDate}</Text>
                                 </View>
-
                             </View>
                             <View style={style.cardModalUserTurns}>
                                 <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10, width: 310, marginTop: 12 }}>
@@ -228,14 +227,14 @@ const Agenda = () => {
                             <Text style={style.mediumText}>{item.hourInit} | {item.product.name}</Text>
                             <Text style={style.titleTurnUser2}>{item.user.name} {item.user.lastname}</Text>
 
-                            <View style={{flexDirection:"row", marginTop:-12,  alignItems:"center"}}>
+                            <View style={{ flexDirection: "row", marginTop: -12, alignItems: "center" }}>
                                 <View style={{ alignItems: "center" }}>
                                     <View style={style.propertyUserSmall}>
                                         <Text style={style.propertyTextLittleLimit3}>${item.price}</Text>
                                     </View>
                                     <Text style={style.littleMsj}>Precio</Text>
                                 </View>
-                                <View style={{ alignItems: "center",marginLeft:8, marginRight:70 }}>
+                                <View style={{ alignItems: "center", marginLeft: 8, marginRight: 70 }}>
                                     <View style={style.propertyUserSmall}>
                                         <Text style={style.propertyTextLittleLimit3}>{item.product.duration} min</Text>
                                     </View>
@@ -281,12 +280,6 @@ const Agenda = () => {
                                         </View>
                                     </View>
                                 }
-                                {/* <View style={{ alignItems: "center", marginLeft:10 }}>
-                                    <View style={style.propertyUserSmall}>
-                                        <Text style={style.propertyTextLittleLimit4}>{item.user.credits}</Text>
-                                    </View>
-                                    <Text style={style.littleMsj}>Creditos</Text>
-                                </View> */}
                             </View>
                             {areYouShure === item.id ?
                                 <View style={{ alignItems: "center" }}>

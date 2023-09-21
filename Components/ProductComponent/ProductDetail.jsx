@@ -14,6 +14,7 @@ const ProductDetail = ({ navigation }) => {
     const [viewModalDelete, setViewModalDelete] = useState(false)
     const dispatch = useDispatch()
     const countImage = [...service.image]
+   
 
     const deleteService = async (id) => {
         const newProduct = await axios.put(`${API_URL}products`, { productId: id, view: false })
