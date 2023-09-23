@@ -42,7 +42,7 @@ const UsersList = ({ navigation }) => {
     const [actualPage, setActualPage] = useState(1)
 
     useEffect(() => {
-        dispatch(getAllUserAction())
+        // dispatch(getAllUserAction())
         if (allUsers.length > 5) {
             let numOfPag = Math.ceil(allUsers.length / 5)
             let array = ["<"]
@@ -70,6 +70,15 @@ const UsersList = ({ navigation }) => {
         const cancelByAdmin = userTurns.filter(e => e.state === "cancelByAdmin")
         setNumTurnsCancelByAdmin(cancelByAdmin.length)
     }, [userTurns])
+
+
+    const openWhatsApp = (number) => {
+        Linking.openURL(`whatsapp://send?phone=${number}`)
+            .catch(() => {
+                Linking.openURL(`https://wa.me/${number}`);
+            });
+    };
+
 
     useEffect(() => {
         dispatch(getUserByNameAction(searchUser))
@@ -475,10 +484,10 @@ const UsersList = ({ navigation }) => {
                                     }
                                     <Text style={style.littleMsj}>Clase</Text>
                                 </View>
-                                <View style={{ alignItems: "center", marginRight: 14 }}>
+                                <TouchableOpacity onPress={()=>openWhatsApp(item.celNumber)} style={{ alignItems: "center", marginRight: 14 }}>
                                     <Image style={style.imageUserList} source={require("../../assets/WA.png")} />
                                     <Text style={style.littleMsj}>Enviar WA</Text>
-                                </View>
+                                </TouchableOpacity>
 
                                 {userInfo === item.id ?
                                     <View style={{ alignItems: "center", marginRight: 14 }}>
