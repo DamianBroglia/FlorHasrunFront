@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ImageBackground } from 'react-native';
-import { getAllUserAction, getUserByIdAction } from '../../Redux/actions/userActions';
+import { Text, TextInput, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { getUserByIdAction } from '../../Redux/actions/userActions';
 import { style } from '../Styles';
 import { ModalAlert } from '../ModalAlert';
 import axios from "axios"
@@ -69,7 +69,7 @@ function PutUser({ navigation }) {
                             <Image style={style.viewPassword} source={require("../../assets/OjoCerrado.png")} />
                         </TouchableOpacity> :
                         <TouchableOpacity onPress={() => setDisguisePassword(true)}>
-                             <Image style={style.viewPassword} source={require("../../assets/OjoAbierto.png")} />
+                            <Image style={style.viewPassword} source={require("../../assets/OjoAbierto.png")} />
                         </TouchableOpacity>
                     }
                 </View>

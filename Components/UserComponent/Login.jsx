@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ImageBackground } from 'react-native';
-import { getAllUserAction, getUserByIdAction } from '../../Redux/actions/userActions';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Text, TextInput, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { getUserByIdAction } from '../../Redux/actions/userActions';
 import { style } from '../Styles';
 import { ModalAlert } from '../ModalAlert';
 import axios from "axios"
@@ -104,7 +104,7 @@ function Login() {
 
                 <ModalAlert
                     isVisible={isWelcome}
-                    onClose={()=>hideAlert()}
+                    onClose={() => hideAlert()}
                     title="Hola!"
                     message="Bienvenid@ nuevamente"
                     type="ok"

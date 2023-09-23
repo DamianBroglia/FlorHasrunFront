@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Text, Image, Button, TouchableOpacity, FlatList, ImageBackground, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, View, Text, Image, Button, TouchableOpacity, FlatList, ImageBackground, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllViewServi } from '../../Redux/actions/serviceActions';
 import axios from "axios"

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, ScrollView, View, Text, Image, Button, TouchableOpacity, FlatList, Alert } from 'react-native';
+import { TextInput, ScrollView, View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage, loadImageFromGalery, deleteImageCloudinary } from '../../Utils/helpers';
 import { getAllViewServi, getServiceId } from '../../Redux/actions/serviceActions';

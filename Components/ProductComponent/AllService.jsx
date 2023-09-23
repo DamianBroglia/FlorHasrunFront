@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, FlatList, Text, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllViewServi, getAllServi } from '../../Redux/actions/serviceActions';
 import axios from "axios"
@@ -9,7 +9,7 @@ import Constants from 'expo-constants';
 const API_URL = Constants.manifest.extra.API_URL;
 
 
-const AllService = ({ navigation }) => {
+const AllService = () => {
     const dispatch = useDispatch()
     const services = useSelector((state) => state.services.allService)
     const [viewModal, setViewModal] = useState(false)
@@ -19,7 +19,6 @@ const AllService = ({ navigation }) => {
             if (newProduct.data) {
                 dispatch(getAllViewServi())
                 dispatch(getAllServi())
-                // Alert.alert("Servicio restaurado")
                 setViewModal(true)
             }
         } catch (error) {

@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Text, TextInput, StyleSheet, View, TouchableOpacity, ScrollView, FlatList, Image } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-// import { getTurnByDayAction } from '../../Redux/actions/turnActions';
 import { getServiceId } from '../../Redux/actions/serviceActions';
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
 import { style } from '../Styles';
-import { ModalSaveTurns } from './ModalSaveTurn';
 import axios from "axios"
 import Constants from 'expo-constants';
 const API_URL = Constants.manifest.extra.API_URL;
@@ -70,12 +68,6 @@ const SaveTurn = ({ navigation }) => {
         navigation.navigate("Mis Turnos")
     }
 
-    // useEffect(() => {
-    //     setSave(false)
-    // }, [])
-    const hideAlert = () => {
-        setSave(false)
-    }
 
     return (
         <View>
@@ -118,7 +110,7 @@ const SaveTurn = ({ navigation }) => {
                     {save && user.id
                         ?
                         <View style={style.container}>
-                            <View style={{marginVertical:10}}>
+                            <View style={{ marginVertical: 10 }}>
                                 <Text style={style.text}> Elija el servicio para el cual quiere guardar turno </Text>
                             </View>
                             <FlatList
@@ -141,12 +133,6 @@ const SaveTurn = ({ navigation }) => {
                         null
                     }
 
-                    {/* <ModalSaveTurns
-                            isVisible={save}
-                            onClose={() => hideAlert()}
-                            services={services}
-                            navigation={navigation}
-                        /> */}
 
 
                 </View> :
@@ -165,22 +151,6 @@ const SaveTurn = ({ navigation }) => {
                 </View>
             }
 
-            {/* {save && user.id
-                ?
-                <View style={style.container}>
-                    <Text style={{ textAlign: "center", fontWeight: "700" }}> Elija el servicio para el que quiere guardar un turno </Text>
-                    <FlatList
-                        data={services}
-                        renderItem={({ item }) =>
-                            <TouchableOpacity style={style.button} onPress={() => calendarHandler(item.id)}>
-                                <Text style={style.buttonText}>{item.name}</Text>
-                            </TouchableOpacity>
-                        }
-                    />
-                </View>
-                :
-                null
-            } */}
         </View>
     );
 };

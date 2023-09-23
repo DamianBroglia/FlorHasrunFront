@@ -148,62 +148,6 @@ const User = ({ navigation }) => {
                     }
 
 
-                    {/* {user.credits > 1 &&
-                        <TouchableOpacity onPress={() => setModalViewCredits(true)}>
-                            <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
-                        </TouchableOpacity>
-                    } */}
-                    {/* 
-                    {user.credits === "getCredit" || user.credits === "getCredit+1" ?
-                        <TouchableOpacity onPress={() => setModalViewRequest(true)}>
-                            <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
-                        </TouchableOpacity>
-                        :
-                        null
-                    } */}
-
-                    {/* {user.credits === "0" && user.verified ?
-                        <View>
-                            {futureTurns.length === 0 ?
-                                <TouchableOpacity onPress={() => setModalgetCredits(true)}>
-                                    <Text style={style.buttonNot}>🔴</Text>
-                                    <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
-                                </TouchableOpacity>
-                                :
-                                <TouchableOpacity onPress={() => setModalHaveFutureTurns(true)}>
-                                    <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
-                                </TouchableOpacity>
-                            }
-
-                        </View> :
-                        null
-                    } */}
-
-                    {/* {user.credits === "0" && !user.verified ?
-                        <TouchableOpacity onPress={() => setModalNoVerified(true)}>
-                            <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
-                        </TouchableOpacity> :
-                        null
-                    } */}
-
-                    {/* {user.credits === "1" ?
-                        <View>
-                            {futureTurns.length === 0 ?
-                                <TouchableOpacity onPress={() => setModalgetCreditsOne(true)}>
-                                    <Text style={style.buttonNot}>🔴</Text>
-                                    <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
-                                </TouchableOpacity>
-                                :
-                                <TouchableOpacity onPress={() => setModalHaveFutureTurns(true)}>
-                                    <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
-                                </TouchableOpacity>
-                            }
-
-
-                        </View>
-                        :
-                        null
-                    } */}
                 </View>
             </View>
 

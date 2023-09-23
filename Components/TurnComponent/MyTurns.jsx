@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, TouchableOpacity, FlatList, Alert, Image } from 'react-native';
+import { Text,  View, TouchableOpacity, FlatList,  Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { style } from '../Styles';
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';

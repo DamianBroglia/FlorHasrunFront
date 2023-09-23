@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, FlatList, Alert, TouchableOpacity, ScrollView, ImageBackground, Image, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, ImageBackground, Image, ActivityIndicator } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTurnByDayAction } from '../../Redux/actions/turnActions';

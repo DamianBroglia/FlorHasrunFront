@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList, Text, Image, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { View, FlatList, Text, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllViewServi, getAllServi } from '../../Redux/actions/serviceActions';

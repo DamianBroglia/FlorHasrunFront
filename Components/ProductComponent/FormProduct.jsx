@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TextInput, StyleSheet, View, TouchableOpacity, FlatList, Image, ScrollView, Alert, ImageBackground } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, FlatList, Image, ScrollView, Alert, ImageBackground } from 'react-native';
 import { uploadImage, loadImageFromGalery, deleteImageCloudinary } from '../../Utils/helpers';
 import { useDispatch } from 'react-redux';
 import { getAllViewServi } from '../../Redux/actions/serviceActions';
@@ -43,7 +43,6 @@ const FormProduct = ({ navigation }) => {
                 setImageUrl([...imageUrl, urlImage])
             } else {
                 setAlertImg(true)
-                // Alert.alert("No puedes subir mas de 10 imagenes")
             }
         } catch (error) {
             console.log(error)
@@ -63,12 +62,10 @@ const FormProduct = ({ navigation }) => {
         const errorArray = AnyError.filter(e => e !== "")
         if (errorArray.length > 0) {
             setIsAlert(true)
-            // Alert.alert("Faltan completar campos o algun campo fue completado de manera erronea")
         } else {
             try {
                 const newProduct = await axios.post(`${API_URL}products`, product)
                 if (newProduct) {
-                    // Alert.alert("Producto creado con exito")
                     setAlertOk(true)
                     setProduct({
                         name: "",

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, Image } from 'react-native';
 import moment from 'moment';
 import 'moment/locale/es';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,8 +13,6 @@ import Constants from 'expo-constants';
 const API_URL = Constants.manifest.extra.API_URL;
 
 moment.locale('es');
-
-
 
 const Agenda = () => {
     const dispatch = useDispatch()
@@ -133,7 +131,6 @@ const Agenda = () => {
                 }
                 setAreYouShore(null)
                 dispatch(getTurnByDayAction(changedTurn.data.dateInit))
-                // Alert.alert("Información guardada con exito")
                 setIsAlert(true)
             }
         } catch (error) {
@@ -143,7 +140,6 @@ const Agenda = () => {
     const hideAlert = () => {
         setIsAlert(false);
     };
-
 
     return (
         <View>

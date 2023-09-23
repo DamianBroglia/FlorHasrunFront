@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, StyleSheet, View, TouchableOpacity, FlatList, Image, ScrollView, Alert, ImageBackground } from 'react-native';
+import { Text, View, TouchableOpacity} from 'react-native';
 import { style } from '../Styles';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';

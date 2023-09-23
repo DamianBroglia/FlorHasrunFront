@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Text, View, FlatList, TouchableOpacity, Image } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import { style } from '../Styles';
 import { ModalUserTurns } from './ModalUserTurns';
 
 
 
-const UserTurns = ({ navigation }) => {
+const UserTurns = () => {
 
     const turns = useSelector((state) => state.turns.viewTurns)
     const [filterTurns, setFilterTurns] = useState([])
@@ -54,7 +54,7 @@ const UserTurns = ({ navigation }) => {
         setViewModal(false)
     };
 
-//agregar turnos cancelados
+
 
     return (
         <View>
@@ -104,26 +104,6 @@ const UserTurns = ({ navigation }) => {
                 title={title}
                 noHay={noHay}
             />
-
-            {/* {filterTurns.length > 0 ?
-                <View style={{ alignItems: "center" }}>
-                    <Text style={style.name}>{title}</Text>
-                    <FlatList
-                        data={filterTurns}
-                        renderItem={({ item }) =>
-                            <View style={style.cardUsers}>
-                                <Text style={style.titleDate}>{item.dateInit}</Text>
-                                <View style={{ flexDirection: "row" }}>
-                                    <Text style={style.textInfo}>{item.hourInit} hs</Text>
-                                    <Text style={style.textInfoCenter} >{item.product.name}</Text>
-                                    <Text style={style.textInfo} >$ {item.product.price}</Text>
-                                </View>
-                            </View>
-                        } />
-                </View>
-                :
-                <Text style={style.message}>{noHay}</Text>
-            } */}
 
         </View>
 

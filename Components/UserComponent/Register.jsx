@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Text, TextInput, View, TouchableOpacity, Image, Alert, ImageBackground } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import axios from "axios"
 import { getUserByIdAction, getAllUserAction } from '../../Redux/actions/userActions';
 import { validateUser } from './validateUser';
@@ -10,7 +10,7 @@ import Constants from 'expo-constants';
 const API_URL = Constants.manifest.extra.API_URL;
 
 
-const Register = ({ navigation }) => {
+const Register = () => {
     const [newUserName, setNewUserName] = useState("")
     const [newUserLastname, setNewUserLastname] = useState("")
     const [newUserCelNumber, setNewUserCelNumber] = useState("")

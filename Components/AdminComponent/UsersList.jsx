@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Text, FlatList, Alert, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
 import { getAllUserAction, getUserByNameAction } from "../../Redux/actions/userActions"
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
-import { getInfoUser } from './getInfoUser';
 import { ModalUserTurns } from './ModalUserTurns';
 import axios from "axios"
 import { style } from '../Styles';
