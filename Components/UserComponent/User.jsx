@@ -33,13 +33,18 @@ const User = ({ navigation }) => {
     }, [])
 
     useEffect(() => {
-        const futureTurnsUser = turnsUser.filter((e) => e.state === "toTake")
+        const futureTurnsUser = user.turns.filter((e) => e.state === "toTake")
         setFutureTurns(futureTurnsUser)
     }, [turnsUser])
 
     const logOut = () => {
         dispatch(clearUser())
         navigation.navigate("Home")
+    }
+
+    const goMyTurns = () => {
+        dispatch(getTurnsByUserIdAction(user.id))
+        navigation.navigate("Mis Turnos")
     }
 
     const getCredits = async (credits) => {
@@ -212,7 +217,7 @@ const User = ({ navigation }) => {
 
                 <View style={style.cardUserTurns}>
                     <Image style={style.imageIcons} source={require("../../assets/Calendario.png")} />
-                    <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Mis Turnos")}>
+                    <TouchableOpacity style={style.button} onPress={() => goMyTurns()}>
                         <Text style={style.buttonText}>Mis Turnos</Text>
                     </TouchableOpacity>
                 </View>

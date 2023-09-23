@@ -61,9 +61,11 @@ const CalendarScreen = ({ navigation }) => {
 
 
   useEffect(() => {
-    const freeTurnsArray = getFreeTurns(turnsDay)
-    setFreeTurs([...freeTurnsArray])
-    setLoading(false)
+    if (selectedDate) {
+      const freeTurnsArray = getFreeTurns(turnsDay)
+      setFreeTurs([...freeTurnsArray])
+      setLoading(false)
+    }
   }, [turnsDay]);
 
 
@@ -128,11 +130,11 @@ const CalendarScreen = ({ navigation }) => {
         if (newTurnSave.data) {
           if (!user.vip) {
             const setUser = await axios.put(`${API_URL}users`, { userId: user.id, credits: String(Number(user.credits) - 2) })
-              if(setUser.data){
-                setTurnSavedCredits(true)
-                dispatch(getUserByIdAction(user.id))
-                dispatch(getAllUserAction())
-              }
+            if (setUser.data) {
+              setTurnSavedCredits(true)
+              dispatch(getUserByIdAction(user.id))
+              dispatch(getAllUserAction())
+            }
           } else {
             setTurnSaved(true)
           }
