@@ -55,7 +55,7 @@ const UserOptions = () => {
             <Text style={style.titleServ}>Notificaciones </Text>
             <View style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}>
                 <View style={{ alignItems: "flex-start", width: 170 }}>
-                    <Text style={style.textNotification}>Un día antes</Text>
+                    <Text style={style.textInfo}>Un día antes</Text>
                     <Text style={style.msjNotification}>Recibir un mensaje un</Text>
                     <Text style={style.msjNotification}>dia antes del turno</Text>
                     {userNotification.spamDay ? <Text style={style.textgreen}>✔Activado</Text> : <Text style={style.textRed}>Desactivado</Text>}
@@ -72,7 +72,7 @@ const UserOptions = () => {
             </View>
             <View style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}>
                 <View style={{ alignItems: "flex-start", width: 170 }}>
-                    <Text style={style.textNotification}>Una hora antes</Text>
+                    <Text style={style.textInfo}>Una hora antes</Text>
                     <Text style={style.msjNotification}>Recibir un mensaje una</Text>
                     <Text style={style.msjNotification}>hora antes del turno</Text>
                     {userNotification.spamHour ? <Text style={style.textgreen}>✔Activado</Text> : <Text style={style.textRed}>Desactivado</Text>}
@@ -88,7 +88,7 @@ const UserOptions = () => {
             </View>
             <View style={{ flexDirection: "row", alignItems: "center", marginTop: 20, marginBottom: 30 }}>
                 <View style={{ alignItems: "flex-start", width: 170 }}>
-                    <Text style={style.textNotification}>Por nuevo servicio</Text>
+                    <Text style={style.textInfo}>Por nuevo servicio</Text>
                     <Text style={style.msjNotification}>Recibir un mensaje cuando</Text>
                     <Text style={style.msjNotification}>un nuevo servicio sea cargado</Text>
                     {userNotification.spamService ? <Text style={style.textgreen}>✔Activado</Text> : <Text style={style.textRed}>Desactivado</Text>}

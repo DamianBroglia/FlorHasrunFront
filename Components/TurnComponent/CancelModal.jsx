@@ -17,7 +17,7 @@ export const CancelModal = ({ isVisible, onClose, cancelAny, title, message, but
         >
             <View style={style.alertContainer}>
                 <Text style={style.titleServ}>{title}</Text>
-                <Text style={style.textHome}>{message}</Text>
+                <Text style={style.text}>{message}</Text>
                 <View style={{flexDirection:"row"}}>
                     <TouchableOpacity onPress={onClose} style={style.buttonAlert}>
                         <Text style={style.buttonText}>Volver</Text>

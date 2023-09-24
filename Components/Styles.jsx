@@ -41,18 +41,35 @@ const topBorderContainer = {
     borderStyle: "solid",
     borderTopWidth: 1,
 }
-const borderRightLeft = {
-    borderRightColor: "darkslateblue",
-    borderStyle: "solid",
-    borderLeftWidth: 1,
-    borderLeftColor: "darkslateblue",
-    borderRightWidth: 1,
-}
+
 const borderBottom = {
     borderStyle: "solid",
     borderBottomColor: "darkslateblue",
     borderBottomWidth: 1,
 }
+
+const border = {
+    borderColor: "rgb(252, 181, 180)",
+    borderStyle: "solid",
+    borderWidth: 2,
+}
+
+const propertyTextBase = {
+    fontSize: 20,
+    fontWeight: "800",
+    color: 'rgb(212, 141, 140)',
+}
+
+const msj = {
+    fontWeight: "600",
+    color: "rgb(80,80,80)",
+}
+
+const title = {
+    color: 'rgb(202, 131, 130)',
+    fontWeight: "600",
+}
+
 const inputForm = {
     borderColor: "rgb(194, 161, 138)",
     borderWidth: 1,
@@ -63,30 +80,7 @@ const inputForm = {
     backgroundColor: "white",
     fontSize: 18,
 }
-const textTurn = {
-    ...borderBottom,
-    ...topBorderContainer,
-    fontSize: 28,
-    fontWeight: "500",
-    marginHorizontal: 10,
-    paddingHorizontal: 10,
-    color: "forestgreen",
-    textAlign: "center",
-    marginTop: 10
-}
-const textTurnbig = {
-    fontSize: 44,
-    fontWeight: "700",
-    marginHorizontal: 14,
-    paddingVertical: 10,
-    color: "forestgreen",
-    textAlign: "center",
-    marginTop: 15,
-    borderBottomColor: "forestgreen",
-    borderBottomWidth: 2,
-    borderTopColor: "forestgreen",
-    borderTopWidth: 2
-}
+
 const titleBrow = {
     fontSize: 18,
     fontWeight: "500",
@@ -102,8 +96,8 @@ export const style = StyleSheet.create({
     },
     buttonFino: {
         ...buttons,
-        paddingVertical:3,
-        marginBottom:3
+        paddingVertical: 3,
+        marginBottom: 3
     },
     buttonPage: {
         ...buttons,
@@ -116,11 +110,6 @@ export const style = StyleSheet.create({
         paddingVertical: 3,
         paddingHorizontal: 6,
     },
-    // buttonFacebook: {
-    //     ...buttons,
-    //     width: 305,
-    //     backgroundColor:"rgb(59, 89, 152)"
-    // },
     buttonOrderUser: {
         ...buttons,
         width: 173,
@@ -175,8 +164,8 @@ export const style = StyleSheet.create({
     },
     buttonServ: {
         ...buttonsNoSelect,
-    backgroundColor: 'rgba(252, 181, 180, 0.7)',
-        borderRadius:0,
+        backgroundColor: 'rgba(252, 181, 180, 0.7)',
+        borderRadius: 0,
         width: 216,
         marginHorizontal: 1,
         marginVertical: 1,
@@ -185,12 +174,7 @@ export const style = StyleSheet.create({
         paddingVertical: 1,
         justifyContent: "center"
     },
-    buttonTextServ: {
-        color: '#FFF',
-        fontSize: 11,
-        textAlign: 'center',
-        fontWeight: "500"
-    },
+
     buttonDuration: {
         ...buttons,
         paddingHorizontal: 10,
@@ -217,19 +201,6 @@ export const style = StyleSheet.create({
 
     //_______________CARS_______________
 
-
-    containerStadistic: {
-        ...topBorderContainer,
-        marginTop: 10,
-        alignItems: "center",
-        paddingTop: 10
-    },
-    infoStadisticDay: {
-        ...borderBottom,
-        marginBottom: 4,
-        paddingBottom: 4,
-        alignItems: "center"
-    },
     cardUsers: {
         ...cards
     },
@@ -239,36 +210,40 @@ export const style = StyleSheet.create({
     },
     cardModalUserTurns: {
         ...cards,
+        ...border,
         // marginHorizontal: 5,
-        borderColor: "rgb(252, 181, 180)",
-        borderStyle: "solid",
-        borderWidth: 2,
+        // borderColor: "rgb(252, 181, 180)",
+        // borderStyle: "solid",
+        // borderWidth: 2,
         paddingHorizontal: 15
     },
     cardModalUserTurns2: {
         ...cards,
         // marginHorizontal: 5,
-        borderColor: "rgb(252, 181, 180)",
-        borderStyle: "solid",
-        borderWidth: 2,
+        ...border,
+        // borderColor: "rgb(252, 181, 180)",
+        // borderStyle: "solid",
+        // borderWidth: 2,
 
     },
     cardModalUserTurns3: {
         ...cards,
-        paddingHorizontal:3,
-        borderColor: "rgb(252, 181, 180)",
-        borderStyle: "solid",
-        borderWidth: 2,
+        ...border,
+        paddingHorizontal: 3,
+        // borderColor: "rgb(252, 181, 180)",
+        // borderStyle: "solid",
+        // borderWidth: 2,
         width: 300,
-        marginVertical:2,
-        paddingVertical:2
+        marginVertical: 2,
+        paddingVertical: 2
     },
     cardAgenda: {
         ...cards,
+        ...border,
         // marginHorizontal: 5,
-        borderColor: "rgb(252, 181, 180)",
-        borderStyle: "solid",
-        borderWidth: 2,
+        // borderColor: "rgb(252, 181, 180)",
+        // borderStyle: "solid",
+        // borderWidth: 2,
         paddingHorizontal: 15,
         alignItems: "flex-start"
     },
@@ -295,39 +270,6 @@ export const style = StyleSheet.create({
     cardService: {
         ...cards,
         marginHorizontal: 10
-    },
-    cardAdminControl: {
-        ...cards,
-        height: 150,
-        width: 150,
-        objectFit: "cover",
-    },
-    containerServ: {
-        alignItems: "center",
-        marginVertical: 10,
-        backgroundColor: "seashell"
-    },
-    secondContainer: {
-        ...topBorderContainer,
-        flexDirection: "row",
-        alignItems: "center",
-        marginRight: 45,
-        justifyContent: "center",
-        marginBottom: 10
-    },
-    thirdContainer: {
-        marginHorizontal: 5,
-        alignItems: "center",
-        padding: 10,
-        marginVertical: 4,
-    },
-    thirdContainerCenter: {
-        marginHorizontal: 10,
-        alignItems: "center",
-        padding: 10,
-        marginVertical: 4,
-        ...borderRightLeft,
-
     },
     containerEstadistica: {
         ...topBorderContainer,
@@ -426,10 +368,11 @@ export const style = StyleSheet.create({
     //________________TEXT________________
 
     class: {
+        ...border,
         fontSize: 20,
-        borderColor: 'rgb(252, 181, 180)',
+        // borderColor: 'rgb(252, 181, 180)',
         borderWidth: 3,
-        borderStyle: "solid",
+        // borderStyle: "solid",
         width: 35,
         height: 35,
         borderRadius: 20,
@@ -440,9 +383,10 @@ export const style = StyleSheet.create({
         // marginRight:14
     },
     propertyUser: {
-        borderColor: 'rgb(252, 181, 180)',
+        ...border,
+        // borderColor: 'rgb(252, 181, 180)',
         borderWidth: 5,
-        borderStyle: "solid",
+        // borderStyle: "solid",
         borderRadius: 100,
         paddingHorizontal: 9,
         paddingVertical: 5,
@@ -450,9 +394,10 @@ export const style = StyleSheet.create({
         // backgroundColor:"rgba(252, 181, 180, 0.3)"
     },
     propertyUserSmall: {
-        borderColor: 'rgb(252, 181, 180)',
+        ...border,
+        // borderColor: 'rgb(252, 181, 180)',
         borderWidth: 3,
-        borderStyle: "solid",
+        // borderStyle: "solid",
         borderRadius: 100,
         paddingHorizontal: 7,
         paddingVertical: 4,
@@ -471,46 +416,53 @@ export const style = StyleSheet.create({
         // backgroundColor:"rgba(252, 181, 180, 0.3)"
     },
     propertyText: {
+        ...propertyTextBase,
         fontSize: 28,
-        fontWeight: "800",
-        color: 'rgb(212, 141, 140)',
+        // fontWeight: "800",
+        // color: 'rgb(212, 141, 140)',
         width: 60,
         textAlign: "center"
     },
     propertyTextLong: {
+        ...propertyTextBase,
         fontSize: 28,
-        fontWeight: "800",
-        color: 'rgb(212, 141, 140)',
+        // fontWeight: "800",
+        // color: 'rgb(212, 141, 140)',
     },
     propertyTextFilter: {
-        fontSize: 20,
-        fontWeight: "800",
-        color: 'rgb(212, 141, 140)',
+        ...propertyTextBase,
+        // fontSize: 20,
+        // fontWeight: "800",
+        // color: 'rgb(212, 141, 140)',
     },
     propertyTextSmall: {
-        fontSize: 20,
-        fontWeight: "800",
-        color: 'rgb(212, 141, 140)',
+        ...propertyTextBase,
+        // fontSize: 20,
+        // fontWeight: "800",
+        // color: 'rgb(212, 141, 140)',
         width: 40,
         textAlign: "center"
     },
     propertyTextMedium: {
-        fontSize: 20,
-        fontWeight: "800",
-        color: 'rgb(212, 141, 140)',
+        ...propertyTextBase,
+        // fontSize: 20,
+        // fontWeight: "800",
+        // color: 'rgb(212, 141, 140)',
         width: 70,
         textAlign: "center"
     },
     propertyTextLittle: {
+        ...propertyTextBase,
         fontSize: 17,
-        fontWeight: "800",
-        color: 'rgb(212, 141, 140)',
+        // fontWeight: "800",
+        // color: 'rgb(212, 141, 140)',
         textAlign: "center"
     },
     propertyTextLittleLimit: {
         fontSize: 17,
-        fontWeight: "800",
-        color: 'rgb(212, 141, 140)',
+        ...propertyTextBase,
+        // fontWeight: "800",
+        // color: 'rgb(212, 141, 140)',
         textAlign: "center",
         width: 80,
     },
@@ -530,17 +482,14 @@ export const style = StyleSheet.create({
     },
 
     propertyTextLittleLimit2: {
+        ...propertyTextBase,
         fontSize: 17,
-        fontWeight: "800",
-        color: 'rgb(212, 141, 140)',
+        // fontWeight: "800",
+        // color: 'rgb(212, 141, 140)',
         textAlign: "center",
         width: 35,
     },
-    propertyTextOpac: {
-        fontSize: 28,
-        fontWeight: "800",
-        color: 'rgba(212, 141, 140, 0.3)',
-    },
+
     propertyTextFilterOpac: {
         fontSize: 20,
         fontWeight: "600",
@@ -560,24 +509,27 @@ export const style = StyleSheet.create({
         marginBottom: -3
     },
     mediumMsj: {
+        ...msj,
         fontSize: 12,
-        fontWeight: "600",
-        color: "rgb(80,80,80)",
+        // fontWeight: "600",
+        // color: "rgb(80,80,80)",
         marginTop: -2,
         marginBottom: 6
     },
     mediumMsj2: {
+        ...msj,
         fontSize: 12,
-        fontWeight: "600",
-        color: "rgb(80,80,80)",
+        // fontWeight: "600",
+        // color: "rgb(80,80,80)",
         marginTop: -2,
         marginBottom: 6,
         textAlign: "center"
     },
     mediumText: {
+        ...msj,
         fontSize: 14,
-        fontWeight: "600",
-        color: "rgb(80,80,80)",
+        // fontWeight: "600",
+        // color: "rgb(80,80,80)",
         textAlign: "center"
     },
 
@@ -587,22 +539,25 @@ export const style = StyleSheet.create({
         marginBottom: 15
     },
     titleBig: {
+        ...title,
         fontSize: 26,
-        color: 'rgb(202, 131, 130)',
-        marginBottom: 8,
-        fontWeight: "600"
+        // color: 'rgb(202, 131, 130)',
+        // fontWeight: "600",
+        marginBottom: 8
     },
     titleTurnUser2: {
+        ...title,
         fontSize: 22,
-        color: 'rgb(202, 131, 130)',
+        // color: 'rgb(202, 131, 130)',
+        // fontWeight: "600",
         marginBottom: 15,
-        fontWeight: "600",
         width: 215
     },
     titleTurnUser3: {
+        ...title,
         fontSize: 18,
-        color: 'rgb(202, 131, 130)',
-        fontWeight: "600",
+        // color: 'rgb(202, 131, 130)',
+        // fontWeight: "600",
     },
 
     userCredits: {
@@ -672,15 +627,6 @@ export const style = StyleSheet.create({
         fontSize: 20,
         fontWeight: "500"
     },
-    totalStadistic: {
-        fontSize: 23,
-        fontWeight: "600"
-    },
-    future: {
-        fontSize: 16,
-        fontWeight: "400",
-        color: "green"
-    },
     textRed: {
         fontSize: 12,
         color: "red"
@@ -689,19 +635,13 @@ export const style = StyleSheet.create({
         fontSize: 12,
         color: "green"
     },
-    stadisticInfo: {
-        fontSize: 16,
-        fontWeight: "500",
-    },
+
     priceServ: {
         fontSize: 18,
         color: "green",
         marginVertical: 10
     },
-    priceServTurns: {
-        fontSize: 18,
-        color: "green",
-    },
+
     propTurn: {
         fontSize: 18,
         fontWeight: "500",
@@ -715,34 +655,11 @@ export const style = StyleSheet.create({
         fontSize: 24,
         color: "dimgrey"
     },
-    msjHome: {
-        textAlign: "center",
-        fontSize: 12,
-        color: "firebrick",
-        marginHorizontal: 12,
-        marginBottom: 20
-    },
-    totals: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "darkslateblue"
-    },
     textInfo: {
         fontSize: 15,
         fontWeight: "bold",
     },
-    textNotification: {
-        fontSize: 16,
-        fontWeight: "bold",
-        // marginHorizontal:27
-    },
-    textInfoCenter: {
-        ...borderRightLeft,
-        fontSize: 15,
-        fontWeight: "bold",
-        marginHorizontal: 3,
-        paddingHorizontal: 3
-    },
+
     textHome: {
         textAlign: "center",
         fontSize: 16,
@@ -779,36 +696,13 @@ export const style = StyleSheet.create({
         fontWeight: 'bold',
         color: "darkslateblue"
     },
-    phoneNumber: {
-        fontSize: 16,
-        marginBottom: 4,
-    },
+
     message: {
         fontSize: 18,
         marginVertical: 10,
         textAlign: "center"
     },
-    textHoursGreen: {
-        ...textTurn,
-        borderBottomColor: "green",
-        borderTopColor: "green"
-    },
-    textHoursRed: {
-        ...textTurn,
-        borderBottomColor: "red",
-        borderTopColor: "red",
-        color: "red"
-    },
 
-    text2: {
-        ...textTurnbig,
-    },
-    text2b: {
-        ...textTurnbig,
-        color: "red",
-        borderBottomColor: "red",
-        borderTopColor: "red"
-    },
     buttonNot: {
         fontSize: 7,
         marginBottom: 15,
@@ -881,16 +775,6 @@ export const style = StyleSheet.create({
         marginVertical: 10,
         marginHorizontal: 5,
         borderRadius: 3
-    },
-    imageTurn: {
-        height: 80,
-        width: 80,
-        objectFit: "cover",
-        marginVertical: 30,
-        marginHorizontal: 5,
-        borderRadius: 3,
-        opacity: 0.6,
-
     },
     imagePutSer: {
         height: 80,

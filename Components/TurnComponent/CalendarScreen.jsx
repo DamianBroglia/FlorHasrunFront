@@ -349,7 +349,7 @@ const CalendarScreen = ({ navigation }) => {
                         ?
                         <View style={style.cardTurnConf}>
                           <Text style={style.titleDate}> Confirmar turno? </Text>
-                          <Text style={style.titleInfo}> {service.name} </Text>
+                          <Text style={style.name}> {service.name} </Text>
                           <View style={{ flexDirection: "row", marginTop: 18 }}>
                             <View style={style.cardConfTurn}>
                               <Image style={style.imageIconsTurn} source={require("../../assets/Ganancia.png")} />
@@ -406,12 +406,12 @@ const CalendarScreen = ({ navigation }) => {
                       <View>
                         {item.free ?
                           <View style={style.cardTurnBlockDay}>
-                            <Text style={style.textHome}>{item.hour} hs</Text>
+                            <Text style={style.text}>{item.hour} hs</Text>
                             <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Llave.png")} />
                           </View>
                           :
                           <View style={style.cardTurnOcBlockDay}>
-                            <Text style={style.textHome}>{item.hour} hs</Text>
+                            <Text style={style.text}>{item.hour} hs</Text>
                             <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Candado.png")} />
                           </View>
                         }
@@ -422,12 +422,12 @@ const CalendarScreen = ({ navigation }) => {
                           <View>
                             {item.free ?
                               <TouchableOpacity style={style.cardTurn} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
-                                <Text style={style.textHome}>{item.hour} hs</Text>
+                                <Text style={style.text}>{item.hour} hs</Text>
                                 <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Llave.png")} />
                               </TouchableOpacity>
                               :
                               <TouchableOpacity style={style.cardTurnOc} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
-                                <Text style={style.textHome}>{item.hour} hs</Text>
+                                <Text style={style.text}>{item.hour} hs</Text>
                                 <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Candado.png")} />
                               </TouchableOpacity>
                             }
@@ -436,12 +436,12 @@ const CalendarScreen = ({ navigation }) => {
                           <View>
                             {item.free ?
                               <TouchableOpacity style={style.cardTurn} onPress={() => saveTurn(item.hour)}>
-                                <Text style={style.textHome}>{item.hour} hs</Text>
+                                <Text style={style.text}>{item.hour} hs</Text>
                                 <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Llave.png")} />
                               </TouchableOpacity>
                               :
                               <View style={style.cardTurnOc}>
-                                <Text style={style.textHome}>{item.hour} hs</Text>
+                                <Text style={style.text}>{item.hour} hs</Text>
                                 <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Candado.png")} />
                               </View>
                             }
