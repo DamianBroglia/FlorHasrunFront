@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-
 const buttons = {
     backgroundColor: 'rgb(252, 181, 180)',
     borderRadius: 10,
@@ -64,10 +63,42 @@ const msj = {
     fontWeight: "600",
     color: "rgb(80,80,80)",
 }
+const littleMsjBase = {
+    fontSize: 8,
+    fontWeight: "500",
+    color: "rgb(80,80,80)",
+}
+
+const textLittleBase = {
+    fontSize: 13,
+    fontWeight: "700",
+    color: 'rgb(212, 141, 140)',
+    textAlign: "center",
+    width: 47,
+}
+
+const errorOk = {
+    fontSize: 12,
+    marginBottom: 4
+}
 
 const title = {
     color: 'rgb(202, 131, 130)',
     fontWeight: "600",
+}
+
+const textBase = {
+    textAlign: "center",
+    fontSize: 16,
+    marginTop: 2,
+    marginBottom: 15,
+    color: "dimgrey",
+    marginHorizontal: 7
+}
+
+const nameBase = {
+    fontSize: 22,
+    fontWeight: 'bold'
 }
 
 const inputForm = {
@@ -85,6 +116,23 @@ const titleBrow = {
     fontSize: 18,
     fontWeight: "500",
     color: "rgb(194, 161, 138)",
+}
+
+const imageUserBase = {
+    height: 35,
+    width: 35,
+    objectFit: "cover",
+}
+
+const imageIconsBase = {
+    height: 60,
+    width: 60,
+    objectFit: "cover",
+    opacity: 0.6,
+}
+const imageBase = {
+    borderRadius: 3,
+    objectFit: "cover"
 }
 
 export const style = StyleSheet.create({
@@ -467,17 +515,19 @@ export const style = StyleSheet.create({
         width: 80,
     },
     propertyTextLittleLimit3: {
-        fontSize: 13,
-        fontWeight: "700",
-        color: 'rgb(212, 141, 140)',
-        textAlign: "center",
-        width: 47,
+        ...textLittleBase,
+        // fontSize: 13,
+        // fontWeight: "700",
+        // color: 'rgb(212, 141, 140)',
+        // textAlign: "center",
+        // width: 47,
     },
     propertyTextLittleLimit4: {
-        fontSize: 13,
-        fontWeight: "700",
-        color: 'rgb(212, 141, 140)',
-        textAlign: "center",
+        ...textLittleBase,
+        // fontSize: 13,
+        // fontWeight: "700",
+        // color: 'rgb(212, 141, 140)',
+        // textAlign: "center",
         width: 19,
     },
 
@@ -497,14 +547,16 @@ export const style = StyleSheet.create({
     },
 
     littleMsj: {
-        fontSize: 8,
-        fontWeight: "500",
-        color: "rgb(80,80,80)",
+        ...littleMsjBase,
+        // fontSize: 8,
+        // fontWeight: "500",
+        // color: "rgb(80,80,80)",
     },
     littleMediumMsj: {
+        ...littleMsjBase,
         fontSize: 11,
-        fontWeight: "500",
-        color: "rgb(80,80,80)",
+        // fontWeight: "500",
+        // color: "rgb(80,80,80)",
         marginTop: -2,
         marginBottom: -3
     },
@@ -568,14 +620,7 @@ export const style = StyleSheet.create({
         color: "rgb(210, 174, 104)"
     },
 
-    text: {
-        textAlign: "center",
-        fontSize: 16,
-        marginTop: 2,
-        marginBottom: 15,
-        color: "dimgrey",
-        marginHorizontal: 7
-    },
+
 
     creditsNumber: {
         fontSize: 18,
@@ -596,18 +641,20 @@ export const style = StyleSheet.create({
     },
 
     error: {
-        fontSize: 12,
+        ...errorOk,
         color: "rgb(194, 161, 138)",
-        marginBottom: 4
+        // fontSize: 12,
+        // marginBottom: 4
+    },
+    ok: {
+        ...errorOk,
+        color: "green",
+        // fontSize: 12,
+        // marginBottom: 4
     },
     msjNotification: {
         fontSize: 11,
         color: "rgb(194, 161, 138)",
-    },
-    ok: {
-        fontSize: 12,
-        color: "green",
-        marginBottom: 4
     },
     titlePropForm: {
         ...titleBrow,
@@ -660,37 +707,38 @@ export const style = StyleSheet.create({
         fontWeight: "bold",
     },
 
-    textHome: {
-        textAlign: "center",
-        fontSize: 16,
-        marginTop: 2,
-        marginBottom: 15,
-        color: "dimgrey",
-        marginHorizontal: 7
+    text: {
+        ...textBase,
+        // textAlign: "center",
+        // fontSize: 16,
+        // marginTop: 2,
+        // marginBottom: 15,
+        // color: "dimgrey",
+        // marginHorizontal: 7
     },
+
     textPutSer: {
-        textAlign: "center",
-        fontSize: 16,
-        marginTop: 2,
+        ...textBase,
+        // textAlign: "center",
+        // fontSize: 16,
+        // marginTop: 2,
         marginBottom: 2,
-        color: "dimgrey",
-        marginHorizontal: 7
+        // color: "dimgrey",
+        // marginHorizontal: 7
     },
     name: {
-        fontSize: 22,
-        fontWeight: 'bold'
+        ...nameBase,
+        // fontSize: 22,
+        // fontWeight: 'bold'
     },
     nameUser: {
-        fontSize: 22,
-        fontWeight: 'bold',
+        ...nameBase,
+        // fontSize: 22,
+        // fontWeight: 'bold',
         width: 265,
         marginBottom: 5
     },
-    titleInfo: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        color: "darkslateblue"
-    },
+
     titleDate: {
         fontSize: 20,
         fontWeight: 'bold',
@@ -761,87 +809,93 @@ export const style = StyleSheet.create({
         objectFit: "cover",
     },
 
-    imageCam: {
-        height: 64,
-        width: 84,
-        objectFit: "cover",
-        opacity: 0.6,
-        marginVertical: 20
-    },
-    image: {
-        height: 100,
-        width: 100,
-        objectFit: "cover",
-        marginVertical: 10,
-        marginHorizontal: 5,
-        borderRadius: 3
-    },
-    imagePutSer: {
-        height: 80,
-        width: 80,
-        objectFit: "cover",
-        marginHorizontal: 4,
-        borderRadius: 3
-    },
+
+
     imageLupa: {
         height: 24,
         width: 23,
         objectFit: "cover",
     },
     imageUserList: {
-        height: 35,
-        width: 35,
-        objectFit: "cover",
+        ...imageUserBase,
+        // height: 35,
+        // width: 35,
+        // objectFit: "cover",
         // marginRight:14
     },
     imageUserListOpac: {
-        height: 35,
-        width: 35,
-        objectFit: "cover",
+        ...imageUserBase,
+        // height: 35,
+        // width: 35,
+        // objectFit: "cover",
         opacity: 0.3,
         // marginRight:14
     },
     imageOjo: {
-        height: 35,
+        ...imageUserBase,
+        // height: 35,
         width: 47,
-        objectFit: "cover",
+        // objectFit: "cover",
         // marginRight:14
     },
     imageOjoOpac: {
-        height: 35,
+        ...imageUserBase,
+        // height: 35,
         width: 47,
-        objectFit: "cover",
+        // objectFit: "cover",
         opacity: 0.3,
         // marginRight:14
     },
+    image: {
+        ...imageBase,
+        height: 100,
+        width: 100,
+        marginVertical: 10,
+        marginHorizontal: 5,
+        // borderRadius: 3,
+        // objectFit: "cover"
+    },
+    imagePutSer: {
+        ...imageBase,
+        height: 80,
+        width: 80,
+        marginHorizontal: 4,
+        // borderRadius: 3,
+        // objectFit: "cover"
+    },
     imageHome: {
+        ...imageBase,
         height: 330,
         width: 240,
-        objectFit: "cover",
         marginHorizontal: 4,
-        borderRadius: 3
+        // borderRadius: 3,
+        // objectFit: "cover"
     },
     imageServ: {
+        ...imageBase,
         height: 216,
         width: 216,
-        objectFit: "cover",
         marginHorizontal: 3,
-        borderRadius: 3
+        // borderRadius: 3,
+        // objectFit: "cover"
     },
     imageServ2: {
+        ...imageBase,
         height: 105,
         width: 105,
-        objectFit: "cover",
         marginBottom: 4,
-        borderRadius: 3
+        // borderRadius: 3,
+        // objectFit: "cover"
     },
-    imageIcons: {
-        height: 60,
-        width: 60,
-        objectFit: "cover",
-        opacity: 0.6,
-        marginVertical: 18
+    imageLogo: {
+        ...imageBase,
+        height: 105,
+        width: 200,
+        marginVertical: 15,
+        // borderRadius: 3,
+        // objectFit: "cover"
     },
+
     imageBlockPag: {
         height: 91,
         width: 90,
@@ -855,34 +909,47 @@ export const style = StyleSheet.create({
         objectFit: "cover",
         marginVertical: 4,
     },
-
+    imageIcons: {
+        ...imageIconsBase,
+        // height: 60,
+        // width: 60,
+        // objectFit: "cover",
+        // opacity: 0.6,
+        marginVertical: 18
+    },
     imageIconsStadistic: {
-        height: 60,
-        width: 60,
-        objectFit: "cover",
-        opacity: 0.6,
+        ...imageIconsBase,
+        // height: 60,
+        // width: 60,
+        // objectFit: "cover",
+        // opacity: 0.6,
         marginVertical: 10,
         marginHorizontal: 25
     },
+
+    imageIconsTurn: {
+        ...imageIconsBase,
+        // height: 60,
+        // width: 60,
+        // objectFit: "cover",
+        // opacity: 0.6,
+    },
+    imageCam: {
+        ...imageIconsBase,
+        height: 64,
+        width: 84,
+        // objectFit: "cover",
+        // opacity: 0.6,
+        marginVertical: 20
+    },
     imageIconsTurnCalendar: {
+        ...imageIconsBase,
         height: 28,
         width: 28,
-        objectFit: "cover",
-        opacity: 0.6,
+        // objectFit: "cover",
+        // opacity: 0.6,
     },
-    imageIconsTurn: {
-        height: 60,
-        width: 60,
-        objectFit: "cover",
-        opacity: 0.6,
-    },
-    imageLogo: {
-        height: 105,
-        width: 200,
-        objectFit: "cover",
-        marginVertical: 15,
-        borderRadius: 3
-    },
+
     imageDetail: {
         height: 330,
         width: 330,
