@@ -19,6 +19,7 @@ const Home = ({ navigation }) => {
     const [seeMore, setSeeMore] = useState(false)
     const [notification, setNotification] = useState(null)
     const [notificationHours, setNotificationHours] = useState(null)
+    const [readMore, setReadMore] = useState(false)
     const date = new Date()
     const dateSpanish = moment(date)
     const tomarrow = dateSpanish.add(1, "days").format('dddd D [de] MMMM [de] YYYY');
@@ -144,10 +145,22 @@ const Home = ({ navigation }) => {
                                 {user.verified ?
                                     <View>
                                         <Text style={style.mediumText}>Ya puedes guardar tus turnos!</Text>
-                                        <Text style={style.mediumMsj2}>Recuerda que si no cumples con un turno, no se te devolverán los creditos que usaste para guardarlo.
-                                            Procura no quedarte sin creditos, cumple con tu compromiso y podrás seguir guardando turnos, en caso contrario
-                                            deverás solicitar creditos a Florencia y ella pactará la forma de intercambio de dichos creditos.
-                                        </Text>
+                                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                                            <Text style={style.mediumHome}>Recuerda que si no cumples con un turno</Text>
+                                            {!readMore &&
+                                                <TouchableOpacity onPress={() => setReadMore(true)}>
+                                                    <Text style={style.mediumBlue}>...mas</Text>
+                                                </TouchableOpacity>}
+                                        </View>
+                                        {readMore &&
+                                            <Text style={style.mediumHome}> no se te devolverán los creditos que usaste para guardarlo.
+                                                Procura no quedarte sin creditos, cumple con tu compromiso y podrás seguir guardando turnos, en caso contrario
+                                                deverás solicitar creditos a Florencia y ella pactará la forma de intercambio de dichos creditos.
+                                                <TouchableOpacity onPress={() => setReadMore(false)}>
+                                                    <Text style={style.mediumBlue}>menos</Text>
+                                                </TouchableOpacity>
+                                            </Text>
+                                        }
                                     </View> :
                                     <View>
                                         <Text style={style.mediumText}>Tu identidad aún no ha sido verificada</Text>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, Image, ImageBackground, ScrollView } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { getTurnByDayAction } from '../../Redux/actions/turnActions';
+import { clearUser } from '../../Redux/actions/userActions';
 import moment from 'moment';
 import 'moment/locale/es';
 import { style } from '../Styles';
@@ -18,6 +19,10 @@ const AdminControl = ({ navigation }) => {
         navigation.navigate("Agenda")
     }
 
+    const logOut = () => {
+        dispatch(clearUser())
+        navigation.navigate("Home")
+    }
 
     return (
         <View >
@@ -49,6 +54,13 @@ const AdminControl = ({ navigation }) => {
                     <Image style={style.imageIcons} source={require("../../assets/Vip.png")} />
                     <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Administrar Servicios")}>
                         <Text style={style.buttonText}>Servicios</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={style.cardUsers}>
+                    <Image style={style.imageIcons} source={require("../../assets/FlechaIzquierda.png")} />
+                    <TouchableOpacity style={style.button} onPress={() => logOut()}>
+                        <Text style={style.buttonText}>Salir</Text>
                     </TouchableOpacity>
                 </View>
 
