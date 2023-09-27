@@ -17,7 +17,7 @@ const Register = () => {
     const [newUserPassword, setNewUserPassword] = useState("")
     const [errors, setErrors] = useState({})
     const [isAlertVisible, setIsAlertVisible] = useState(false)
-    const [isWelcomeVis, setIsWelcomeVis] = useState(false)
+    // const [isWelcomeVis, setIsWelcomeVis] = useState(false)
     const [disguisePassword, setDisguisePassword] = useState(true)
 
 
@@ -41,7 +41,7 @@ const Register = () => {
                 if (user.data) {
                     const infoUser = await axios.post(`${API_URL}infoUser` , {userId: user.data.id})
                     if(infoUser.data){
-                        setIsWelcomeVis(true)
+                        // setIsWelcomeVis(true)
                         dispatch(getUserByIdAction(user.data.id))
                         dispatch(getAllUserAction())
                         setNewUserName("")
@@ -63,10 +63,10 @@ const Register = () => {
         setIsAlertVisible(false);
     };
 
-    const hideWelcome = () => {
-        setIsWelcomeVis(false)
-        // navigation.navigate("Home")
-    }
+    // const hideWelcome = () => {
+    //     setIsWelcomeVis(false)
+    //     // navigation.navigate("Home")
+    // }
 
     return (
         <View>
@@ -139,13 +139,13 @@ const Register = () => {
                     title="Lo sentimos..."
                     message="Faltan requisitos para registrarse"
                 />
-                <ModalAlert
+                {/* <ModalAlert
                     isVisible={isWelcomeVis}
                     onClose={hideWelcome}
                     title="Bienvenid@!"
                     message="App oficial de Flor Hasrun"
                     type="ok"
-                />
+                /> */}
             </View>
         </View>
     );

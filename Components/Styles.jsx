@@ -29,16 +29,6 @@ const cards = {
     alignItems: "center",
     marginHorizontal: 20
 }
-const topBorderContainer = {
-    borderTopColor: "darkslateblue",
-    borderStyle: "solid",
-    borderTopWidth: 1,
-}
-const borderBottom = {
-    borderStyle: "solid",
-    borderBottomColor: "darkslateblue",
-    borderBottomWidth: 1,
-}
 const border = {
     borderColor: "rgb(252, 181, 180)",
     borderStyle: "solid",
@@ -284,14 +274,6 @@ export const style = StyleSheet.create({
     cardService: {
         ...cards,
         marginHorizontal: 10
-    },
-    containerEstadistica: {
-        ...topBorderContainer,
-        ...borderBottom,
-        flexDirection: "row",
-        justifyContent: "center",
-        marginVertical: 5,
-        paddingVertical: 3,
     },
     cardTurn: {
         ...cards,

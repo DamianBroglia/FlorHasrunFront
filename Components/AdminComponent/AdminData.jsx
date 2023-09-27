@@ -63,7 +63,7 @@ const AdminData = () => {
         <View >
             <View style={style.cardUsers}>
                 <Text style={style.textInfo}> Elije las fechas</Text>
-                <View style={style.containerEstadistica}>
+                <View style={{flexDirection:"row"}}>
                     <TouchableOpacity style={style.button} onPress={init}>
                         <Text style={style.buttonText}> Desde </Text>
                     </TouchableOpacity>

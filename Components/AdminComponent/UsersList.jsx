@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Text, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, Image, Linking } from 'react-native';
 import { getAllUserAction, getUserByNameAction } from "../../Redux/actions/userActions"
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
 import { ModalUserTurns } from './ModalUserTurns';

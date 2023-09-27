@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View, Image, Text, ImageBackground, Linking } from 'react-native';
+import { TouchableOpacity, View, Image, Text, Linking } from 'react-native';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllViewServi } from '../Redux/actions/serviceActions';
@@ -142,29 +142,41 @@ const Home = ({ navigation }) => {
                         {user.id &&
                             <View style={{ alignItems: "center" }}>
                                 <Text style={style.titleDateTurn}>Hola {user.name}!</Text>
-                                {user.verified ?
+                                {user.name === "Flor" && user.lastname === "Hasrun" ?
                                     <View>
-                                        <Text style={style.mediumText}>Ya puedes guardar tus turnos!</Text>
-                                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                                            <Text style={style.mediumHome}>Recuerda que si no cumples con un turno</Text>
-                                            {!readMore &&
-                                                <TouchableOpacity onPress={() => setReadMore(true)}>
-                                                    <Text style={style.mediumBlue}>...mas</Text>
-                                                </TouchableOpacity>}
-                                        </View>
-                                        {readMore &&
-                                            <Text style={style.mediumHome}> no se te devolverán los creditos que usaste para guardarlo.
-                                                Procura no quedarte sin creditos, cumple con tu compromiso y podrás seguir guardando turnos, en caso contrario
-                                                deverás solicitar creditos a Florencia y ella pactará la forma de intercambio de dichos creditos.
-                                                <TouchableOpacity onPress={() => setReadMore(false)}>
-                                                    <Text style={style.mediumBlue}>menos</Text>
-                                                </TouchableOpacity>
-                                            </Text>
+                                        <Text style={style.mediumText}>Bienvenida a tu app!</Text>
+                                        <Text style={style.mediumHome}>Puedes ver los turnos que guardaron tus usuarios,
+                                            crear, modificar o eliminar servicios, obtener estadisticas sobre tus usuarios, las ganancias generadas,
+                                            los servicios mas solicitados y mas!
+                                        </Text>
+                                    </View>
+                                    :
+                                    <View>
+                                        {user.verified ?
+                                            <View>
+                                                <Text style={style.mediumText}>Ya puedes guardar tus turnos!</Text>
+                                                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                                                    <Text style={style.mediumHome}>Recuerda que si no cumples con un turno</Text>
+                                                    {!readMore &&
+                                                        <TouchableOpacity onPress={() => setReadMore(true)}>
+                                                            <Text style={style.mediumBlue}>...mas</Text>
+                                                        </TouchableOpacity>}
+                                                </View>
+                                                {readMore &&
+                                                    <Text style={style.mediumHome}> no se te devolverán los creditos que usaste para guardarlo.
+                                                        Procura no quedarte sin creditos, cumple con tu compromiso y podrás seguir guardando turnos, en caso contrario
+                                                        deverás solicitar creditos a Florencia y ella pactará la forma de intercambio de dichos creditos.
+                                                        <TouchableOpacity onPress={() => setReadMore(false)}>
+                                                            <Text style={style.mediumBlue}>menos</Text>
+                                                        </TouchableOpacity>
+                                                    </Text>
+                                                }
+                                            </View> :
+                                            <View>
+                                                <Text style={style.mediumText}>Tu identidad aún no ha sido verificada</Text>
+                                                <Text style={style.mediumMsj2}>Una vez que Flor Hasrun verifique tu identidad, recibirás 4 creditos, con los que podrás guardar turnos</Text>
+                                            </View>
                                         }
-                                    </View> :
-                                    <View>
-                                        <Text style={style.mediumText}>Tu identidad aún no ha sido verificada</Text>
-                                        <Text style={style.mediumMsj2}>Una vez que Flor Hasrun verifique tu identidad, recibirás 4 creditos, con los que podrás guardar turnos</Text>
                                     </View>
                                 }
                             </View>

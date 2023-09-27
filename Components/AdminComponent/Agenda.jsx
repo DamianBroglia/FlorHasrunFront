@@ -159,66 +159,74 @@ const Agenda = () => {
                                     <Text style={style.titleDateTurn2}>{selecDate}</Text>
                                 </View>
                             </View>
-                            <View style={style.cardModalUserTurns}>
-                                <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10, width: 310, marginTop: 12 }}>
 
-                                    <View style={{ alignItems: "center" }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittleLimit}>${collectedDay}</Text>
-                                        </View>
-                                        <Text style={style.littleMediumMsj}>Ganancia</Text>
-                                        <Text style={style.littleMediumMsj}>del día</Text>
-                                    </View>
-
-                                    <View style={{ alignItems: "center" }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittleLimit2}>{workedHours}</Text>
-                                        </View>
-                                        <Text style={style.littleMediumMsj}>Horas</Text>
-                                        <Text style={style.littleMediumMsj}>trabajadas</Text>
-                                    </View>
-
-                                    <View style={{ alignItems: "center" }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittleLimit}>${Math.round(collectedDay / workedHours)}</Text>
-                                        </View>
-                                        <Text style={style.littleMediumMsj}>Promedio</Text>
-                                        <Text style={style.littleMediumMsj}>por hora</Text>
-                                    </View>
-
+                            {turnsOfTheDay.length && turnsOfTheDay[0].product.name === "Dia Bloqueado" ?
+                                <View style={style.cardModalUserTurns}>
+                                    <Image style={style.imageIcons} source={require("../../assets/Candado.png")} />
+                                    <Text style={style.titleBig}>Dia Bloqueado!</Text>
+                                    <Text style={style.text}>Has bloqueado este día para que ningun cliente pueda guardar un turno</Text>
                                 </View>
-                                <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10, width: 310 }}>
+                                :
+                                <View style={style.cardModalUserTurns}>
+                                    <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10, width: 310, marginTop: 12 }}>
 
-                                    <View style={{ alignItems: "center" }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittleLimit}>${loseForFaild}</Text>
+                                        <View style={{ alignItems: "center" }}>
+                                            <View style={style.propertyUserSmall}>
+                                                <Text style={style.propertyTextLittleLimit}>${collectedDay}</Text>
+                                            </View>
+                                            <Text style={style.littleMediumMsj}>Ganancia</Text>
+                                            <Text style={style.littleMediumMsj}>del día</Text>
                                         </View>
-                                        <Text style={style.littleMediumMsj}>Perdida</Text>
-                                        <Text style={style.littleMediumMsj}>por falta</Text>
+
+                                        <View style={{ alignItems: "center" }}>
+                                            <View style={style.propertyUserSmall}>
+                                                <Text style={style.propertyTextLittleLimit2}>{workedHours}</Text>
+                                            </View>
+                                            <Text style={style.littleMediumMsj}>Horas</Text>
+                                            <Text style={style.littleMediumMsj}>trabajadas</Text>
+                                        </View>
+
+                                        <View style={{ alignItems: "center" }}>
+                                            <View style={style.propertyUserSmall}>
+                                                <Text style={style.propertyTextLittleLimit}>${Math.round(collectedDay / workedHours)}</Text>
+                                            </View>
+                                            <Text style={style.littleMediumMsj}>Promedio</Text>
+                                            <Text style={style.littleMediumMsj}>por hora</Text>
+                                        </View>
+
                                     </View>
+                                    <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10, width: 310 }}>
 
-                                    <View style={{ alignItems: "center" }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittleLimit2}>{cancelTurn}</Text>
+                                        <View style={{ alignItems: "center" }}>
+                                            <View style={style.propertyUserSmall}>
+                                                <Text style={style.propertyTextLittleLimit}>${loseForFaild}</Text>
+                                            </View>
+                                            <Text style={style.littleMediumMsj}>Perdida</Text>
+                                            <Text style={style.littleMediumMsj}>por falta</Text>
                                         </View>
-                                        <Text style={style.littleMediumMsj}>Turnos</Text>
-                                        <Text style={style.littleMediumMsj}>cancelados</Text>
-                                    </View>
 
-                                    <View style={{ alignItems: "center" }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittleLimit}>${futureCollect}</Text>
+                                        <View style={{ alignItems: "center" }}>
+                                            <View style={style.propertyUserSmall}>
+                                                <Text style={style.propertyTextLittleLimit2}>{cancelTurn}</Text>
+                                            </View>
+                                            <Text style={style.littleMediumMsj}>Turnos</Text>
+                                            <Text style={style.littleMediumMsj}>cancelados</Text>
                                         </View>
-                                        <Text style={style.littleMediumMsj}>Ganancia</Text>
-                                        <Text style={style.littleMediumMsj}>Futura</Text>
+
+                                        <View style={{ alignItems: "center" }}>
+                                            <View style={style.propertyUserSmall}>
+                                                <Text style={style.propertyTextLittleLimit}>${futureCollect}</Text>
+                                            </View>
+                                            <Text style={style.littleMediumMsj}>Ganancia</Text>
+                                            <Text style={style.littleMediumMsj}>Futura</Text>
+                                        </View>
                                     </View>
                                 </View>
-                            </View>
+                            }
                         </View>
                     }
-
                     renderItem={({ item }) =>
-                        item.state !== "cancelByUser" && item.state !== "cancelByAdmin" &&
+                        item.state !== "cancelByUser" && item.state !== "cancelByAdmin" && item.product.name !== "Dia Bloqueado" &&
                         <View style={style.cardAgenda}>
                             <Text style={style.mediumText}>{item.hourInit} | {item.product.name}</Text>
                             <Text style={style.titleTurnUser2}>{item.user.name} {item.user.lastname}</Text>
@@ -260,7 +268,7 @@ const Agenda = () => {
                                         </View>
                                     </View>
                                 }
-                                {item.state === "toTake" &&
+                                {item.state === "toTake" && item.product.name !== "Turno Bloqueado" &&
                                     <View style={{ flexDirection: "row" }}>
                                         <View style={{ alignItems: "center", marginRight: 8 }}>
                                             <TouchableOpacity onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "takedIt", item.price, item.product.duration, item.user.vip)}>

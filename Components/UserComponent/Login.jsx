@@ -15,7 +15,7 @@ function Login() {
     const [userLastname, setUserLastname] = useState("")
     const [userPassword, setUserPassword] = useState("")
     const [isAlert, setIsAlert] = useState(false)
-    const [isWelcome, setIsWelcome] = useState(false)
+    // const [isWelcome, setIsWelcome] = useState(false)
     const [msjError, setMsjError] = useState("")
     const [disguisePassword, setDisguisePassword] = useState(true)
 
@@ -27,7 +27,7 @@ function Login() {
 
             if (user.data) {
                 dispatch(getUserByIdAction(user.data.id))
-                setIsWelcome(true)
+                // setIsWelcome(true)
                 setUserName("")
                 setUserLastname("")
                 setUserPassword("")
@@ -102,13 +102,13 @@ function Login() {
                     message={msjError}
                 />
 
-                <ModalAlert
+                {/* <ModalAlert
                     isVisible={isWelcome}
                     onClose={() => hideAlert()}
                     title="Hola!"
                     message="Bienvenid@ nuevamente"
                     type="ok"
-                />
+                /> */}
 
             </View>
         </View>

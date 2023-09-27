@@ -203,7 +203,7 @@ const MyTurns = () => {
                                     </View>
                                 }
                                 {item.state === "cancelByAdmin" &&
-                                    <View style={{ marginLeft: 100, alignItems: "center" }}>
+                                    <View style={{ marginLeft: 85, alignItems: "center" }}>
                                         <Image style={style.imageUserList} source={require("../../assets/Candado.png")} />
                                         <Text style={style.littleMsj}>Cancel por admin</Text>
                                     </View>
