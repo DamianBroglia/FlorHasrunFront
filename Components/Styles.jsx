@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const buttonBase={
+const buttonBase = {
     borderRadius: 10,
     paddingVertical: 9,
     paddingHorizontal: 15,
@@ -162,6 +162,12 @@ export const style = StyleSheet.create({
         ...buttons,
         width: 114,
         paddingHorizontal: 2
+    },
+    buttonFilterTurnSelect: {
+        ...buttonsNoSelect,
+        width: 114,
+        paddingHorizontal: 2,
+        marginVertical: 5
     },
     buttonStadistic: {
         ...buttons,
@@ -383,7 +389,7 @@ export const style = StyleSheet.create({
     propertyText: {
         ...propertyTextBase,
         fontSize: 28,
-        width: 60,
+        width: 70,
         textAlign: "center"
     },
     propertyTextLong: {
@@ -450,13 +456,13 @@ export const style = StyleSheet.create({
         ...medium,
         textAlign: "center"
     },
-    mediumHome:{
+    mediumHome: {
         ...msj,
         ...medium,
         marginBottom: 0,
         textAlign: "center"
     },
-    mediumBlue:{
+    mediumBlue: {
         ...msj,
         ...medium,
         color: "rgb(80,80,240)",

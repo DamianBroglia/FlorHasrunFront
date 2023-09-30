@@ -188,7 +188,11 @@ const Agenda = () => {
 
                                         <View style={{ alignItems: "center" }}>
                                             <View style={style.propertyUserSmall}>
-                                                <Text style={style.propertyTextLittleLimit}>${Math.round(collectedDay / workedHours)}</Text>
+                                                {collectedDay > 0 ?
+                                                    <Text style={style.propertyTextLittleLimit}>${Math.round(collectedDay / workedHours)}</Text>
+                                                    :
+                                                    <Text style={style.propertyTextLittleLimit}>$0</Text>
+                                                }
                                             </View>
                                             <Text style={style.littleMediumMsj}>Promedio</Text>
                                             <Text style={style.littleMediumMsj}>por hora</Text>

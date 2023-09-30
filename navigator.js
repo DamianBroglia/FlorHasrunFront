@@ -42,10 +42,10 @@ export default function Navigation() {
                 }}>
                 <Drawer.Screen name="Home" component={Home} />
                 <Drawer.Screen name="Servicios" component={Products} />
-                <Drawer.Screen name="Turnos" component={Turnos} />
-                {!user.id && <Drawer.Screen name="Entrar" component={Login} />}
+                {!user.id ? <Drawer.Screen name="Entrar" component={Login} /> : <Drawer.Screen name="Turnos" component={Turnos} />}
                 {!user.id && <Drawer.Screen name="Registrarse" component={Register} />}
-                {user.name === "Flor" && user.lastname === "Hasrun" ? <Drawer.Screen name="Administrador" component={Admin} /> : <Drawer.Screen name="Usuario" component={UserNavigator} />}
+                {user.id && user.name !== "Flor" && user.lastname !== "Hasrun" && <Drawer.Screen name="Usuario" component={UserNavigator} />}
+                {user.name === "Flor" && user.lastname === "Hasrun" && <Drawer.Screen name="Administrador" component={Admin} />}
             </Drawer.Navigator>
         </NavigationContainer>
     );

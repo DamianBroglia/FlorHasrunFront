@@ -103,13 +103,14 @@ export const getStadistic = async (dateInit, dateFinish) => {
                 console.log(error);
             }
         }
+
         for (let i = 0; i < totalService.length; i++) {
             for (let j = i + 1; j < totalService.length; j++) {
                 if (totalService[i].name === totalService[j].name) {
-                    totalService[j].collected = totalService[j].collected + totalService[i].collected
-                    totalService[j].count = totalService[j].count + totalService[i].count
-                    totalService[j].failed = totalService[j].failed + totalService[i].failed
-                    totalService.splice(i, 1)
+                    totalService[i].collected = totalService[j].collected + totalService[i].collected
+                    totalService[i].count = totalService[j].count + totalService[i].count
+                    totalService[i].failed = totalService[j].failed + totalService[i].failed
+                    totalService.splice(j, 1)
                     j = j - 1
                 }
             }

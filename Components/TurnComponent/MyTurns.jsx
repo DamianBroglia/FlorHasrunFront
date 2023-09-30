@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text,  View, TouchableOpacity, FlatList,  Image } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { style } from '../Styles';
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
@@ -24,7 +24,7 @@ const MyTurns = () => {
     const [viewModalAlert, setViewModalAlert] = useState(false)
     const [dataToCancel, setDataToCancel] = useState({})
     const [viewCancelTurn, setViewCancelTurn] = useState(false)
-    const [viewFilter, setViewFilter] = useState(false)
+    const [buttonSelect, setButtonSelect] = useState("Future")
     const dispatch = useDispatch()
     const date = new Date()
     const today = moment(date)
@@ -61,16 +61,7 @@ const MyTurns = () => {
     const hideAlert = () => {
         setViewModal(false);
         setViewModalAlert(false)
-        setViewFilter(false)
     };
-
-    const showFilter = () => {
-        if (viewFilter) {
-            setViewFilter(false)
-        } else {
-            setViewFilter(true)
-        }
-    }
 
     const cancelTurnAnyWay = async () => {
         try {
@@ -93,7 +84,7 @@ const MyTurns = () => {
             setViewTurns([...myTurn])
         } else {
             if (type === "Cancel") {
-                let cancel = myTurn.filter((e) => e.state === "cancelByUser" || e.state === "cancelByAmin")
+                let cancel = myTurn.filter((e) => e.state === "cancelByUser" || e.state === "cancelByAdmin")
                 setViewTurns(cancel)
             }
             if (type === "Pasado") {
@@ -113,11 +104,13 @@ const MyTurns = () => {
                 setViewTurns(fail)
             }
         }
-
+        setButtonSelect(type)
     }
 
     useEffect(() => {
-        setViewTurns(myTurn)
+        const futureTurns = myTurn.filter(e => e.state === "toTake")
+        setViewTurns(futureTurns)
+        setButtonSelect("Future")
     }, [myTurn])
 
     return (
@@ -126,37 +119,67 @@ const MyTurns = () => {
                 data={viewTurns}
                 ListHeaderComponent={
                     <View>
-                        <TouchableOpacity style={style.buttonFilterTurn} onPress={showFilter}>
-                            <Text style={style.buttonText}> Filtrar </Text>
-                        </TouchableOpacity>
-                        {viewFilter &&
-                            <View style={{ flexDirection: "row" }}>
-                                <View>
+                        <View style={{ flexDirection: "row" }}>
+                            <View>
+                                {buttonSelect === "Todos" ?
+                                    <View style={style.buttonFilterTurnSelect}>
+                                        <Text style={style.buttonText}> Todos </Text>
+                                    </View>
+                                    :
                                     <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Todos")}>
                                         <Text style={style.buttonText}> Todos </Text>
                                     </TouchableOpacity>
+                                }
+                                {buttonSelect === "Cancel" ?
+                                    <View style={style.buttonFilterTurnSelect}>
+                                        <Text style={style.buttonText}> Cancelados </Text>
+                                    </View> :
                                     <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Cancel")}>
                                         <Text style={style.buttonText}> Cancelados </Text>
                                     </TouchableOpacity>
-                                </View>
-                                <View>
+                                }
+
+                            </View>
+                            <View>
+                                {buttonSelect === "Future" ?
+                                    <View style={style.buttonFilterTurnSelect}>
+                                        <Text style={style.buttonText}> Futuros </Text>
+                                    </View> :
                                     <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Future")}>
                                         <Text style={style.buttonText}> Futuros </Text>
                                     </TouchableOpacity>
+                                }
+                                {buttonSelect === "Pasado" ?
+                                    <View style={style.buttonFilterTurnSelect}>
+                                        <Text style={style.buttonText}> Pasados </Text>
+                                    </View> :
                                     <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Pasado")}>
-                                        <Text style={style.buttonText}> pasados </Text>
+                                        <Text style={style.buttonText}> Pasados </Text>
                                     </TouchableOpacity>
-                                </View>
-                                <View>
+                                }
+
+                            </View>
+                            <View>
+                                {buttonSelect === "Cumplidos" ?
+                                    <View style={style.buttonFilterTurnSelect}>
+                                        <Text style={style.buttonText}> Cumplidos </Text>
+                                    </View> :
                                     <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Cumplidos")}>
                                         <Text style={style.buttonText}> Cumplidos </Text>
                                     </TouchableOpacity>
+                                }
+                                {buttonSelect === "Fallados" ?
+                                    <View style={style.buttonFilterTurnSelect}>
+                                        <Text style={style.buttonText}> Fallados </Text>
+                                    </View> :
                                     <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Fallados")}>
                                         <Text style={style.buttonText}> Fallados </Text>
                                     </TouchableOpacity>
-                                </View>
+                                }
+
                             </View>
-                        }
+                        </View>
+
                     </View>
                 }
                 renderItem={({ item }) =>
@@ -215,7 +238,7 @@ const MyTurns = () => {
 
                         {
                             viewCancelTurn === item.id &&
-                            <View>
+                            <View style={{alignItems:"center", alignSelf:"center"}}>
                                 <Text style={style.textInfo}>Seguro que desea cancelar el turno?</Text>
                                 <View style={{ flexDirection: "row" }}>
                                     <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(null)}>

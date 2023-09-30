@@ -299,7 +299,7 @@ const CalendarScreen = ({ navigation }) => {
         dispatch(getTurnByDayAction(selectedDate))
       }
     } catch (error) {
-      console.log();
+      console.log(error);
     }
 
   }

@@ -641,7 +641,7 @@ const UsersList = ({ navigation }) => {
 
                                 <Text style={style.titleTurnUser}>Asistencia_______________________</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 20 }}>
-                                    <Text style={style.propertyText}> {item.infoUser.averageAssists}%</Text>
+                                    <Text style={style.propertyText}>{item.infoUser.averageAssists}%</Text>
                                 </View>
                             </View>
                         }
