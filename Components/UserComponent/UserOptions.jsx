@@ -72,9 +72,9 @@ const UserOptions = () => {
             </View>
             <View style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}>
                 <View style={{ alignItems: "flex-start", width: 170 }}>
-                    <Text style={style.textInfo}>Una hora antes</Text>
-                    <Text style={style.msjNotification}>Recibir un mensaje una</Text>
-                    <Text style={style.msjNotification}>hora antes del turno</Text>
+                    <Text style={style.textInfo}>Mismo día</Text>
+                    <Text style={style.msjNotification}>Recibir un mensaje el</Text>
+                    <Text style={style.msjNotification}>día del turno</Text>
                     {userNotification.spamHour ? <Text style={style.textgreen}>✔Activado</Text> : <Text style={style.textRed}>Desactivado</Text>}
                 </View>
                 {userNotification.spamHour ?

@@ -24,6 +24,7 @@ const MyTurns = () => {
     const [viewModalAlert, setViewModalAlert] = useState(false)
     const [dataToCancel, setDataToCancel] = useState({})
     const [viewCancelTurn, setViewCancelTurn] = useState(false)
+    const [viewNoCancelTurn, setViewNoCancelTurn] = useState(false)
     const [buttonSelect, setButtonSelect] = useState("Future")
     const dispatch = useDispatch()
     const date = new Date()
@@ -33,6 +34,10 @@ const MyTurns = () => {
     const cancelTurn = async (turnId, dateInit, cancelAnyWay) => {
         let init = moment(dateInit, 'dddd D [de] MMMM [de] YYYY')
         try {
+            if(init.isBefore(today)){
+                setViewNoCancelTurn(true)
+                return
+            }
             if (init.isAfter(tomarrow) || cancelAnyWay || user.vip) {
                 const canceledTurn = await axios.put(`${API_URL}turns`, { turnId, state: "cancelByUser" })
                 if (canceledTurn.data) {
@@ -61,6 +66,7 @@ const MyTurns = () => {
     const hideAlert = () => {
         setViewModal(false);
         setViewModalAlert(false)
+        setViewNoCancelTurn(false)
     };
 
     const cancelTurnAnyWay = async () => {
@@ -267,6 +273,12 @@ const MyTurns = () => {
                 title="Cancelado!"
                 message="Se ha cancelado el turno con exito!"
                 type="ok"
+            />
+            <ModalAlert
+                isVisible={viewNoCancelTurn}
+                onClose={() => hideAlert()}
+                title="No se puede cancelar!"
+                message="No se puede cancelar el mismo día del turno!"
             />
         </View>
     );

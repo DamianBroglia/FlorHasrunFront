@@ -23,6 +23,8 @@ const CalendarScreen = ({ navigation }) => {
   const allUsers = useSelector((state) => state.users.allUsers)
   const service = useSelector((state) => state.services.detail)
   const turnsDay = useSelector((state) => state.turns.viewTurns)
+  const date = new Date()
+  const today = moment(date)
   const [selectedDate, setSelectedDate] = useState(null);
   const [freeTurns, setFreeTurs] = useState([])
   const [newTurn, setNewTurn] = useState({
@@ -210,6 +212,9 @@ const CalendarScreen = ({ navigation }) => {
     if (moment(day.dateString).format("dddd") === "domingo" || moment(day.dateString).format("dddd") === "lunes") {
       return
     }
+    if (moment(day.dateString).isBefore(today)) {
+      return
+    }
     setDateNotFormta(moment(day.dateString))
     const fechaFormateada = moment(day.dateString).format('DD-MM-YYYY')
     setDateFormat(fechaFormateada)
@@ -221,6 +226,9 @@ const CalendarScreen = ({ navigation }) => {
   };
 
   const getOneDayBefore = () => {
+    if (dateNotFormat.isBefore(today)) {
+      return
+    }
     if (dateNotFormat.format("dddd") === "martes") {
       const restDays = dateNotFormat.subtract(3, "days")
       setSelectedDate(restDays.format('dddd D [de] MMMM [de] YYYY'))
