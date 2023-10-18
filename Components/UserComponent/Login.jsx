@@ -41,7 +41,7 @@ function Login() {
 
     const hideAlert = () => {
         setIsAlert(false);
-        setIsWelcome(false)
+        // setIsWelcome(false)
     };
 
 

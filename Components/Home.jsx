@@ -70,7 +70,7 @@ const Home = ({ navigation }) => {
     }
 
     const openInstagram = () => {
-        const username = 'florhasrun_estetica_integral';
+        const username = 'florhasrun_estetica_bienestar';
         Linking.openURL(`instagram://user?username=${username}`)
             .catch(() => {
                 Linking.openURL(`https://www.instagram.com/${username}`);
