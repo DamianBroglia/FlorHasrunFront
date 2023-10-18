@@ -1,4 +1,4 @@
-![01- Home Sin reg](https://github.com/DamianBroglia/FlorHasrunFront/assets/109920148/2f678968-c5e1-4e05-b121-94773571161d)<img src="assets/LogoFlor.png" alt="" width="1000px" />
+<img src="assets/LogoFlor.png" alt="" width="500px" />
 
 # Flor Hasrun Estética y Bienestar App
 
