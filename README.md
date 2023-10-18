@@ -59,7 +59,7 @@ Administrador:
 
 ## **Capturas de la app**
 
-<img src="assets/01- Home Sin reg.jpg" alt="" width="300px" /> <img src="assets/03- About Flor.jpg" alt="" width="300px" /> <img src="assets/04- Reg.jpg" alt="" width="300px" />
+<img src="assets/01- Home Sin reg.jpg" alt="" width="250px" /> <img src="assets/03- About Flor.jpg" alt="" width="250px" /> <img src="assets/04- Reg.jpg" alt="" width="250px" />
 <img src="assets/06- Catalogo.jpg" alt="" width="1000px" />
 <img src="assets/07- detalle.jpg" alt="" width="1000px" />
 <img src="assets/08- Usuario.jpg" alt="" width="1000px" />
