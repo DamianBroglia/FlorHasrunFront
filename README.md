@@ -59,9 +59,9 @@ Administrador:
 
 ## **Capturas de la app**
 
-<img src="assets/01- Home Sin reg.jpg" alt="" width="300px" /> <img src="assets/03- About Flor.jpg" alt="" width="300px" /> <img src="assets/04 - Reg.jpg" alt="" width="300px" />
-<img src="assets/06- Catalogo.jpg" alt="" width="300px" /> <img src="assets/07- detalle.jpg" alt="" width="300px" /> <img src="assets/08- Usuario.jpg" alt="" width="300px" />
-<img src="assets/11 - My Turn.jpg" alt="" width="300px" /> <img src="assets/12- Guardar Turno.jpg" alt="" width="300px" /> <img src="assets/13 - Guardar Turno.jpg" alt="" width="300px" />
-<img src="assets/14 - List User.jpg" alt="" width="300px" /> <img src="assets/15- List User.jpg" alt="" width="300px" /> <img src="assets/16 - View User.jpg" alt="" width="300px" />
-<img src="assets/17- Agenda.jpg" alt="" width="300px" /> <img src="assets/18- Estadisticas.jpg" alt="" width="300px" /> <img src="assets/19 - Ganancias.jpg" alt="" width="300px" />
-<img src="assets/20 - Estadisticas Turnos.jpg" alt="" width="300px" /> <img src="assets/21 - Estadisticas Serv.jpg" alt="" width="300px" /> <img src="assets/23 - Form Serv.jpg" alt="" width="300px" />
+<img src="assets/01- Home Sin reg.jpg" alt="" width="250px" /> <img src="assets/03- About Flor.jpg" alt="" width="250px" /> <img src="assets/04 - Reg.jpg" alt="" width="250px" />
+<img src="assets/06- Catalogo.jpg" alt="" width="250px" /> <img src="assets/07- detalle.jpg" alt="" width="250px" /> <img src="assets/08- Usuario.jpg" alt="" width="250px" />
+<img src="assets/11 - My Turn.jpg" alt="" width="250px" /> <img src="assets/12- Guardar Turno.jpg" alt="" width="250px" /> <img src="assets/13 - Guardar Turno.jpg" alt="" width="250px" />
+<img src="assets/14 - List User.jpg" alt="" width="250px" /> <img src="assets/15- List User.jpg" alt="" width="250px" /> <img src="assets/16 - View User.jpg" alt="" width="250px" />
+<img src="assets/17- Agenda.jpg" alt="" width="250px" /> <img src="assets/18- Estadisticas.jpg" alt="" width="250px" /> <img src="assets/19 - Ganancias.jpg" alt="" width="250px" />
+<img src="assets/20 - Estadisticas Turnos.jpg" alt="" width="250px" /> <img src="assets/21 - Estadisticas Serv.jpg" alt="" width="250px" /> <img src="assets/23 - Form Serv.jpg" alt="" width="250px" />
