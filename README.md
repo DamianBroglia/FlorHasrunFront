@@ -5,12 +5,12 @@
 ## **Descripción**
 
 App desarrollada en React Native para un salón de estética. Funciona como turnero para los usuarios de la app y como agenda, 
-estadista y catalogo para el administrador. La app funciona con u sistema de creditos, el usuario, una vez verificado por el 
+estadista y catalogo para el administrador. La app funciona con un sistema de creditos, el usuario, una vez verificado por el 
 administrador, recibe 4 creditos, al guardar un turno se le retienen 2 creditos, si el usuario cumple con el turno se le 
-devuelven, en caso contrario no se le devuelven. Si el usuario cancela dicho turno 24 hs antes del inicio del turno, se le 
-devolverán los 2 creditos, si cancela cuando faltan menos de 24 hs para el turno solo se le devolverá 1 turno. En caso de que 
-el usuario se quede sin creditos y no tenga turnos para el futuro, podrá solicitar hasta 4 creditos, en cuyo caso el administrador 
-evaluará si otorga los creditos y la forma de cambio de los mismos (Ej: Cobrando por los creditos si el administrador entiende que 
+devuelven, en caso de no cumplir con el turno no se le devolverán los creditos. Si el usuario cancela dicho turno 24 hs antes del inicio del turno, se le 
+devolverán los 2 creditos, si cancela cuando faltan menos de 24 hs para el turno solo se le devolverá 1 credito. En caso de que 
+el usuario se quede sin creditos (o solo le quede 1 credito) y no tenga turnos guardados para el futuro, podrá solicitar hasta 4 creditos (3, si ya cuenta con 1 credito), 
+en cuyo caso el administrador evaluará si otorga los creditos y la forma de cambio de los mismos (Ej: Cobrando por los creditos si el administrador entiende que 
 los fallos a los turnos guardados no están debidamente justificados)
 
 <br />
