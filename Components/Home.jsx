@@ -121,6 +121,24 @@ const Home = ({ navigation }) => {
                                 <Text style={style.buttonText}> Sobre Florencia </Text>
                             </TouchableOpacity>
                         </View>
+                        {user.id &&
+                            <View style={{ flexDirection: "row" }}>
+                                <TouchableOpacity style={style.buttonHome} onPress={() => { navigation.navigate("Turnos") }}>
+                                    <Text style={style.buttonText}> Turnos </Text>
+                                </TouchableOpacity>
+                                {user.name !== "Flor" && user.lastname !== "Hasrun" ?
+                                    <TouchableOpacity style={style.buttonHome} onPress={() => { navigation.navigate("Usuario") }}>
+                                        <Text style={style.buttonText}> Usuario </Text>
+                                    </TouchableOpacity>
+                                    :
+                                    <TouchableOpacity style={style.buttonHome} onPress={() => { navigation.navigate("Administrador") }}>
+                                        <Text style={style.buttonText}> Administrar </Text>
+                                    </TouchableOpacity>
+                                }
+
+                            </View>
+                        }
+
 
                         <View style={{ flexDirection: "row" }}>
                             <TouchableOpacity style={style.buttonInstagram} onPress={() => openInstagram()}>

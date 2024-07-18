@@ -8,7 +8,7 @@ import axios from "axios"
 import { ModalAlert } from '../ModalAlert';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
-const API_URL = Constants.manifest.extra.API_URL;
+const API_URL = Constants.expoConfig.extra.API_URL;
 
 const UserOptions = () => {
  const dispatch = useDispatch()

@@ -9,7 +9,7 @@ import { ModalAlert } from '../ModalAlert';
 import { style } from '../Styles';
 const regexAllNumbers = /^[0-9]+$/;
 import Constants from 'expo-constants';
-const API_URL = Constants.manifest.extra.API_URL;
+const API_URL = Constants.expoConfig.extra.API_URL;
 
 const PutProduct = () => {
     const service = useSelector((state) => state.services.detail)
