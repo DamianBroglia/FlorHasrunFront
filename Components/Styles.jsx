@@ -220,10 +220,10 @@ export const style = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
-    buttonAlert: {
-        ...buttonsNoSelect,
-        backgroundColor: 'rgb(252, 181, 180)',
-    },
+    // buttonAlert: {
+    //     ...buttonsNoSelect,
+    //     backgroundColor: 'rgb(252, 181, 180)',
+    // },
 
     //_______________CARS_______________
 
@@ -344,7 +344,7 @@ export const style = StyleSheet.create({
     containerHomeVideo: {
         alignItems: "center",
         backgroundColor: "white",
-        height: 600
+        height: "100%"
     },
 
     //________________TEXT________________
@@ -456,12 +456,12 @@ export const style = StyleSheet.create({
         ...medium,
         textAlign: "center"
     },
-    mediumHome: {
-        ...msj,
-        ...medium,
-        marginBottom: 0,
-        textAlign: "center"
-    },
+    // mediumHome: {
+    //     ...msj,
+    //     ...medium,
+    //     marginBottom: 0,
+    //     textAlign: "center"
+    // },
     mediumBlue: {
         ...msj,
         ...medium,
@@ -469,11 +469,11 @@ export const style = StyleSheet.create({
         marginBottom: 0,
         textAlign: "center"
     },
-    mediumText: {
-        ...msj,
-        fontSize: 14,
-        textAlign: "center"
-    },
+    // mediumText: {
+    //     ...msj,
+    //     fontSize: 14,
+    //     textAlign: "center"
+    // },
     titleTurnUser: {
         fontSize: 20,
         color: 'rgb(202, 131, 130)',
@@ -650,12 +650,12 @@ export const style = StyleSheet.create({
         left: 220,
         top: -29
     },
-    backgroundImage: {
-        position: "absolute",
-        height: 595,
-        width: 360,
-        objectFit: "cover",
-    },
+    // backgroundImage: {
+    //     position: "absolute",
+    //     height: 595,
+    //     width: 360,
+    //     objectFit: "cover",
+    // },
     imageLupa: {
         height: 24,
         width: 23,
@@ -770,19 +770,134 @@ export const style = StyleSheet.create({
     video: {
         width: 300,
         height: 300,
+        backgroundColor: "red"
     },
-    imageHomeLogo: {
-        width: 227,
-        height: 119,
-        marginLeft: 1,
-        marginTop: 80,
-        marginBottom: 50,
-        alignSelf: "center"
-
-    },
+    // imageHomeLogo: {
+    //     width: 227,
+    //     height: 119,
+    //     marginLeft: 1,
+    //     marginTop: 80,
+    //     marginBottom: 50,
+    //     alignSelf: "center"
+    // },
     imageSocial: {
         width: 25,
         height: 25,
         marginRight: 10
+    },
+
+
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    /////////////////NUEVO//////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: "absolute",
+    },
+    imageHomeLogo: {
+        height: "22%",
+        aspectRatio: 1.91,
+        alignSelf: "center",
+        marginTop: "4%",
+        // marginVertical: "6%",
+        marginBottom: "6%"
+    },
+    containerButtonsHome: {
+        height: "68%",
+        justifyContent: "space-between",
+    },
+    newbuttonsHome: {
+        width: 180,
+        height: 42,
+        borderColor: "rgb(203,171,148)",
+        borderWidth: 2.5,
+        borderStyle: "solid",
+        borderRadius: 100,
+        alignSelf: "center",
+        // backgroundColor: "rgba(203,171,148, 0.2)",
+        backgroundColor: "rgb(47,44,54)",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    buttonAlert: {
+        width: 120,
+        height: 42,
+        borderColor: "rgb(203,171,148)",
+        borderWidth: 2.5,
+        borderStyle: "solid",
+        borderRadius: 100,
+        alignSelf: "center",
+        // backgroundColor: "rgba(203,171,148, 0.2)",
+        backgroundColor: "rgb(47,44,54)",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    newbuttonText: {
+        color: "rgb(203,171,148)",
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    msjToUser: {
+        backgroundColor: "rgb(47,44,54)",
+        alignSelf:"center",
+        marginTop:"45%",
+        height: "40%",
+        width: "94%",
+        // position: "absolute",
+        alignItems:"center",
+        borderColor:"rgb(203,171,148)",
+        borderWidth:2.5,
+        borderRadius:25,
+        justifyContent:"space-around",
+        paddingVertical:"3%"
+    },
+    titleWelcome:{
+        color: "rgb(203,171,148)",
+        fontSize: 22,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+        mediumText: {
+        fontSize: 14,
+        textAlign: "center",
+        color: "rgb(233,201,178)",
+    },
+    mediumHome: {
+        fontSize: 12,
+        textAlign: "center",
+        color: "rgb(243,211,188)",
+        textAlign: "center"
+    },
+    block:{
+        width:"100%",
+        height:"100%",
+        backgroundColor: "rgba(47,44,54,0.8)",
+        position:"absolute"
+    },
+    imageIcons: {
+        width:80,
+        height:80,
+        objectFit: "cover",
+
     },
 })

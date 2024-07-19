@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View, Image, Text, Linking } from 'react-native';
+import { TouchableOpacity, View, Image, Text, Linking, ImageBackground } from 'react-native';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllViewServi } from '../Redux/actions/serviceActions';
@@ -15,11 +15,14 @@ const Home = ({ navigation }) => {
 
     const dispatch = useDispatch()
     const user = useSelector((state) => state.users.user)
-    const [videoPlayed, setVideoPlayed] = useState(false)
+    // const [videoPlayed, setVideoPlayed] = useState(false)
+    const [videoPlayed, setVideoPlayed] = useState(true)
     const [seeMore, setSeeMore] = useState(false)
     const [notification, setNotification] = useState(null)
     const [notificationHours, setNotificationHours] = useState(null)
     const [readMore, setReadMore] = useState(false)
+    const [showMsj, setShowMsj] = useState(false)
+    const [showNotificaton, setShowNotification] = useState(false)
     const date = new Date()
     const dateSpanish = moment(date)
     const tomarrow = dateSpanish.add(1, "days").format('dddd D [de] MMMM [de] YYYY');
@@ -88,78 +91,101 @@ const Home = ({ navigation }) => {
     return (
 
         <View style={style.containerHomeVideo}>
-            <Video
-                source={require('../assets/VideoLogo2.mp4')}
-                rate={1.0}
-                volume={1.0}
-                isMuted={false}
-                resizeMode="cover"
-                shouldPlay
-                isLooping={false}
-                style={style.video}
-                onPlaybackStatusUpdate={handleVideoPlay}
-            />
-            {videoPlayed &&
-                <View style={{ marginTop: -310 }}>
+
+            {videoPlayed ?
+                <View style={{ height: "100%", width: "100%" }}>
+                    <ImageBackground style={style.backgroundImage} source={require("../assets/FondoGris.png")} />
                     <Image style={style.imageHomeLogo} source={require("../assets/LogoFlor.png")} />
-                    <View style={{ marginTop: -25 }}>
-                        {!user.id &&
-                            <View style={{ flexDirection: "row" }}>
-                                <TouchableOpacity style={style.buttonHome} onPress={() => { navigation.navigate("Entrar") }}>
-                                    <Text style={style.buttonText}> Entrar </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={style.buttonHome} onPress={() => { navigation.navigate("Registrarse") }}>
-                                    <Text style={style.buttonText}> Registrarse </Text>
-                                </TouchableOpacity>
-                            </View>
-                        }
-                        <View style={{ flexDirection: "row" }}>
-                            <TouchableOpacity style={style.buttonHome} onPress={() => { navigation.navigate("Servicios") }}>
-                                <Text style={style.buttonText}> Ver Servicios </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={style.buttonHome} onPress={() => setSeeMore(true)}>
-                                <Text style={style.buttonText}> Sobre Florencia </Text>
-                            </TouchableOpacity>
-                        </View>
+                    <View style={style.containerButtonsHome}>
+
                         {user.id &&
-                            <View style={{ flexDirection: "row" }}>
-                                <TouchableOpacity style={style.buttonHome} onPress={() => { navigation.navigate("Turnos") }}>
-                                    <Text style={style.buttonText}> Turnos </Text>
-                                </TouchableOpacity>
-                                {user.name !== "Flor" && user.lastname !== "Hasrun" ?
-                                    <TouchableOpacity style={style.buttonHome} onPress={() => { navigation.navigate("Usuario") }}>
-                                        <Text style={style.buttonText}> Usuario </Text>
+                            <TouchableOpacity style={style.newbuttonsHome} onPress={() => { setShowMsj(true) }}>
+                                <Text style={style.newbuttonText}>Hola {user.name}!</Text>
+                            </TouchableOpacity>
+                        }
+
+                        {!user.id &&
+                            <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Entrar") }}>
+                                <Text style={style.newbuttonText}> Entrar </Text>
+                            </TouchableOpacity>
+                        }
+
+                        {!user.id &&
+                            <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Registrarse") }}>
+                                <Text style={style.newbuttonText}> Registrarse </Text>
+                            </TouchableOpacity>
+                        }
+
+                        <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Servicios") }}>
+                            <Text style={style.newbuttonText}> Ver Servicios </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={style.newbuttonsHome} onPress={() => setSeeMore(true)}>
+                            <Text style={style.newbuttonText}> Sobre Florencia </Text>
+                        </TouchableOpacity>
+
+                        {user.id &&
+                            <View>
+                                {notification || notificationHours ?
+                                    <TouchableOpacity style={style.newbuttonsHome} onPress={() => { setShowNotification(true) }}>
+                                        <Text style={style.newbuttonText}> Turnos </Text>
                                     </TouchableOpacity>
                                     :
-                                    <TouchableOpacity style={style.buttonHome} onPress={() => { navigation.navigate("Administrador") }}>
-                                        <Text style={style.buttonText}> Administrar </Text>
+                                    <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Turnos") }}>
+                                        <Text style={style.newbuttonText}> Turnos </Text>
+                                    </TouchableOpacity>
+                                }
+                            </View>
+                        }
+
+                        {user.id &&
+                            <View>
+                                {user.name !== "Flor" && user.lastname !== "Hasrun" ?
+                                    <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Usuario") }}>
+                                        <Text style={style.newbuttonText}> Usuario </Text>
+                                    </TouchableOpacity>
+                                    :
+                                    <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Administrador") }}>
+                                        <Text style={style.newbuttonText}> Administrar </Text>
                                     </TouchableOpacity>
                                 }
 
                             </View>
                         }
 
+                        {/* <TouchableOpacity style={style.newbuttonsHome} onPress={() => openInstagram()}>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <Image style={style.imageSocial} source={require("../assets/InstagramLogo.png")} />
+                                <Text style={style.newbuttonText}>Instagram</Text>
+                            </View>
+                        </TouchableOpacity>
 
-                        <View style={{ flexDirection: "row" }}>
-                            <TouchableOpacity style={style.buttonInstagram} onPress={() => openInstagram()}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <Image style={style.imageSocial} source={require("../assets/InstagramLogo.png")} />
-                                    <Text style={style.buttonText}>Instagram</Text>
-                                </View>
+                        <TouchableOpacity style={style.newbuttonsHome} onPress={() => openWhatsApp()}>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                <Image style={style.imageSocial} source={require("../assets/whatsapp_logo.png")} />
+                                <Text style={style.newbuttonText}>Whatsapp</Text>
+                            </View>
+                        </TouchableOpacity> */}
+
+                        <TouchableOpacity style={style.newbuttonsHome} onPress={() => openInstagram()}>
+                            <Text style={style.newbuttonText}>Instagram</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={style.newbuttonsHome} onPress={() => openWhatsApp()}>
+                            <Text style={style.newbuttonText}>Whatsapp</Text>
+                        </TouchableOpacity>
+
+                        {/* {user.id &&
+                            <TouchableOpacity style={style.newbuttonsHome} onPress={() => { setShowNotification(true) }}>
+                                <Text style={style.newbuttonText}> Mensajes </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={style.buttonWhatsapp} onPress={() => openWhatsApp()}>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <Image style={style.imageSocial} source={require("../assets/whatsapp_logo.png")} />
-                                    <Text style={style.buttonText}>Whatsapp</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
+                        } */}
                     </View>
 
-                    <View style={{ alignItems: "center", width: 310, marginTop: 6 }}>
-                        {user.id &&
-                            <View style={{ alignItems: "center" }}>
-                                <Text style={style.titleDateTurn}>Hola {user.name}!</Text>
+                    {showMsj &&
+                        <View style={style.block}>
+                            <View style={style.msjToUser}>
+                                <Text style={style.titleWelcome}>Hola {user.name}!</Text>
                                 {user.name === "Flor" && user.lastname === "Hasrun" ?
                                     <View>
                                         <Text style={style.mediumText}>Bienvenida a tu app!</Text>
@@ -169,27 +195,15 @@ const Home = ({ navigation }) => {
                                         </Text>
                                     </View>
                                     :
-                                    <View>
+                                    <View style={{ width: "90%" }}>
                                         {user.verified ?
                                             <View>
                                                 <Text style={style.mediumText}>Ya puedes guardar tus turnos!</Text>
-                                                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                                                    <Text style={style.mediumHome}>Recuerda que si no cumples con un turno</Text>
-                                                    {!readMore &&
-                                                        <TouchableOpacity onPress={() => setReadMore(true)}>
-                                                            <Text style={style.mediumBlue}>...mas</Text>
-                                                        </TouchableOpacity>}
-                                                </View>
-                                                {readMore &&
-                                                    <Text style={style.mediumHome}> no se te devolverán los creditos que usaste para guardarlo.
-                                                        Procura no quedarte sin creditos, cumple con tu compromiso y podrás seguir guardando turnos, en caso contrario
-                                                        deverás solicitar creditos a Florencia y ella pactará la forma de intercambio de dichos creditos.
-                                                        <TouchableOpacity onPress={() => setReadMore(false)}>
-                                                            <Text style={style.mediumBlue}>menos</Text>
-                                                        </TouchableOpacity>
-                                                    </Text>
-                                                }
-                                            </View> :
+                                                <Text style={style.mediumHome}>Recuerda que si no cumples con un turno no se te devolverán los creditos que usaste para guardarlo.
+                                                    Procura no quedarte sin creditos, cumple con tu compromiso y podrás seguir guardando turnos, en caso contrario
+                                                    deverás solicitar creditos a Florencia y ella pactará la forma de intercambio de dichos creditos.</Text>
+                                            </View>
+                                            :
                                             <View>
                                                 <Text style={style.mediumText}>Tu identidad aún no ha sido verificada</Text>
                                                 <Text style={style.mediumMsj2}>Una vez que Flor Hasrun verifique tu identidad, recibirás 4 creditos, con los que podrás guardar turnos</Text>
@@ -197,26 +211,60 @@ const Home = ({ navigation }) => {
                                         }
                                     </View>
                                 }
-                            </View>
-                        }
-                        {notificationHours &&
-                            <View style={style.cardModalUserTurns3}>
-                                <Text style={style.mediumMsj}>Tienes un turno para hoy a las {notificationHours.hourInit} horas</Text>
-                                <TouchableOpacity style={style.buttonFino} onPress={() => navigation.navigate("Turnos")}>
-                                    <Text style={style.buttonText}>Ver Turno</Text>
+                                <TouchableOpacity style={style.newbuttonsHome} onPress={() => setShowMsj(false)}>
+                                    <Text style={style.newbuttonText}>Volver</Text>
                                 </TouchableOpacity>
                             </View>
-                        }
-                        {notification &&
-                            <View style={style.cardModalUserTurns3}>
-                                <Text style={style.mediumText}>Tienes un turno para mañana a las {notification.hourInit} horas</Text>
-                                <TouchableOpacity style={style.buttonFino} onPress={() => navigation.navigate("Turnos")}>
-                                    <Text style={style.buttonText}>Ver Turno</Text>
-                                </TouchableOpacity>
-                            </View>
-                        }
-                    </View>
+                        </View>
+                    }
+
+                    {showNotificaton &&
+                        <View style={style.block}>
+                            {notificationHours &&
+                                <View style={style.msjToUser}>
+                                    <Image style={style.imageIcons} source={require("../assets/WarningGolden.png")} />
+                                    <Text style={style.mediumMsj}>Tienes un turno para hoy a las {notificationHours.hourInit} horas</Text>
+                                    <View style={{ flexDirection: "row" }}>
+                                        <TouchableOpacity style={style.buttonAlert} onPress={() => navigation.navigate("Turnos")}>
+                                            <Text style={style.newbuttonText}>Ver Turno</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={style.buttonAlert} onPress={() => setShowNotification(false)}>
+                                            <Text style={style.newbuttonText}>Volver</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            }
+                            {notification &&
+                                <View style={style.msjToUser}>
+                                    <Image style={style.imageIcons} source={require("../assets/WarningGolden.png")} />
+                                    <Text style={style.mediumText}>Tienes un turno para mañana a las {notification.hourInit} horas</Text>
+                                    <View style={{ flexDirection: "row", width: "90%", justifyContent: "space-around" }}>
+                                        <TouchableOpacity style={style.buttonAlert} onPress={() => navigation.navigate("Turnos")}>
+                                            <Text style={style.newbuttonText}>Ver Turno</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={style.buttonAlert} onPress={() => setShowNotification(false)}>
+                                            <Text style={style.newbuttonText}>Volver</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            }
+                        </View>
+                    }
+
+
                 </View>
+                :
+                <Video
+                    source={require('../assets/VideoLogo2.mp4')}
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={false}
+                    resizeMode="cover"
+                    shouldPlay
+                    isLooping={false}
+                    style={style.video}
+                    onPlaybackStatusUpdate={handleVideoPlay}
+                />
             }
 
             <AboutFlorModal

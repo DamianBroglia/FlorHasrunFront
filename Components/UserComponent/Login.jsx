@@ -46,7 +46,7 @@ function Login() {
 
 
     return (
-        <View>
+        <View style={{height:"100%"}}>
             <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
             <View style={style.cardUsersRegis}>
                 <Image style={style.imageLogo} source={require("../../assets/LogoFlor.png")} />
