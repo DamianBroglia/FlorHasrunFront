@@ -309,20 +309,25 @@ const CalendarScreen = ({ navigation }) => {
     } catch (error) {
       console.log(error);
     }
+  }
 
+  const choiceDate = () => {
+    setSelecDate(true)
+    setSelectedDate(false)
   }
 
   return (
     <View style={{ flex: 1 }}>
-      <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
+      <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
 
       {selecDate ?
         <Calendar
           disableWeekends={true}
           onDayPress={handleDatePress}
+          style={{marginTop:30, marginHorizontal:20, borderRadius:8}}
         /> :
         <View style={{ alignItems: "center" }}>
-          <TouchableOpacity style={style.button} onPress={() => setSelecDate(true)}>
+          <TouchableOpacity style={style.button} onPress={() => choiceDate()}>
             <Text style={style.buttonText} >Elegir fecha</Text>
           </TouchableOpacity>
         </View>
@@ -463,8 +468,8 @@ const CalendarScreen = ({ navigation }) => {
           }
         </View>
         :
-        <View style={{ marginTop: 40, marginHorizontal: 100 }}>
-          <Text style={{ fontSize: 18, textAlign: "center" }}>Elija una fecha para ver los turnos disponibles</Text>
+        <View style={{ marginTop: 40, width:190, alignSelf:"center" }}>
+          <Text style={style.titleWelcome}>Elija una fecha para ver los turnos disponibles</Text>
         </View>
       }
       <ModalAlert

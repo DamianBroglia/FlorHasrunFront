@@ -29,23 +29,24 @@ const Catalogo = ({ navigation }) => {
 
     return (
 
-        <View >
-            <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
+        <View style={{ alignItems: "center", width: "100%", height: "100%" }} >
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
 
 
             {services.length ?
                 <FlatList
                     data={services}
+                    style={style.flatCatalogo}
                     ListHeaderComponent={
                         <View style={{ alignItems: "center" }}>
                             {
                                 user.name === "Flor" && user.lastname === "Hasrun" ?
-                                    <View style={{ flexDirection: "row" }}>
-                                        <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Crear Servicio")}>
-                                            <Text style={style.buttonText}> Crear Servicio</Text>
+                                    <View style={{ flexDirection: "row", marginTop: 10, justifyContent: "space-around", width: "94%" }}>
+                                        <TouchableOpacity style={style.buttonMedium} onPress={() => navigation.navigate("Crear Servicio")}>
+                                            <Text style={style.newbuttonText}> Crear Servicio</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={style.button} onPress={seeAllService}>
-                                            <Text style={style.buttonText}> Ver todos los Servicios</Text>
+                                        <TouchableOpacity style={style.buttonMedium} onPress={seeAllService}>
+                                            <Text style={style.newbuttonText}> Ver todos </Text>
                                         </TouchableOpacity>
                                     </View>
                                     :
@@ -56,28 +57,30 @@ const Catalogo = ({ navigation }) => {
                     renderItem={({ item }) =>
                         item.name !== "Turno Bloqueado" && item.name !== "Dia Bloqueado" &&
                         <View style={style.cardService}>
-                            <Text style={style.titleServ}> {item.name} </Text>
-                            <View style={{ flexDirection: "row" }}>
+                            <Text style={style.titleWelcome}> {item.name} </Text>
+                            <View style={style.imageContainerServ}>
                                 <Image style={style.imageServ} source={{ uri: item.image[0] }} />
-                                <View>
+                                <View style={{ width: "34%", alignItems: "flex-end", justifyContent: "space-between" }}>
                                     <Image style={style.imageServ2} source={{ uri: item.image[1] }} />
                                     <Image style={style.imageServ2} source={{ uri: item.image[2] }} />
                                 </View>
                             </View>
-                            <Text style={style.textPutSer}> {item.minimalDescription} </Text>
+                            <Text style={{ ...style.bigText, marginBottom: 10 }}> {item.minimalDescription} </Text>
                             {viewMore === item.id ?
-                                <View>
-                                    <Text style={style.textPutSer}> {item.description} </Text>
-                                    <Text style={style.textPutSer}> ${item.price} </Text>
-                                    <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Detalle")}>
-                                        <Text style={style.buttonText}> Ir al detalle </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={style.button} onPress={() => setViewMore(null)}>
-                                        <Text style={style.buttonText}> Ver menos </Text>
-                                    </TouchableOpacity>
+                                <View style={{width:"100%", alignItems:"center"}}>
+                                    <Text style={style.mediumText}> {item.description} </Text>
+                                    <Text style={{ ...style.bigText, marginVertical: 8 }}> ${item.price} </Text>
+                                    <View style={{flexDirection:"row", width:"98%", justifyContent:"space-around"}}>
+                                        <TouchableOpacity style={style.buttonAlert} onPress={() => setViewMore(null)}>
+                                            <Text style={style.newbuttonText}> Ver menos </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={style.buttonAlert} onPress={() => navigation.navigate("Detalle")}>
+                                            <Text style={style.newbuttonText}> Detalle </Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View> :
-                                <TouchableOpacity style={style.button} onPress={() => seeMore(item.id)}>
-                                    <Text style={style.buttonText}> Ver mas </Text>
+                                <TouchableOpacity style={style.buttonAlert} onPress={() => seeMore(item.id)}>
+                                    <Text style={style.newbuttonText}> Ver mas </Text>
                                 </TouchableOpacity>
                             }
 

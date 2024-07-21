@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList, Image, ImageBackground } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getServiceId } from '../../Redux/actions/serviceActions';
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
@@ -70,72 +70,74 @@ const SaveTurn = ({ navigation }) => {
 
 
     return (
-        <View>
+        <View style={{ height: "100%", width:"100%" }}>
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
             {user.id ?
-                <View>
-                    <View style={{ flexDirection: "row" }}>
-                        {user.name === "Flor" && user.lastname === "Hasrun" ?
+                <View style={{ height: "100%", width:"100%" }}>
+                    {!save ?
+                        <View style={{ justifyContent: "space-around", height: "100%", width:"100%", alignItems:"center" }}>
+                            {user.name === "Flor" && user.lastname === "Hasrun" ?
+                                <View style={style.cardUserTurns}>
+                                    <Image style={style.imageIcons} source={require("../../assets/Calendario.png")} />
+                                    <TouchableOpacity style={style.buttonMedium} onPress={() => calendarHandler("PostBlockDay")}>
+                                        <Text style={style.newbuttonText}>Bloquear Dia</Text>
+                                    </TouchableOpacity>
+                                </View> :
+                                <View style={style.cardUserTurns}>
+                                    <Image style={style.imageIcons} source={require("../../assets/CheckList.png")} />
+                                    <TouchableOpacity style={style.buttonMedium} onPress={() => goMyTurnsHandler(user.id)}>
+                                        <Text style={style.newbuttonText}>Mis Turnos</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            }
 
-                            <View style={style.cardUserTurns}>
-                                <Image style={style.imageIcons} source={require("../../assets/Calendario.png")} />
-                                <TouchableOpacity style={style.button} onPress={() => calendarHandler("PostBlockDay")}>
-                                    <Text style={style.buttonText}>Bloquear Dia</Text>
-                                </TouchableOpacity>
-                            </View> :
-                            <View style={style.cardUserTurns}>
-                                <Image style={style.imageIcons} source={require("../../assets/CheckList.png")} />
-                                <TouchableOpacity style={style.button} onPress={() => goMyTurnsHandler(user.id)}>
-                                    <Text style={style.buttonText}>Mis Turnos</Text>
-                                </TouchableOpacity>
-                            </View>
-                        }
 
-
-                        {user.name === "Flor" && user.lastname === "Hasrun" ?
-                            <View style={style.cardUserTurns}>
-                                <Image style={style.imageIcons} source={require("../../assets/Candado.png")} />
-                                <TouchableOpacity style={style.button} onPress={() => calendarHandler("PostBlock")}>
-                                    <Text style={style.buttonText}>Bloquear</Text>
-                                </TouchableOpacity>
-                            </View>
-                            :
-                            <View style={style.cardUserTurns}>
-                                <Image style={style.imageIcons} source={require("../../assets/Bien.png")} />
-                                <TouchableOpacity style={style.button} onPress={() => setSave(true)}>
-                                    <Text style={style.buttonText}>Guardar</Text>
-                                </TouchableOpacity>
-                            </View>
-                        }
-                    </View>
-                    {save && user.id
-                        ?
+                            {user.name === "Flor" && user.lastname === "Hasrun" ?
+                                <View style={style.cardUserTurns}>
+                                    <Image style={style.imageIcons} source={require("../../assets/Candado.png")} />
+                                    <TouchableOpacity style={style.buttonMedium} onPress={() => calendarHandler("PostBlock")}>
+                                        <Text style={style.newbuttonText}>Bloquear</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                :
+                                <View style={style.cardUserTurns}>
+                                    <Image style={style.imageIcons} source={require("../../assets/Bien.png")} />
+                                    <TouchableOpacity style={style.buttonMedium} onPress={() => setSave(true)}>
+                                        <Text style={style.newbuttonText}>Guardar</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            }
+                        </View>
+                        :
                         <View style={style.container}>
-                            <View style={{ marginVertical: 10 }}>
-                                <Text style={style.text}> Elija el servicio para el cual quiere guardar turno </Text>
-                            </View>
+
                             <FlatList
                                 data={services}
-                                horizontal
+                                ListHeaderComponent={
+                                    <View style={{ marginVertical: 10 }}>
+                                        <Text style={style.bigText}> Elija el servicio para el cual quiere guardar turno </Text>
+                                    </View>
+                                }
+                                ListFooterComponent={
+                                    <TouchableOpacity style={{...style.newbuttonsHome, marginBottom:10}} onPress={() => setSave(false)}>
+                                        <Text style={style.newbuttonText}>Volver</Text>
+                                    </TouchableOpacity>
+                                }
                                 renderItem={({ item }) =>
                                     item.name !== "Turno Bloqueado" && item.name !== "Dia Bloqueado" &&
-                                    <TouchableOpacity onPress={() => calendarHandler(item.id)}>
-                                        <Image style={style.imageServ} source={{ uri: item.image[0] }} />
-                                        <View style={{ marginTop: -43 }}>
-                                            <View style={style.buttonServ} >
-                                                <Text style={style.buttonText}>{item.name}</Text>
-                                            </View>
+                                    <TouchableOpacity style={style.cardService} onPress={() => calendarHandler(item.id)}>
+                                        <Image style={{ ...style.imageServ3, marginBottom: 8 }} source={{ uri: item.image[0] }} />
+                                        <View style={{ ...style.newbuttonsHome, borderWidth: 1.5, width: "90%" }} >
+                                            <Text style={style.newbuttonText}>{item.name}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 }
                             />
+
                         </View>
-                        :
-                        null
                     }
-
-
-
-                </View> :
+                </View>
+                :
                 <View style={{ alignItems: "center" }}>
                     <Text style={{ textAlign: "center", fontSize: 22, marginTop: 15, fontWeight: "800" }}>No puedes guardar un turno!</Text>
                     <Image style={style.imageBlockPag} source={require("../../assets/Candado.png")} />
@@ -150,8 +152,8 @@ const SaveTurn = ({ navigation }) => {
                     </View>
                 </View>
             }
-
         </View>
+
     );
 };
 

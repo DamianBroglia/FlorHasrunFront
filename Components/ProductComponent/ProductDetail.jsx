@@ -14,7 +14,7 @@ const ProductDetail = ({ navigation }) => {
     const [viewModalDelete, setViewModalDelete] = useState(false)
     const dispatch = useDispatch()
     const countImage = [...service.image]
-   
+
 
     const deleteService = async (id) => {
         const newProduct = await axios.put(`${API_URL}products`, { productId: id, view: false })
@@ -31,7 +31,7 @@ const ProductDetail = ({ navigation }) => {
 
     return (
         <View>
-            <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
             <ScrollView>
                 <View style={style.cardService}>
                     <Text style={style.titleServ}>{service.name}</Text>
@@ -41,27 +41,37 @@ const ProductDetail = ({ navigation }) => {
                         renderItem={({ item }) =>
                             <Image style={style.imageDetail} source={{ uri: item }} />
                         } />
-                    <Text style={style.textInfo}>{service.minimalDescription}</Text>
+                    <Text style={style.bigText}>{service.minimalDescription}</Text>
                     <Text style={style.textPutSer}>{service.description}</Text>
-                    <Text style={style.textInfo}>Duración aproximada: {service.duration} minutos</Text>
-                    <Text style={style.priceServ}>$ {service.price}</Text>
+                    <View style={{ width: "90%", flexDirection: "row", justifyContent:"space-around", marginVertical:15 }}>
+                        <View style={style.detailServContainer}>
+                            <Text style={style.bigText}>Duración</Text>
+                            <Text style={style.titleWelcome}>{service.duration}</Text>
+                            <Text style={{ ...style.mediumHome, marginBottom: 8 }}>minutos</Text>
+                        </View>
+                        <View style={style.detailServContainer}>
+                            <Text style={style.bigText}>Precio</Text>
+                            <Text style={style.titleWelcome}>$ {service.price}</Text>
+                            <Text style={{ ...style.mediumHome, marginBottom: 8 }}>pesos argentinos</Text>
+                        </View>
+                    </View>
                     {!user.id ? <Text>Registrate para guardar un turno para este servicio!</Text> :
-                        <View>
+                        <View style={{ marginBottom: 10 }}>
                             {user.vip || user.credits > 1 ?
-                                <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Elija una fecha")}>
-                                    <Text style={style.buttonText}> Guardar Turno </Text>
+                                <TouchableOpacity style={style.newbuttonsHome} onPress={() => navigation.navigate("Elija una fecha")}>
+                                    <Text style={style.newbuttonText}> Guardar Turno </Text>
                                 </TouchableOpacity> :
                                 <Text>No tienes suficientes creditos para guardar un turno!</Text>
                             }
                         </View>
                     }
                     {user.name === "Flor" && user.lastname === "Hasrun" ?
-                        <View style={{ flexDirection: "row" }}>
-                            <TouchableOpacity style={style.button} onPress={() => deleteService(service.id)}>
-                                <Text style={style.buttonText}> Eliminar </Text>
+                        <View style={{ flexDirection: "row", width: "80%", justifyContent: "space-around" }}>
+                            <TouchableOpacity style={style.buttonAlert} onPress={() => deleteService(service.id)}>
+                                <Text style={style.newbuttonText}> Eliminar </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Editar Servicio")}>
-                                <Text style={style.buttonText}> Modificar </Text>
+                            <TouchableOpacity style={style.buttonAlert} onPress={() => navigation.navigate("Editar Servicio")}>
+                                <Text style={style.newbuttonText}> Modificar </Text>
                             </TouchableOpacity>
                         </View> : null
                     }

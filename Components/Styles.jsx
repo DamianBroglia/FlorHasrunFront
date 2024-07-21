@@ -27,7 +27,7 @@ const cards = {
     padding: 6,
     marginVertical: 8,
     alignItems: "center",
-    marginHorizontal: 20
+    
 }
 const border = {
     borderColor: "rgb(252, 181, 180)",
@@ -257,12 +257,12 @@ export const style = StyleSheet.create({
         paddingHorizontal: 15,
         alignItems: "flex-start"
     },
-    cardUserTurns: {
-        ...cards,
-        width: 149,
-        marginHorizontal: 0,
-        marginLeft: 20
-    },
+    // cardUserTurns: {
+    //     ...cards,
+    //     width: 149,
+    //     marginHorizontal: 0,
+    //     marginLeft: 20
+    // },
     cardModalStadistic: {
         ...cards,
         backgroundColor: 'rgb(255,255,255)',
@@ -277,10 +277,10 @@ export const style = StyleSheet.create({
         ...cards,
         marginHorizontal: 25
     },
-    cardService: {
-        ...cards,
-        marginHorizontal: 10
-    },
+    // cardService: {
+    //     ...cards,
+    //     marginHorizontal: 10
+    // },
     cardTurn: {
         ...cards,
         height: 106,
@@ -565,10 +565,10 @@ export const style = StyleSheet.create({
         fontWeight: "500",
         color: "rgb(194, 161, 138)",
     },
-    titleServ: {
-        fontSize: 22,
-        fontWeight: "600"
-    },
+    // titleServ: {
+    //     fontSize: 22,
+    //     fontWeight: "600"
+    // },
     titleHome: {
         fontSize: 24,
         color: "dimgrey"
@@ -696,18 +696,18 @@ export const style = StyleSheet.create({
         width: 240,
         marginHorizontal: 4,
     },
-    imageServ: {
-        ...imageBase,
-        height: 216,
-        width: 216,
-        marginHorizontal: 3,
-    },
-    imageServ2: {
-        ...imageBase,
-        height: 105,
-        width: 105,
-        marginBottom: 4,
-    },
+    // imageServ: {
+    //     ...imageBase,
+    //     height: 216,
+    //     width: 216,
+    //     marginHorizontal: 3,
+    // },
+    // imageServ2: {
+    //     ...imageBase,
+    //     height: 105,
+    //     width: 105,
+    //     marginBottom: 4,
+    // },
     imageLogo: {
         ...imageBase,
         height: 105,
@@ -838,6 +838,19 @@ export const style = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
+    buttonMedium: {
+        width: 160,
+        height: 42,
+        borderColor: "rgb(203,171,148)",
+        borderWidth: 2.5,
+        borderStyle: "solid",
+        borderRadius: 100,
+        alignSelf: "center",
+        // backgroundColor: "rgba(203,171,148, 0.2)",
+        backgroundColor: "rgb(47,44,54)",
+        alignItems: "center",
+        justifyContent: "center"
+    },
     buttonAlert: {
         width: 120,
         height: 42,
@@ -859,26 +872,31 @@ export const style = StyleSheet.create({
     },
     msjToUser: {
         backgroundColor: "rgb(47,44,54)",
-        alignSelf:"center",
-        marginTop:"45%",
+        alignSelf: "center",
+        marginTop: "45%",
         height: "40%",
         width: "94%",
         // position: "absolute",
-        alignItems:"center",
-        borderColor:"rgb(203,171,148)",
-        borderWidth:2.5,
-        borderRadius:25,
-        justifyContent:"space-around",
-        paddingVertical:"3%"
+        alignItems: "center",
+        borderColor: "rgb(203,171,148)",
+        borderWidth: 2.5,
+        borderRadius: 25,
+        justifyContent: "space-around",
+        paddingVertical: "3%"
     },
-    titleWelcome:{
+    titleWelcome: {
         color: "rgb(203,171,148)",
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
     },
-        mediumText: {
+    mediumText: {
         fontSize: 14,
+        textAlign: "center",
+        color: "rgb(233,201,178)",
+    },
+    bigText: {
+        fontSize: 16,
         textAlign: "center",
         color: "rgb(233,201,178)",
     },
@@ -888,16 +906,87 @@ export const style = StyleSheet.create({
         color: "rgb(243,211,188)",
         textAlign: "center"
     },
-    block:{
-        width:"100%",
-        height:"100%",
+    block: {
+        width: "100%",
+        height: "100%",
         backgroundColor: "rgba(47,44,54,0.8)",
-        position:"absolute"
+        position: "absolute"
     },
     imageIcons: {
-        width:80,
-        height:80,
+        width: 80,
+        height: 80,
         objectFit: "cover",
-
+    },
+    cardService: {
+        backgroundColor: "rgba(47,44,54,0.8)",
+        borderRadius: 10,
+        marginVertical: 8,
+        alignItems: "center",
+        borderColor: "rgb(203,171,148)",
+        borderWidth: 2.5,
+        width: "96%",
+        alignSelf: "center",
+        paddingVertical:10
+    },
+    flatCatalogo: {
+        width: "100%",
+    },
+    imageContainerServ: {
+        width: "96%",
+        flexDirection: "row",
+        marginVertical: 10
+    },
+    imageServ: {
+        borderRadius: 5,
+        objectFit: "cover",
+        width: "66%",
+        aspectRatio:1,
+    },
+    imageServ2: {
+        borderRadius: 5,
+        objectFit: "cover",
+        width: "95%",
+        aspectRatio:1,
+    },
+    imageServ3: {
+        borderRadius: 5,
+        objectFit: "cover",
+        width: "40%",
+        aspectRatio:1,
+    },
+    titleServ: {
+        fontSize: 22,
+        fontWeight: "500",
+        color:"rgb(243,211,188)"
+    },
+    ImageStack:{
+        height:"90%",
+        objectFit: "cover",
+        aspectRatio:2.5,
+        // transform:[{ scaleX: -1 }]
+    },
+    ImageStackLeft:{
+        height:"90%",
+        objectFit: "cover",
+        aspectRatio:2.5,
+        transform:[{ scaleX: -1 }]
+    },
+    detailServContainer:{
+        borderWidth:1.5,
+        borderColor: "rgb(203,171,148)",
+        borderRadius:10,
+        width:"45%",
+        alignItems:"center",
+        backgroundColor:"rgba(203,171,148, 0.1)"
+    },
+    cardUserTurns: {
+        backgroundColor:"rgba(203,171,148, 0.1)",
+        borderRadius: 10,
+        alignItems: "center",
+        width: "49%",
+        height:"30%",
+        borderColor: "rgb(203,171,148)",
+        borderWidth: 2.5,
+        justifyContent:"space-around"
     },
 })
