@@ -52,7 +52,7 @@ const UserOptions = () => {
 
     return (
         <View style={style.cardUsers}>
-            <Text style={style.titleServ}>Notificaciones </Text>
+            <Text style={style.title}>Notificaciones </Text>
             <View style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}>
                 <View style={{ alignItems: "flex-start", width: 170 }}>
                     <Text style={style.textInfo}>Un día antes</Text>

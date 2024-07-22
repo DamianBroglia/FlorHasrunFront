@@ -100,7 +100,7 @@ const User = ({ navigation }) => {
         <View>
             <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
             <View style={style.cardUser}>
-                <Text style={style.titleServ}>{user.name} {user.lastname}</Text>
+                <Text style={style.title}>{user.name} {user.lastname}</Text>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Text style={style.textInfo}>{user.celNumber}</Text>
 

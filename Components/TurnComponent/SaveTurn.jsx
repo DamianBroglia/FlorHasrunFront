@@ -79,14 +79,14 @@ const SaveTurn = ({ navigation }) => {
                             {user.name === "Flor" && user.lastname === "Hasrun" ?
                                 <View style={style.cardUserTurns}>
                                     <Image style={style.imageIcons} source={require("../../assets/Calendario.png")} />
-                                    <TouchableOpacity style={style.buttonMedium} onPress={() => calendarHandler("PostBlockDay")}>
-                                        <Text style={style.newbuttonText}>Bloquear Dia</Text>
+                                    <TouchableOpacity style={style.mediumButton} onPress={() => calendarHandler("PostBlockDay")}>
+                                        <Text style={style.buttonText}>Bloquear Dia</Text>
                                     </TouchableOpacity>
                                 </View> :
                                 <View style={style.cardUserTurns}>
-                                    <Image style={style.imageIcons} source={require("../../assets/CheckList.png")} />
-                                    <TouchableOpacity style={style.buttonMedium} onPress={() => goMyTurnsHandler(user.id)}>
-                                        <Text style={style.newbuttonText}>Mis Turnos</Text>
+                                    <Image style={{...style.imageIcons, marginTop:10}} source={require("../../assets/CheckList.png")} />
+                                    <TouchableOpacity style={style.mediumButton} onPress={() => goMyTurnsHandler(user.id)}>
+                                        <Text style={style.buttonText}>Mis Turnos</Text>
                                     </TouchableOpacity>
                                 </View>
                             }
@@ -95,15 +95,15 @@ const SaveTurn = ({ navigation }) => {
                             {user.name === "Flor" && user.lastname === "Hasrun" ?
                                 <View style={style.cardUserTurns}>
                                     <Image style={style.imageIcons} source={require("../../assets/Candado.png")} />
-                                    <TouchableOpacity style={style.buttonMedium} onPress={() => calendarHandler("PostBlock")}>
-                                        <Text style={style.newbuttonText}>Bloquear</Text>
+                                    <TouchableOpacity style={style.mediumButton} onPress={() => calendarHandler("PostBlock")}>
+                                        <Text style={style.buttonText}>Bloquear</Text>
                                     </TouchableOpacity>
                                 </View>
                                 :
                                 <View style={style.cardUserTurns}>
                                     <Image style={style.imageIcons} source={require("../../assets/Bien.png")} />
-                                    <TouchableOpacity style={style.buttonMedium} onPress={() => setSave(true)}>
-                                        <Text style={style.newbuttonText}>Guardar</Text>
+                                    <TouchableOpacity style={style.mediumButton} onPress={() => setSave(true)}>
+                                        <Text style={style.buttonText}>Guardar</Text>
                                     </TouchableOpacity>
                                 </View>
                             }
@@ -119,16 +119,16 @@ const SaveTurn = ({ navigation }) => {
                                     </View>
                                 }
                                 ListFooterComponent={
-                                    <TouchableOpacity style={{...style.newbuttonsHome, marginBottom:10}} onPress={() => setSave(false)}>
-                                        <Text style={style.newbuttonText}>Volver</Text>
+                                    <TouchableOpacity style={{...style.bigButton, marginBottom:10}} onPress={() => setSave(false)}>
+                                        <Text style={style.buttonText}>Volver</Text>
                                     </TouchableOpacity>
                                 }
                                 renderItem={({ item }) =>
                                     item.name !== "Turno Bloqueado" && item.name !== "Dia Bloqueado" &&
                                     <TouchableOpacity style={style.cardService} onPress={() => calendarHandler(item.id)}>
                                         <Image style={{ ...style.imageServ3, marginBottom: 8 }} source={{ uri: item.image[0] }} />
-                                        <View style={{ ...style.newbuttonsHome, borderWidth: 1.5, width: "90%" }} >
-                                            <Text style={style.newbuttonText}>{item.name}</Text>
+                                        <View style={{ ...style.bigButton, borderWidth: 1.5, width: "90%" }} >
+                                            <Text style={style.buttonText}>{item.name}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 }

@@ -87,7 +87,7 @@ export const ModalGanancias = ({ isVisible, onClose, viewStadistic, orderDaysCol
                     </View>
                 }
                 ListFooterComponent={
-                    <TouchableOpacity onPress={onClose} style={style.buttonAlert}>
+                    <TouchableOpacity onPress={onClose} style={style.smallButton}>
                         <Text style={style.buttonText}>Volver</Text>
                     </TouchableOpacity>
                 }

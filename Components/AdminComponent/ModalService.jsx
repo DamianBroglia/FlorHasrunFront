@@ -24,7 +24,7 @@ export const ModalService = ({ isVisible, onClose, viewStadistic }) => {
 
                 }
                 ListFooterComponent={
-                    <TouchableOpacity onPress={onClose} style={style.buttonAlert}>
+                    <TouchableOpacity onPress={onClose} style={style.smallButton}>
                         <Text style={style.buttonText}>Volver</Text>
                     </TouchableOpacity>
                 }

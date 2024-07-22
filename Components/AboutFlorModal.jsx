@@ -27,7 +27,7 @@ export const AboutFlorModal = ({ isVisible, onClose }) => {
                         encontró su vocación.
                         Florencia se sumergió en el estudio de la estética en todas sus formas: desde la moda y el diseño de interiores hasta la arquitectura y el maquillaje. Su mente inquisitiva
                         la llevó a investigar las últimas tendencias y técnicas, pero también a explorar la historia y la teoría del arte y la belleza.</Text>
-                    <TouchableOpacity onPress={onClose} style={style.buttonAlert}>
+                    <TouchableOpacity onPress={onClose} style={style.smallButton}>
                         <Text style={style.buttonText}>Volver</Text>
                     </TouchableOpacity>
                 </View>

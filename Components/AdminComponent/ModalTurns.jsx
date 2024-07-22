@@ -105,7 +105,7 @@ export const ModalTurns = ({ isVisible, onClose, viewStadistic, orderDaysTurns }
                     </View>
                 }
                 ListFooterComponent={
-                    <TouchableOpacity onPress={onClose} style={style.buttonAlert}>
+                    <TouchableOpacity onPress={onClose} style={style.smallButton}>
                         <Text style={style.buttonText}>Volver</Text>
                     </TouchableOpacity>
                 }

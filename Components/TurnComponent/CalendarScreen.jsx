@@ -469,7 +469,7 @@ const CalendarScreen = ({ navigation }) => {
         </View>
         :
         <View style={{ marginTop: 40, width:190, alignSelf:"center" }}>
-          <Text style={style.titleWelcome}>Elija una fecha para ver los turnos disponibles</Text>
+          <Text style={style.title}>Elija una fecha para ver los turnos disponibles</Text>
         </View>
       }
       <ModalAlert

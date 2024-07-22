@@ -90,49 +90,48 @@ const Home = ({ navigation }) => {
 
     return (
 
-        <View style={style.containerHomeVideo}>
-
+        <View>
             {videoPlayed ?
-                <View style={{ height: "100%", width: "100%" }}>
+                <View style={style.baseContainer}>
                     <ImageBackground style={style.backgroundImage} source={require("../assets/FondoGris.png")} />
                     <Image style={style.imageHomeLogo} source={require("../assets/LogoFlor.png")} />
                     <View style={style.containerButtonsHome}>
 
                         {user.id &&
-                            <TouchableOpacity style={style.newbuttonsHome} onPress={() => { setShowMsj(true) }}>
-                                <Text style={style.newbuttonText}>Hola {user.name}!</Text>
+                            <TouchableOpacity style={style.bigButton} onPress={() => { setShowMsj(true) }}>
+                                <Text style={style.buttonText}>Hola {user.name}!</Text>
                             </TouchableOpacity>
                         }
 
                         {!user.id &&
-                            <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Entrar") }}>
-                                <Text style={style.newbuttonText}> Entrar </Text>
+                            <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Entrar") }}>
+                                <Text style={style.buttonText}> Entrar </Text>
                             </TouchableOpacity>
                         }
 
                         {!user.id &&
-                            <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Registrarse") }}>
-                                <Text style={style.newbuttonText}> Registrarse </Text>
+                            <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Registrarse") }}>
+                                <Text style={style.buttonText}> Registrarse </Text>
                             </TouchableOpacity>
                         }
 
-                        <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Servicios") }}>
-                            <Text style={style.newbuttonText}> Ver Servicios </Text>
+                        <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Servicios") }}>
+                            <Text style={style.buttonText}> Ver Servicios </Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={style.newbuttonsHome} onPress={() => setSeeMore(true)}>
-                            <Text style={style.newbuttonText}> Sobre Florencia </Text>
+                        <TouchableOpacity style={style.bigButton} onPress={() => setSeeMore(true)}>
+                            <Text style={style.buttonText}> Sobre Florencia </Text>
                         </TouchableOpacity>
 
                         {user.id &&
                             <View>
                                 {notification || notificationHours ?
-                                    <TouchableOpacity style={style.newbuttonsHome} onPress={() => { setShowNotification(true) }}>
-                                        <Text style={style.newbuttonText}> Turnos </Text>
+                                    <TouchableOpacity style={style.bigButton} onPress={() => { setShowNotification(true) }}>
+                                        <Text style={style.buttonText}> Turnos </Text>
                                     </TouchableOpacity>
                                     :
-                                    <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Turnos") }}>
-                                        <Text style={style.newbuttonText}> Turnos </Text>
+                                    <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Turnos") }}>
+                                        <Text style={style.buttonText}> Turnos </Text>
                                     </TouchableOpacity>
                                 }
                             </View>
@@ -141,55 +140,55 @@ const Home = ({ navigation }) => {
                         {user.id &&
                             <View>
                                 {user.name !== "Flor" && user.lastname !== "Hasrun" ?
-                                    <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Usuario") }}>
-                                        <Text style={style.newbuttonText}> Usuario </Text>
+                                    <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Usuario") }}>
+                                        <Text style={style.buttonText}> Usuario </Text>
                                     </TouchableOpacity>
                                     :
-                                    <TouchableOpacity style={style.newbuttonsHome} onPress={() => { navigation.navigate("Administrador") }}>
-                                        <Text style={style.newbuttonText}> Administrar </Text>
+                                    <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Administrador") }}>
+                                        <Text style={style.buttonText}> Administrar </Text>
                                     </TouchableOpacity>
                                 }
 
                             </View>
                         }
 
-                        {/* <TouchableOpacity style={style.newbuttonsHome} onPress={() => openInstagram()}>
+                        {/* <TouchableOpacity style={style.bigButton} onPress={() => openInstagram()}>
                             <View style={{ flexDirection: "row", alignItems: "center" }}>
                                 <Image style={style.imageSocial} source={require("../assets/InstagramLogo.png")} />
-                                <Text style={style.newbuttonText}>Instagram</Text>
+                                <Text style={style.buttonText}>Instagram</Text>
                             </View>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={style.newbuttonsHome} onPress={() => openWhatsApp()}>
+                        <TouchableOpacity style={style.bigButton} onPress={() => openWhatsApp()}>
                             <View style={{ flexDirection: "row", alignItems: "center" }}>
                                 <Image style={style.imageSocial} source={require("../assets/whatsapp_logo.png")} />
-                                <Text style={style.newbuttonText}>Whatsapp</Text>
+                                <Text style={style.buttonText}>Whatsapp</Text>
                             </View>
                         </TouchableOpacity> */}
 
-                        <TouchableOpacity style={style.newbuttonsHome} onPress={() => openInstagram()}>
-                            <Text style={style.newbuttonText}>Instagram</Text>
+                        <TouchableOpacity style={style.bigButton} onPress={() => openInstagram()}>
+                            <Text style={style.buttonText}>Instagram</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={style.newbuttonsHome} onPress={() => openWhatsApp()}>
-                            <Text style={style.newbuttonText}>Whatsapp</Text>
+                        <TouchableOpacity style={style.bigButton} onPress={() => openWhatsApp()}>
+                            <Text style={style.buttonText}>Whatsapp</Text>
                         </TouchableOpacity>
 
                         {/* {user.id &&
-                            <TouchableOpacity style={style.newbuttonsHome} onPress={() => { setShowNotification(true) }}>
-                                <Text style={style.newbuttonText}> Mensajes </Text>
+                            <TouchableOpacity style={style.bigButton} onPress={() => { setShowNotification(true) }}>
+                                <Text style={style.buttonText}> Mensajes </Text>
                             </TouchableOpacity>
                         } */}
                     </View>
 
                     {showMsj &&
                         <View style={style.block}>
-                            <View style={style.msjToUser}>
-                                <Text style={style.titleWelcome}>Hola {user.name}!</Text>
+                            <View style={style.modalCard}>
+                                <Text style={style.title}>Hola {user.name}!</Text>
                                 {user.name === "Flor" && user.lastname === "Hasrun" ?
                                     <View>
                                         <Text style={style.mediumText}>Bienvenida a tu app!</Text>
-                                        <Text style={style.mediumHome}>Puedes ver los turnos que guardaron tus usuarios,
+                                        <Text style={style.smallText}>Puedes ver los turnos que guardaron tus usuarios,
                                             crear, modificar o eliminar servicios, obtener estadisticas sobre tus usuarios, las ganancias generadas,
                                             los servicios mas solicitados y mas!
                                         </Text>
@@ -199,7 +198,7 @@ const Home = ({ navigation }) => {
                                         {user.verified ?
                                             <View>
                                                 <Text style={style.mediumText}>Ya puedes guardar tus turnos!</Text>
-                                                <Text style={style.mediumHome}>Recuerda que si no cumples con un turno no se te devolverán los creditos que usaste para guardarlo.
+                                                <Text style={style.smallText}>Recuerda que si no cumples con un turno no se te devolverán los creditos que usaste para guardarlo.
                                                     Procura no quedarte sin creditos, cumple con tu compromiso y podrás seguir guardando turnos, en caso contrario
                                                     deverás solicitar creditos a Florencia y ella pactará la forma de intercambio de dichos creditos.</Text>
                                             </View>
@@ -211,8 +210,8 @@ const Home = ({ navigation }) => {
                                         }
                                     </View>
                                 }
-                                <TouchableOpacity style={style.newbuttonsHome} onPress={() => setShowMsj(false)}>
-                                    <Text style={style.newbuttonText}>Volver</Text>
+                                <TouchableOpacity style={style.bigButton} onPress={() => setShowMsj(false)}>
+                                    <Text style={style.buttonText}>Volver</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -221,29 +220,29 @@ const Home = ({ navigation }) => {
                     {showNotificaton &&
                         <View style={style.block}>
                             {notificationHours &&
-                                <View style={style.msjToUser}>
+                                <View style={style.modalCard}>
                                     <Image style={style.imageIcons} source={require("../assets/WarningGolden.png")} />
                                     <Text style={style.mediumMsj}>Tienes un turno para hoy a las {notificationHours.hourInit} horas</Text>
                                     <View style={{ flexDirection: "row" }}>
-                                        <TouchableOpacity style={style.buttonAlert} onPress={() => navigation.navigate("Turnos")}>
-                                            <Text style={style.newbuttonText}>Ver Turno</Text>
+                                        <TouchableOpacity style={style.smallButton} onPress={() => navigation.navigate("Turnos")}>
+                                            <Text style={style.buttonText}>Ver Turno</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={style.buttonAlert} onPress={() => setShowNotification(false)}>
-                                            <Text style={style.newbuttonText}>Volver</Text>
+                                        <TouchableOpacity style={style.smallButton} onPress={() => setShowNotification(false)}>
+                                            <Text style={style.buttonText}>Volver</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             }
                             {notification &&
-                                <View style={style.msjToUser}>
+                                <View style={style.modalCard}>
                                     <Image style={style.imageIcons} source={require("../assets/WarningGolden.png")} />
                                     <Text style={style.mediumText}>Tienes un turno para mañana a las {notification.hourInit} horas</Text>
                                     <View style={{ flexDirection: "row", width: "90%", justifyContent: "space-around" }}>
-                                        <TouchableOpacity style={style.buttonAlert} onPress={() => navigation.navigate("Turnos")}>
-                                            <Text style={style.newbuttonText}>Ver Turno</Text>
+                                        <TouchableOpacity style={style.smallButton} onPress={() => navigation.navigate("Turnos")}>
+                                            <Text style={style.buttonText}>Ver Turno</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={style.buttonAlert} onPress={() => setShowNotification(false)}>
-                                            <Text style={style.newbuttonText}>Volver</Text>
+                                        <TouchableOpacity style={style.smallButton} onPress={() => setShowNotification(false)}>
+                                            <Text style={style.buttonText}>Volver</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>

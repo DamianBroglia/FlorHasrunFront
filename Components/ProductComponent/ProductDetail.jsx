@@ -30,48 +30,51 @@ const ProductDetail = ({ navigation }) => {
     }
 
     return (
-        <View>
+        <View style={style.baseContainer}>
             <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
             <ScrollView>
                 <View style={style.cardService}>
-                    <Text style={style.titleServ}>{service.name}</Text>
+                    <Text style={style.title}>{service.name}</Text>
                     <FlatList
                         horizontal
                         data={countImage}
                         renderItem={({ item }) =>
-                            <Image style={style.imageDetail} source={{ uri: item }} />
+                            <Image style={style.imageIcons} source={{ uri: item }} />
                         } />
                     <Text style={style.bigText}>{service.minimalDescription}</Text>
-                    <Text style={style.textPutSer}>{service.description}</Text>
-                    <View style={{ width: "90%", flexDirection: "row", justifyContent:"space-around", marginVertical:15 }}>
+                    <Text style={style.mediumText}>{service.description}</Text>
+                    <View style={{ width: "90%", flexDirection: "row", justifyContent: "space-around", marginVertical: 15 }}>
                         <View style={style.detailServContainer}>
                             <Text style={style.bigText}>Duración</Text>
-                            <Text style={style.titleWelcome}>{service.duration}</Text>
-                            <Text style={{ ...style.mediumHome, marginBottom: 8 }}>minutos</Text>
+                            <Text style={style.title}>{service.duration}</Text>
+                            <Text style={{ ...style.smallText, marginBottom: 8 }}>minutos</Text>
                         </View>
                         <View style={style.detailServContainer}>
                             <Text style={style.bigText}>Precio</Text>
-                            <Text style={style.titleWelcome}>$ {service.price}</Text>
-                            <Text style={{ ...style.mediumHome, marginBottom: 8 }}>pesos argentinos</Text>
+                            <Text style={style.title}>$ {service.price}</Text>
+                            <Text style={{ ...style.smallText, marginBottom: 8 }}>pesos argentinos</Text>
                         </View>
                     </View>
-                    {!user.id ? <Text>Registrate para guardar un turno para este servicio!</Text> :
+                    {!user.id ?
+                        <Text style={{...style.smallText, marginVertical:10}}>Registrate para guardar un turno para este servicio!</Text>
+                        :
                         <View style={{ marginBottom: 10 }}>
                             {user.vip || user.credits > 1 ?
-                                <TouchableOpacity style={style.newbuttonsHome} onPress={() => navigation.navigate("Elija una fecha")}>
-                                    <Text style={style.newbuttonText}> Guardar Turno </Text>
-                                </TouchableOpacity> :
-                                <Text>No tienes suficientes creditos para guardar un turno!</Text>
+                                <TouchableOpacity style={style.bigButton} onPress={() => navigation.navigate("Elija una fecha")}>
+                                    <Text style={style.buttonText}> Guardar Turno </Text>
+                                </TouchableOpacity>
+                                :
+                                <Text style={style.smallText}>No tienes suficientes creditos para guardar un turno!</Text>
                             }
                         </View>
                     }
                     {user.name === "Flor" && user.lastname === "Hasrun" ?
                         <View style={{ flexDirection: "row", width: "80%", justifyContent: "space-around" }}>
-                            <TouchableOpacity style={style.buttonAlert} onPress={() => deleteService(service.id)}>
-                                <Text style={style.newbuttonText}> Eliminar </Text>
+                            <TouchableOpacity style={style.smallButton} onPress={() => deleteService(service.id)}>
+                                <Text style={style.buttonText}> Eliminar </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={style.buttonAlert} onPress={() => navigation.navigate("Editar Servicio")}>
-                                <Text style={style.newbuttonText}> Modificar </Text>
+                            <TouchableOpacity style={style.smallButton} onPress={() => navigation.navigate("Editar Servicio")}>
+                                <Text style={style.buttonText}> Modificar </Text>
                             </TouchableOpacity>
                         </View> : null
                     }

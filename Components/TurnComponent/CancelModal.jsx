@@ -16,13 +16,13 @@ export const CancelModal = ({ isVisible, onClose, cancelAny, title, message, but
             style={style.alerta}
         >
             <View style={style.alertContainer}>
-                <Text style={style.titleServ}>{title}</Text>
+                <Text style={style.title}>{title}</Text>
                 <Text style={style.text}>{message}</Text>
                 <View style={{flexDirection:"row"}}>
-                    <TouchableOpacity onPress={onClose} style={style.buttonAlert}>
+                    <TouchableOpacity onPress={onClose} style={style.smallButton}>
                         <Text style={style.buttonText}>Volver</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={cancelAny} style={style.buttonAlert}>
+                    <TouchableOpacity onPress={cancelAny} style={style.smallButton}>
                         <Text style={style.buttonText}>{buttonText}</Text>
                     </TouchableOpacity>
                 </View>

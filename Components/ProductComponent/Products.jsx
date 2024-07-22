@@ -21,10 +21,10 @@ const Products = () => {
                 headerTintColor: "rgb(203,171,148)",
                 headerTitleAlign: 'center',
                 headerRight: () => (
-                    <Image style={style.ImageStack} source={require("../../assets/FloresD.png")} />
+                    <Image style={style.imageStack} source={require("../../assets/FloresD.png")} />
                 ),
                 headerLeft: () => (
-                    <Image style={style.ImageStackLeft} source={require("../../assets/FloresD.png")} />
+                    <Image style={style.imageStackLeft} source={require("../../assets/FloresD.png")} />
                 ),
             }}>
             <Stack.Screen name="Catalogo" component={Catalogo}
