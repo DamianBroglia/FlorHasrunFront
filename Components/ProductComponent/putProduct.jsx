@@ -135,7 +135,7 @@ const PutProduct = () => {
                     {edit.name ?
                         <View>
                             <TextInput
-                                style={style.inputText}
+                                style={style.loginInput}
                                 placeholder='Nuevo nombre...'
                                 onChangeText={name => setProduct({ ...product, name })}
                                 defaultValue={product.name}
@@ -193,7 +193,7 @@ const PutProduct = () => {
                     {edit.minimalDescription ?
                         <View>
                             <TextInput
-                                style={style.inputText}
+                                style={style.loginInput}
                                 placeholder='Nuevo descripción minima...'
                                 onChangeText={minimalDescription => setProduct({ ...product, minimalDescription })}
                                 defaultValue={product.minimalDescription}
@@ -226,7 +226,7 @@ const PutProduct = () => {
                         <View>
                             <TextInput
                                 multiline={true}
-                                style={style.inputTextDescription}
+                                style={style.loginInputDescription}
                                 // placeholder={service.description}
                                 onChangeText={description => setProduct({ ...product, description })}
                                 defaultValue={service.description}
@@ -256,7 +256,7 @@ const PutProduct = () => {
                     </TouchableOpacity>
                     {edit.duration ?
                         <View>
-                            <View style={style.inputTextMed}>
+                            <View style={style.loginInputMed}>
                                 {product.duration === "30" ?
                                     <TouchableOpacity style={style.buttonDuration} onPress={() => { setProduct({ ...product, duration: "30" }) }}>
                                         <Text style={style.buttonText}>30 min </Text>
@@ -313,7 +313,7 @@ const PutProduct = () => {
                     {edit.price ?
                         <View>
                             <TextInput
-                                style={style.inputText}
+                                style={style.loginInput}
                                 placeholder='Nuevo precio...'
                                 onChangeText={price => setProduct({ ...product, price })}
                                 defaultValue={product.price}

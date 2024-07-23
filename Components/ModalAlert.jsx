@@ -18,9 +18,9 @@ export const ModalAlert = ({ isVisible, onClose, title, message, type }) => {
       
         <View style={style.alertContainer}>
          {type === "ok" ?  
-         <Image style={style.imageIcons} source={require("../assets/Bien.png")} />
+         <Image style={style.bigImage} source={require("../assets/Bien.png")} />
          : 
-         <Image style={style.imageIcons} source={require("../assets/Warning.png")} />
+         <Image style={style.bigImage} source={require("../assets/Warning.png")} />
          }
           <Text style={style.title}>{title}</Text>
           <Text style={style.text}>{message}</Text>

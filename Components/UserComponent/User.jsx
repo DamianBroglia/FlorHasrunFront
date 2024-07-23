@@ -152,15 +152,15 @@ const User = ({ navigation }) => {
             </View>
 
             <View style={{ flexDirection: "row" }}>
-                <View style={style.cardUserTurns}>
-                    <Image style={style.imageIcons} source={require("../../assets/Usuario.png")} />
+                <View style={style.mediumCard}>
+                    <Image style={style.bigImage} source={require("../../assets/Usuario.png")} />
                     <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Modificar Usuario")}>
                         <Text style={style.buttonText}>Modificar</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={style.cardUserTurns}>
-                    <Image style={style.imageIcons} source={require("../../assets/Calendario.png")} />
+                <View style={style.mediumCard}>
+                    <Image style={style.bigImage} source={require("../../assets/Calendario.png")} />
                     <TouchableOpacity style={style.button} onPress={() => goMyTurns()}>
                         <Text style={style.buttonText}>Mis Turnos</Text>
                     </TouchableOpacity>
@@ -170,15 +170,15 @@ const User = ({ navigation }) => {
 
             <View style={{ flexDirection: "row" }}>
 
-                <View style={style.cardUserTurns}>
-                    <Image style={style.imageIcons} source={require("../../assets/Configuraciones.png")} />
+                <View style={style.mediumCard}>
+                    <Image style={style.bigImage} source={require("../../assets/Configuraciones.png")} />
                     <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Opciones")}>
                         <Text style={style.buttonText}>Opciones</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={style.cardUserTurns}>
-                    <Image style={style.imageIcons} source={require("../../assets/FlechaIzquierda.png")} />
+                <View style={style.mediumCard}>
+                    <Image style={style.bigImage} source={require("../../assets/FlechaIzquierda.png")} />
                     <TouchableOpacity style={style.button} onPress={() => { setAreYouSure(true) }}>
                         <Text style={style.buttonText}>Salir</Text>
                     </TouchableOpacity>

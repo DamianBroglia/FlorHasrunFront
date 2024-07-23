@@ -60,21 +60,21 @@ const UserTurns = () => {
         <View>
 
             <View style={style.cardUsers}>
-                <Image style={style.imageIcons} source={require("../../assets/CheckList.png")} />
+                <Image style={style.bigImage} source={require("../../assets/CheckList.png")} />
                 <TouchableOpacity style={style.button} onPress={getAllTurns}>
                     <Text style={style.buttonText}>Todos</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={{ flexDirection: "row" }}>
-                <View style={style.cardUserTurns}>
-                    <Image style={style.imageIcons} source={require("../../assets/FlechaIzquierda.png")} />
+                <View style={style.mediumCard}>
+                    <Image style={style.bigImage} source={require("../../assets/FlechaIzquierda.png")} />
                     <TouchableOpacity style={style.button} onPress={getPastTurns}>
                         <Text style={style.buttonText}>Pasados</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={style.cardUserTurns}>
-                    <Image style={style.imageIcons} source={require("../../assets/FlechaDerecha.png")} />
+                <View style={style.mediumCard}>
+                    <Image style={style.bigImage} source={require("../../assets/FlechaDerecha.png")} />
                     <TouchableOpacity style={style.button} onPress={getFutureTurns}>
                         <Text style={style.buttonText}>Futuros</Text>
                     </TouchableOpacity>
@@ -83,14 +83,14 @@ const UserTurns = () => {
             </View>
 
             <View style={{ flexDirection: "row" }}>
-                <View style={style.cardUserTurns}>
-                    <Image style={style.imageIcons} source={require("../../assets/Bien.png")} />
+                <View style={style.mediumCard}>
+                    <Image style={style.bigImage} source={require("../../assets/Bien.png")} />
                     <TouchableOpacity style={style.button} onPress={getTakedTurns}>
                         <Text style={style.buttonText}>Cumplidos</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={style.cardUserTurns}>
-                    <Image style={style.imageIcons} source={require("../../assets/Warning.png")} />
+                <View style={style.mediumCard}>
+                    <Image style={style.bigImage} source={require("../../assets/Warning.png")} />
                     <TouchableOpacity style={style.button} onPress={getFailedTurns}>
                         <Text style={style.buttonText}>Fallados</Text>
                     </TouchableOpacity>

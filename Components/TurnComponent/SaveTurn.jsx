@@ -77,14 +77,14 @@ const SaveTurn = ({ navigation }) => {
                     {!save ?
                         <View style={{ justifyContent: "space-around", height: "100%", width:"100%", alignItems:"center" }}>
                             {user.name === "Flor" && user.lastname === "Hasrun" ?
-                                <View style={style.cardUserTurns}>
-                                    <Image style={style.imageIcons} source={require("../../assets/Calendario.png")} />
+                                <View style={style.mediumCard}>
+                                    <Image style={style.bigImage} source={require("../../assets/Calendario.png")} />
                                     <TouchableOpacity style={style.mediumButton} onPress={() => calendarHandler("PostBlockDay")}>
                                         <Text style={style.buttonText}>Bloquear Dia</Text>
                                     </TouchableOpacity>
                                 </View> :
-                                <View style={style.cardUserTurns}>
-                                    <Image style={{...style.imageIcons, marginTop:10}} source={require("../../assets/CheckList.png")} />
+                                <View style={style.mediumCard}>
+                                    <Image style={{...style.bigImage}} source={require("../../assets/CheckList.png")} />
                                     <TouchableOpacity style={style.mediumButton} onPress={() => goMyTurnsHandler(user.id)}>
                                         <Text style={style.buttonText}>Mis Turnos</Text>
                                     </TouchableOpacity>
@@ -93,15 +93,15 @@ const SaveTurn = ({ navigation }) => {
 
 
                             {user.name === "Flor" && user.lastname === "Hasrun" ?
-                                <View style={style.cardUserTurns}>
-                                    <Image style={style.imageIcons} source={require("../../assets/Candado.png")} />
+                                <View style={style.mediumCard}>
+                                    <Image style={style.bigImage} source={require("../../assets/Candado.png")} />
                                     <TouchableOpacity style={style.mediumButton} onPress={() => calendarHandler("PostBlock")}>
                                         <Text style={style.buttonText}>Bloquear</Text>
                                     </TouchableOpacity>
                                 </View>
                                 :
-                                <View style={style.cardUserTurns}>
-                                    <Image style={style.imageIcons} source={require("../../assets/Bien.png")} />
+                                <View style={style.mediumCard}>
+                                    <Image style={style.bigImage} source={require("../../assets/Bien.png")} />
                                     <TouchableOpacity style={style.mediumButton} onPress={() => setSave(true)}>
                                         <Text style={style.buttonText}>Guardar</Text>
                                     </TouchableOpacity>
@@ -125,7 +125,7 @@ const SaveTurn = ({ navigation }) => {
                                 }
                                 renderItem={({ item }) =>
                                     item.name !== "Turno Bloqueado" && item.name !== "Dia Bloqueado" &&
-                                    <TouchableOpacity style={style.cardService} onPress={() => calendarHandler(item.id)}>
+                                    <TouchableOpacity style={style.fullWidthCard} onPress={() => calendarHandler(item.id)}>
                                         <Image style={{ ...style.imageServ3, marginBottom: 8 }} source={{ uri: item.image[0] }} />
                                         <View style={{ ...style.bigButton, borderWidth: 1.5, width: "90%" }} >
                                             <Text style={style.buttonText}>{item.name}</Text>

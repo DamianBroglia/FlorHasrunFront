@@ -47,7 +47,7 @@ function PutUser({ navigation }) {
                 <View style={{ alignItems: "flex-start", marginBottom: 15 }}>
                     <Text style={style.titlePropForm}> Celular: </Text>
                     <TextInput
-                        style={style.inputText}
+                        style={style.loginInput}
                         placeholder='Ej: 1560707'
                         onChangeText={(celNumber) => setChangeUser({ ...changeUser, celNumber: celNumber })}
                         defaultValue={changeUser.ce}
@@ -57,7 +57,7 @@ function PutUser({ navigation }) {
                 <View style={{ alignItems: "flex-start", marginBottom: 3 }}>
                     <Text style={style.titlePropForm}> Contraseña: </Text>
                     <TextInput
-                        style={style.inputText}
+                        style={style.loginInput}
                         placeholder='Ej: Damiangarcia123!!'
                         secureTextEntry={disguisePassword}
                         onChangeText={password => setChangeUser({ ...changeUser, password: password.trim() })}

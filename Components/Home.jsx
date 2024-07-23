@@ -221,7 +221,7 @@ const Home = ({ navigation }) => {
                         <View style={style.block}>
                             {notificationHours &&
                                 <View style={style.modalCard}>
-                                    <Image style={style.imageIcons} source={require("../assets/WarningGolden.png")} />
+                                    <Image style={style.bigImage} source={require("../assets/WarningGolden.png")} />
                                     <Text style={style.mediumMsj}>Tienes un turno para hoy a las {notificationHours.hourInit} horas</Text>
                                     <View style={{ flexDirection: "row" }}>
                                         <TouchableOpacity style={style.smallButton} onPress={() => navigation.navigate("Turnos")}>
@@ -235,7 +235,7 @@ const Home = ({ navigation }) => {
                             }
                             {notification &&
                                 <View style={style.modalCard}>
-                                    <Image style={style.imageIcons} source={require("../assets/WarningGolden.png")} />
+                                    <Image style={style.bigImage} source={require("../assets/WarningGolden.png")} />
                                     <Text style={style.mediumText}>Tienes un turno para mañana a las {notification.hourInit} horas</Text>
                                     <View style={{ flexDirection: "row", width: "90%", justifyContent: "space-around" }}>
                                         <TouchableOpacity style={style.smallButton} onPress={() => navigation.navigate("Turnos")}>

@@ -99,7 +99,7 @@ const FormProduct = ({ navigation }) => {
                     <View style={{ alignItems: "flex-start", marginTop: 15 }}>
                         <Text style={style.titlePropForm}>Nombre:</Text>
                         <TextInput
-                            style={style.inputText}
+                            style={style.loginInput}
                             placeholder='Nombre del Producto'
                             onChangeText={name => setProduct({ ...product, name })}
                             defaultValue={product.name}
@@ -141,7 +141,7 @@ const FormProduct = ({ navigation }) => {
                     <View style={{ alignItems: "flex-start" }}>
                         <Text style={style.titlePropForm}>Descripción breve:</Text>
                         <TextInput
-                            style={style.inputText}
+                            style={style.loginInput}
                             placeholder='Descripcion breve'
                             onChangeText={minimalDescription => setProduct({ ...product, minimalDescription })}
                             defaultValue={product.minimalDescription}
@@ -155,7 +155,7 @@ const FormProduct = ({ navigation }) => {
                         <Text style={style.titlePropForm}>Descripción:</Text>
                         <TextInput
                             multiline={true}
-                            style={style.inputTextDescription}
+                            style={style.loginInputDescription}
                             placeholder='Descripcion'
                             onChangeText={description => setProduct({ ...product, description })}
                             defaultValue={product.description}
@@ -168,7 +168,7 @@ const FormProduct = ({ navigation }) => {
 
                     <View style={{ alignItems: "flex-start" }}>
                         <Text style={style.titlePropForm}>Duración:</Text>
-                        <View style={style.inputTextMed}>
+                        <View style={style.loginInputMed}>
                             {product.duration === "30" ?
                                 <TouchableOpacity style={style.buttonDuration} onPress={() => { setProduct({ ...product, duration: "30" }) }}>
                                     <Text style={style.buttonText}>30 min </Text>
@@ -209,7 +209,7 @@ const FormProduct = ({ navigation }) => {
                     <View style={{ alignItems: "flex-start" }}>
                         <Text style={style.titlePropForm}>Precio:</Text>
                         <TextInput
-                            style={style.inputText}
+                            style={style.loginInput}
                             placeholder='Precio'
                             onChangeText={price => setProduct({ ...product, price })}
                             defaultValue={product.price}

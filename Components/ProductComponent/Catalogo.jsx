@@ -56,7 +56,7 @@ const Catalogo = ({ navigation }) => {
                     }
                     renderItem={({ item }) =>
                         item.name !== "Turno Bloqueado" && item.name !== "Dia Bloqueado" &&
-                        <View style={style.cardService}>
+                        <View style={style.fullWidthCard}>
                             <Text style={style.title}> {item.name} </Text>
                             <View style={style.imageContainerServ}>
                                 <Image style={style.imageServ} source={{ uri: item.image[0] }} />

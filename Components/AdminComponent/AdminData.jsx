@@ -92,7 +92,7 @@ const AdminData = () => {
                 <View>
                     <View style={style.cardStadistic}>
                         <View style={{ flexDirection: "row" }}>
-                            <Image style={style.imageIconsStadistic} source={require("../../assets/Ganancia.png")} />
+                            <Image style={style.bigImageStadistic} source={require("../../assets/Ganancia.png")} />
                             <TouchableOpacity style={style.buttonStadistic} onPress={() => setModalGan(true)}>
                                 <Text style={style.buttonText}> Ganancias </Text>
                             </TouchableOpacity>
@@ -107,7 +107,7 @@ const AdminData = () => {
 
                     <View style={style.cardStadistic}>
                         <View style={{ flexDirection: "row" }}>
-                            <Image style={style.imageIconsStadistic} source={require("../../assets/Calendario.png")} />
+                            <Image style={style.bigImageStadistic} source={require("../../assets/Calendario.png")} />
                             <TouchableOpacity style={style.buttonStadistic} onPress={() => setModalTurnView(true)}>
                                 <Text style={style.buttonText}> Turnos </Text>
                             </TouchableOpacity>
@@ -122,7 +122,7 @@ const AdminData = () => {
                     />
                     <View style={style.cardStadistic}>
                         <View style={{ flexDirection: "row" }}>
-                            <Image style={style.imageIconsStadistic} source={require("../../assets/Vip.png")} />
+                            <Image style={style.bigImageStadistic} source={require("../../assets/Vip.png")} />
                             <TouchableOpacity style={style.buttonStadistic} onPress={() => setModalServView(true)}>
                                 <Text style={style.buttonText}> Servicios </Text>
                             </TouchableOpacity>

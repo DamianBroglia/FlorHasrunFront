@@ -33,13 +33,13 @@ const ProductDetail = ({ navigation }) => {
         <View style={style.baseContainer}>
             <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
             <ScrollView>
-                <View style={style.cardService}>
+                <View style={style.fullWidthCard}>
                     <Text style={style.title}>{service.name}</Text>
                     <FlatList
                         horizontal
                         data={countImage}
                         renderItem={({ item }) =>
-                            <Image style={style.imageIcons} source={{ uri: item }} />
+                            <Image style={style.bigImage} source={{ uri: item }} />
                         } />
                     <Text style={style.bigText}>{service.minimalDescription}</Text>
                     <Text style={style.mediumText}>{service.description}</Text>

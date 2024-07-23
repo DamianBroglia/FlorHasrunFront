@@ -162,7 +162,7 @@ const Agenda = () => {
 
                             {turnsOfTheDay.length && turnsOfTheDay[0].product.name === "Dia Bloqueado" ?
                                 <View style={style.cardModalUserTurns}>
-                                    <Image style={style.imageIcons} source={require("../../assets/Candado.png")} />
+                                    <Image style={style.bigImage} source={require("../../assets/Candado.png")} />
                                     <Text style={style.titleBig}>Dia Bloqueado!</Text>
                                     <Text style={style.text}>Has bloqueado este día para que ningun cliente pueda guardar un turno</Text>
                                 </View>

@@ -16,13 +16,13 @@ const ServiceControl = ({ navigation }) => {
     return (
         <View>
             <View style={style.cardUsers}>
-                <Image style={style.imageIcons} source={require("../../assets/Subir.png")} />
+                <Image style={style.bigImage} source={require("../../assets/Subir.png")} />
                 <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Crear Servicio")}>
                     <Text style={style.buttonText}>Crear Servicio</Text>
                 </TouchableOpacity>
             </View>
             <View style={style.cardUsers}>
-                <Image style={style.imageIcons} source={require("../../assets/Vip.png")} />
+                <Image style={style.bigImage} source={require("../../assets/Vip.png")} />
                 <TouchableOpacity style={style.button} onPress={seeAllService}>
                     <Text style={style.buttonText}>Ver todos los servicios</Text>
                 </TouchableOpacity>

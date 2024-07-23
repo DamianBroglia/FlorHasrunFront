@@ -46,51 +46,51 @@ function Login() {
 
 
     return (
-        <View style={{height:"100%"}}>
-            <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
-            <View style={style.cardUsersRegis}>
-                <Image style={style.imageLogo} source={require("../../assets/LogoFlor.png")} />
-                <View style={{ alignItems: "flex-start", marginBottom: 15 }}>
-                    <Text style={style.titlePropForm}> Nombre: </Text>
+        <View style={{...style.baseContainer, justifyContent:"center"}}>
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
+            <View style={{...style.fullWidthCard, width:"88%"}}>
+                <Image style={style.imageHomeLogo} source={require("../../assets/LogoFlor.png")} />
+                <View style={style.containerInput}>
+                    <Text style={style.bigText}> Nombre: </Text>
                     <TextInput
-                        style={style.inputText}
+                        style={style.loginInput}
                         placeholder='Ej: Damián'
                         onChangeText={name => setUserName(name.trim())}
                         defaultValue={userName}
                     />
                 </View>
 
-                <View style={{ alignItems: "flex-start", marginBottom: 15 }}>
-                    <Text style={style.titlePropForm}> Apellido: </Text>
+                <View style={style.containerInput}>
+                    <Text style={style.bigText}> Apellido: </Text>
                     <TextInput
-                        style={style.inputText}
+                        style={style.loginInput}
                         placeholder='Ej: Garcia'
                         onChangeText={lastname => setUserLastname(lastname.trim())}
                         defaultValue={userLastname}
                     />
                 </View>
 
-                <View style={{ alignItems: "flex-start", marginBottom: 15 }}>
-                    <Text style={style.titlePropForm}> Contraseña: </Text>
+                <View style={style.containerInput}>
+                    <Text style={style.bigText}> Contraseña: </Text>
                     <TextInput
-                        style={style.inputText}
+                        style={style.loginInput}
                         secureTextEntry={disguisePassword}
                         placeholder='Ej: Damiangarcia123!!'
                         onChangeText={password => setUserPassword(password.trim())}
                         defaultValue={userPassword}
                     />
                     {disguisePassword ?
-                        <TouchableOpacity onPress={() => setDisguisePassword(false)}>
-                            <Image style={style.viewPassword} source={require("../../assets/OjoCerrado.png")} />
+                        <TouchableOpacity style={style.eyeContainer} onPress={() => setDisguisePassword(false)}>
+                            <Image style={style.eyeImage} source={require("../../assets/OjoCerrado.png")} />
                         </TouchableOpacity> :
-                        <TouchableOpacity onPress={() => setDisguisePassword(true)}>
-                            <Image style={style.viewPassword} source={require("../../assets/OjoAbierto.png")} />
+                        <TouchableOpacity style={style.eyeContainer} onPress={() => setDisguisePassword(true)}>
+                            <Image style={style.eyeImage} source={require("../../assets/OjoAbierto.png")} />
                         </TouchableOpacity>
                     }
                 </View>
 
                 <View style={{ marginVertical: 15 }}>
-                    <TouchableOpacity style={style.button} onPress={login}>
+                    <TouchableOpacity style={style.mediumButton} onPress={login}>
                         <Text style={style.buttonText}> Ingresar </Text>
                     </TouchableOpacity>
                 </View>

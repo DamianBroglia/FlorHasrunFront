@@ -77,7 +77,7 @@ const Register = () => {
                 <View style={{ alignItems: "flex-start" }}>
                     <Text style={style.titlePropForm}> Nombre: </Text>
                     <TextInput
-                        style={style.inputText}
+                        style={style.loginInput}
                         placeholder='Ej: Damián'
                         onChangeText={name => setNewUserName(name.trim())}
                         defaultValue={newUserName}
@@ -89,7 +89,7 @@ const Register = () => {
                 <View style={{ alignItems: "flex-start", marginTop: 9 }}>
                     <Text style={style.titlePropForm}> Apellido: </Text>
                     <TextInput
-                        style={style.inputText}
+                        style={style.loginInput}
                         placeholder='Ej: Garcia'
                         onChangeText={lastname => setNewUserLastname(lastname.trim())}
                         defaultValue={newUserLastname}
@@ -100,7 +100,7 @@ const Register = () => {
                 <View style={{ alignItems: "flex-start", marginTop: 9 }}>
                     <Text style={style.titlePropForm}> Número de celular: </Text>
                     <TextInput
-                        style={style.inputText}
+                        style={style.loginInput}
                         placeholder='Número de celular'
                         onChangeText={celNumber => setNewUserCelNumber(celNumber)}
                         defaultValue={newUserCelNumber}
@@ -111,7 +111,7 @@ const Register = () => {
                 <View style={{ alignItems: "flex-start", marginTop: 9 }}>
                     <Text style={style.titlePropForm}> Contraseña: </Text>
                     <TextInput
-                        style={style.inputText}
+                        style={style.loginInput}
                         secureTextEntry={disguisePassword}
                         placeholder='Ej: Damiangarcia123!!'
                         onChangeText={password => setNewUserPassword(password.trim())}

@@ -54,6 +54,7 @@ const CalendarScreen = ({ navigation }) => {
   const [blockedAlert, setBloquedAlert] = useState(false)
   const [disblockDay, setDisblockDay] = useState(false)
   const [disblockedDayAlert, setDisblocedkDayAlert] = useState(false)
+  const [numColumns, setNumColumns] = useState(1);
 
 
   useEffect(() => {
@@ -241,6 +242,7 @@ const CalendarScreen = ({ navigation }) => {
       setDateFormat(restDay.format('DD-MM-YYYY'))
       setNewTurn({ ...newTurn, dateInit: restDay.format('dddd D [de] MMMM [de] YYYY') })
     }
+    setConfirmTurn(null)
   }
 
   const getOneDayAfter = () => {
@@ -255,6 +257,7 @@ const CalendarScreen = ({ navigation }) => {
       setDateFormat(sumDay.format('DD-MM-YYYY'))
       setNewTurn({ ...newTurn, dateInit: sumDay.format('dddd D [de] MMMM [de] YYYY') })
     }
+    setConfirmTurn(null)
   }
 
   const blockDay = () => {
@@ -314,33 +317,32 @@ const CalendarScreen = ({ navigation }) => {
   const choiceDate = () => {
     setSelecDate(true)
     setSelectedDate(false)
+    setConfirmTurn(null)
   }
 
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
 
-      {selecDate ?
+      {selecDate &&
         <Calendar
           disableWeekends={true}
           onDayPress={handleDatePress}
-          style={{marginTop:30, marginHorizontal:20, borderRadius:8}}
-        /> :
-        <View style={{ alignItems: "center" }}>
-          <TouchableOpacity style={style.button} onPress={() => choiceDate()}>
-            <Text style={style.buttonText} >Elegir fecha</Text>
-          </TouchableOpacity>
-        </View>
+          style={{ marginTop: 30, marginHorizontal: 20, borderRadius: 8 }}
+        /> 
       }
+
       {selectedDate
         ?
-        <View style={{ alignItems: "center" }}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <TouchableOpacity style={style.littleButton} onPress={getOneDayBefore}>
-              <Text style={style.buttonText}>-</Text>
+        <View style={{ alignItems: "center"}}>
+          <View style={style.buttonsHorizontalContainer}>
+            <TouchableOpacity style={style.verySmallButton} onPress={getOneDayBefore}>
+              <Text style={{...style.title}}>-</Text>
             </TouchableOpacity>
-            <Text style={style.titleStadistic}> {selectedDate} </Text>
-            <TouchableOpacity style={style.littleButton} onPress={getOneDayAfter}>
+            <TouchableOpacity style={style.veryBigButton} onPress={() => choiceDate()}>
+            <Text style={style.bigText}> {selectedDate} </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={style.verySmallButton}  onPress={getOneDayAfter}>
               <Text style={style.buttonText}>+</Text>
             </TouchableOpacity>
           </View>
@@ -350,54 +352,57 @@ const CalendarScreen = ({ navigation }) => {
               <ActivityIndicator size="large" color='rgb(252, 181, 180)' />
               <Text style={style.titleStadistic}>Cargando turnos...</Text>
             </View>
-            : <View>
+            :
+            <View style={{width:"98%"}}>
               {confirmTurn ?
                 <FlatList
                   data={freeTurns}
-                  numColumns={3}
-
+                  numColumns={numColumns}
+                  key={numColumns}
+                  initialNumToRender={12}
+                  style={{ width: "100%" }}
                   renderItem={({ item }) =>
-                    <View>
-                      {confirmTurn === item.hour
-                        ?
-                        <View style={style.cardTurnConf}>
-                          <Text style={style.titleDate}> Confirmar turno? </Text>
-                          <Text style={style.name}> {service.name} </Text>
-                          <View style={{ flexDirection: "row", marginTop: 18 }}>
-                            <View style={style.cardConfTurn}>
-                              <Image style={style.imageIconsTurn} source={require("../../assets/Ganancia.png")} />
-                              <Text style={style.propTurn}> $ {service.price} </Text>
+                    <View style={{width:"100%"}}>
+                      {confirmTurn === item.hour &&
+                        <View style={{...style.fullWidthCard, width:"85%"}}>
+                          <Text style={style.bigText}> Confirmar turno? </Text>
+                          <Text style={{...style.title, marginBottom:"5%"}}> {service.name} </Text>
+                          <View style={{...style.buttonsHorizontalContainer}}>
+                            <View style={style.smallCard}>
+                              <Image style={style.bigImage} source={require("../../assets/Ganancia.png")} />
+                              <Text style={style.bigText}> $ {service.price} </Text>
                             </View>
-                            <View style={style.cardConfTurn}>
-                              <Image style={style.imageIconsTurn} source={require("../../assets/Duracion.png")} />
-                              <Text style={style.propTurn}> {service.duration} minutos </Text>
-                            </View>
-                          </View>
-                          <View style={{ flexDirection: "row", marginTop: 18 }}>
-                            <View style={style.cardConfTurn}>
-                              <Image style={style.imageIconsTurn} source={require("../../assets/Reloj.png")} />
-                              <Text style={style.propTurn}> {newTurn.hourInit} horas </Text>
-                            </View>
-                            <View style={style.cardConfTurn}>
-                              <Image style={style.imageIconsTurn} source={require("../../assets/Calendario.png")} />
-                              <Text style={style.propTurn}> {dateFormat} </Text>
+                            <View style={style.smallCard}>
+                              <Image style={style.bigImage} source={require("../../assets/Duracion.png")} />
+                              <Text style={style.bigText}> {service.duration} minutos </Text>
                             </View>
                           </View>
-                          <View style={{ flexDirection: "row-reverse", marginVertical: 15 }}>
-                            <TouchableOpacity style={style.button} onPress={postTurn}>
+                          <View style={style.buttonsHorizontalContainer}>
+                            <View style={style.smallCard}>
+                              <Image style={style.bigImage} source={require("../../assets/Reloj.png")} />
+                              <Text style={style.bigText}> {newTurn.hourInit} horas </Text>
+                            </View>
+                            <View style={style.smallCard}>
+                              <Image style={style.bigImage} source={require("../../assets/Calendario.png")} />
+                              <Text style={style.bigText}> {dateFormat} </Text>
+                            </View>
+                          </View>
+                          <View style={{...style.buttonsHorizontalContainer, marginTop:"5%"}}>
+                            <TouchableOpacity style={style.smallButton} onPress={postTurn}>
                               <Text style={style.buttonText}>Confirmar</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={style.button} onPress={() => setConfirmTurn(null)}>
+                            <TouchableOpacity style={style.smallButton} onPress={() => setConfirmTurn(null)}>
                               <Text style={style.buttonText} >Volver</Text>
                             </TouchableOpacity>
                           </View>
                         </View>
-                        : null}
+                      }
                     </View>
-                  }
-                /> :
+                  } />
+                :
                 <FlatList
                   data={freeTurns}
+                  style={{width:"100%"}}
                   ListHeaderComponent={
                     service.name === "Dia Bloqueado" &&
                     <View>
@@ -420,42 +425,42 @@ const CalendarScreen = ({ navigation }) => {
                         {item.free ?
                           <View style={style.cardTurnBlockDay}>
                             <Text style={style.text}>{item.hour} hs</Text>
-                            <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Llave.png")} />
+                            <Image style={style.bigImageTurnCalendar} source={require("../../assets/Llave.png")} />
                           </View>
                           :
                           <View style={style.cardTurnOcBlockDay}>
                             <Text style={style.text}>{item.hour} hs</Text>
-                            <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Candado.png")} />
+                            <Image style={style.bigImageTurnCalendar} source={require("../../assets/Candado.png")} />
                           </View>
                         }
                       </View>
                       :
-                      <View>
+                      <View style={style.turnContainer}>
                         {user.name === "Flor" && user.lastname === "Hasrun" ?
                           <View>
                             {item.free ?
-                              <TouchableOpacity style={style.cardTurn} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
+                              <TouchableOpacity style={style.turnCard} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
                                 <Text style={style.text}>{item.hour} hs</Text>
-                                <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Llave.png")} />
+                                <Image style={style.mediumImage} source={require("../../assets/Llave.png")} />
                               </TouchableOpacity>
                               :
-                              <TouchableOpacity style={style.cardTurnOc} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
+                              <TouchableOpacity style={style.turnCardX} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
                                 <Text style={style.text}>{item.hour} hs</Text>
-                                <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Candado.png")} />
+                                <Image style={style.mediumImage} source={require("../../assets/Candado.png")} />
                               </TouchableOpacity>
                             }
                           </View>
                           :
                           <View>
                             {item.free ?
-                              <TouchableOpacity style={style.cardTurn} onPress={() => saveTurn(item.hour)}>
-                                <Text style={style.text}>{item.hour} hs</Text>
-                                <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Llave.png")} />
+                              <TouchableOpacity style={style.turnCard} onPress={() => saveTurn(item.hour)}>
+                                <Text style={style.buttonText}>{item.hour} hs</Text>
+                                <Image style={style.mediumImage} source={require("../../assets/Llave.png")} />
                               </TouchableOpacity>
                               :
-                              <View style={style.cardTurnOc}>
-                                <Text style={style.text}>{item.hour} hs</Text>
-                                <Image style={style.imageIconsTurnCalendar} source={require("../../assets/Candado.png")} />
+                              <View style={style.turnCardX}>
+                                <Text style={style.buttonText}>{item.hour} hs</Text>
+                                <Image style={style.mediumImage} source={require("../../assets/Candado.png")} />
                               </View>
                             }
                           </View>
@@ -468,7 +473,7 @@ const CalendarScreen = ({ navigation }) => {
           }
         </View>
         :
-        <View style={{ marginTop: 40, width:190, alignSelf:"center" }}>
+        <View style={{ marginTop: 40, width: 190, alignSelf: "center" }}>
           <Text style={style.title}>Elija una fecha para ver los turnos disponibles</Text>
         </View>
       }
