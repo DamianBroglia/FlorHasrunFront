@@ -12,6 +12,7 @@ const ProductDetail = ({ navigation }) => {
     const service = useSelector((state) => state.services.detail)
     const user = useSelector((state) => state.users.user)
     const [viewModalDelete, setViewModalDelete] = useState(false)
+    const [showImage, setShowImage] = useState(false)
     const dispatch = useDispatch()
     const countImage = [...service.image]
 
@@ -39,24 +40,26 @@ const ProductDetail = ({ navigation }) => {
                         horizontal
                         data={countImage}
                         renderItem={({ item }) =>
-                            <Image style={style.bigImage} source={{ uri: item }} />
+                            <TouchableOpacity onPress={() => setShowImage(item)}>
+                                <Image style={style.veryBigImage} source={{ uri: item }} />
+                            </TouchableOpacity>
                         } />
                     <Text style={style.bigText}>{service.minimalDescription}</Text>
                     <Text style={style.mediumText}>{service.description}</Text>
                     <View style={{ width: "90%", flexDirection: "row", justifyContent: "space-around", marginVertical: 15 }}>
-                        <View style={style.detailServContainer}>
+                        <View style={{...style.litleCard}}>
                             <Text style={style.bigText}>Duración</Text>
                             <Text style={style.title}>{service.duration}</Text>
                             <Text style={{ ...style.smallText, marginBottom: 8 }}>minutos</Text>
                         </View>
-                        <View style={style.detailServContainer}>
+                        <View style={style.litleCard}>
                             <Text style={style.bigText}>Precio</Text>
                             <Text style={style.title}>$ {service.price}</Text>
                             <Text style={{ ...style.smallText, marginBottom: 8 }}>pesos argentinos</Text>
                         </View>
                     </View>
                     {!user.id ?
-                        <Text style={{...style.smallText, marginVertical:10}}>Registrate para guardar un turno para este servicio!</Text>
+                        <Text style={{ ...style.smallText, marginVertical: 10 }}>Registrate para guardar un turno para este servicio!</Text>
                         :
                         <View style={{ marginBottom: 10 }}>
                             {user.vip || user.credits > 1 ?
@@ -81,6 +84,14 @@ const ProductDetail = ({ navigation }) => {
                 </View>
             </ScrollView>
 
+            {showImage &&
+                <View style={style.block}>
+                    <Image style={{ with: "100%", aspectRatio: 1 }} source={{ uri: showImage }} />
+                    <TouchableOpacity style={{...style.smallButton, marginVertical:20}} onPress={() => setShowImage(false)}>
+                        <Text style={style.buttonText}>Volver</Text>
+                    </TouchableOpacity>
+                </View>
+            }
             <ModalAlert
                 isVisible={viewModalDelete}
                 onClose={() => hideAlert()}

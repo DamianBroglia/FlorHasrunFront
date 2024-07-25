@@ -13,23 +13,25 @@ export const ModalAlert = ({ isVisible, onClose, title, message, type }) => {
       animationIn="fadeIn"
       animationOut="fadeOutDown"
       useNativeDriver
-      style={style.alerta}
+      style={{ margin: 0 }}
     >
-      
-        <View style={style.alertContainer}>
-         {type === "ok" ?  
-         <Image style={style.bigImage} source={require("../assets/Bien.png")} />
-         : 
-         <Image style={style.bigImage} source={require("../assets/Warning.png")} />
-         }
+
+      <View style={style.block}>
+        <View style={style.modalCard}>
+          {type === "ok" ?
+            <Image style={style.bigImage} source={require("../assets/Bien.png")} />
+            :
+            <Image style={style.bigImage} source={require("../assets/Warning.png")} />
+          }
           <Text style={style.title}>{title}</Text>
-          <Text style={style.text}>{message}</Text>
-          <TouchableOpacity onPress={onClose} style={style.smallButton}>
+          <Text style={{...style.bigText, width:"90%"}}>{message}</Text>
+          <TouchableOpacity onPress={onClose} style={{...style.smallButton, marginVertical:12}}>
             <Text style={style.buttonText}>OK</Text>
           </TouchableOpacity>
-        </View> 
-        
-  
+        </View>
+      </View>
+
+
     </Modal>
   );
 };

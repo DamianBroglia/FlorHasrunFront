@@ -97,105 +97,104 @@ const User = ({ navigation }) => {
 
 
     return (
-        <View>
-            <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
-            <View style={style.cardUser}>
+        <View style={style.baseContainer}>
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
+            <View style={{ ...style.fullWidthCard, marginVertical: 5 }}>
                 <Text style={style.title}>{user.name} {user.lastname}</Text>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={style.textInfo}>{user.celNumber}</Text>
+            </View>
 
-                    <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: 26 }}>
-                        <Text style={style.textInfo}>Estado  </Text>
-                        {user.verified ?
-                            <Image style={style.imageVerified} source={require("../../assets/OkGreen.png")} />
+            <View style={{ ...style.fullWidthCard, flexDirection: "row", justifyContent: "space-around", marginVertical: 5 }}>
+                <View style={style.veryLitleCard}>
+                    <Text style={{ ...style.mediumText, marginBottom: 5 }}>Celular </Text>
+                    <Text style={style.bigText}>{user.celNumber}</Text>
+                </View>
+
+                <View style={style.veryLitleCard}>
+                    <Text style={style.mediumText}>Estado </Text>
+                    {user.verified ?
+                        <Image style={style.smallImage} source={require("../../assets/OkGreen.png")} />
+                        :
+                        <Image style={style.smallImage} source={require("../../assets/Response.png")} />
+                    }
+                </View>
+
+                {user.vip ?
+                    <View style={style.veryLitleCard}>
+                        <Text style={style.mediumText}>Creditos </Text>
+                        <TouchableOpacity onPress={() => setModalVip(true)}>
+                            <Image style={style.smallImage} source={require("../../assets/Vip.png")} />
+                            <Text style={style.mediumText}>VIP</Text>
+                        </TouchableOpacity>
+                    </View>
+                    :
+                    <View style={style.veryLitleCard}>
+                        {user.credits !== "getCredit" && user.credits !== "getCredit+1" ?
+                            <TouchableOpacity onPress={() => setModals()}>
+                                <Text style={style.mediumText}>Creditos </Text>
+                                <Text style={{ ...style.VerybigText, marginTop: "4%" }}>{user.credits}</Text>
+                                <Image style={{ ...style.smallImage, position: "absolute", alignSelf: "center", top: "40%" }} source={require("../../assets/Credit.png")} />
+                            </TouchableOpacity>
                             :
-                            <Image style={style.imageVerified} source={require("../../assets/Response.png")} />
+                            <TouchableOpacity onPress={() => setModalViewRequest(true)}>
+                                <Text style={style.mediumText}>Creditos  </Text>
+                                <Text style={style.creditsNumber}>?</Text>
+                                <Image style={style.smallImage} source={require("../../assets/Credit.png")} />
+                            </TouchableOpacity>
                         }
                     </View>
+                }
 
-                    <Text style={style.textInfo}>Creditos  </Text>
-
-                    {user.vip ?
-                        <View>
-                            <TouchableOpacity onPress={() => setModalVip(true)}>
-                                    <Image style={style.imageVerified} source={require("../../assets/Vip.png")} />
-                                    <Text style={style.creditsVip}>VIP</Text>
-                            </TouchableOpacity>
-                        </View>
-                        :
-                        <View>
-                            {user.credits !== "getCredit" && user.credits !== "getCredit+1" ?
-                                <TouchableOpacity onPress={() => setModals()}>
-                                    <View style={{ flexDirection: "row" }}>
-                                        <Text style={style.creditsNumber}>{user.credits}</Text>
-                                        <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
-                                    </View>
-                                </TouchableOpacity>
-                                :
-                                <TouchableOpacity onPress={() => setModalViewRequest(true)}>
-                                    <View style={{ flexDirection: "row" }}>
-                                        <Text style={style.creditsNumber}>?</Text>
-                                        <Image style={style.imageVerified} source={require("../../assets/Credit.png")} />
-                                    </View>
-
-                                </TouchableOpacity>
-                            }
-                        </View>
-                    }
-
-                    {user.credits < 2 && user.verified && futureTurns.length === 0 ?
-                        <Text style={style.buttonNot}>🔴</Text> : null
-                    }
-
-
-                </View>
+                {user.credits < 2 && user.verified && futureTurns.length === 0 ?
+                    <Text style={style.buttonNot}>🔴</Text> : null
+                }
             </View>
 
-            <View style={{ flexDirection: "row" }}>
-                <View style={style.mediumCard}>
-                    <Image style={style.bigImage} source={require("../../assets/Usuario.png")} />
-                    <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Modificar Usuario")}>
-                        <Text style={style.buttonText}>Modificar</Text>
-                    </TouchableOpacity>
-                </View>
 
-                <View style={style.mediumCard}>
-                    <Image style={style.bigImage} source={require("../../assets/Calendario.png")} />
-                    <TouchableOpacity style={style.button} onPress={() => goMyTurns()}>
-                        <Text style={style.buttonText}>Mis Turnos</Text>
-                    </TouchableOpacity>
-                </View>
-
-            </View>
-
-            <View style={{ flexDirection: "row" }}>
-
-                <View style={style.mediumCard}>
-                    <Image style={style.bigImage} source={require("../../assets/Configuraciones.png")} />
-                    <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Opciones")}>
-                        <Text style={style.buttonText}>Opciones</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={style.mediumCard}>
-                    <Image style={style.bigImage} source={require("../../assets/FlechaIzquierda.png")} />
-                    <TouchableOpacity style={style.button} onPress={() => { setAreYouSure(true) }}>
-                        <Text style={style.buttonText}>Salir</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            {areYouSure ?
-                <View style={style.cardUsers}>
-                    <Text style={style.textInfo}> Seguro que desea salir?</Text>
-                    <View style={{ flexDirection: "row-reverse" }}>
-                        <TouchableOpacity style={style.button} onPress={logOut}>
-                            <Text style={style.buttonText}> Si</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={style.button} onPress={() => { setAreYouSure(false) }}>
-                            <Text style={style.buttonText}> Cancelar</Text>
+            <View style={{ ...style.fullWidthCard, marginVertical: 5 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: "100%", marginBottom: "3%" }}>
+                    <View style={style.SmallMediumCard}>
+                        <Image style={style.bigImage} source={require("../../assets/Usuario.png")} />
+                        <TouchableOpacity style={style.smallButton} onPress={() => navigation.navigate("Modificar Usuario")}>
+                            <Text style={style.buttonText}>Modificar</Text>
                         </TouchableOpacity>
                     </View>
-                </View> : null
+                    <View style={style.SmallMediumCard}>
+                        <Image style={style.bigImage} source={require("../../assets/Calendario.png")} />
+                        <TouchableOpacity style={style.smallButton} onPress={() => goMyTurns()}>
+                            <Text style={style.buttonText}>Mis Turnos</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: "100%" }}>
+                    <View style={style.SmallMediumCard}>
+                        <Image style={style.bigImage} source={require("../../assets/Configuraciones.png")} />
+                        <TouchableOpacity style={style.smallButton} onPress={() => navigation.navigate("Opciones")}>
+                            <Text style={style.buttonText}>Opciones</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={style.SmallMediumCard}>
+                        <Image style={style.bigImage} source={require("../../assets/FlechaIzquierda.png")} />
+                        <TouchableOpacity style={style.smallButton} onPress={() => { setAreYouSure(true) }}>
+                            <Text style={style.buttonText}>Salir</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+
+            {areYouSure &&
+                <View style={style.block}>
+                    <View style={style.modalCard}>
+                        <Text style={style.title}> Seguro que desea salir?</Text>
+                        <View style={{ flexDirection: "row-reverse", width:"90%", justifyContent:"space-around" }}>
+                            <TouchableOpacity style={style.smallButton} onPress={logOut}>
+                                <Text style={style.buttonText}>Si</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={style.smallButton} onPress={() => { setAreYouSure(false) }}>
+                                <Text style={style.buttonText}>Cancelar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
             }
             <ModalAlert
                 isVisible={alertCredits}

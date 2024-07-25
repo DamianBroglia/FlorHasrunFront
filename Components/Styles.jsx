@@ -25,12 +25,10 @@ const button = {
     justifyContent: "center"
 }
 const card = {
+    ...border,
     borderRadius: 10,
     alignItems: "center",
-    borderColor: "rgb(203,171,148)",
-    borderWidth: 2.5,
     alignSelf: "center",
-    width: "96%",
     backgroundColor: "rgba(47,44,54,0.8)",
 }
 
@@ -59,11 +57,19 @@ export const style = StyleSheet.create({
         marginTop: "4%",
         marginBottom: "6%"
     },
+    veryBigImage: {
+        width: 190,
+        height: 190,
+        objectFit: "cover",
+        marginTop: "9%",
+        marginBottom:"4%"
+    },
     bigImage: {
         width: 72,
         height: 72,
         objectFit: "cover",
-        marginTop: "9%"
+        marginTop: "9%",
+        marginBottom:"4%"
     },
     mediumImage: {
         width: 50,
@@ -72,8 +78,8 @@ export const style = StyleSheet.create({
         marginTop: "9%"
     },
     smallImage: {
-        width: 72,
-        height: 72,
+        width: 36,
+        height: 36,
         objectFit: "cover",
     },
     eyeImage: {
@@ -137,6 +143,20 @@ export const style = StyleSheet.create({
         ...shadow,
         width: 120,
     },
+    mediumSmallButton: {
+        ...button,
+        ...shadow,
+        width: 107,
+        marginBottom:3
+    },
+    mediumSmallButtonX: {
+        ...button,
+        borderColor: "rgba(203,171,148, 0.7)",
+        backgroundColor: "rgb(27,24,34)",
+        width: 107,
+        marginBottom:3
+
+    },
     verySmallButton: {
         ...button,
         ...shadow,
@@ -155,12 +175,23 @@ export const style = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
+    buttonTextX: {
+        color: "rgba(203,171,148,0.7)",
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
 
     title: {
         fontSize: 22,
         fontWeight: "500",
         color: "rgb(203,171,148)",
         textAlign:"center"
+    },
+    VerybigText: {
+        fontSize: 18,
+        textAlign: "center",
+        color: "rgb(233,201,178)",
     },
     bigText: {
         fontSize: 16,
@@ -187,7 +218,8 @@ export const style = StyleSheet.create({
     modalCard: {
         ...card,
         backgroundColor: "rgb(47,44,54)",
-        marginTop: "45%",
+        top: "25%",
+        position:"absolute",
         height: "40%",
         width: "94%",
         borderRadius: 25,
@@ -196,6 +228,7 @@ export const style = StyleSheet.create({
     },
     fullWidthCard: {
         ...card,
+        width: "96%",
         marginVertical: 8,
         paddingVertical: 10
     },
@@ -221,9 +254,31 @@ export const style = StyleSheet.create({
         ...card,
         width: "40%",
         aspectRatio:1,
-        backgroundColor:"rgba(203,171,148,0.3)"
+        // backgroundColor:"rgba(203,171,148,0.3)"
     },
-
+    SmallMediumCard: {
+        ...card,
+        paddingVertical:8,
+        width: "45%",
+        // backgroundColor:"rgba(203,171,148,0.3)"
+    },
+    litleCard: {
+        borderWidth: 1.5,
+        borderColor: "rgb(203,171,148)",
+        borderRadius: 10,
+        width: "45%",
+        alignItems: "center",
+        backgroundColor: "rgba(203,171,148, 0.1)"
+    },
+    veryLitleCard: {
+        borderWidth: 1.5,
+        borderColor: "rgb(203,171,148)",
+        borderRadius: 10,
+        width: "30%",
+        aspectRatio:1.6,
+        alignItems: "center",
+        backgroundColor: "rgba(203,171,148, 0.1)"
+    },
 
     ////////////////////////////////////
     //                                //
@@ -252,14 +307,7 @@ export const style = StyleSheet.create({
         flexDirection: "row",
         marginVertical: 10
     },
-    detailServContainer: {
-        borderWidth: 1.5,
-        borderColor: "rgb(203,171,148)",
-        borderRadius: 10,
-        width: "45%",
-        alignItems: "center",
-        backgroundColor: "rgba(203,171,148, 0.1)"
-    },
+
     containerInput: {
         alignItems: "flex-start",
         marginBottom: 15,

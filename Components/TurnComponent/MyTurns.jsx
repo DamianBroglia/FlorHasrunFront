@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList, Image, ImageBackground } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { style } from '../Styles';
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
@@ -34,7 +34,7 @@ const MyTurns = () => {
     const cancelTurn = async (turnId, dateInit, cancelAnyWay) => {
         let init = moment(dateInit, 'dddd D [de] MMMM [de] YYYY')
         try {
-            if(init.isBefore(today)){
+            if (init.isBefore(today)) {
                 setViewNoCancelTurn(true)
                 return
             }
@@ -120,66 +120,68 @@ const MyTurns = () => {
     }, [myTurn])
 
     return (
-        <View>
+        <View style={style.baseContainer}>
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
             <FlatList
                 data={viewTurns}
+                style={{ width: "100%" }}
                 ListHeaderComponent={
-                    <View>
-                        <View style={{ flexDirection: "row" }}>
+                    <View style={{ width: "100%" }}>
+                        <View style={{ ...style.fullWidthCard, flexDirection: "row", justifyContent: "space-around" }}>
                             <View>
                                 {buttonSelect === "Todos" ?
-                                    <View style={style.buttonFilterTurnSelect}>
-                                        <Text style={style.buttonText}> Todos </Text>
+                                    <View style={style.mediumSmallButtonX}>
+                                        <Text style={style.buttonTextX}>Todos</Text>
                                     </View>
                                     :
-                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Todos")}>
-                                        <Text style={style.buttonText}> Todos </Text>
+                                    <TouchableOpacity style={style.mediumSmallButton} onPress={() => filterTurns("Todos")}>
+                                        <Text style={style.buttonText}>Todos</Text>
                                     </TouchableOpacity>
                                 }
                                 {buttonSelect === "Cancel" ?
-                                    <View style={style.buttonFilterTurnSelect}>
-                                        <Text style={style.buttonText}> Cancelados </Text>
+                                    <View style={style.mediumSmallButtonX}>
+                                        <Text style={style.buttonTextX}>Cancelados</Text>
                                     </View> :
-                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Cancel")}>
-                                        <Text style={style.buttonText}> Cancelados </Text>
+                                    <TouchableOpacity style={style.mediumSmallButton} onPress={() => filterTurns("Cancel")}>
+                                        <Text style={style.buttonText}>Cancelados</Text>
                                     </TouchableOpacity>
                                 }
 
                             </View>
                             <View>
                                 {buttonSelect === "Future" ?
-                                    <View style={style.buttonFilterTurnSelect}>
-                                        <Text style={style.buttonText}> Futuros </Text>
+                                    <View style={style.mediumSmallButtonX}>
+                                        <Text style={style.buttonTextX}>Futuros</Text>
                                     </View> :
-                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Future")}>
-                                        <Text style={style.buttonText}> Futuros </Text>
+                                    <TouchableOpacity style={style.mediumSmallButton} onPress={() => filterTurns("Future")}>
+                                        <Text style={style.buttonText}>Futuros</Text>
                                     </TouchableOpacity>
                                 }
                                 {buttonSelect === "Pasado" ?
-                                    <View style={style.buttonFilterTurnSelect}>
-                                        <Text style={style.buttonText}> Pasados </Text>
+                                    <View style={style.mediumSmallButtonX}>
+                                        <Text style={style.buttonTextX}>Pasados</Text>
                                     </View> :
-                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Pasado")}>
-                                        <Text style={style.buttonText}> Pasados </Text>
+                                    <TouchableOpacity style={style.mediumSmallButton} onPress={() => filterTurns("Pasado")}>
+                                        <Text style={style.buttonText}>Pasados</Text>
                                     </TouchableOpacity>
                                 }
 
                             </View>
                             <View>
                                 {buttonSelect === "Cumplidos" ?
-                                    <View style={style.buttonFilterTurnSelect}>
-                                        <Text style={style.buttonText}> Cumplidos </Text>
+                                    <View style={style.mediumSmallButtonX}>
+                                        <Text style={style.buttonTextX}>Cumplidos</Text>
                                     </View> :
-                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Cumplidos")}>
-                                        <Text style={style.buttonText}> Cumplidos </Text>
+                                    <TouchableOpacity style={style.mediumSmallButton} onPress={() => filterTurns("Cumplidos")}>
+                                        <Text style={style.buttonText}>Cumplidos</Text>
                                     </TouchableOpacity>
                                 }
                                 {buttonSelect === "Fallados" ?
-                                    <View style={style.buttonFilterTurnSelect}>
-                                        <Text style={style.buttonText}> Fallados </Text>
+                                    <View style={style.mediumSmallButtonX}>
+                                        <Text style={style.buttonTextX}>Fallados</Text>
                                     </View> :
-                                    <TouchableOpacity style={style.buttonFilterTurn} onPress={() => filterTurns("Fallados")}>
-                                        <Text style={style.buttonText}> Fallados </Text>
+                                    <TouchableOpacity style={style.mediumSmallButton} onPress={() => filterTurns("Fallados")}>
+                                        <Text style={style.buttonText}>Fallados</Text>
                                     </TouchableOpacity>
                                 }
 
@@ -189,70 +191,69 @@ const MyTurns = () => {
                     </View>
                 }
                 renderItem={({ item }) =>
-                    <View style={style.cardAgenda}>
-                        <View style={{ alignItems: "flex-start" }}>
-                            <Text style={style.titleTurnUser3}>{item.dateInit}</Text>
-                            <Text style={style.mediumText}>{item.hourInit} | {item.product.name}</Text>
-                            <View style={{ flexDirection: "row", marginTop: 6 }}>
-                                <View style={{ alignItems: "center", marginRight: 2 }}>
-                                    <View style={style.propertyUserSmall}>
-                                        <Text style={style.propertyTextLittle}>${item.price}</Text>
+                    <View style={{ width: "100%" }}>
+                        <View style={style.fullWidthCard}>
+                            <View style={{ alignItems: "flex-start", width: "90%" }}>
+                                <Text style={style.VerybigText}>{item.dateInit}</Text>
+                                <Text style={style.bigText}>{item.hourInit} | {item.product.name}</Text>
+                                <View style={{ flexDirection: "row", marginTop: 6, alignItems: "center" }}>
+                                    <View style={{ flexDirection: "row", width: "60%", justifyContent: "space-around" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 6 }}>
+                                            <Text style={style.bigText}>${item.price}</Text>
+                                            <Text style={style.smallText}> Precio </Text>
+                                        </View>
+                                        <View style={{ ...style.litleCard, paddingVertical: 6 }}>
+                                            <Text style={style.bigText}>{item.product.duration} min</Text>
+                                            <Text style={style.smallText}> Duración </Text>
+                                        </View>
                                     </View>
-                                    <Text style={style.littleMsj}> Precio </Text>
+                                    {item.state === "toTake" &&
+                                        <View style={{ alignItems: "center", width: "45%" }}>
+                                            <TouchableOpacity style={style.smallButton} onPress={() => setViewCancelTurn(item.id)}>
+                                                <Text style={style.buttonText}>Cancelar</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    }
+                                    {item.state === "takedIt" &&
+                                        <View style={{ alignItems: "center", width: "45%" }}>
+                                            <Image style={style.mediumImage} source={require("../../assets/OkGreen.png")} />
+                                            <Text style={style.smallText}>Asistido</Text>
+                                        </View>
+                                    }
+                                    {item.state === "failed" &&
+                                        <View style={{ alignItems: "center", width: "45%" }}>
+                                            <Image style={style.mediumImage} source={require("../../assets/MalRed.png")} />
+                                            <Text style={style.smallText}>Fallado</Text>
+                                        </View>
+                                    }
+                                    {item.state === "cancelByUser" &&
+                                        <View style={{ alignItems: "center", width: "45%" }}>
+                                            <Image style={style.mediumImage} source={require("../../assets/Candado.png")} />
+                                            <Text style={style.smallText}>Cancel por ti</Text>
+                                        </View>
+                                    }
+                                    {item.state === "cancelByAdmin" &&
+                                        <View style={{ alignItems: "center", width: "45%" }}>
+                                            <Image style={style.mediumImage} source={require("../../assets/Candado.png")} />
+                                            <Text style={style.smallText}>Cancel por admin</Text>
+                                        </View>
+                                    }
                                 </View>
-                                <View style={{ alignItems: "center" }}>
-                                    <View style={style.propertyUserSmall}>
-                                        <Text style={style.propertyTextLittle}>{item.product.duration} min</Text>
-                                    </View>
-                                    <Text style={style.littleMsj}> Duración </Text>
-                                </View>
-                                {item.state === "toTake" &&
-                                    <View style={{ marginTop: -6 }}>
-                                        <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(item.id)}>
-                                            <Text style={style.buttonText}>Cancelar Turno</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                }
-                                {item.state === "takedIt" &&
-                                    <View style={{ marginLeft: 100, alignItems: "center" }}>
-                                        <Image style={style.imageUserList} source={require("../../assets/OkGreen.png")} />
-                                        <Text style={style.littleMsj}>Asistido</Text>
-                                    </View>
-                                }
-                                {item.state === "failed" &&
-                                    <View style={{ marginLeft: 100, alignItems: "center" }}>
-                                        <Image style={style.imageUserList} source={require("../../assets/MalRed.png")} />
-                                        <Text style={style.littleMsj}>Fallado</Text>
-                                    </View>
-                                }
-                                {item.state === "cancelByUser" &&
-                                    <View style={{ marginLeft: 94, alignItems: "center" }}>
-                                        <Image style={style.imageUserList} source={require("../../assets/Candado.png")} />
-                                        <Text style={style.littleMsj}>Cancel por ti</Text>
-                                    </View>
-                                }
-                                {item.state === "cancelByAdmin" &&
-                                    <View style={{ marginLeft: 85, alignItems: "center" }}>
-                                        <Image style={style.imageUserList} source={require("../../assets/Candado.png")} />
-                                        <Text style={style.littleMsj}>Cancel por admin</Text>
-                                    </View>
-                                }
                             </View>
                         </View>
-
-
-
                         {
                             viewCancelTurn === item.id &&
-                            <View style={{alignItems:"center", alignSelf:"center"}}>
-                                <Text style={style.textInfo}>Seguro que desea cancelar el turno?</Text>
-                                <View style={{ flexDirection: "row" }}>
-                                    <TouchableOpacity style={style.button} onPress={() => setViewCancelTurn(null)}>
-                                        <Text style={style.buttonText}>Volver</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={style.button} onPress={() => cancelTurn(item.id, item.dateInit, false)}>
-                                        <Text style={style.buttonText}>Cancelar Turno</Text>
-                                    </TouchableOpacity>
+                            <View style={style.block}>
+                                <View style={{...style.modalCard, height:140, top:0}}>
+                                    <Text style={style.bigText}>Seguro que desea cancelar el turno?</Text>
+                                    <View style={{ flexDirection: "row", width:"83%", justifyContent:"space-around" }}>
+                                        <TouchableOpacity style={style.smallButton} onPress={() => setViewCancelTurn(null)}>
+                                            <Text style={style.buttonText}>Volver</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={style.smallButton} onPress={() => cancelTurn(item.id, item.dateInit, false)}>
+                                            <Text style={style.buttonText}>Cancelar</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
                         }

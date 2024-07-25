@@ -39,13 +39,13 @@ function PutUser({ navigation }) {
 
 
     return (
-        <View>
-            <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
-            <View style={style.cardUsersRegis}>
-                <Image style={style.imageLogo} source={require("../../assets/LogoFlor.png")} />
+        <View style={style.baseContainer}>
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
+            <View style={style.fullWidthCard}>
+                <Image style={{...style.imageHomeLogo, height:"25%", marginBottom:30}} source={require("../../assets/LogoFlor.png")} />
 
-                <View style={{ alignItems: "flex-start", marginBottom: 15 }}>
-                    <Text style={style.titlePropForm}> Celular: </Text>
+                <View style={{ alignItems: "flex-start", marginBottom: 15, width:"65%" }}>
+                    <Text style={style.mediumText}> Celular: </Text>
                     <TextInput
                         style={style.loginInput}
                         placeholder='Ej: 1560707'
@@ -54,8 +54,8 @@ function PutUser({ navigation }) {
                     />
                 </View>
 
-                <View style={{ alignItems: "flex-start", marginBottom: 3 }}>
-                    <Text style={style.titlePropForm}> Contraseña: </Text>
+                <View style={{ alignItems: "flex-start", marginBottom: 15, width:"65%" }}>
+                    <Text style={style.mediumText}> Contraseña: </Text>
                     <TextInput
                         style={style.loginInput}
                         placeholder='Ej: Damiangarcia123!!'
@@ -65,19 +65,23 @@ function PutUser({ navigation }) {
 
                     />
                     {disguisePassword ?
-                        <TouchableOpacity onPress={() => setDisguisePassword(false)}>
-                            <Image style={style.viewPassword} source={require("../../assets/OjoCerrado.png")} />
-                        </TouchableOpacity> :
-                        <TouchableOpacity onPress={() => setDisguisePassword(true)}>
-                            <Image style={style.viewPassword} source={require("../../assets/OjoAbierto.png")} />
+                        <TouchableOpacity style={{position:"absolute", top:"50%", right:"5%"}} onPress={() => setDisguisePassword(false)}>
+                            <Image style={style.eyeImage} source={require("../../assets/OjoCerrado.png")} />
+                        </TouchableOpacity> 
+                        :
+                        <TouchableOpacity style={{position:"absolute", top:"50%", right:"5%"}} onPress={() => setDisguisePassword(true)}>
+                            <Image style={style.eyeImage} source={require("../../assets/OjoAbierto.png")} />
                         </TouchableOpacity>
                     }
                 </View>
 
 
-                <View style={{ marginVertical: 15 }}>
-                    <TouchableOpacity style={style.button} onPress={putChange}>
+                <View style={{...style.buttonsHorizontalContainer, width:"80%", marginVertical: 15 }}>
+                    <TouchableOpacity style={style.smallButton} onPress={putChange}>
                         <Text style={style.buttonText}> Modificar </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={style.smallButton} onPress={() => { navigation.navigate("Opciones De Usuario") }}>
+                        <Text style={style.buttonText}> Volver </Text>
                     </TouchableOpacity>
                 </View>
 

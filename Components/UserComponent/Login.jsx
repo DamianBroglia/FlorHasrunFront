@@ -44,6 +44,17 @@ function Login() {
         // setIsWelcome(false)
     };
 
+    const cargarFlor = () => {
+        setUserLastname("Hasrun")
+        setUserName("Flor")
+        setUserPassword("Meme")
+    }
+    const cargarEma = () => {
+        setUserLastname("Stone")
+        setUserName("Emma")
+        setUserPassword("Meme")
+    }
+
 
     return (
         <View style={{...style.baseContainer, justifyContent:"center"}}>
@@ -92,6 +103,17 @@ function Login() {
                 <View style={{ marginVertical: 15 }}>
                     <TouchableOpacity style={style.mediumButton} onPress={login}>
                         <Text style={style.buttonText}> Ingresar </Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{ marginVertical: 15 }}>
+                    <TouchableOpacity style={style.mediumButton} onPress={cargarFlor}>
+                        <Text style={style.buttonText}> cargar Flor </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ marginVertical: 15 }}>
+                    <TouchableOpacity style={style.mediumButton} onPress={cargarEma}>
+                        <Text style={style.buttonText}> cargar Emma </Text>
                     </TouchableOpacity>
                 </View>
 
