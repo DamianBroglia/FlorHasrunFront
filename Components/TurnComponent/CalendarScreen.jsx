@@ -329,20 +329,20 @@ const CalendarScreen = ({ navigation }) => {
           disableWeekends={true}
           onDayPress={handleDatePress}
           style={{ marginTop: 30, marginHorizontal: 20, borderRadius: 8 }}
-        /> 
+        />
       }
 
       {selectedDate
         ?
-        <View style={{ alignItems: "center"}}>
+        <View style={{ alignItems: "center" }}>
           <View style={style.buttonsHorizontalContainer}>
             <TouchableOpacity style={style.verySmallButton} onPress={getOneDayBefore}>
-              <Text style={{...style.title}}>-</Text>
+              <Text style={{ ...style.title }}>-</Text>
             </TouchableOpacity>
             <TouchableOpacity style={style.veryBigButton} onPress={() => choiceDate()}>
-            <Text style={style.bigText}> {selectedDate} </Text>
+              <Text style={style.bigText}> {selectedDate} </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={style.verySmallButton}  onPress={getOneDayAfter}>
+            <TouchableOpacity style={style.verySmallButton} onPress={getOneDayAfter}>
               <Text style={style.buttonText}>+</Text>
             </TouchableOpacity>
           </View>
@@ -353,7 +353,7 @@ const CalendarScreen = ({ navigation }) => {
               <Text style={style.titleStadistic}>Cargando turnos...</Text>
             </View>
             :
-            <View style={{width:"98%"}}>
+            <View style={{ width: "98%" }}>
               {confirmTurn ?
                 <FlatList
                   data={freeTurns}
@@ -362,12 +362,12 @@ const CalendarScreen = ({ navigation }) => {
                   initialNumToRender={12}
                   style={{ width: "100%" }}
                   renderItem={({ item }) =>
-                    <View style={{width:"100%"}}>
+                    <View style={{ width: "100%" }}>
                       {confirmTurn === item.hour &&
-                        <View style={{...style.fullWidthCard, width:"85%"}}>
+                        <View style={{ ...style.fullWidthCard, width: "85%" }}>
                           <Text style={style.bigText}> Confirmar turno? </Text>
-                          <Text style={{...style.title, marginBottom:"5%"}}> {service.name} </Text>
-                          <View style={{...style.buttonsHorizontalContainer}}>
+                          <Text style={{ ...style.title, marginBottom: "5%" }}> {service.name} </Text>
+                          <View style={{ ...style.buttonsHorizontalContainer }}>
                             <View style={style.smallCard}>
                               <Image style={style.bigImage} source={require("../../assets/Ganancia.png")} />
                               <Text style={style.bigText}> $ {service.price} </Text>
@@ -387,7 +387,7 @@ const CalendarScreen = ({ navigation }) => {
                               <Text style={style.bigText}> {dateFormat} </Text>
                             </View>
                           </View>
-                          <View style={{...style.buttonsHorizontalContainer, marginTop:"5%"}}>
+                          <View style={{ ...style.buttonsHorizontalContainer, marginTop: "5%" }}>
                             <TouchableOpacity style={style.smallButton} onPress={postTurn}>
                               <Text style={style.buttonText}>Confirmar</Text>
                             </TouchableOpacity>
@@ -400,74 +400,90 @@ const CalendarScreen = ({ navigation }) => {
                     </View>
                   } />
                 :
-                <FlatList
-                  data={freeTurns}
-                  style={{width:"100%"}}
-                  ListHeaderComponent={
-                    service.name === "Dia Bloqueado" &&
-                    <View>
+                <View>
+                  <FlatList
+                    data={freeTurns}
+                    style={{ width: "100%" }}
+                    // ListHeaderComponent={
+                    //   service.name === "Dia Bloqueado" &&
+                    //   <View>
+                    //     {freeTurns[0].name === "Dia Bloqueado" ?
+                    //       <TouchableOpacity style={style.smallButton} onPress={() => setDisblockDay(true)}>
+                    //         <Text style={style.buttonText} >Desbloquear dia</Text>
+                    //       </TouchableOpacity>
+                    //       :
+                    //       <TouchableOpacity style={style.smallButton} onPress={() => blockDay()}>
+                    //         <Text style={style.buttonText} >Bloquear dia</Text>
+                    //       </TouchableOpacity>
+                    //     }
+
+                    //   </View>
+                    // }
+                    numColumns={3}
+                    renderItem={({ item }) =>
+                      service.name === "Dia Bloqueado" ?
+                        <View style={style.turnContainer}>
+                          {item.free ?
+                            <View style={style.turnCard}>
+                              <Text style={style.text}>{item.hour} hs</Text>
+                              <Image style={style.mediumImage} source={require("../../assets/Llave.png")} />
+                            </View>
+                            :
+                            <View style={style.turnCardX}>
+                              <Text style={style.text}>{item.hour} hs</Text>
+                              <Image style={style.mediumImage} source={require("../../assets/Candado.png")} />
+                            </View>
+                          }
+                        </View>
+                        :
+                        <View style={style.turnContainer}>
+                          {user.name === "Flor" && user.lastname === "Hasrun" ?
+                            <View>
+                              {item.free ?
+                                <TouchableOpacity style={style.turnCard} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
+                                  <Text style={style.text}>{item.hour} hs</Text>
+                                  <Image style={style.mediumImage} source={require("../../assets/Llave.png")} />
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity style={style.turnCardX} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
+                                  <Text style={style.text}>{item.hour} hs</Text>
+                                  <Image style={style.mediumImage} source={require("../../assets/Candado.png")} />
+                                </TouchableOpacity>
+                              }
+                            </View>
+                            :
+                            <View>
+                              {item.free ?
+                                <TouchableOpacity style={style.turnCard} onPress={() => saveTurn(item.hour)}>
+                                  <Text style={style.buttonText}>{item.hour} hs</Text>
+                                  <Image style={style.mediumImage} source={require("../../assets/Llave.png")} />
+                                </TouchableOpacity>
+                                :
+                                <View style={style.turnCardX}>
+                                  <Text style={style.buttonText}>{item.hour} hs</Text>
+                                  <Image style={style.mediumImage} source={require("../../assets/Candado.png")} />
+                                </View>
+                              }
+                            </View>
+                          }
+                        </View>
+                    }
+                  />
+                  {service.name === "Dia Bloqueado" &&
+                    <View style={{position:"absolute", top:"45%", width:"100%", alignItems:"center"}}>
                       {freeTurns[0].name === "Dia Bloqueado" ?
-                        <TouchableOpacity style={style.button} onPress={() => setDisblockDay(true)}>
+                        <TouchableOpacity style={style.mediumButton} onPress={() => setDisblockDay(true)}>
                           <Text style={style.buttonText} >Desbloquear dia</Text>
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity style={style.button} onPress={() => blockDay()}>
+                        <TouchableOpacity style={style.mediumButton} onPress={() => blockDay()}>
                           <Text style={style.buttonText} >Bloquear dia</Text>
                         </TouchableOpacity>
                       }
 
-                    </View>
-                  }
-                  numColumns={3}
-                  renderItem={({ item }) =>
-                    service.name === "Dia Bloqueado" ?
-                      <View>
-                        {item.free ?
-                          <View style={style.cardTurnBlockDay}>
-                            <Text style={style.text}>{item.hour} hs</Text>
-                            <Image style={style.bigImageTurnCalendar} source={require("../../assets/Llave.png")} />
-                          </View>
-                          :
-                          <View style={style.cardTurnOcBlockDay}>
-                            <Text style={style.text}>{item.hour} hs</Text>
-                            <Image style={style.bigImageTurnCalendar} source={require("../../assets/Candado.png")} />
-                          </View>
-                        }
-                      </View>
-                      :
-                      <View style={style.turnContainer}>
-                        {user.name === "Flor" && user.lastname === "Hasrun" ?
-                          <View>
-                            {item.free ?
-                              <TouchableOpacity style={style.turnCard} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
-                                <Text style={style.text}>{item.hour} hs</Text>
-                                <Image style={style.mediumImage} source={require("../../assets/Llave.png")} />
-                              </TouchableOpacity>
-                              :
-                              <TouchableOpacity style={style.turnCardX} onPress={() => blockDisblockTurn(item.hour, item.name, item.turnId, item.userId, item.userCredits, item.free)}>
-                                <Text style={style.text}>{item.hour} hs</Text>
-                                <Image style={style.mediumImage} source={require("../../assets/Candado.png")} />
-                              </TouchableOpacity>
-                            }
-                          </View>
-                          :
-                          <View>
-                            {item.free ?
-                              <TouchableOpacity style={style.turnCard} onPress={() => saveTurn(item.hour)}>
-                                <Text style={style.buttonText}>{item.hour} hs</Text>
-                                <Image style={style.mediumImage} source={require("../../assets/Llave.png")} />
-                              </TouchableOpacity>
-                              :
-                              <View style={style.turnCardX}>
-                                <Text style={style.buttonText}>{item.hour} hs</Text>
-                                <Image style={style.mediumImage} source={require("../../assets/Candado.png")} />
-                              </View>
-                            }
-                          </View>
-                        }
-                      </View>
-                  }
-                />
+                    </View>}
+                </View>
+
               }
             </View>
           }

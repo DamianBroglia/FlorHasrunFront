@@ -82,6 +82,11 @@ export const style = StyleSheet.create({
         height: 36,
         objectFit: "cover",
     },
+    usersImage: {
+        width: "11%",
+        aspectRatio:1,
+        objectFit: "cover",
+    },
     eyeImage: {
         width: 25,
         height: 20,

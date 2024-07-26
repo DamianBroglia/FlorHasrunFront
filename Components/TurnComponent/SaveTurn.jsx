@@ -96,7 +96,7 @@ const SaveTurn = ({ navigation }) => {
                                 <View style={style.mediumCard}>
                                     <Image style={style.bigImage} source={require("../../assets/Candado.png")} />
                                     <TouchableOpacity style={style.mediumButton} onPress={() => calendarHandler("PostBlock")}>
-                                        <Text style={style.buttonText}>Bloquear</Text>
+                                        <Text style={style.buttonText}>Bloquear Turno</Text>
                                     </TouchableOpacity>
                                 </View>
                                 :

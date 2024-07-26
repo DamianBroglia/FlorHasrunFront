@@ -13,12 +13,13 @@ export const CancelModal = ({ isVisible, onClose, cancelAny, title, message, but
             animationIn="fadeIn"
             animationOut="fadeOutDown"
             useNativeDriver
-            style={style.alerta}
+            style={{margin:0}}
         >
-            <View style={style.alertContainer}>
+            <View style={style.block}>
+            <View style={style.modalCard}>
                 <Text style={style.title}>{title}</Text>
-                <Text style={style.text}>{message}</Text>
-                <View style={{flexDirection:"row"}}>
+                <Text style={style.bigText}>{message}</Text>
+                <View style={{flexDirection:"row", width:"80%", justifyContent:"space-around"}}>
                     <TouchableOpacity onPress={onClose} style={style.smallButton}>
                         <Text style={style.buttonText}>Volver</Text>
                     </TouchableOpacity>
@@ -26,6 +27,7 @@ export const CancelModal = ({ isVisible, onClose, cancelAny, title, message, but
                         <Text style={style.buttonText}>{buttonText}</Text>
                     </TouchableOpacity>
                 </View>
+            </View>
             </View>
         </Modal>
     );

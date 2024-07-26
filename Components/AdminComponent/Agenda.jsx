@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList, TouchableOpacity, Image } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import moment from 'moment';
 import 'moment/locale/es';
 import { useDispatch, useSelector } from 'react-redux';
@@ -142,22 +142,26 @@ const Agenda = () => {
     };
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
+
             {viewCalendar
                 ?
-                <Calendar onDayPress={pressDayHandler} />
+                <View>
+                    <Calendar
+                        onDayPress={pressDayHandler}
+                        style={{ marginTop: 30, marginHorizontal: 20, borderRadius: 8 }} />
+                    <Text style={{ ...style.VerybigText, marginVertical: "20%" }}>Elije una fecha para ver los turnos</Text>
+                </View>
                 :
                 <FlatList
                     data={turnsOfTheDay}
                     ListHeaderComponent={
                         <View>
                             <View style={{ alignItems: "center" }}>
-                                <TouchableOpacity style={style.button} onPress={viewCalenarHandler}>
-                                    <Text style={style.buttonText}>Seleccionar fecha</Text>
+                                <TouchableOpacity style={style.veryBigButton} onPress={viewCalenarHandler}>
+                                    <Text style={style.bigText}>{selecDate}</Text>
                                 </TouchableOpacity>
-                                <View style={style.cardModalUserTurns2}>
-                                    <Text style={style.titleDateTurn2}>{selecDate}</Text>
-                                </View>
                             </View>
 
                             {turnsOfTheDay.length && turnsOfTheDay[0].product.name === "Dia Bloqueado" ?
@@ -167,62 +171,43 @@ const Agenda = () => {
                                     <Text style={style.text}>Has bloqueado este día para que ningun cliente pueda guardar un turno</Text>
                                 </View>
                                 :
-                                <View style={style.cardModalUserTurns}>
-                                    <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10, width: 310, marginTop: 12 }}>
-
-                                        <View style={{ alignItems: "center" }}>
-                                            <View style={style.propertyUserSmall}>
-                                                <Text style={style.propertyTextLittleLimit}>${collectedDay}</Text>
-                                            </View>
-                                            <Text style={style.littleMediumMsj}>Ganancia</Text>
-                                            <Text style={style.littleMediumMsj}>del día</Text>
+                                <View style={style.fullWidthCard}>
+                                    <View style={style.buttonsHorizontalContainer}>
+                                        <View style={style.veryLitleCard}>
+                                            <Text style={style.VerybigText}>${collectedDay}</Text>
+                                            <Text style={style.smallText}>Ganancia</Text>
+                                            <Text style={style.smallText}>del día</Text>
                                         </View>
-
-                                        <View style={{ alignItems: "center" }}>
-                                            <View style={style.propertyUserSmall}>
-                                                <Text style={style.propertyTextLittleLimit2}>{workedHours}</Text>
-                                            </View>
-                                            <Text style={style.littleMediumMsj}>Horas</Text>
-                                            <Text style={style.littleMediumMsj}>trabajadas</Text>
+                                        <View style={style.veryLitleCard}>
+                                            <Text style={style.VerybigText}>{workedHours}</Text>
+                                            <Text style={style.smallText}>Horas</Text>
+                                            <Text style={style.smallText}>trabajadas</Text>
                                         </View>
-
-                                        <View style={{ alignItems: "center" }}>
-                                            <View style={style.propertyUserSmall}>
-                                                {collectedDay > 0 ?
-                                                    <Text style={style.propertyTextLittleLimit}>${Math.round(collectedDay / workedHours)}</Text>
-                                                    :
-                                                    <Text style={style.propertyTextLittleLimit}>$0</Text>
-                                                }
-                                            </View>
-                                            <Text style={style.littleMediumMsj}>Promedio</Text>
-                                            <Text style={style.littleMediumMsj}>por hora</Text>
+                                        <View style={style.veryLitleCard}>
+                                            {collectedDay > 0 ?
+                                                <Text style={style.VerybigText}>${Math.round(collectedDay / workedHours)}</Text>
+                                                :
+                                                <Text style={style.VerybigText}>$0</Text>
+                                            }
+                                            <Text style={style.smallText}>Promedio</Text>
+                                            <Text style={style.smallText}>por hora</Text>
                                         </View>
-
                                     </View>
-                                    <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10, width: 310 }}>
-
-                                        <View style={{ alignItems: "center" }}>
-                                            <View style={style.propertyUserSmall}>
-                                                <Text style={style.propertyTextLittleLimit}>${loseForFaild}</Text>
-                                            </View>
-                                            <Text style={style.littleMediumMsj}>Perdida</Text>
-                                            <Text style={style.littleMediumMsj}>por falta</Text>
+                                    <View style={style.buttonsHorizontalContainer}>
+                                        <View style={style.veryLitleCard}>
+                                            <Text style={style.VerybigText}>${loseForFaild}</Text>
+                                            <Text style={style.smallText}>Perdida</Text>
+                                            <Text style={style.smallText}>por falta</Text>
                                         </View>
-
-                                        <View style={{ alignItems: "center" }}>
-                                            <View style={style.propertyUserSmall}>
-                                                <Text style={style.propertyTextLittleLimit2}>{cancelTurn}</Text>
-                                            </View>
-                                            <Text style={style.littleMediumMsj}>Turnos</Text>
-                                            <Text style={style.littleMediumMsj}>cancelados</Text>
+                                        <View style={style.veryLitleCard}>
+                                            <Text style={style.VerybigText}>{cancelTurn}</Text>
+                                            <Text style={style.smallText}>Turnos</Text>
+                                            <Text style={style.smallText}>cancelados</Text>
                                         </View>
-
-                                        <View style={{ alignItems: "center" }}>
-                                            <View style={style.propertyUserSmall}>
-                                                <Text style={style.propertyTextLittleLimit}>${futureCollect}</Text>
-                                            </View>
-                                            <Text style={style.littleMediumMsj}>Ganancia</Text>
-                                            <Text style={style.littleMediumMsj}>Futura</Text>
+                                        <View style={style.veryLitleCard}>
+                                            <Text style={style.VerybigText}>${futureCollect}</Text>
+                                            <Text style={style.smallText}>Ganancia</Text>
+                                            <Text style={style.smallText}>Futura</Text>
                                         </View>
                                     </View>
                                 </View>
@@ -231,68 +216,64 @@ const Agenda = () => {
                     }
                     renderItem={({ item }) =>
                         item.state !== "cancelByUser" && item.state !== "cancelByAdmin" && item.product.name !== "Dia Bloqueado" &&
-                        <View style={style.cardAgenda}>
-                            <Text style={style.mediumText}>{item.hourInit} | {item.product.name}</Text>
-                            <Text style={style.titleTurnUser2}>{item.user.name} {item.user.lastname}</Text>
+                        <View style={style.fullWidthCard}>
+                            <Text style={style.title}>{item.hourInit} | {item.product.name}</Text>
+                            <Text style={style.VerybigText}>{item.user.name} {item.user.lastname}</Text>
 
-                            <View style={{ flexDirection: "row", marginTop: -12, alignItems: "center" }}>
-                                <View style={{ alignItems: "center" }}>
-                                    <View style={style.propertyUserSmall}>
-                                        <Text style={style.propertyTextLittleLimit3}>${item.price}</Text>
-                                    </View>
-                                    <Text style={style.littleMsj}>Precio</Text>
+                            <View style={style.buttonsHorizontalContainer}>
+                                <View style={style.veryLitleCard}>
+                                    <Text style={{ ...style.VerybigText, marginTop: "10%" }}>${item.price}</Text>
+                                    <Text style={style.smallText}>Precio</Text>
                                 </View>
-                                <View style={{ alignItems: "center", marginLeft: 8, marginRight: 70 }}>
-                                    <View style={style.propertyUserSmall}>
-                                        <Text style={style.propertyTextLittleLimit3}>{item.product.duration} min</Text>
-                                    </View>
-                                    <Text style={style.littleMsj}>Duración</Text>
+                                <View style={style.veryLitleCard}>
+                                    <Text style={{ ...style.VerybigText, marginTop: "10%" }}>{item.product.duration} min</Text>
+                                    <Text style={style.smallText}>Duración</Text>
                                 </View>
                                 {item.state === "takedIt" &&
-                                    <View style={{ flexDirection: "row" }}>
-                                        <View style={{ alignItems: "center", marginRight: 8 }}>
-                                            <Image style={style.imageUserList} source={require("../../assets/OkGreen.png")} />
-                                            <Text style={style.littleMsj}>Asistió</Text>
+                                    <View style={{...style.buttonsHorizontalContainer, width:"36%"}}>
+                                        <View style={{ alignItems: "center"}}>
+                                            <Image style={style.mediumImage} source={require("../../assets/OkGreen.png")} />
+                                            <Text style={style.smallText}>Asistió</Text>
                                         </View>
                                         <View style={{ alignItems: "center" }}>
-                                            <Image style={style.imageUserListOpac} source={require("../../assets/Mal.png")} />
-                                            <Text style={style.littleMsj}>No asistió</Text>
+                                            <Image style={{...style.mediumImage, opacity:0.6}} source={require("../../assets/Mal.png")} />
+                                            <Text style={style.smallText}>No asistió</Text>
                                         </View>
                                     </View>
                                 }
                                 {item.state === "failed" &&
-                                    <View style={{ flexDirection: "row" }}>
-                                        <View style={{ alignItems: "center", marginRight: 8 }}>
-                                            <Image style={style.imageUserListOpac} source={require("../../assets/Bien.png")} />
-                                            <Text style={style.littleMsj}>Asistió</Text>
+                                    <View style={{...style.buttonsHorizontalContainer, width:"36%"}}>
+                                        <View style={{ alignItems: "center"}}>
+                                            <Image style={{...style.mediumImage, opacity:0.6}} source={require("../../assets/Bien.png")} />
+                                            <Text style={style.smallText}>Asistió</Text>
                                         </View>
                                         <View style={{ alignItems: "center" }}>
-                                            <Image style={style.imageUserList} source={require("../../assets/MalRed.png")} />
-                                            <Text style={style.littleMsj}>No asistió</Text>
+                                            <Image style={style.mediumImage} source={require("../../assets/MalRed.png")} />
+                                            <Text style={style.smallText}>No asistió</Text>
                                         </View>
                                     </View>
                                 }
                                 {item.state === "toTake" && item.product.name !== "Turno Bloqueado" &&
-                                    <View style={{ flexDirection: "row" }}>
-                                        <View style={{ alignItems: "center", marginRight: 8 }}>
+                                    <View style={{...style.buttonsHorizontalContainer, width:"36%"}}>
+                                        <View style={{ alignItems: "center"}}>
                                             <TouchableOpacity onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "takedIt", item.price, item.product.duration, item.user.vip)}>
-                                                <Image style={style.imageUserListOpac} source={require("../../assets/Bien.png")} />
+                                                <Image style={style.mediumImage} source={require("../../assets/Bien.png")} />
                                             </TouchableOpacity>
-                                            <Text style={style.littleMsj}>Asistió</Text>
+                                            <Text style={style.smallText}>Asistió</Text>
                                         </View>
                                         <View style={{ alignItems: "center" }}>
                                             <TouchableOpacity onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "failed", item.price, item.product.duration)}>
-                                                <Image style={style.imageUserListOpac} source={require("../../assets/Mal.png")} />
+                                                <Image style={style.mediumImage} source={require("../../assets/Mal.png")} />
                                             </TouchableOpacity>
-                                            <Text style={style.littleMsj}>Falló</Text>
+                                            <Text style={style.smallText}>Falló</Text>
                                         </View>
                                     </View>
                                 }
                             </View>
                             {areYouShure === item.id ?
                                 <View style={{ alignItems: "center" }}>
-                                    <Text style={style.mediumText}>Confirmar?</Text>
-                                    <TouchableOpacity style={style.button} onPress={putTurn}>
+                                    <Text style={style.VerybigText}>Confirmar?</Text>
+                                    <TouchableOpacity style={style.smallButton} onPress={putTurn}>
                                         {turnState.state === "takedIt" ?
                                             <Text style={style.buttonText}>Presente</Text> :
                                             <Text style={style.buttonText}>Ausente</Text>

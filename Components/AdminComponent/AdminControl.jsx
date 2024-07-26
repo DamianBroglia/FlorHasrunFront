@@ -25,41 +25,41 @@ const AdminControl = ({ navigation }) => {
     }
 
     return (
-        <View >
-            <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
-            <ScrollView>
-                <View style={style.cardUsers}>
-                    <Image style={style.bigImage} source={require("../../assets/Agenda.png")} />
-                    <TouchableOpacity style={style.button} onPress={getTurnsDay}>
+        <View style={style.baseContainer} >
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
+            <ScrollView style={{width:"100%"}}>
+                <View style={style.fullWidthCard}>
+                    <Image style={{...style.bigImage, marginTop:"1%"}} source={require("../../assets/Agenda.png")} />
+                    <TouchableOpacity style={style.mediumButton} onPress={getTurnsDay}>
                         <Text style={style.buttonText}> Agenda </Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={style.cardUsers}>
-                    <Image style={style.bigImage} source={require("../../assets/Usuarios.png")} />
-                    <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Usuarios")}>
+                <View style={style.fullWidthCard}>
+                    <Image style={{...style.bigImage, marginTop:"1%"}} source={require("../../assets/Usuarios.png")} />
+                    <TouchableOpacity style={style.mediumButton} onPress={() => navigation.navigate("Usuarios")}>
                         <Text style={style.buttonText}> Usuarios </Text>
                     </TouchableOpacity>
                 </View>
 
 
-                <View style={style.cardUsers}>
-                    <Image style={style.bigImage} source={require("../../assets/Grafico.png")} />
-                    <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Estadisticas")}>
+                <View style={style.fullWidthCard}>
+                    <Image style={{...style.bigImage, marginTop:"1%"}} source={require("../../assets/Grafico.png")} />
+                    <TouchableOpacity style={style.mediumButton} onPress={() => navigation.navigate("Estadisticas")}>
                         <Text style={style.buttonText}> Estadisticas </Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={style.cardUsers}>
-                    <Image style={style.bigImage} source={require("../../assets/Vip.png")} />
-                    <TouchableOpacity style={style.button} onPress={() => navigation.navigate("Administrar Servicios")}>
+                <View style={style.fullWidthCard}>
+                    <Image style={{...style.bigImage, marginTop:"1%"}} source={require("../../assets/Vip.png")} />
+                    <TouchableOpacity style={style.mediumButton} onPress={() => navigation.navigate("Administrar Servicios")}>
                         <Text style={style.buttonText}>Servicios</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={style.cardUsers}>
-                    <Image style={style.bigImage} source={require("../../assets/FlechaIzquierda.png")} />
-                    <TouchableOpacity style={style.button} onPress={() => logOut()}>
+                <View style={style.fullWidthCard}>
+                    <Image style={{...style.bigImage, marginTop:"1%"}} source={require("../../assets/FlechaIzquierda.png")} />
+                    <TouchableOpacity style={style.mediumButton} onPress={() => logOut()}>
                         <Text style={style.buttonText}>Salir</Text>
                     </TouchableOpacity>
                 </View>

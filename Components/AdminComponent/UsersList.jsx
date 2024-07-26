@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Text, FlatList, TouchableOpacity, TextInput, Image, Linking } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, Image, Linking, ImageBackground } from 'react-native';
 import { getAllUserAction, getUserByNameAction } from "../../Redux/actions/userActions"
 import { getTurnsByUserIdAction } from '../../Redux/actions/turnActions';
 import { ModalUserTurns } from './ModalUserTurns';
@@ -288,47 +288,48 @@ const UsersList = ({ navigation }) => {
 
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
+
             <FlatList
                 data={renderUsers}
                 ListHeaderComponent={
                     <View>
-                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                            <TextInput
-                                style={style.searchUser}
-                                placeholder='Buscar usuario'
-                                onChangeText={name => setSearchUser(name.toLowerCase())}
-                                defaultValue={searchUser}
-                            />
-                            <TouchableOpacity style={style.button} onPress={searchUserName}>
-                                <Image style={style.imageLupa} source={require("../../assets/Lupa.png")} />
-                            </TouchableOpacity>
-                            {showOrder ?
-                                <TouchableOpacity style={style.button} onPress={disorderUser}>
-                                    <Text style={style.buttonText}>Aleatorio</Text>
-                                </TouchableOpacity>
-                                :
-                                <TouchableOpacity style={style.button} onPress={() => setShowOrder(true)}>
-                                    <Text style={style.buttonText}>Ordenar</Text>
-                                </TouchableOpacity>
-                            }
+                        <View style={style.fullWidthCard}>
+                            <View style={style.buttonsHorizontalContainer}>
+                                <TextInput
+                                    style={{ ...style.loginInput, width: "56%" }}
+                                    placeholder='Buscar usuario'
+                                    onChangeText={name => setSearchUser(name.toLowerCase())}
+                                    defaultValue={searchUser}
+                                />
+                                {showOrder ?
+                                    <TouchableOpacity style={{ ...style.smallButton, width: "38%" }} onPress={disorderUser}>
+                                        <Text style={style.buttonText}>Aleatorio</Text>
+                                    </TouchableOpacity>
+                                    :
+                                    <TouchableOpacity style={{ ...style.smallButton, width: "38%" }} onPress={() => setShowOrder(true)}>
+                                        <Text style={style.buttonText}>Ordenar</Text>
+                                    </TouchableOpacity>
+                                }
+                            </View>
                         </View>
 
                         {showOrder &&
-                            <View style={{ alignItems: "center" }}>
-                                <View style={{ flexDirection: "row" }}>
-                                    <TouchableOpacity style={style.buttonOrderUser} onPress={() => orderUser("savedTurns")}>
+                            <View style={style.fullWidthCard}>
+                                <View style={style.buttonsHorizontalContainer}>
+                                    <TouchableOpacity style={style.mediumButton} onPress={() => orderUser("savedTurns")}>
                                         <Text style={style.buttonText}>+ Turnos pasados</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={style.buttonOrderUser} onPress={() => orderUser("takedTurns")}>
-                                        <Text style={style.buttonText}>+ Turnos cumplidos</Text>
+                                    <TouchableOpacity style={style.mediumButton} onPress={() => orderUser("takedTurns")}>
+                                        <Text style={style.buttonText}>+ cumplidores</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={{ flexDirection: "row" }}>
-                                    <TouchableOpacity style={style.buttonOrderUser} onPress={() => orderUser("money")}>
+                                <View style={style.buttonsHorizontalContainer}>
+                                    <TouchableOpacity style={style.mediumButton} onPress={() => orderUser("money")}>
                                         <Text style={style.buttonText}>+ Dinero gastado</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={style.buttonOrderUser} onPress={() => orderUser("assists")}>
+                                    <TouchableOpacity style={style.mediumButton} onPress={() => orderUser("assists")}>
                                         <Text style={style.buttonText}>+ Asistencia</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -347,182 +348,165 @@ const UsersList = ({ navigation }) => {
                                     {item === "<" &&
                                         <View>
                                             {actualPage === 1 ?
-                                                <View style={style.buttonPageNoSelected}>
-                                                    <Text style={style.buttonText}> {item} </Text>
-                                                </View> :
-                                                <TouchableOpacity style={style.buttonPage} onPress={() => backPage()}>
+                                                <Text style={{ ...style.buttonText, opacity: 0.5 }}> {item} </Text>
+                                                :
+                                                <TouchableOpacity onPress={() => backPage()}>
                                                     <Text style={style.buttonText}> {item} </Text>
                                                 </TouchableOpacity>
                                             }
-
-                                        </View>
-                                    }
+                                        </View>}
                                     {item !== "<" && item !== ">" &&
                                         <View>
                                             {item === actualPage ?
-                                                <View style={style.buttonPageNoSelected}>
-                                                    <Text style={style.buttonText}> {item} </Text>
-                                                </View> :
-                                                <TouchableOpacity style={style.buttonPage} onPress={() => goPage(item)}>
+                                                <Text style={{ ...style.buttonText, opacity: 0.5 }}> {item} </Text>
+                                                :
+                                                <TouchableOpacity onPress={() => goPage(item)}>
                                                     <Text style={style.buttonText}> {item} </Text>
                                                 </TouchableOpacity>
                                             }
-                                        </View>
-                                    }
+                                        </View>}
                                     {item === ">" &&
                                         <View>
                                             {actualPage === page.length - 2 ?
-                                                <View style={style.buttonPageNoSelected} >
-                                                    <Text style={style.buttonText}> {item} </Text>
-                                                </View> :
-                                                <TouchableOpacity style={style.buttonPage} onPress={() => nextPage()}>
+                                                <Text style={{ ...style.buttonText, opacity: 0.5 }}> {item} </Text>
+                                                :
+                                                <TouchableOpacity onPress={() => nextPage()}>
                                                     <Text style={style.buttonText}> {item} </Text>
                                                 </TouchableOpacity>
                                             }
 
                                         </View>
                                     }
-
-
                                 </View>
                             }
                         />
                     </View>
                 }
                 renderItem={({ item }) =>
-                    <View style={style.cardUser}>
-                        <View style={{ marginHorizontal: 3, alignItems: "flex-start" }}>
+                    <View style={style.fullWidthCard}>
+                        <View style={{ alignItems: "flex-start", width: "97%" }}>
 
-                            <Text style={style.nameUser}> {item.name} {item.lastname}</Text>
+                            <Text style={style.VerybigText}> {item.name} {item.lastname}</Text>
                             {showProperty !== null &&
-                                <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 15 }}>
+                                <View style={style.buttonsHorizontalContainer}>
                                     {showProperty === "savedTurns" ?
-                                        <View style={style.propertyUser}>
-                                            <Text style={style.propertyTextFilter}> {item.infoUser.pasTurns} </Text>
-                                        </View> :
-                                        <View style={style.propertyUserOpac}>
-                                            <Text style={style.propertyTextFilterOpac}> {item.infoUser.pasTurns} </Text>
-                                        </View>
+                                        <Text style={style.title}> {item.infoUser.pasTurns} </Text>
+                                        :
+                                        <Text style={{ ...style.title, opacity: 0.3 }}> {item.infoUser.pasTurns} </Text>
                                     }
                                     {showProperty === "takedTurns" ?
-                                        <View style={style.propertyUser}>
-                                            <Text style={style.propertyTextFilter}> {item.infoUser.turnsTakedIt} </Text>
-                                        </View> :
-                                        <View style={style.propertyUserOpac}>
-                                            <Text style={style.propertyTextFilterOpac}> {item.infoUser.turnsTakedIt} </Text>
-                                        </View>
+                                        <Text style={style.title}> {item.infoUser.turnsTakedIt} </Text>
+                                        :
+                                        <Text style={{ ...style.title, opacity: 0.3 }}> {item.infoUser.turnsTakedIt} </Text>
                                     }
                                     {showProperty === "money" ?
-                                        <View style={style.propertyUser}>
-                                            <Text style={style.propertyTextFilter}> {item.infoUser.totalPay} </Text>
-                                        </View> :
-                                        <View style={style.propertyUserOpac}>
-                                            <Text style={style.propertyTextFilterOpac}> {item.infoUser.totalPay} </Text>
-                                        </View>
+                                        <Text style={style.title}>$ {item.infoUser.totalPay} </Text>
+                                        :
+                                        <Text style={{ ...style.title, opacity: 0.3 }}>$ {item.infoUser.totalPay} </Text>
                                     }
                                     {showProperty === "assists" ?
-                                        <View style={style.propertyUser}>
-                                            <Text style={style.propertyTextFilter}> {item.infoUser.averageAssists} </Text>
-                                        </View> :
-                                        <View style={style.propertyUserOpac}>
-                                            <Text style={style.propertyTextFilterOpac}> {item.infoUser.averageAssists} </Text>
-                                        </View>
+                                        <Text style={style.title}> {item.infoUser.averageAssists} %</Text>
+                                        :
+                                        <Text style={{ ...style.title, opacity: 0.3 }}> {item.infoUser.averageAssists} %</Text>
                                     }
                                 </View>
                             }
-                            <View style={{ flexDirection: "row" }}>
-                                <View>
-                                    {item.verified ?
-                                        <View style={{ alignItems: "center", marginRight: 14 }}>
-                                            <Image style={style.imageUserList} source={require("../../assets/OkGreen.png")} />
-                                            <Text style={style.littleMsj}>Verificado</Text>
-                                        </View>
-                                        :
-                                        <View style={{ alignItems: "center", marginRight: 14 }}>
-                                            <TouchableOpacity onPress={() => verifiedUser(item.id)}>
-                                                <Image style={style.imageUserListOpac} source={require("../../assets/Bien.png")} />
-                                            </TouchableOpacity>
-                                            <Text style={style.littleMsj}>No Verific</Text>
-                                        </View>
-                                    }
-                                </View>
-                                {item.vip ?
-                                    <View style={{ alignItems: "center", marginRight: 14 }}>
-                                        <TouchableOpacity onPress={() => setVip(item)}>
-                                            <Image style={style.imageUserList} source={require("../../assets/VipColor.png")} />
-                                        </TouchableOpacity>
-                                        <Text style={style.littleMsj}>Vip</Text>
+                            <View style={style.buttonsHorizontalContainer}>
+                                {item.verified ?
+                                    <View style={{ alignItems: "center" }}>
+                                        <Image style={style.smallImage} source={require("../../assets/OkGreen.png")} />
+                                        <Text style={style.smallText}>Verificado</Text>
                                     </View>
                                     :
-                                    <View style={{ alignItems: "center", marginRight: 14 }}>
-                                        <TouchableOpacity onPress={() => setVip(item)}>
-                                            <Image style={style.imageUserListOpac} source={require("../../assets/Vip.png")} />
+                                    <View style={{ alignItems: "center" }}>
+                                        <TouchableOpacity onPress={() => verifiedUser(item.id)}>
+                                            <Image style={style.smallImage} source={require("../../assets/Bien.png")} />
                                         </TouchableOpacity>
-                                        <Text style={style.littleMsj}>No Vip</Text>
+                                        <Text style={style.smallText}>No Verific</Text>
+                                    </View>
+                                }
+
+                                {item.vip ?
+                                    <View style={{ alignItems: "center" }}>
+                                        <TouchableOpacity onPress={() => setVip(item)}>
+                                            <Image style={style.smallImage} source={require("../../assets/VipColor.png")} />
+                                        </TouchableOpacity>
+                                        <Text style={style.smallText}>Vip</Text>
+                                    </View>
+                                    :
+                                    <View style={{ alignItems: "center" }}>
+                                        <TouchableOpacity onPress={() => setVip(item)}>
+                                            <Image style={style.smallImage} source={require("../../assets/Vip.png")} />
+                                        </TouchableOpacity>
+                                        <Text style={style.smallText}>No Vip</Text>
                                     </View>
                                 }
                                 {item.credits === "getCredit" || item.credits === "getCredit+1" ?
-                                    <View style={{ alignItems: "center", marginRight: 14 }}>
+                                    <View style={{ alignItems: "center" }}>
                                         <TouchableOpacity onPress={() => setOpcionCredits(true)}>
-                                            <Image style={style.imageUserList} source={require("../../assets/AlertaCredit.png")} />
+                                            <Image style={style.smallImage} source={require("../../assets/AlertaCredit.png")} />
                                         </TouchableOpacity>
-                                        <Text style={style.littleMsj}>Solicitud!</Text>
+                                        <Text style={style.smallText}>Solicitud!</Text>
                                     </View>
                                     :
-                                    <View style={{ alignItems: "center", marginRight: 14 }}>
-                                        <Image style={style.imageUserList} source={require("../../assets/Credit.png")} />
-                                        <Text style={style.littleMsj}>Creditos</Text>
-                                        <Text style={style.userCredits}> {item.credits} </Text>
+                                    <View style={{ alignItems: "center" }}>
+                                        <Image style={style.smallImage} source={require("../../assets/Credit.png")} />
+                                        <Text style={style.smallText}>Creditos</Text>
+                                        <Text style={{ ...style.bigText, position: "absolute", top: "15%" }}> {item.credits} </Text>
                                     </View>
                                 }
-                                <View style={{ alignItems: "center", marginRight: 14 }}>
+
+                                <View style={{ alignItems: "center" }}>
+                                    <Image style={style.smallImage} source={require("../../assets/Credit.png")} />
+                                    <Text style={style.smallText}>Clase</Text>
                                     {item.infoUser.class === "new" ?
-                                        <Text style={style.class}> N</Text>
+                                        <Text style={{ ...style.bigText, position: "absolute", top: "15%" }}>N</Text>
                                         :
-                                        <Text style={style.class}> {item.infoUser.class}</Text>
+                                        <Text style={{ ...style.bigText, position: "absolute", top: "15%" }}>{item.infoUser.class}</Text>
                                     }
-                                    <Text style={style.littleMsj}>Clase</Text>
+
                                 </View>
-                                <TouchableOpacity onPress={()=>openWhatsApp(item.celNumber)} style={{ alignItems: "center", marginRight: 14 }}>
-                                    <Image style={style.imageUserList} source={require("../../assets/WA.png")} />
-                                    <Text style={style.littleMsj}>Enviar WA</Text>
+
+                                <TouchableOpacity onPress={() => openWhatsApp(item.celNumber)} style={{ alignItems: "center" }}>
+                                    <Image style={style.smallImage} source={require("../../assets/WA.png")} />
+                                    <Text style={style.smallText}>Enviar WA</Text>
                                 </TouchableOpacity>
 
                                 {userInfo === item.id ?
-                                    <View style={{ alignItems: "center", marginRight: 14 }}>
+                                    <View style={{ alignItems: "center" }}>
                                         <TouchableOpacity onPress={() => setUserInfo(null)}>
-                                            <Image style={style.imageOjo} source={require("../../assets/OjoAbierto.png")} />
+                                            <Image style={{ ...style.smallImage, width: 45 }} source={require("../../assets/OjoAbierto.png")} />
                                         </TouchableOpacity>
-                                        <Text style={style.littleMsj}>Ocultar info</Text>
+                                        <Text style={style.smallText}>Ocultar info</Text>
                                     </View>
                                     :
-                                    <View style={{ alignItems: "center", marginRight: 14 }}>
+                                    <View style={{ alignItems: "center" }}>
                                         <TouchableOpacity onPress={() => getUserTurns(item.id)}>
-                                            <Image style={style.imageOjoOpac} source={require("../../assets/OjoCerrado.png")} />
+                                            <Image style={{ ...style.smallImage, width: 45 }} source={require("../../assets/OjoCerrado.png")} />
                                         </TouchableOpacity>
-                                        <Text style={style.littleMsj}>Ver info</Text>
+                                        <Text style={style.smallText}>Ver info</Text>
                                     </View>
                                 }
                             </View>
 
+                        </View>
+                        {opcionCredits &&
 
-
-                            {opcionCredits &&
-                                <View>
+                                <View style={{width:"100%"}}>
                                     {item.credits === "getCredit+1" &&
-                                        <View style={{ alignItems: "center", marginTop: 10 }}>
+                                        <View style={style.fullWidthCard}>
                                             <Text style={style.mediumText}>Este Usuario está solicitando creditos, cuantos desea darle?</Text>
-                                            <View style={{ flexDirection: "row" }}>
-                                                <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "2") }}>
+                                            <View style={style.buttonsHorizontalContainer}>
+                                                <TouchableOpacity style={style.verySmallButton} onPress={() => { giveCredits(item.id, "2") }}>
                                                     <Text style={style.buttonText}> 1 </Text>
                                                 </TouchableOpacity>
-                                                <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "3") }}>
+                                                <TouchableOpacity style={style.verySmallButton} onPress={() => { giveCredits(item.id, "3") }}>
                                                     <Text style={style.buttonText}> 2 </Text>
                                                 </TouchableOpacity>
-                                                <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "4") }}>
+                                                <TouchableOpacity style={style.verySmallButton} onPress={() => { giveCredits(item.id, "4") }}>
                                                     <Text style={style.buttonText}> 3 </Text>
                                                 </TouchableOpacity>
-                                                <TouchableOpacity style={style.button} onPress={() => setOpcionCredits(false)}>
+                                                <TouchableOpacity style={style.smallButton} onPress={() => setOpcionCredits(false)}>
                                                     <Text style={style.buttonText}> Volver </Text>
                                                 </TouchableOpacity>
                                             </View>
@@ -530,19 +514,19 @@ const UsersList = ({ navigation }) => {
                                     }
 
                                     {item.credits === "getCredit" &&
-                                        <View style={{ alignItems: "center", marginTop: 10 }}>
+                                        <View style={style.fullWidthCard}>
                                             <Text style={style.mediumText}>Este Usuario está solicitando creditos, cuantos desea darle?</Text>
-                                            <View style={{ flexDirection: "row" }}>
-                                                <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "2") }}>
+                                            <View style={style.buttonsHorizontalContainer}>
+                                                <TouchableOpacity style={style.verySmallButton} onPress={() => { giveCredits(item.id, "2") }}>
                                                     <Text style={style.buttonText}> 2 </Text>
                                                 </TouchableOpacity>
-                                                <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "3") }}>
+                                                <TouchableOpacity style={style.verySmallButton} onPress={() => { giveCredits(item.id, "3") }}>
                                                     <Text style={style.buttonText}> 3 </Text>
                                                 </TouchableOpacity>
-                                                <TouchableOpacity style={style.button} onPress={() => { giveCredits(item.id, "4") }}>
+                                                <TouchableOpacity style={style.verySmallButton} onPress={() => { giveCredits(item.id, "4") }}>
                                                     <Text style={style.buttonText}> 4 </Text>
                                                 </TouchableOpacity>
-                                                <TouchableOpacity style={style.button} onPress={() => setOpcionCredits(false)}>
+                                                <TouchableOpacity style={style.smallButton} onPress={() => setOpcionCredits(false)}>
                                                     <Text style={style.buttonText}> Volver </Text>
                                                 </TouchableOpacity>
                                             </View>
@@ -552,17 +536,14 @@ const UsersList = ({ navigation }) => {
                                 </View>
                             }
 
-                        </View>
-
-
                         {areYouShure === item.id ?
-                            <View style={{ alignItems: "center", marginStart: 14, marginTop: 10 }}>
-                                <Text style={style.mediumText}>{msj}</Text>
-                                <View style={{ flexDirection: "row" }}>
-                                    <TouchableOpacity style={style.button} onPress={() => setAreYouShure(null)}>
+                            <View style={style.fullWidthCard}>
+                                <Text style={style.bigText}>{msj}</Text>
+                                <View style={{ ...style.buttonsHorizontalContainer, marginTop: 15 }}>
+                                    <TouchableOpacity style={style.smallButton} onPress={() => setAreYouShure(null)}>
                                         <Text style={style.buttonText}> Cancelar </Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={style.button} onPress={putChangeInUser}>
+                                    <TouchableOpacity style={style.smallButton} onPress={putChangeInUser}>
                                         <Text style={style.buttonText}> Si </Text>
                                     </TouchableOpacity>
                                 </View>
@@ -571,77 +552,69 @@ const UsersList = ({ navigation }) => {
                         }
 
                         {userInfo === item.id &&
-                            <View>
-                                <Text style={style.titleTurnUser}>Turnos___________________________</Text>
-
-                                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                                    <View style={{ alignItems: "center" }}>
-                                        <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("todos") }}>
-                                            <Text style={style.propertyText}> {userTurns.length} </Text>
+                            <View style={{ alignItems: "center", width: "100%" }}>
+                                <View style={style.fullWidthCard}>
+                                    <Text style={style.title}>Turnos</Text>
+                                    <View style={style.buttonsHorizontalContainer}>
+                                        <TouchableOpacity style={style.veryLitleCard} onPress={() => { filterTurns("todos") }}>
+                                            <Text style={{ ...style.VerybigText, marginTop: "10%" }}> {userTurns.length} </Text>
+                                            <Text style={style.mediumText}>Guardados</Text>
                                         </TouchableOpacity>
-                                        <Text style={style.mediumMsj}>Guardados</Text>
+                                        <TouchableOpacity style={style.veryLitleCard} onPress={() => { filterTurns("pas") }}>
+                                            <Text style={{ ...style.VerybigText, marginTop: "10%" }}> {item.infoUser.pasTurns} </Text>
+                                            <Text style={style.mediumText}>Pasados</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={style.veryLitleCard} onPress={() => { filterTurns("fut") }}>
+                                            <Text style={{ ...style.VerybigText, marginTop: "10%" }}> {userTurns.length - item.infoUser.turnsCancel - item.infoUser.pasTurns - numTurnsCancelByAdmin} </Text>
+                                            <Text style={style.mediumText}>Futuros</Text>
+                                        </TouchableOpacity>
                                     </View>
-                                    <View style={{ alignItems: "center" }}>
-                                        <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("pas") }}>
-                                            <Text style={style.propertyText}> {item.infoUser.pasTurns} </Text>
+                                    <View style={style.buttonsHorizontalContainer}>
+                                        <TouchableOpacity style={style.veryLitleCard} onPress={() => { filterTurns("cancel") }}>
+                                            <Text style={{ ...style.VerybigText, marginTop: "10%" }}> {item.infoUser.turnsCancel} </Text>
+                                            <Text style={style.mediumText}>Cancelados</Text>
                                         </TouchableOpacity>
-                                        <Text style={style.mediumMsj}>Pasados</Text>
-                                    </View>
-                                    <View style={{ alignItems: "center" }}>
-                                        <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("fut") }}>
-                                            <Text style={style.propertyText}> {userTurns.length - item.infoUser.turnsCancel - item.infoUser.pasTurns - numTurnsCancelByAdmin} </Text>
+                                        <TouchableOpacity style={style.veryLitleCard} onPress={() => { filterTurns("failed") }}>
+                                            <Text style={{ ...style.VerybigText, marginTop: "10%" }}> {item.infoUser.turnsFailed} </Text>
+                                            <Text style={style.mediumText}>Fallados</Text>
                                         </TouchableOpacity>
-                                        <Text style={style.mediumMsj}>Futuros</Text>
+                                        <TouchableOpacity style={style.veryLitleCard} onPress={() => { filterTurns("takedIt") }}>
+                                            <Text style={{ ...style.VerybigText, marginTop: "10%" }}> {item.infoUser.turnsTakedIt} </Text>
+                                            <Text style={style.mediumText}>Cumplidos</Text>
+                                        </TouchableOpacity>
                                     </View>
                                 </View>
-                                <View style={{ flexDirection: "row", marginBottom: 8, justifyContent: "space-around" }}>
-                                    <View style={{ alignItems: "center" }}>
-                                        <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("cancel") }}>
-                                            <Text style={style.propertyText}> {item.infoUser.turnsCancel} </Text>
-                                        </TouchableOpacity>
-                                        <Text style={style.mediumMsj}>Cancelados</Text>
-                                    </View>
-                                    <View style={{ alignItems: "center" }}>
-                                        <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("failed") }}>
-                                            <Text style={style.propertyText}> {item.infoUser.turnsFailed} </Text>
-                                        </TouchableOpacity>
-                                        <Text style={style.mediumMsj}>Fallados</Text>
-                                    </View>
-                                    <View style={{ alignItems: "center" }}>
-                                        <TouchableOpacity style={style.propertyUser} onPress={() => { filterTurns("takedIt") }}>
-                                            <Text style={style.propertyText}> {item.infoUser.turnsTakedIt} </Text>
-                                        </TouchableOpacity>
-                                        <Text style={style.mediumMsj}>Cumplidos</Text>
+                                <View style={style.fullWidthCard}>
+                                    <Text style={style.title}>Ganancias</Text>
+                                    <View style={style.buttonsHorizontalContainer}>
+                                        <View style={style.litleCard}>
+                                            <Text style={{ ...style.VerybigText, marginTop: "10%" }}>${item.infoUser.totalPay}</Text>
+                                            <Text style={style.mediumText}>Generadas</Text>
+                                        </View>
+                                        <View style={style.litleCard}>
+                                            <Text style={{ ...style.VerybigText, marginTop: "10%" }}>${item.infoUser.loseForFail}</Text>
+                                            <Text style={style.mediumText}>Perdidas por falta</Text>
+                                        </View>
                                     </View>
                                 </View>
-
-                                <Text style={style.titleTurnUser}>Ganancias_______________________</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                                    <View style={{ alignItems: "center" }}>
-                                        <Text style={style.propertyTextLong}>${item.infoUser.totalPay}</Text>
-                                        <Text style={style.mediumMsj}>Generadas</Text>
-                                    </View>
-                                    <View style={{ alignItems: "center" }}>
-                                        <Text style={style.propertyTextLong}>${item.infoUser.loseForFail}</Text>
-                                        <Text style={style.mediumMsj}>Perdidas por falta</Text>
-                                    </View>
-                                </View>
-
-                                <Text style={style.titleTurnUser}>Tiempo__________________________</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                                    <View style={{ alignItems: "center" }}>
-                                        <Text style={style.propertyTextLong}>{item.infoUser.totalTime / 60} Hs</Text>
-                                        <Text style={style.mediumMsj}>Dedicado</Text>
-                                    </View>
-                                    <View style={{ alignItems: "center" }}>
-                                        <Text style={style.propertyTextLong}>{item.infoUser.loseTime / 60} Hs</Text>
-                                        <Text style={style.mediumMsj}>Perdido por faltas</Text>
+                                <View style={style.fullWidthCard}>
+                                    <Text style={style.title}>Tiempo</Text>
+                                    <View style={style.buttonsHorizontalContainer}>
+                                        <View style={style.litleCard}>
+                                            <Text style={{ ...style.VerybigText, marginTop: "10%" }}>{item.infoUser.totalTime / 60} Hs</Text>
+                                            <Text style={style.mediumText}>Dedicado</Text>
+                                        </View>
+                                        <View style={style.litleCard}>
+                                            <Text style={{ ...style.VerybigText, marginTop: "10%" }}>{item.infoUser.loseTime / 60} Hs</Text>
+                                            <Text style={style.mediumText}>Perdido por faltas</Text>
+                                        </View>
                                     </View>
                                 </View>
-
-                                <Text style={style.titleTurnUser}>Asistencia_______________________</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 20 }}>
-                                    <Text style={style.propertyText}>{item.infoUser.averageAssists}%</Text>
+                                <View style={style.fullWidthCard}>
+                                    <Text style={style.title}>Asistencia</Text>
+                                    <View style={style.litleCard}>
+                                        <Text style={{ ...style.VerybigText, marginVertical: "10%" }}>{item.infoUser.averageAssists}%</Text>
+                                    </View>
                                 </View>
                             </View>
                         }
