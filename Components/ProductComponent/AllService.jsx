@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native';
+import { View, FlatList, Text, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllViewServi, getAllServi } from '../../Redux/actions/serviceActions';
 import axios from "axios"
@@ -31,35 +31,29 @@ const AllService = () => {
     }
 
     return (
-        <View>
+        <View style={style.baseContainer}>
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
             {services.length ?
                 <FlatList
                     data={services}
+                    style={{ width: "100%" }}
                     renderItem={({ item }) =>
                         item.name !== "Turno Bloqueado" && item.name !== "Dia Bloqueado" &&
                         <View style={style.fullWidthCard}>
                             <Text style={style.title}> {item.name} </Text>
-                            <View style={{ flexDirection: "row" }}>
+                            {item.view === false &&  <Image style={style.imageDelete} source={require("../../assets/Eliminado.png")} /> }
+                            <View style={style.imageContainerServ}>
                                 <Image style={style.imageServ} source={{ uri: item.image[0] }} />
-                                <View>
+                                <View style={{ width: "34%", alignItems: "flex-end", justifyContent: "space-between" }}>
                                     <Image style={style.imageServ2} source={{ uri: item.image[1] }} />
                                     <Image style={style.imageServ2} source={{ uri: item.image[2] }} />
                                 </View>
                             </View>
-                            <Text style={style.textPutSer}> {item.minimalDescription} </Text>
-                            {item.view === false ?
-                                <View>
-                                    <TouchableOpacity style={style.button} onPress={() => restaurar(item.id)}>
-
+                            {item.view === false &&
+                                    <TouchableOpacity style={style.mediumButton} onPress={() => restaurar(item.id)}>
                                         <Text style={style.buttonText}> Restaurar </Text>
-
-                                    </TouchableOpacity>
-                                    <Image style={style.imageDelete} source={require("../../assets/Eliminado.png")} />
-                                </View>
-                                :
-                                null
+                                    </TouchableOpacity>       
                             }
-
                         </View>
                     }
                 /> :

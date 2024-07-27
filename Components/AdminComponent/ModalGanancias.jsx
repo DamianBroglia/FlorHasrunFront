@@ -13,123 +13,111 @@ export const ModalGanancias = ({ isVisible, onClose, viewStadistic, orderDaysCol
             animationIn="fadeIn"
             animationOut="fadeOutDown"
             useNativeDriver
-            style={style.cardModalStadistic}
+            style={{ margin: 0 }}
         >
-            <FlatList
-                data={orderDaysCollected}
-                ListHeaderComponent={
-                    <View>
-                        <View style={{ alignItems: "center", marginBottom: 15 }}>
-                            <Text style={style.titleBig}>Ganancias</Text>
+            <View style={{ ...style.block, justifyContent: "center" }}>
+                <View style={{ ...style.fullWidthCard, backgroundColor: "rgb(47,44,54)" }}>
+                    <FlatList
+                        data={orderDaysCollected}
+                        ListHeaderComponent={
                             <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextLong}>${viewStadistic.totalCollected}</Text>
-                                </View>
-                                <Text style={style.mediumText}>Ganancias totales</Text>
-                            </View>
-                        </View>
-
-                        <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10, width: 310 }}>
-
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextLittleLimit}>${viewStadistic.loseforFail}</Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Perdida</Text>
-                                <Text style={style.littleMediumMsj}>por falta</Text>
-                            </View>
-
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextLittleLimit2}> {viewStadistic.workedDays} </Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Días</Text>
-                                <Text style={style.littleMediumMsj}>trabajados</Text>
-                            </View>
-
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextLittleLimit}>${Math.round(viewStadistic.totalCollected / viewStadistic.workedDays)}</Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Promedio</Text>
-                                <Text style={style.littleMediumMsj}>por día</Text>
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 12 }}>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextLittleLimit}>${viewStadistic.futureCollected}</Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Ganancias</Text>
-                                <Text style={style.littleMediumMsj}>futuras</Text>
-                            </View>
-
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextLittleLimit2}> {viewStadistic.totalHours} </Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Horas</Text>
-                                <Text style={style.littleMediumMsj}>trabajadas</Text>
-                            </View>
-
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextLittleLimit}>${Math.round(viewStadistic.totalCollected / viewStadistic.totalHours)}</Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Promedio</Text>
-                                <Text style={style.littleMediumMsj}>por hora</Text>
-                            </View>
-                        </View>
-
-                        <View style={{ alignItems: "center", marginBottom: -14 }}>
-                            <Text style={style.titleTurnUser}>Ganancia por día</Text>
-                        </View>
-                    </View>
-                }
-                ListFooterComponent={
-                    <TouchableOpacity onPress={onClose} style={style.smallButton}>
-                        <Text style={style.buttonText}>Volver</Text>
-                    </TouchableOpacity>
-                }
-                style={{ marginTop: 5 }}
-                renderItem={({ item }) =>
-                    <View>
-                        {item.collectedDay > 0 || item.futurecollectDay > 0 ?
-                            <View style={style.cardModalUserTurns2}>
-                                <Text style={style.mediumText}>{item.date}</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "space-around", width: 251, marginTop: 6 }}>
-                                    <View style={{ alignItems: "center" }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittleLimit3}>${item.collectedDay}</Text>
-                                        </View>
-                                        <Text style={style.littleMsj}>Total</Text>
+                                <Text style={{ ...style.title, marginBottom: 10 }}>Ganancias</Text>
+                                <View style={{ width: "98%", alignItems: "center" }}>
+                                    <View style={{ ...style.litleCard, paddingVertical: 5 }}>
+                                        <Text style={style.VerybigText}>${viewStadistic.totalCollected}</Text>
                                     </View>
-                                    <View style={{ alignItems: "center" }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittleLimit4}>{item.hoursDay}</Text>
+                                    <Text style={style.mediumText}>Ganancias totales</Text>
+                                </View>
+                                <View style={style.buttonsHorizontalContainer}>
+                                    <View style={{ width: "33%", alignItems: "center" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}>${viewStadistic.loseforFail}</Text>
                                         </View>
-                                        <Text style={style.littleMsj}>Horas</Text>
+                                        <Text style={style.smallText}>Perdida por falta</Text>
                                     </View>
-                                    <View style={{ alignItems: "center" }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittleLimit3}>${Math.round(item.collectedDay / item.hoursDay)}</Text>
+                                    <View style={{ width: "33%", alignItems: "center" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.workedDays} </Text>
                                         </View>
-                                        <Text style={style.littleMsj}>Por hora</Text>
+                                        <Text style={style.smallText}>Días trabajados</Text>
                                     </View>
-                                    <View style={{ alignItems: "center" }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittleLimit3}>${item.futurecollectDay}</Text>
+                                    <View style={{ width: "33%", alignItems: "center" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}>${Math.round(viewStadistic.totalCollected / viewStadistic.workedDays)}</Text>
                                         </View>
-                                        <Text style={style.littleMsj}>A futuro</Text>
+                                        <Text style={style.smallText}>Promedio por dia</Text>
                                     </View>
                                 </View>
-                            </View> :
-                            null
+
+                                <View style={style.buttonsHorizontalContainer}>
+                                    <View style={{ width: "33%", alignItems: "center" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}>${viewStadistic.futureCollected}</Text>
+                                        </View>
+                                        <Text style={style.smallText}>Ganancias futuras</Text>
+                                    </View>
+                                    <View style={{ width: "33%", alignItems: "center" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.totalHours} </Text>
+                                        </View>
+                                        <Text style={style.smallText}>Horas trabajadas</Text>
+                                    </View>
+                                    <View style={{ width: "33%", alignItems: "center" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}>${Math.round(viewStadistic.totalCollected / viewStadistic.totalHours)}</Text>
+                                        </View>
+                                        <Text style={style.smallText}>Promedio por hora</Text>
+                                    </View>
+                                </View>
+                                <Text style={style.VerybigText}>Ganancia por día</Text>
+                            </View>
                         }
+                        ListFooterComponent={
+                            <TouchableOpacity onPress={onClose} style={style.smallButton}>
+                                <Text style={style.buttonText}>Volver</Text>
+                            </TouchableOpacity>
+                        }
+                        style={{ marginTop: 5 }}
+                        renderItem={({ item }) =>
+                            <View>
+                                {item.collectedDay > 0 || item.futurecollectDay > 0 ?
+                                    <View style={style.fullWidthCard}>
+                                        <Text style={style.bigText}>{item.date}</Text>
+                                        <View style={style.buttonsHorizontalContainer}>
+                                            <View style={{ alignItems: "center", width: "25%" }}>
+                                                <View style={{ ...style.litleCard, paddingVertical: 5, width: "95%" }}>
+                                                    <Text style={style.mediumText}>${item.collectedDay}</Text>
+                                                </View>
+                                                <Text style={style.smallText}>Total</Text>
+                                            </View>
+                                            <View style={{ alignItems: "center", width: "25%" }}>
+                                                <View style={{ ...style.litleCard, paddingVertical: 5, width: "95%" }}>
+                                                    <Text style={style.mediumText}>{item.hoursDay}</Text>
+                                                </View>
+                                                <Text style={style.smallText}>Horas</Text>
+                                            </View>
+                                            <View style={{ alignItems: "center", width: "25%" }}>
+                                                <View style={{ ...style.litleCard, paddingVertical: 5, width: "95%" }}>
+                                                    <Text style={style.mediumText}>${Math.round(item.collectedDay / item.hoursDay)}</Text>
+                                                </View>
+                                                <Text style={style.smallText}>Por hora</Text>
+                                            </View>
+                                            <View style={{ alignItems: "center", width: "25%" }}>
+                                                <View style={{ ...style.litleCard, paddingVertical: 5, width: "95%" }}>
+                                                    <Text style={style.mediumText}>${item.futurecollectDay}</Text>
+                                                </View>
+                                                <Text style={style.smallText}>A futuro</Text>
+                                            </View>
+                                        </View>
+                                    </View> :
+                                    null
+                                }
 
-                    </View>
-                }
-            />
+                            </View>
+                        }
+                    />
+                </View>
+            </View>
         </Modal>
     );
 };

@@ -328,7 +328,7 @@ const CalendarScreen = ({ navigation }) => {
         <Calendar
           disableWeekends={true}
           onDayPress={handleDatePress}
-          style={{ marginTop: 30, marginHorizontal: 20, borderRadius: 8 }}
+          style={style.calendar}
         />
       }
 

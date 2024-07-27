@@ -123,6 +123,14 @@ export const style = StyleSheet.create({
         aspectRatio: 2.5,
         transform: [{ scaleX: -1 }]
     },
+    imageDelete:{
+        width:222,
+        height:180,
+        position:"absolute",
+        top:"15%",
+        right:"5%",
+        zIndex:1
+    },
     //////////////////////////////////////
     //                                  //
     //             BUTTONS              //
@@ -334,6 +342,11 @@ export const style = StyleSheet.create({
         justifyContent:"space-around", 
         width:"100%", 
         marginVertical:5
+    },
+    calendar:{
+        marginTop: 30, 
+        marginHorizontal: 20,
+        borderRadius: 8
     },
     //////////////////////////////////////
     //                                  //

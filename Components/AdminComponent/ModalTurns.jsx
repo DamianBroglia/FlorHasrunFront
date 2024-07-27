@@ -15,145 +15,136 @@ export const ModalTurns = ({ isVisible, onClose, viewStadistic, orderDaysTurns }
             animationIn="fadeIn"
             animationOut="fadeOutDown"
             useNativeDriver
-            style={style.cardModalStadistic}
+            style={{ margin: 0 }}
         >
-            <FlatList
-                ListHeaderComponent={
-                    <View style={{ width: 310 }}>
-                        <View style={{ alignItems: "center", marginBottom: 12 }}>
-                            <Text style={style.titleBig}>Turnos</Text>
-                            <View style={style.propertyUser}>
-                                <Text style={style.propertyText}> {viewStadistic.allTurns} </Text>
-                            </View>
-                            <Text style={style.mediumText}>Turnos Totales</Text>
-                        </View>
+            <View style={{ ...style.block, justifyContent: "center" }}>
+                <View style={{ ...style.fullWidthCard, backgroundColor: "rgb(47,44,54)" }}>
+                    <FlatList
+                        ListHeaderComponent={
+                            <View style={{ alignItems: "center" }}>
+                                <Text style={{ ...style.title, marginBottom: 10 }}>Turnos</Text>
+                                <View style={{ width: "98%", alignItems: "center" }}>
+                                    <View style={{ ...style.litleCard, paddingVertical: 5 }}>
+                                        <Text style={style.VerybigText}> {viewStadistic.allTurns} </Text>
+                                    </View>
+                                    <Text style={style.mediumText}>Turnos Totales</Text>
+                                </View>
 
-                        <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10 }}>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextSmall}> {viewStadistic.takedTurn} </Text>
+                                <View style={style.buttonsHorizontalContainer}>
+                                    <View style={{ alignItems: "center", width: "33%" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.takedTurn} </Text>
+                                        </View>
+                                        <Text style={style.smallText}>Turnos cumplidos</Text>
+                                    </View>
+                                    <View style={{ alignItems: "center", width: "33%" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.failedTurn} </Text>
+                                        </View>
+                                        <Text style={style.smallText}>Turnos fallados</Text>
+                                    </View>
+                                    <View style={{ alignItems: "center", width: "33%" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.cancelByUser} </Text>
+                                        </View>
+                                        <Text style={style.smallText}>Turnos cancelados</Text>
+                                    </View>
                                 </View>
-                                <Text style={style.littleMediumMsj}>Turnos</Text>
-                                <Text style={style.littleMediumMsj}>cumplidos</Text>
-                            </View>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextSmall}> {viewStadistic.failedTurn} </Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Turnos</Text>
-                                <Text style={style.littleMediumMsj}>fallados</Text>
-                            </View>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextSmall}> {viewStadistic.cancelByUser} </Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Turnos</Text>
-                                <Text style={style.littleMediumMsj}>cancelados</Text>
-                            </View>
-                        </View>
 
-                        <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 10 }}>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextSmall}> {viewStadistic.cancelByAdmin} </Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Cancelados</Text>
-                                <Text style={style.littleMediumMsj}>por ti</Text>
-                            </View>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextSmall}> {viewStadistic.futureTurn} </Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Turnos</Text>
-                                <Text style={style.littleMediumMsj}>futuros</Text>
-                            </View>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextSmall}> {viewStadistic.totalHours} </Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Horas</Text>
-                                <Text style={style.littleMediumMsj}>trabajadas</Text>
-                            </View>
-                        </View>
-
-                        <View style={{ flexDirection: "row", justifyContent: "space-around", marginBottom: 20 }}>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextSmall}> {viewStadistic.loseTime} </Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Horas</Text>
-                                <Text style={style.littleMediumMsj}>perdidas</Text>
-                            </View>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextSmall}> {viewStadistic.arrayTurnsByDay.length} </Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Dias</Text>
-                                <Text style={style.littleMediumMsj}>seleccionados</Text>
-                            </View>
-                            <View style={{ alignItems: "center" }}>
-                                <View style={style.propertyUser}>
-                                    <Text style={style.propertyTextSmall}> {viewStadistic.workedDays} </Text>
-                                </View>
-                                <Text style={style.littleMediumMsj}>Dias</Text>
-                                <Text style={style.littleMediumMsj}>trabajados</Text>
-                            </View>
-                        </View>
-                        <View style={{ alignItems: "center", marginBottom:-14 }}>
-                            <Text style={style.titleTurnUser}>Turnos por día</Text>
-                        </View>
-                    </View>
-                }
-                ListFooterComponent={
-                    <TouchableOpacity onPress={onClose} style={style.smallButton}>
-                        <Text style={style.buttonText}>Volver</Text>
-                    </TouchableOpacity>
-                }
-                data={orderDaysTurns}
-                style={{ marginTop: 5 }}
-                renderItem={({ item }) =>
-                    <View>
-                        {item.collectedDay > 0 || item.failedTurnDay > 0 || item.futureTurnDay > 0 || item.cancelByUserDay > 0 || item.cancelByAdmin > 0 ?
-                            <View style={style.cardModalUserTurns}>
-                                <Text style={style.mediumText}>{item.date}</Text>
-                                <View style={{ flexDirection: "row", marginTop: 5 }}>
-                                    <View style={{ alignItems: "center", width: 44 }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittle}> {item.totalTurns} </Text>
+                                <View style={style.buttonsHorizontalContainer}>
+                                    <View style={{ alignItems: "center", width: "33%" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.cancelByAdmin} </Text>
                                         </View>
-                                        <Text style={style.littleMsj}> Total </Text>
+                                        <Text style={style.smallText}>Cancelados por ti</Text>
                                     </View>
-                                    <View style={{ alignItems: "center", width: 44 }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittle}> {item.takedTurnDay} </Text>
+                                    <View style={{ alignItems: "center", width: "33%" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.futureTurn} </Text>
                                         </View>
-                                        <Text style={style.littleMsj}> Cumplidos </Text>
+                                        <Text style={style.smallText}>Turnos futuros</Text>
                                     </View>
-                                    <View style={{ alignItems: "center", width: 44 }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittle}> {item.failedTurnDay} </Text>
+                                    <View style={{ alignItems: "center", width: "33%" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.totalHours} </Text>
                                         </View>
-                                        <Text style={style.littleMsj}> Fallados </Text>
-                                    </View>
-                                    <View style={{ alignItems: "center", width: 44 }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittle}> {item.cancelByUserDay + item.cancelByAdminDay} </Text>
-                                        </View>
-                                        <Text style={style.littleMsj}> Cancelados </Text>
-                                    </View>
-                                    <View style={{ alignItems: "center", width: 44 }}>
-                                        <View style={style.propertyUserSmall}>
-                                            <Text style={style.propertyTextLittle}> {Math.round(item.hoursDay)} </Text>
-                                        </View>
-                                        <Text style={style.littleMsj}> Horas </Text>
+                                        <Text style={style.smallText}>Horas trabajadas</Text>
                                     </View>
                                 </View>
-                            </View> : null
+                                <View style={style.buttonsHorizontalContainer}>
+                                    <View style={{ alignItems: "center", width: "33%" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.loseTime} </Text>
+                                        </View>
+                                        <Text style={style.smallText}>Horas perdidas</Text>
+                                    </View>
+                                    <View style={{ alignItems: "center", width: "33%" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.arrayTurnsByDay.length} </Text>
+                                        </View>
+                                        <Text style={style.smallText}>Dias seleccionados</Text>
+                                    </View>
+                                    <View style={{ alignItems: "center", width: "33%" }}>
+                                        <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                            <Text style={style.bigText}> {viewStadistic.workedDays} </Text>
+                                        </View>
+                                        <Text style={style.smallText}>Dias trabajados</Text>
+                                    </View>
+                                </View>
+                                <Text style={style.VerybigText}>Turnos por día</Text>
+                            </View>
                         }
-                    </View>
-                }
-            />
-
+                        ListFooterComponent={
+                            <TouchableOpacity onPress={onClose} style={style.smallButton}>
+                                <Text style={style.buttonText}>Volver</Text>
+                            </TouchableOpacity>
+                        }
+                        data={orderDaysTurns}
+                        style={{ marginTop: 5 }}
+                        renderItem={({ item }) =>
+                            <View>
+                                {item.collectedDay > 0 || item.failedTurnDay > 0 || item.futureTurnDay > 0 || item.cancelByUserDay > 0 || item.cancelByAdmin > 0 ?
+                                    <View style={style.fullWidthCard}>
+                                        <Text style={style.bigText}>{item.date}</Text>
+                                        <View style={style.buttonsHorizontalContainer}>
+                                            <View style={{ alignItems: "center", width: "20%" }}>
+                                                <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                                    <Text style={style.bigText}> {item.totalTurns} </Text>
+                                                </View>
+                                                <Text style={style.smallText}>Total</Text>
+                                            </View>
+                                            <View style={{ alignItems: "center", width: "20%" }}>
+                                                <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                                    <Text style={style.bigText}> {item.takedTurnDay} </Text>
+                                                </View>
+                                                <Text style={style.smallText}>Cumplidos</Text>
+                                            </View>
+                                            <View style={{ alignItems: "center", width: "20%" }}>
+                                                <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                                    <Text style={style.bigText}> {item.failedTurnDay} </Text>
+                                                </View>
+                                                <Text style={style.smallText}>Fallados</Text>
+                                            </View>
+                                            <View style={{ alignItems: "center", width: "20%" }}>
+                                                <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                                    <Text style={style.bigText}> {item.cancelByUserDay + item.cancelByAdminDay} </Text>
+                                                </View>
+                                                <Text style={style.smallText}>Cancelados</Text>
+                                            </View>
+                                            <View style={{ alignItems: "center", width: "20%" }}>
+                                                <View style={{ ...style.litleCard, paddingVertical: 5, width: "90%" }}>
+                                                    <Text style={style.bigText}> {Math.round(item.hoursDay)} </Text>
+                                                </View>
+                                                <Text style={style.smallText}>Horas</Text>
+                                            </View>
+                                        </View>
+                                    </View> : null
+                                }
+                            </View>
+                        }
+                    />
+                </View>
+            </View>
         </Modal>
     );
 };

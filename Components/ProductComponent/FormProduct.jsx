@@ -92,12 +92,13 @@ const FormProduct = ({ navigation }) => {
     };
 
     return (
-        <View>
-            <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
-            <ScrollView>
-                <View style={style.cardUsersRegis}>
-                    <View style={{ alignItems: "flex-start", marginTop: 15 }}>
-                        <Text style={style.titlePropForm}>Nombre:</Text>
+        <View style={style.baseContainer}>
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
+            <ScrollView 
+            style={{width:"95%"}}>
+                <View style={style.fullWidthCard}>
+                    <View style={{ alignItems: "flex-start", marginTop: 15, width:"75%" }}>
+                        <Text style={style.bigText}>Nombre:</Text>
                         <TextInput
                             style={style.loginInput}
                             placeholder='Nombre del Producto'
@@ -106,40 +107,33 @@ const FormProduct = ({ navigation }) => {
                         >
                         </TextInput>
                     </View>
+                    {errors.name ? <Text style={style.smallText}>{errors.name}</Text> : <Text style={style.smallText}>✔Nombre</Text>}
 
-                    {errors.name ? <Text style={style.error}>{errors.name}</Text> : <Text style={style.ok}>✔Nombre</Text>}
-
-
-
-                    <View style={{ alignItems: "flex-start" }}>
-                        <Text style={style.titlePropForm}>Imagenes:</Text>
-
-
-                        <View style={style.inputImage}>
+                    <View style={{ alignItems: "flex-start", marginTop: 5, width:"75%" }}>
+                        <Text style={style.bigText}>Imagenes:</Text>
+                        <View style={{...style.loginInput, height:160, alignItems:"center", paddingStart:0}}>
                             {imageUrl.length > 0 ?
                                 <FlatList
                                     horizontal
                                     data={imageUrl}
                                     renderItem={({ item }) =>
                                         <TouchableOpacity onLongPress={() => deletePhoto(item)}>
-                                            <Image style={style.image} source={{ uri: item }} />
+                                            <Image style={style.bigImage} source={{ uri: item }} />
                                         </TouchableOpacity>
                                     }
                                 /> :
-                                <Image style={style.imageCam} source={require("../../assets/Camara.png")} />
+                                <Image style={{...style.bigImage, width: 95}} source={require("../../assets/Camara.png")} />
                             }
-
-                            <TouchableOpacity style={style.button} onPress={postImage}>
-
+                            <TouchableOpacity style={style.mediumButton} onPress={postImage}>
                                 <Text style={style.buttonText} >Cargar Imagen</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    {errors.image ? <Text style={style.error}>{errors.image}</Text> : <Text style={style.ok}>✔Imagenes</Text>}
+                    {errors.image ? <Text style={style.smallText}>{errors.image}</Text> : <Text style={style.smallText}>✔Imagenes</Text>}
 
 
-                    <View style={{ alignItems: "flex-start" }}>
-                        <Text style={style.titlePropForm}>Descripción breve:</Text>
+                    <View style={{ alignItems: "flex-start", marginTop: 5, width:"75%" }}>
+                        <Text style={style.bigText}>Descripción breve:</Text>
                         <TextInput
                             style={style.loginInput}
                             placeholder='Descripcion breve'
@@ -148,54 +142,52 @@ const FormProduct = ({ navigation }) => {
                         >
                         </TextInput>
                     </View>
-                    {errors.minimalDescription ? <Text style={style.error}>{errors.minimalDescription}</Text> : <Text style={style.ok}>✔Descripción breve </Text>}
-
-
-                    <View style={{ alignItems: "flex-start" }}>
-                        <Text style={style.titlePropForm}>Descripción:</Text>
+                    {errors.minimalDescription ? <Text style={style.smallText}>{errors.minimalDescription}</Text> : <Text style={style.smallText}>✔Descripción breve </Text>}
+                    <View style={{ alignItems: "flex-start", marginTop: 5, width:"75%" }}>
+                        <Text style={style.bigText}>Descripción:</Text>
                         <TextInput
                             multiline={true}
-                            style={style.loginInputDescription}
+                            style={{...style.loginInput, height:140}}
                             placeholder='Descripcion'
                             onChangeText={description => setProduct({ ...product, description })}
                             defaultValue={product.description}
                         >
                         </TextInput>
                     </View>
-                    {errors.description ? <Text style={style.error}>{errors.description}</Text> : <Text style={style.ok}>✔Descripción</Text>}
+                    {errors.description ? <Text style={style.smallText}>{errors.description}</Text> : <Text style={style.smallText}>✔Descripción</Text>}
 
 
 
-                    <View style={{ alignItems: "flex-start" }}>
-                        <Text style={style.titlePropForm}>Duración:</Text>
-                        <View style={style.loginInputMed}>
+                    <View style={{ alignItems: "flex-start", width:"75%", marginTop: 5 }}>
+                        <Text style={style.bigText}>Duración:</Text>
+                        <View style={style.buttonsHorizontalContainer}>
                             {product.duration === "30" ?
-                                <TouchableOpacity style={style.buttonDuration} onPress={() => { setProduct({ ...product, duration: "30" }) }}>
-                                    <Text style={style.buttonText}>30 min </Text>
+                                <TouchableOpacity style={{...style.mediumSmallButton, width:"30%"}} onPress={() => { setProduct({ ...product, duration: "30" }) }}>
+                                    <Text style={style.buttonText}>30 min</Text>
                                 </TouchableOpacity>
                                 :
-                                <TouchableOpacity style={style.buttonDurationNoSelect} onPress={() => { setProduct({ ...product, duration: "30" }) }}>
-                                    <Text style={style.buttonText}>30 min </Text>
+                                <TouchableOpacity style={{...style.mediumSmallButtonX, width:"30%"}} onPress={() => { setProduct({ ...product, duration: "30" }) }}>
+                                    <Text style={style.buttonText}>30 min</Text>
                                 </TouchableOpacity>
 
                             }
                             {product.duration === "60" ?
-                                <TouchableOpacity style={style.buttonDuration} onPress={() => { setProduct({ ...product, duration: "60" }) }}>
-                                    <Text style={style.buttonText}>60 min </Text>
+                                <TouchableOpacity style={{...style.mediumSmallButton, width:"30%"}} onPress={() => { setProduct({ ...product, duration: "60" }) }}>
+                                    <Text style={style.buttonText}>60 min</Text>
                                 </TouchableOpacity>
                                 :
-                                <TouchableOpacity style={style.buttonDurationNoSelect} onPress={() => { setProduct({ ...product, duration: "60" }) }}>
-                                    <Text style={style.buttonText}>60 min </Text>
+                                <TouchableOpacity style={{...style.mediumSmallButtonX, width:"30%"}} onPress={() => { setProduct({ ...product, duration: "60" }) }}>
+                                    <Text style={style.buttonText}>60 min</Text>
                                 </TouchableOpacity>
 
                             }
                             {product.duration === "90" ?
-                                <TouchableOpacity style={style.buttonDuration} onPress={() => { setProduct({ ...product, duration: "90" }) }}>
-                                    <Text style={style.buttonText}>90 min </Text>
+                                <TouchableOpacity style={{...style.mediumSmallButton, width:"30%"}} onPress={() => { setProduct({ ...product, duration: "90" }) }}>
+                                    <Text style={style.buttonText}>90 min</Text>
                                 </TouchableOpacity>
                                 :
-                                <TouchableOpacity style={style.buttonDurationNoSelect} onPress={() => { setProduct({ ...product, duration: "90" }) }}>
-                                    <Text style={style.buttonText}>90 min </Text>
+                                <TouchableOpacity style={{...style.mediumSmallButtonX, width:"30%"}} onPress={() => { setProduct({ ...product, duration: "90" }) }}>
+                                    <Text style={style.buttonText}>90 min</Text>
                                 </TouchableOpacity>
 
                             }
@@ -203,11 +195,11 @@ const FormProduct = ({ navigation }) => {
                         </View>
                     </View>
 
-                    {errors.duration ? <Text style={style.error}>{errors.duration}</Text> : <Text style={style.ok}>✔Duración</Text>}
+                    {errors.duration ? <Text style={style.smallText}>{errors.duration}</Text> : <Text style={style.smallText}>✔Duración</Text>}
 
 
-                    <View style={{ alignItems: "flex-start" }}>
-                        <Text style={style.titlePropForm}>Precio:</Text>
+                    <View style={{ alignItems: "flex-start", width:"75%" }}>
+                        <Text style={style.bigText}>Precio:</Text>
                         <TextInput
                             style={style.loginInput}
                             placeholder='Precio'
@@ -216,13 +208,13 @@ const FormProduct = ({ navigation }) => {
                         >
                         </TextInput>
                     </View>
-                    {errors.price ? <Text style={style.error}>{errors.price}</Text> : <Text style={style.ok}>✔Precio</Text>}
+                    {errors.price ? <Text style={style.smallText}>{errors.price}</Text> : <Text style={style.smallText}>✔Precio</Text>}
 
-                    <View style={{ marginVertical: 15 }}>
-                        <TouchableOpacity style={style.button} onPress={postProduct}>
+                    
+                        <TouchableOpacity style={{...style.mediumButton, marginVertical:15}} onPress={postProduct}>
                             <Text style={style.buttonText}>Crear Producto</Text>
                         </TouchableOpacity>
-                    </View>
+                    
                 </View>
             </ScrollView>
             <ModalAlert

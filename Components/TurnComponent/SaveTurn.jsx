@@ -70,12 +70,12 @@ const SaveTurn = ({ navigation }) => {
 
 
     return (
-        <View style={{ height: "100%", width:"100%" }}>
+        <View style={style.baseContainer}>
             <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
             {user.id ?
-                <View style={{ height: "100%", width:"100%" }}>
+                <View style={style.baseContainer}>
                     {!save ?
-                        <View style={{ justifyContent: "space-around", height: "100%", width:"100%", alignItems:"center" }}>
+                        <View style={{...style.baseContainer, justifyContent: "space-around"}}>
                             {user.name === "Flor" && user.lastname === "Hasrun" ?
                                 <View style={style.mediumCard}>
                                     <Image style={style.bigImage} source={require("../../assets/Calendario.png")} />

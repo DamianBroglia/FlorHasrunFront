@@ -150,7 +150,7 @@ const Agenda = () => {
                 <View>
                     <Calendar
                         onDayPress={pressDayHandler}
-                        style={{ marginTop: 30, marginHorizontal: 20, borderRadius: 8 }} />
+                        style={style.calendar} />
                     <Text style={{ ...style.VerybigText, marginVertical: "20%" }}>Elije una fecha para ver los turnos</Text>
                 </View>
                 :

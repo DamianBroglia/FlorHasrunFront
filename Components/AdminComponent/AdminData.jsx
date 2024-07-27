@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { Text, View, TouchableOpacity, Image, ActivityIndicator, ImageBackground } from 'react-native';
 import { style } from '../Styles';
 import { Calendar } from 'react-native-calendars';
 import moment from 'moment';
@@ -24,6 +24,7 @@ const AdminData = () => {
     const [modalGan, setModalGan] = useState(false)
     const [modalTurnView, setModalTurnView] = useState(false)
     const [modalServView, setModalServView] = useState(false)
+    const [showButtons, setShowButtons] = useState(true)
 
     const onDayPressHandler = (day) => {
         const dateStringSpanish = moment(day.dateString).format('dddd D [de] MMMM [de] YYYY')
@@ -48,6 +49,7 @@ const AdminData = () => {
     const getStadisticInTime = async () => {
         setLoading(true)
         const stadistic = await getStadistic(dateInit, dateFinish)
+        setShowButtons(false)
         setViewStadistic(stadistic)
         setOrderDaysCollected([...stadistic.arrayTurnsByDay.sort((a, b) => b.collectedDay - a.collectedDay)])
         setOrderDaysTurns([...stadistic.arrayTurnsByDay.sort((a, b) => b.totalTurns - a.totalTurns)])
@@ -60,40 +62,65 @@ const AdminData = () => {
     };
 
     return (
-        <View >
-            <View style={style.cardUsers}>
-                <Text style={style.textInfo}> Elije las fechas</Text>
-                <View style={{flexDirection:"row"}}>
-                    <TouchableOpacity style={style.button} onPress={init}>
-                        <Text style={style.buttonText}> Desde </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={style.button} onPress={finish} >
-                        <Text style={style.buttonText}> Hasta </Text>
-                    </TouchableOpacity>
+        <View style={{ flex: 1 }} >
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
+            {!viewCalendar ?
+                <View style={style.fullWidthCard}>
+                    {showButtons ?
+                        <View>
+                            <Text style={style.title}> Elije las fechas</Text>
+                            <TouchableOpacity style={{ ...style.smallButton, marginVertical: "4%" }} onPress={init}>
+                                <Text style={style.buttonText}> Desde </Text>
+                            </TouchableOpacity>
+                        </View>
+                        :
+                        <View>
+                            <TouchableOpacity style={{ ...style.mediumButton, marginVertical: "1%" }} onPress={() => setShowButtons(true)}>
+                                <Text style={style.buttonText}> Elejir Fechas </Text>
+                            </TouchableOpacity>
+                            <Text style={style.smallText}>Desde</Text>
+                        </View>
+                    }
+                    {dateInit &&
+                        <View style={{ ...style.loginInput, width: "85%", justifyContent: "center" }}>
+                            <Text style={style.VerybigText}>{dateInit}</Text>
+                        </View>
+                    }
+                    {showButtons ?
+                        <TouchableOpacity style={{ ...style.smallButton, marginVertical: "4%" }} onPress={finish} >
+                            <Text style={style.buttonText}> Hasta </Text>
+                        </TouchableOpacity>
+                        :
+                        <Text style={style.smallText}>Hasta</Text>
+                    }
+                    {dateFinish &&
+                        <View style={{ ...style.loginInput, width: "85%", justifyContent: "center" }}>
+                            <Text style={style.VerybigText}>{dateFinish}</Text>
+                        </View>
+                    }
+                    {dateInit && dateFinish && showButtons &&
+                        <TouchableOpacity style={{ ...style.mediumButton, marginVertical: "5%" }} onPress={getStadisticInTime}>
+                            <Text style={style.buttonText}> Calcular </Text>
+                        </TouchableOpacity>
+                    }
                 </View>
-                {dateInit && <Text style={style.textInfo}>Desde: {dateInit}</Text>}
-                {dateFinish && <Text style={style.textInfo}>Hasta: {dateFinish}</Text>}
-                {dateInit && dateFinish ?
-                    <TouchableOpacity style={style.button} onPress={getStadisticInTime}>
-                        <Text style={style.buttonText}> Calcular </Text>
-                    </TouchableOpacity>
-                    : null}
-                {viewCalendar && <Calendar
-                    onDayPress={onDayPressHandler}
-                />}
+                :
+                <Calendar
+                    style={style.calendar}
+                    onDayPress={onDayPressHandler} />
+            }
 
-            </View>
             {loading &&
-                <View style={{alignItems:"center"}}>
-                    <ActivityIndicator size="large" color='rgb(252, 181, 180)' />
-                    <Text style={style.titleStadistic}>Calculando...</Text>
+                <View style={{ alignItems: "center" }}>
+                    <ActivityIndicator size="large" color='rgb(203, 171, 148)' />
+                    <Text style={style.bigText}>Calculando...</Text>
                 </View>}
             {viewStadistic &&
                 <View>
-                    <View style={style.cardStadistic}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Image style={style.bigImageStadistic} source={require("../../assets/Ganancia.png")} />
-                            <TouchableOpacity style={style.buttonStadistic} onPress={() => setModalGan(true)}>
+                    <View style={style.fullWidthCard}>
+                        <View style={style.buttonsHorizontalContainer}>
+                            <Image style={{...style.mediumImage, marginTop:"0%"}} source={require("../../assets/Ganancia.png")} />
+                            <TouchableOpacity style={style.mediumButton} onPress={() => setModalGan(true)}>
                                 <Text style={style.buttonText}> Ganancias </Text>
                             </TouchableOpacity>
                         </View>
@@ -104,11 +131,10 @@ const AdminData = () => {
                         viewStadistic={viewStadistic}
                         orderDaysCollected={orderDaysCollected}
                     />
-
-                    <View style={style.cardStadistic}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Image style={style.bigImageStadistic} source={require("../../assets/Calendario.png")} />
-                            <TouchableOpacity style={style.buttonStadistic} onPress={() => setModalTurnView(true)}>
+                    <View style={style.fullWidthCard}>
+                        <View style={style.buttonsHorizontalContainer}>
+                            <Image style={{...style.mediumImage, marginTop:"0%"}} source={require("../../assets/Calendario.png")} />
+                            <TouchableOpacity style={style.mediumButton} onPress={() => setModalTurnView(true)}>
                                 <Text style={style.buttonText}> Turnos </Text>
                             </TouchableOpacity>
                         </View>
@@ -120,10 +146,10 @@ const AdminData = () => {
                         viewStadistic={viewStadistic}
                         orderDaysTurns={orderDaysTurns}
                     />
-                    <View style={style.cardStadistic}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Image style={style.bigImageStadistic} source={require("../../assets/Vip.png")} />
-                            <TouchableOpacity style={style.buttonStadistic} onPress={() => setModalServView(true)}>
+                    <View style={style.fullWidthCard}>
+                        <View style={style.buttonsHorizontalContainer}>
+                            <Image style={{...style.mediumImage, marginTop:"0%"}} source={require("../../assets/Vip.png")} />
+                            <TouchableOpacity style={style.mediumButton} onPress={() => setModalServView(true)}>
                                 <Text style={style.buttonText}> Servicios </Text>
                             </TouchableOpacity>
                         </View>
