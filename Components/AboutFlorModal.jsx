@@ -14,13 +14,13 @@ export const AboutFlorModal = ({ isVisible, onClose }) => {
             animationIn="fadeIn"
             animationOut="fadeOutDown"
             useNativeDriver
-            style={style.alerta}
+            style={{margin:0}}
         >
             <ScrollView>
-                <View style={style.alertContainer}>
-                    <Text style={style.titleHome}>Sobre Florencia</Text>
-                    <Image style={style.imageHome} source={require("../assets/Flor.jpg")} />
-                    <Text style={style.text}> Florencia , reconocida como una eminencia en el campo de la estética, es una apasionada del arte y la belleza desde una edad temprana.
+                <View style={{...style.fullWidthCard, backgroundColor:"rgb(47,44,54)"}}>
+                    <Text style={style.title}>Sobre Florencia</Text>
+                    <Image style={style.veryBigImage} source={require("../assets/Flor.jpg")} />
+                    <Text style={style.bigText}> Florencia , reconocida como una eminencia en el campo de la estética, es una apasionada del arte y la belleza desde una edad temprana.
                         Nacida en una pequeña ciudad, Florencia descubrió su pasión por el diseño y la estética mientras crecía rodeada de naturaleza y colores vibrantes.
                         Desde su adolescencia, Florencia demostró un talento innato para la creatividad y la expresión visual. Su amor por el arte la llevó a estudiar Bellas Artes en una
                         prestigiosa universidad, donde perfeccionó sus habilidades en el dibujo, la pintura y la escultura. Sin embargo, fue en el mundo de la estética donde realmente

@@ -117,43 +117,40 @@ const PutProduct = () => {
         <View style={style.baseContainer}>
             <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
             <ScrollView
-                style={{ width: "95%"}}>
+                style={{ width: "95%" }}>
                 <View style={style.fullWidthCard}>
-                    
-                        <View style={{ alignItems: "center" }}>
-                            <Text style={style.bigText}>Nombre</Text>
-                            <Text style={style.VerybigText}>{service.name}</Text>
+                    <TouchableOpacity style={{ ...style.fullWidthCard, borderWidth: 1.5, paddingVertical: 3 }} onPress={() => setEdit({ ...edit, name: true })}>
+                        <View style={{ alignItems: "flex-start", width: "97%" }}>
+                            <Text style={style.mediumText}>Nombre:</Text>
+                            <Text style={style.bigText}>{service.name}</Text>
                         </View>
-                        {product.name ?
-                            <View style={{ alignItems: "center" }}>
-                                <Text style={style.bigText}>Nuevo Nombre</Text>
-                                <Text style={style.VerybigText}>{product.name}</Text>
-                            </View> : null
+                        {/* <TouchableOpacity style={{ ...style.smallButton, width: "25%" }} onPress={() => setEdit({ ...edit, name: true })}>
+                                <Text style={style.buttonText}>Editar</Text>
+                            </TouchableOpacity> */}
+                        {product.name &&
+                            <View style={{ alignItems: "flex-start", width: "97%" }}>
+                                <Text style={style.mediumText}>Nuevo Nombre:</Text>
+                                <Text style={style.bigText}>{product.name}</Text>
+                            </View>
                         }
-
-                        <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, name: true })}>
-                            <Text style={style.buttonText}> Editar </Text>
-                        </TouchableOpacity>
-
-                        {edit.name ?
-                            <View>
+                        {edit.name &&
+                            <View style={style.buttonsHorizontalContainer}>
                                 <TextInput
-                                    style={style.loginInput}
+                                    style={{ ...style.loginInput, width: "70%" }}
                                     placeholder='Nuevo nombre...'
                                     onChangeText={name => setProduct({ ...product, name })}
                                     defaultValue={product.name}
                                 >
                                 </TextInput>
-                                <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, name: false })}>
+                                <TouchableOpacity style={{ ...style.smallButton, width: "25%" }} onPress={() => setEdit({ ...edit, name: false })}>
                                     <Text style={style.buttonText}> Ok </Text>
                                 </TouchableOpacity>
                             </View>
-                            : null}
-                    
+                        }
+                    </TouchableOpacity>
 
-
-                    
-                        <Text style={style.bigText}>Imagenes:</Text>
+                    <View style={{ ...style.fullWidthCard, borderWidth: 1.5, paddingVertical: 3 }}>
+                        <Text style={style.mediumText}>Imagenes:</Text>
                         <FlatList
                             horizontal
                             data={imagen}
@@ -163,173 +160,165 @@ const PutProduct = () => {
                                 </TouchableOpacity>
                             }
                         />
-                        <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, image: true })}>
+                        <Text style={style.smallText}>Mantenga presionado para eliminar una foto</Text>
+                        <TouchableOpacity style={{ ...style.smallButton, marginVertical: 4 }} onPress={() => setEdit({ ...edit, image: true })}>
                             <Text style={style.buttonText}> Editar </Text>
                         </TouchableOpacity>
-                        {edit.image ?
-                            <View>
-                                <TouchableOpacity style={style.button} onPress={postImage}>
-                                    <Text style={style.buttonText}> Agregar imagen </Text>
+                        {edit.image &&
+                            <View style={style.buttonsHorizontalContainer}>
+                                <TouchableOpacity style={style.smallButton} onPress={postImage}>
+                                    <Text style={style.buttonText}>Agregar</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={style.button} onPress={() => setEdit({ ...edit, image: false })}>
+                                <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, image: false })}>
                                     <Text style={style.buttonText}> Ok </Text>
                                 </TouchableOpacity>
-                            </View> : null
+                            </View>
                         }
-                    
+                    </View>
 
-
-                    <View>
-                        <View style={{ alignItems: "center" }}>
-                            <Text style={style.bigText}>Descripción corta</Text>
-                            <Text style={style.textPutSer}>{service.minimalDescription}</Text>
+                    <TouchableOpacity style={{ ...style.fullWidthCard, borderWidth: 1.5, paddingVertical: 3 }} onPress={() => setEdit({ ...edit, minimalDescription: true })}>
+                        <View style={{ alignItems: "flex-start", width: "97%" }}>
+                            <Text style={style.mediumText}>Descripción corta:</Text>
+                            <Text style={{ ...style.bigText, textAlign: "left" }}>{service.minimalDescription}</Text>
                         </View>
-                        {product.minimalDescription ?
-                            <View style={{ alignItems: "center" }}>
-                                <Text style={style.bigText}>Nueva descripción corta</Text>
-                                <Text style={style.textPutSer}>{product.minimalDescription}</Text>
-                            </View> : null
+                        {/* <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, minimalDescription: true })}>
+                                <Text style={style.buttonText}> Editar </Text>
+                            </TouchableOpacity> */}
+                        {product.minimalDescription &&
+                            <View style={{ alignItems: "flex-start", width: "97%" }}>
+                                <Text style={style.mediumText}>Nueva descripción corta:</Text>
+                                <Text style={{ ...style.bigText, textAlign: "left" }}>{product.minimalDescription}</Text>
+                            </View>
                         }
-                        <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, minimalDescription: true })}>
-                            <Text style={style.buttonText}> Editar </Text>
-                        </TouchableOpacity>
-                        {edit.minimalDescription ?
-                            <View>
+                        {edit.minimalDescription &&
+                            <View style={style.buttonsHorizontalContainer}>
                                 <TextInput
-                                    style={style.loginInput}
+                                    style={{ ...style.loginInput, width: "70%" }}
                                     placeholder='Nuevo descripción minima...'
                                     onChangeText={minimalDescription => setProduct({ ...product, minimalDescription })}
                                     defaultValue={product.minimalDescription}
                                 >
                                 </TextInput>
-                                <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, minimalDescription: false })}>
+                                <TouchableOpacity style={{ ...style.smallButton, width: "25%" }} onPress={() => setEdit({ ...edit, minimalDescription: false })}>
                                     <Text style={style.buttonText}> Ok </Text>
                                 </TouchableOpacity>
                             </View>
-                            : null}
-
-                    </View>
-
-
-                   
-                        <View style={{ alignItems: "center" }}>
-                            <Text style={style.bigText}>Descripción</Text>
-                            <Text style={style.textPutSer}>{service.description}</Text>
-                        </View>
-                        {product.description ?
-                            <View style={{ alignItems: "center" }}>
-                                <Text style={style.bigText}>Nueva descripción</Text>
-                                <Text style={style.textPutSer}>{product.description}</Text>
-                            </View> : null
                         }
-                        <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, description: true })}>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ ...style.fullWidthCard, borderWidth: 1.5, paddingVertical: 3 }} onPress={() => setEdit({ ...edit, description: true })}>
+                        <View style={{ alignItems: "flex-start", width: "97%" }}>
+                            <Text style={style.mediumText}>Descripción:</Text>
+                            <Text style={{ ...style.bigText, textAlign: "left" }}>{service.description}</Text>
+                        </View>
+                        {product.description &&
+                            <View style={{ alignItems: "flex-start", width: "97%" }}>
+                                <Text style={style.mediumText}>Nueva descripción:</Text>
+                                <Text style={{ ...style.bigText, textAlign: "left" }}>{product.description}</Text>
+                            </View>
+                        }
+                        {/* <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, description: true })}>
                             <Text style={style.buttonText}> Editar </Text>
-                        </TouchableOpacity>
-                        {edit.description ?
-                            <View>
+                        </TouchableOpacity> */}
+                        {edit.description &&
+                            <View style={{ width: "95%" }}>
                                 <TextInput
                                     multiline={true}
-                                    style={style.loginInputDescription}
+                                    style={{ ...style.loginInput, height: 100 }}
                                     // placeholder={service.description}
                                     onChangeText={description => setProduct({ ...product, description })}
                                     defaultValue={service.description}
 
                                 >
                                 </TextInput>
-                                <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, description: false })}>
+                                <TouchableOpacity style={{ ...style.smallButton, marginVertical: 4 }} onPress={() => setEdit({ ...edit, description: false })}>
                                     <Text style={style.buttonText}> Ok </Text>
                                 </TouchableOpacity>
                             </View>
-                            : null}
-                    
-
-                    
-                        <View style={{ alignItems: "center" }}>
-                            <Text style={style.bigText}>Duración</Text>
-                            <Text style={style.textInfo}>{service.duration} minutos</Text>
-                        </View>
-                        {product.duration ?
-                            <View style={{ alignItems: "center" }}>
-                                <Text style={style.bigText}>Nueva duración</Text>
-                                <Text style={style.textInfo}>{product.duration} minutos</Text>
-                            </View> : null
                         }
-                        <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, duration: true })}>
-                            <Text style={style.buttonText}> Editar </Text>
-                        </TouchableOpacity>
-                        {edit.duration ?
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ ...style.fullWidthCard, borderWidth: 1.5, paddingVertical: 3 }} onPress={() => setEdit({ ...edit, duration: true })}>
+                        <View style={{ alignItems: "flex-start", width: "97%" }}>
+                            <Text style={style.mediumText}>Duración:</Text>
+                            <Text style={style.bigText}>{service.duration} minutos</Text>
+                        </View>
+                        {product.duration &&
+                            <View style={{ alignItems: "flex-start", width: "97%" }}>
+                                <Text style={style.mediumText}>Nueva duración:</Text>
+                                <Text style={style.bigText}>{product.duration} minutos</Text>
+                            </View>
+                        }
+                        {edit.duration &&
                             <View>
                                 <View style={style.buttonsHorizontalContainer}>
                                     {product.duration === "30" ?
-                                        <TouchableOpacity style={style.smallButton} onPress={() => { setProduct({ ...product, duration: "30" }) }}>
-                                            <Text style={style.buttonText}>30 min </Text>
+                                        <TouchableOpacity style={{ ...style.smallButton, width: "30%" }} onPress={() => { setProduct({ ...product, duration: "30" }) }}>
+                                            <Text style={style.buttonText}>30 min</Text>
                                         </TouchableOpacity>
                                         :
-                                        <TouchableOpacity style={style.buttonDurationNoSelect} onPress={() => { setProduct({ ...product, duration: "30" }) }}>
-                                            <Text style={style.buttonText}>30 min </Text>
+                                        <TouchableOpacity style={{ ...style.mediumSmallButtonX, width: "30%" }} onPress={() => { setProduct({ ...product, duration: "30" }) }}>
+                                            <Text style={style.buttonTextX}>30 min</Text>
                                         </TouchableOpacity>
 
                                     }
                                     {product.duration === "60" ?
-                                        <TouchableOpacity style={style.smallButton} onPress={() => { setProduct({ ...product, duration: "60" }) }}>
-                                            <Text style={style.buttonText}>60 min </Text>
+                                        <TouchableOpacity style={{ ...style.smallButton, width: "30%" }} onPress={() => { setProduct({ ...product, duration: "60" }) }}>
+                                            <Text style={style.buttonText}>60 min</Text>
                                         </TouchableOpacity>
                                         :
-                                        <TouchableOpacity style={style.buttonDurationNoSelect} onPress={() => { setProduct({ ...product, duration: "60" }) }}>
-                                            <Text style={style.buttonText}>60 min </Text>
+                                        <TouchableOpacity style={{ ...style.mediumSmallButtonX, width: "30%" }} onPress={() => { setProduct({ ...product, duration: "60" }) }}>
+                                            <Text style={style.buttonTextX}>60 min</Text>
                                         </TouchableOpacity>
 
                                     }
                                     {product.duration === "90" ?
-                                        <TouchableOpacity style={style.smallButton} onPress={() => { setProduct({ ...product, duration: "90" }) }}>
-                                            <Text style={style.buttonText}>90 min </Text>
+                                        <TouchableOpacity style={{ ...style.smallButton, width: "30%" }} onPress={() => { setProduct({ ...product, duration: "90" }) }}>
+                                            <Text style={style.buttonText}>90 min</Text>
                                         </TouchableOpacity>
                                         :
-                                        <TouchableOpacity style={style.buttonDurationNoSelect} onPress={() => { setProduct({ ...product, duration: "90" }) }}>
-                                            <Text style={style.buttonText}>90 min </Text>
+                                        <TouchableOpacity style={{ ...style.mediumSmallButtonX, width: "30%" }} onPress={() => { setProduct({ ...product, duration: "90" }) }}>
+                                            <Text style={style.buttonTextX}>90 min</Text>
                                         </TouchableOpacity>
 
                                     }
 
                                 </View>
-                                <TouchableOpacity style={style.button} onPress={() => setEdit({ ...edit, duration: false })}>
+                                <TouchableOpacity style={{ ...style.smallButton, marginBottom: 6 }} onPress={() => setEdit({ ...edit, duration: false })}>
                                     <Text style={style.buttonText}> Ok </Text>
                                 </TouchableOpacity>
                             </View>
-                            : null}
-                    
-
-                    <View style={style.cardPutSer}>
-                        <View style={{ alignItems: "center" }}>
-                            <Text style={style.bigText}>Precio</Text>
-                            <Text style={style.priceServ}>$ {service.price}</Text>
-                        </View>
-                        {product.price ?
-                            <View style={{ alignItems: "center" }}>
-                                <Text style={style.bigText}>Nuevo precio</Text>
-                                <Text style={style.priceServ}>$ {product.price}</Text>
-                            </View> : null
                         }
-                        <TouchableOpacity style={style.button} onPress={() => setEdit({ ...edit, price: true })}>
-                            <Text style={style.buttonText}> Editar </Text>
-                        </TouchableOpacity>
-                        {edit.price ?
-                            <View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ ...style.fullWidthCard, borderWidth: 1.5, paddingVertical: 3 }} onPress={() => setEdit({ ...edit, price: true })}>
+                        <View style={{ alignItems: "flex-start", width: "97%" }}>
+                            <Text style={style.mediumText}>Precio</Text>
+                            <Text style={style.bigText}>$ {service.price}</Text>
+                        </View>
+                        {product.price &&
+                            <View style={{ alignItems: "flex-start", width: "97%" }}>
+                                <Text style={style.mediumText}>Nuevo precio</Text>
+                                <Text style={style.bigText}>$ {product.price}</Text>
+                            </View>
+                        }
+                        {edit.price &&
+                            <View style={style.buttonsHorizontalContainer}>
                                 <TextInput
-                                    style={style.loginInput}
+                                    style={{...style.loginInput, width:"70%"}}
                                     placeholder='Nuevo precio...'
                                     onChangeText={price => setProduct({ ...product, price })}
                                     defaultValue={product.price}
                                 >
                                 </TextInput>
-                                <TouchableOpacity style={style.button} onPress={() => setEdit({ ...edit, price: false })}>
+                                <TouchableOpacity style={{...style.smallButton, width:"25%"}} onPress={() => setEdit({ ...edit, price: false })}>
                                     <Text style={style.buttonText}> Ok </Text>
                                 </TouchableOpacity>
                             </View>
-                            : null}
-                    </View>
+                        }
+                    </TouchableOpacity>
 
-                    <TouchableOpacity style={style.button} onPress={saveChange}>
+                    <TouchableOpacity style={style.mediumButton} onPress={saveChange}>
                         <Text style={style.buttonText}> Guardar Cambios </Text>
                     </TouchableOpacity>
                 </View>
