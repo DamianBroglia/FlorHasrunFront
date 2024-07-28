@@ -24,7 +24,7 @@ export const ModalAlert = ({ isVisible, onClose, title, message, type }) => {
             <Image style={style.bigImage} source={require("../assets/Warning.png")} />
           }
           <Text style={style.title}>{title}</Text>
-          <Text style={{...style.bigText, width:"90%"}}>{message}</Text>
+          <Text style={{...style.mediumText, width:"90%"}}>{message}</Text>
           <TouchableOpacity onPress={onClose} style={{...style.smallButton, marginVertical:12}}>
             <Text style={style.buttonText}>OK</Text>
           </TouchableOpacity>

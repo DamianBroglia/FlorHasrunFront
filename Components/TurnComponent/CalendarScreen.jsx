@@ -210,12 +210,12 @@ const CalendarScreen = ({ navigation }) => {
   }
 
   const handleDatePress = (day) => {
-    if (moment(day.dateString).format("dddd") === "domingo" || moment(day.dateString).format("dddd") === "lunes") {
-      return
-    }
-    if (moment(day.dateString).isBefore(today)) {
-      return
-    }
+    // if (moment(day.dateString).format("dddd") === "domingo" || moment(day.dateString).format("dddd") === "lunes") {
+    //   return
+    // }
+    // if (moment(day.dateString).isBefore(today)) {
+    //   return
+    // }
     setDateNotFormta(moment(day.dateString))
     const fechaFormateada = moment(day.dateString).format('DD-MM-YYYY')
     setDateFormat(fechaFormateada)
@@ -517,7 +517,7 @@ const CalendarScreen = ({ navigation }) => {
         isVisible={turnSavedCredits}
         onClose={() => hideAlert()}
         title="Turno Guardado!"
-        message="Se ha guardado el turno exitosamente! Se le descontaran 2 creditos, si asiste al turno o cancela dos dias antes del dia del turno, se le retornarán dichos creditos"
+        message="Se guardó el turno! Se le descontaron 2 creditos, si asiste al turno o cancela dos dias antes se le retornarán los creditos"
         type="ok"
       />
       <ModalAlert

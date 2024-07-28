@@ -9,6 +9,8 @@ import { Video } from 'expo-av'
 import { AboutFlorModal } from './AboutFlorModal';
 import moment from 'moment';
 import 'moment/locale/es';
+import * as Animatable from 'react-native-animatable';
+
 
 
 const Home = ({ navigation }) => {
@@ -94,7 +96,13 @@ const Home = ({ navigation }) => {
             {videoPlayed ?
                 <View style={style.baseContainer}>
                     <ImageBackground style={style.backgroundImage} source={require("../assets/FondoGris.png")} />
-                    <Image style={style.imageHomeLogo} source={require("../assets/LogoFlor.png")} />
+                    {videoPlayed && <Animatable.Image
+                        animation="zoomIn"
+                        duration={2000}
+                        delay={800}
+                        style={style.imageHomeLogo}
+                        source={require("../assets/LogoFlor.png")} />}
+                    {/* <Image style={style.imageHomeLogo} source={require("../assets/LogoFlor.png")} /> */}
                     <View style={style.containerButtonsHome}>
 
                         {user.id &&
@@ -104,31 +112,52 @@ const Home = ({ navigation }) => {
                         }
 
                         {!user.id &&
-                            <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Entrar") }}>
-                                <Text style={style.buttonText}> Entrar </Text>
-                            </TouchableOpacity>
+                            <Animatable.View
+                                animation="zoomIn"
+                                duration={2000}
+                                delay={1000} >
+                                <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Entrar") }}>
+                                    <Text style={style.buttonText}> Entrar </Text>
+                                </TouchableOpacity>
+                            </Animatable.View>
                         }
 
                         {!user.id &&
-                            <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Registrarse") }}>
-                                <Text style={style.buttonText}> Registrarse </Text>
-                            </TouchableOpacity>
+                            <Animatable.View
+                                animation="zoomIn"
+                                duration={2000}
+                                delay={1100} >
+                                <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Registrarse") }}>
+                                    <Text style={style.buttonText}> Registrarse </Text>
+                                </TouchableOpacity>
+                            </Animatable.View>
                         }
-
-                        <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Servicios") }}>
-                            <Text style={style.buttonText}> Ver Servicios </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={style.bigButton} onPress={() => setSeeMore(true)}>
-                            <Text style={style.buttonText}> Sobre Florencia </Text>
-                        </TouchableOpacity>
-
+                        <Animatable.View
+                            animation="zoomIn"
+                            duration={2000}
+                            delay={1200} >
+                            <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Servicios") }}>
+                                <Text style={style.buttonText}> Ver Servicios </Text>
+                            </TouchableOpacity>
+                        </Animatable.View>
+                        <Animatable.View
+                            animation="zoomIn"
+                            duration={2000}
+                            delay={1300} >
+                            <TouchableOpacity style={style.bigButton} onPress={() => setSeeMore(true)}>
+                                <Text style={style.buttonText}> Sobre Florencia </Text>
+                            </TouchableOpacity>
+                        </Animatable.View>
                         {user.id &&
                             <View>
                                 {notification || notificationHours ?
-                                    <TouchableOpacity style={style.bigButton} onPress={() => { setShowNotification(true) }}>
-                                        <Text style={style.buttonText}> Turnos </Text>
-                                    </TouchableOpacity>
+                                    <Animatable.View
+                                        animation="rubberBand"
+                                        duration={2000}>
+                                        <TouchableOpacity style={style.bigButton} onPress={() => { setShowNotification(true) }}>
+                                            <Text style={style.buttonText}> Turnos </Text>
+                                        </TouchableOpacity>
+                                    </Animatable.View>
                                     :
                                     <TouchableOpacity style={style.bigButton} onPress={() => { navigation.navigate("Turnos") }}>
                                         <Text style={style.buttonText}> Turnos </Text>
@@ -165,14 +194,22 @@ const Home = ({ navigation }) => {
                                 <Text style={style.buttonText}>Whatsapp</Text>
                             </View>
                         </TouchableOpacity> */}
-
-                        <TouchableOpacity style={style.bigButton} onPress={() => openInstagram()}>
-                            <Text style={style.buttonText}>Instagram</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={style.bigButton} onPress={() => openWhatsApp()}>
-                            <Text style={style.buttonText}>Whatsapp</Text>
-                        </TouchableOpacity>
+                        <Animatable.View
+                            animation="zoomIn"
+                            duration={2000}
+                            delay={1400} >
+                            <TouchableOpacity style={style.bigButton} onPress={() => openInstagram()}>
+                                <Text style={style.buttonText}>Instagram</Text>
+                            </TouchableOpacity>
+                        </Animatable.View>
+                        <Animatable.View
+                            animation="zoomIn"
+                            duration={2000}
+                            delay={1500} >
+                            <TouchableOpacity style={style.bigButton} onPress={() => openWhatsApp()}>
+                                <Text style={style.buttonText}>Whatsapp</Text>
+                            </TouchableOpacity>
+                        </Animatable.View>
 
                         {/* {user.id &&
                             <TouchableOpacity style={style.bigButton} onPress={() => { setShowNotification(true) }}>
