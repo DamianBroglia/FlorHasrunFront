@@ -231,7 +231,7 @@ export const style = StyleSheet.create({
     modalCard: {
         ...card,
         backgroundColor: "rgb(47,44,54)",
-        top: "25%",
+        top: "27%",
         position:"absolute",
         height: "40%",
         width: "94%",

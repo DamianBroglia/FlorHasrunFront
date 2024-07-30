@@ -210,12 +210,12 @@ const CalendarScreen = ({ navigation }) => {
   }
 
   const handleDatePress = (day) => {
-    // if (moment(day.dateString).format("dddd") === "domingo" || moment(day.dateString).format("dddd") === "lunes") {
-    //   return
-    // }
-    // if (moment(day.dateString).isBefore(today)) {
-    //   return
-    // }
+    if (moment(day.dateString).format("dddd") === "domingo" || moment(day.dateString).format("dddd") === "lunes") {
+      return
+    }
+    if (moment(day.dateString).isBefore(today)) {
+      return
+    }
     setDateNotFormta(moment(day.dateString))
     const fechaFormateada = moment(day.dateString).format('DD-MM-YYYY')
     setDateFormat(fechaFormateada)

@@ -279,7 +279,7 @@ const MyTurns = () => {
                 isVisible={viewNoCancelTurn}
                 onClose={() => hideAlert()}
                 title="No se puede cancelar!"
-                message="No se puede cancelar el mismo día del turno!"
+                message="Solo puedes cancelar con 24 horas de anticipacion!"
             />
         </View>
     );
