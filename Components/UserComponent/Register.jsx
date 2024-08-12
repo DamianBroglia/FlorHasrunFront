@@ -10,7 +10,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 const API_URL = Constants.expoConfig.extra.API_URL;
 
-
 const Register = () => {
     const [newUserName, setNewUserName] = useState("")
     const [newUserLastname, setNewUserLastname] = useState("")
@@ -18,10 +17,7 @@ const Register = () => {
     const [newUserPassword, setNewUserPassword] = useState("")
     const [errors, setErrors] = useState({})
     const [isAlertVisible, setIsAlertVisible] = useState(false)
-    // const [isWelcomeVis, setIsWelcomeVis] = useState(false)
     const [disguisePassword, setDisguisePassword] = useState(true)
-
-
 
     useEffect(() => {
         const errorSet = validateUser({ name: newUserName, lastname: newUserLastname, celNumber: newUserCelNumber, password: newUserPassword })
@@ -40,9 +36,8 @@ const Register = () => {
             try {
                 const user = await axios.post(`${API_URL}users`, { name: newUserName, lastname: newUserLastname, celNumber: newUserCelNumber, password: newUserPassword })
                 if (user.data) {
-                    const infoUser = await axios.post(`${API_URL}infoUser` , {userId: user.data.id})
-                    if(infoUser.data){
-                        // setIsWelcomeVis(true)
+                    const infoUser = await axios.post(`${API_URL}infoUser`, { userId: user.data.id })
+                    if (infoUser.data) {
                         dispatch(getUserByIdAction(user.data.id))
                         dispatch(getAllUserAction())
                         setNewUserName("")
@@ -65,11 +60,6 @@ const Register = () => {
     const hideAlert = () => {
         setIsAlertVisible(false);
     };
-
-    // const hideWelcome = () => {
-    //     setIsWelcomeVis(false)
-    //     // navigation.navigate("Home")
-    // }
 
     return (
         <View>
@@ -142,13 +132,6 @@ const Register = () => {
                     title="Lo sentimos..."
                     message="Faltan requisitos para registrarse"
                 />
-                {/* <ModalAlert
-                    isVisible={isWelcomeVis}
-                    onClose={hideWelcome}
-                    title="Bienvenid@!"
-                    message="App oficial de Flor Hasrun"
-                    type="ok"
-                /> */}
             </View>
         </View>
     );

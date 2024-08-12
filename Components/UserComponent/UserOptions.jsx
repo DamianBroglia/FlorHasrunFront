@@ -22,7 +22,6 @@ const UserOptions = () => {
     })
 
     useEffect(() => {
-        // Solicitar permisos al montar el componente
         const requestPermissions = async () => {
             const { granted } = await Notifications.requestPermissionsAsync();
             if (!granted) {
@@ -112,8 +111,6 @@ const UserOptions = () => {
                 <TouchableOpacity style={style.mediumButton} onPress={changeNotifications}>
                     <Text style={style.buttonText}>Guardar Cambios</Text>
                 </TouchableOpacity>
-
-
             </View>
 
             <ModalAlert

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
-import { TouchableOpacity, View, Image, Text } from 'react-native';
+import {Image} from 'react-native';
 import Catalogo from './Catalogo';
 import ProductDetail from './ProductDetail';
 import FormProduct from './FormProduct';

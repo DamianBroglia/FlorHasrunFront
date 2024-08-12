@@ -19,7 +19,6 @@ const UsersList = ({ navigation }) => {
     const [areYouShure, setAreYouShure] = useState(null)
     const [msj, setmsj] = useState("")
     const [userInfo, setUserInfo] = useState(null)
-    // const [info, setInfo] = useState({})
     const [searchUser, setSearchUser] = useState("")
     const [alertVip, setAlertVip] = useState(false)
     const [alertNOVip, setAlertNOVip] = useState(false)
@@ -41,7 +40,6 @@ const UsersList = ({ navigation }) => {
     const [actualPage, setActualPage] = useState(1)
 
     useEffect(() => {
-        // dispatch(getAllUserAction())
         if (allUsers.length > 5) {
             let numOfPag = Math.ceil(allUsers.length / 5)
             let array = ["<"]
@@ -70,14 +68,12 @@ const UsersList = ({ navigation }) => {
         setNumTurnsCancelByAdmin(cancelByAdmin.length)
     }, [userTurns])
 
-
     const openWhatsApp = (number) => {
         Linking.openURL(`whatsapp://send?phone=${number}`)
             .catch(() => {
                 Linking.openURL(`https://wa.me/${number}`);
             });
     };
-
 
     useEffect(() => {
         dispatch(getUserByNameAction(searchUser))
@@ -140,10 +136,6 @@ const UsersList = ({ navigation }) => {
         } catch (error) {
             console.log(error);
         }
-    }
-
-    const searchUserName = () => {
-        dispatch(getUserByNameAction(searchUser))
     }
 
     const hideAlert = () => {
@@ -267,6 +259,7 @@ const UsersList = ({ navigation }) => {
         setInitNumUser(init)
         setEndNumUser(end)
     }
+
     const nextPage = () => {
         let init = initNumUser + 5
         let end = endNumUser + 5
@@ -275,6 +268,7 @@ const UsersList = ({ navigation }) => {
         setInitNumUser(init)
         setEndNumUser(end)
     }
+    
     const goPage = (item) => {
         let init = (item * 5) - 5
         let end = (item * 5)
@@ -283,9 +277,6 @@ const UsersList = ({ navigation }) => {
         setEndNumUser(end)
         setActualPage(item)
     }
-
-
-
 
     return (
         <View style={{ flex: 1 }}>

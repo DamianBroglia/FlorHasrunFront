@@ -19,8 +19,6 @@ const Agenda = () => {
     const turnsOfTheDay = useSelector((state) => state.turns.viewTurns)
     const allUsers = useSelector((state) => state.users.allUsers)
     const [viewCalendar, setViewCalendar] = useState(true)
-    // const date = new Date()
-    // const dateSpanish = moment(date).format('dddd D [de] MMMM [de] YYYY');
     const [selecDate, setSelectdate] = useState("")
     const [turnState, setTurnState] = useState({})
     const [areYouShure, setAreYouShore] = useState(null)
@@ -32,11 +30,6 @@ const Agenda = () => {
     const [loseForFaild, setLoseForFaild] = useState(0)
     const [futureCollect, setFutureCollect] = useState(0)
     const [cancelTurn, setCancelTurn] = useState(0)
-
-
-    // useEffect(() => {
-    //     dispatch(getTurnByDayAction(dateSpanish))
-    // }, [dateSpanish])
 
     useEffect(() => {
         infoDay(turnsOfTheDay)

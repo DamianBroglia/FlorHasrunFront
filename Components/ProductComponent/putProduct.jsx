@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { TextInput, ScrollView, View, Text, Image, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +21,6 @@ const PutProduct = () => {
         duration: false,
         price: false,
     })
-
     const [product, setProduct] = useState({
         productId: service.id,
         name: "",
@@ -32,7 +30,6 @@ const PutProduct = () => {
         duration: "",
         price: "",
     })
-
     const [imagen, setImagen] = useState([...service.image])
     const [imageChange, setImageChange] = useState(false)
     const [noMoreImage, setNoMoreImage] = useState(false)
@@ -50,7 +47,6 @@ const PutProduct = () => {
                 setImageChange(true)
             } else {
                 setNoMoreImage(true)
-                // Alert.alert("No puedes subir mas de 10 imagenes")
             }
         } catch (error) {
             console.log(error)
@@ -62,7 +58,6 @@ const PutProduct = () => {
             imagen.filter(e => e !== item)
         )
         deleteImageCloudinary(item)
-        // Alert.alert("Imagen eliminada con exito")
         setDeletedImage(true)
         setImageChange(true)
     }
@@ -70,7 +65,6 @@ const PutProduct = () => {
     const saveChange = async () => {
         if (imageChange) {
             if (imagen.length < 3) {
-                // Alert.alert("El servicio debe tener al menos 3 imagenes descriptivas")
                 setMinImage(true)
             } else {
                 setProduct(product.image = imagen)
@@ -78,14 +72,12 @@ const PutProduct = () => {
         }
         if (product.price) {
             if (!regexAllNumbers.test(product.price)) {
-                // Alert.alert("Recuerda que el precio debe ser un numero entero")
                 setPriceInteger(true)
             }
         }
         try {
             const newProduct = await axios.put(`${API_URL}products`, product)
             if (newProduct.data) {
-                // Alert.alert("Producto modificado con exito")
                 setServiceChanged(true)
                 setProduct({
                     productId: service.id,
@@ -124,9 +116,6 @@ const PutProduct = () => {
                             <Text style={style.mediumText}>Nombre:</Text>
                             <Text style={style.bigText}>{service.name}</Text>
                         </View>
-                        {/* <TouchableOpacity style={{ ...style.smallButton, width: "25%" }} onPress={() => setEdit({ ...edit, name: true })}>
-                                <Text style={style.buttonText}>Editar</Text>
-                            </TouchableOpacity> */}
                         {product.name &&
                             <View style={{ alignItems: "flex-start", width: "97%" }}>
                                 <Text style={style.mediumText}>Nuevo Nombre:</Text>
@@ -181,9 +170,6 @@ const PutProduct = () => {
                             <Text style={style.mediumText}>Descripción corta:</Text>
                             <Text style={{ ...style.bigText, textAlign: "left" }}>{service.minimalDescription}</Text>
                         </View>
-                        {/* <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, minimalDescription: true })}>
-                                <Text style={style.buttonText}> Editar </Text>
-                            </TouchableOpacity> */}
                         {product.minimalDescription &&
                             <View style={{ alignItems: "flex-start", width: "97%" }}>
                                 <Text style={style.mediumText}>Nueva descripción corta:</Text>
@@ -217,9 +203,6 @@ const PutProduct = () => {
                                 <Text style={{ ...style.bigText, textAlign: "left" }}>{product.description}</Text>
                             </View>
                         }
-                        {/* <TouchableOpacity style={style.smallButton} onPress={() => setEdit({ ...edit, description: true })}>
-                            <Text style={style.buttonText}> Editar </Text>
-                        </TouchableOpacity> */}
                         {edit.description &&
                             <View style={{ width: "95%" }}>
                                 <TextInput

@@ -13,13 +13,10 @@ import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
-
 const Home = ({ navigation }) => {
 
     const dispatch = useDispatch()
     const user = useSelector((state) => state.users.user)
-    // const [videoPlayed, setVideoPlayed] = useState(false)
     const [videoPlayed, setVideoPlayed] = useState(false)
     const [seeMore, setSeeMore] = useState(false)
     const [notification, setNotification] = useState(null)

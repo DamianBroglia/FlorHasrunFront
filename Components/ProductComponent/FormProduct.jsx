@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TextInput, View, TouchableOpacity, FlatList, Image, ScrollView, Alert, ImageBackground } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, FlatList, Image, ScrollView, ImageBackground } from 'react-native';
 import { uploadImage, loadImageFromGalery, deleteImageCloudinary } from '../../Utils/helpers';
 import { useDispatch } from 'react-redux';
 import { getAllViewServi } from '../../Redux/actions/serviceActions';
@@ -10,8 +10,7 @@ import { ModalAlert } from '../ModalAlert';
 import Constants from 'expo-constants';
 const API_URL = Constants.expoConfig.extra.API_URL;
 
-
-const FormProduct = ({ navigation }) => {
+const FormProduct = () => {
     const [product, setProduct] = useState({
         name: "",
         image: [],
@@ -28,12 +27,10 @@ const FormProduct = ({ navigation }) => {
 
     const dispatch = useDispatch()
 
-
     useEffect(() => {
         const errorsX = validateProduct(product, imageUrl)
         setErrors(errorsX)
     }, [product, imageUrl])
-
 
     const postImage = async () => {
         try {
@@ -131,7 +128,6 @@ const FormProduct = ({ navigation }) => {
                     </View>
                     {errors.image ? <Text style={style.smallText}>{errors.image}</Text> : <Text style={style.smallText}>✔Imagenes</Text>}
 
-
                     <View style={{ alignItems: "flex-start", marginTop: 5, width:"75%" }}>
                         <Text style={style.bigText}>Descripción breve:</Text>
                         <TextInput
@@ -155,8 +151,6 @@ const FormProduct = ({ navigation }) => {
                         </TextInput>
                     </View>
                     {errors.description ? <Text style={style.smallText}>{errors.description}</Text> : <Text style={style.smallText}>✔Descripción</Text>}
-
-
 
                     <View style={{ alignItems: "flex-start", width:"75%", marginTop: 5 }}>
                         <Text style={style.bigText}>Duración:</Text>
@@ -197,7 +191,6 @@ const FormProduct = ({ navigation }) => {
 
                     {errors.duration ? <Text style={style.smallText}>{errors.duration}</Text> : <Text style={style.smallText}>✔Duración</Text>}
 
-
                     <View style={{ alignItems: "flex-start", width:"75%" }}>
                         <Text style={style.bigText}>Precio:</Text>
                         <TextInput
@@ -210,7 +203,6 @@ const FormProduct = ({ navigation }) => {
                     </View>
                     {errors.price ? <Text style={style.smallText}>{errors.price}</Text> : <Text style={style.smallText}>✔Precio</Text>}
 
-                    
                         <TouchableOpacity style={{...style.mediumButton, marginVertical:15}} onPress={postProduct}>
                             <Text style={style.buttonText}>Crear Producto</Text>
                         </TouchableOpacity>
@@ -238,6 +230,5 @@ const FormProduct = ({ navigation }) => {
             />
         </View>);
 };
-
 
 export default FormProduct;

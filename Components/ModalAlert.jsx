@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import Modal from 'react-native-modal';
 import { style } from './Styles';
@@ -30,8 +30,6 @@ export const ModalAlert = ({ isVisible, onClose, title, message, type }) => {
           </TouchableOpacity>
         </View>
       </View>
-
-
     </Modal>
   );
 };

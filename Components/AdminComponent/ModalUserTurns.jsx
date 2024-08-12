@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import Modal from 'react-native-modal';
 import { style } from '../Styles';
 
@@ -18,16 +18,16 @@ export const ModalUserTurns = ({ isVisible, onClose, filterTurns, title, noHay }
 
             {filterTurns.length > 0 ?
                 <View style={style.block}>
-                    <View style={{...style.modalCard, height:"auto", maxHeight:"80%", top:"10%" }}>
+                    <View style={{ ...style.modalCard, height: "auto", maxHeight: "80%", top: "10%" }}>
                         <Text style={style.title}>{title}</Text>
                         <FlatList
-                        style={{width:"100%"}}
+                            style={{ width: "100%" }}
                             data={filterTurns}
                             renderItem={({ item }) =>
                                 <View style={style.fullWidthCard}>
                                     <Text style={style.bigText}>{item.dateInit}</Text>
                                     <Text style={style.mediumText} >{item.product.name}</Text>
-                                    <View style={{ flexDirection: "row"}}>
+                                    <View style={{ flexDirection: "row" }}>
                                         <Text style={style.smallText}>{item.hourInit} hs |</Text>
                                         <Text style={style.smallText} > $ {item.product.price}</Text>
                                     </View>
@@ -37,7 +37,7 @@ export const ModalUserTurns = ({ isVisible, onClose, filterTurns, title, noHay }
                 </View>
                 :
                 <View style={style.fullWidthCard}>
-                <Text style={style.bigText}>{noHay}</Text>
+                    <Text style={style.bigText}>{noHay}</Text>
                 </View>
             }
         </Modal>

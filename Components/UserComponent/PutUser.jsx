@@ -36,8 +36,6 @@ function PutUser({ navigation }) {
         setIsAlert(false)
     }
 
-
-
     return (
         <View style={style.baseContainer}>
             <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />

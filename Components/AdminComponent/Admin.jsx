@@ -11,7 +11,6 @@ import ServiceControl from './ServiceControl';
 import AllService from '../ProductComponent/AllService';
 import { style } from '../Styles';
 
-
 const Stack = createStackNavigator()
 
 const Admin = () => {

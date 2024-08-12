@@ -4,10 +4,7 @@ import { useSelector } from 'react-redux';
 import { style } from '../Styles';
 import { ModalUserTurns } from './ModalUserTurns';
 
-
-
 const UserTurns = () => {
-
     const turns = useSelector((state) => state.turns.viewTurns)
     const [filterTurns, setFilterTurns] = useState([])
     const [title, setTitle] = useState("")
@@ -20,7 +17,6 @@ const UserTurns = () => {
         setNoHay("No hay Turnos")
         setViewModal(true)
     }
-
     const getPastTurns = () => {
         const pastTurns = turns.filter((e) => e.state !== "toTake")
         setFilterTurns(pastTurns)
@@ -49,16 +45,12 @@ const UserTurns = () => {
         setNoHay("Este cliente no ha fallado ningun turno")
         setViewModal(true)
     }
-
     const hideAlert = () => {
         setViewModal(false)
     };
 
-
-
     return (
         <View>
-
             <View style={style.cardUsers}>
                 <Image style={style.bigImage} source={require("../../assets/CheckList.png")} />
                 <TouchableOpacity style={style.button} onPress={getAllTurns}>
@@ -104,11 +96,7 @@ const UserTurns = () => {
                 title={title}
                 noHay={noHay}
             />
-
         </View>
-
-
-
     );
 };
 

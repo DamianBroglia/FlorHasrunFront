@@ -16,19 +16,15 @@ function Login() {
     const [userLastname, setUserLastname] = useState("")
     const [userPassword, setUserPassword] = useState("")
     const [isAlert, setIsAlert] = useState(false)
-    // const [isWelcome, setIsWelcome] = useState(false)
     const [msjError, setMsjError] = useState("")
     const [disguisePassword, setDisguisePassword] = useState(true)
 
-
     const login = async () => {
-
         try {
             const user = await axios.put(`${API_URL}users/login`, { name: userName, lastname: userLastname, password: userPassword })
 
             if (user.data) {
                 dispatch(getUserByIdAction(user.data.id))
-                // setIsWelcome(true)
                 setUserName("")
                 setUserLastname("")
                 setUserPassword("")
@@ -44,7 +40,6 @@ function Login() {
 
     const hideAlert = () => {
         setIsAlert(false);
-        // setIsWelcome(false)
     };
 
     const cargarFlor = () => {
@@ -126,14 +121,6 @@ function Login() {
                     title="Lo sentimos...!"
                     message={msjError}
                 />
-
-                {/* <ModalAlert
-                    isVisible={isWelcome}
-                    onClose={() => hideAlert()}
-                    title="Hola!"
-                    message="Bienvenid@ nuevamente"
-                    type="ok"
-                /> */}
 
             </View>
         </View>

@@ -68,7 +68,6 @@ const SaveTurn = ({ navigation }) => {
         navigation.navigate("Mis Turnos")
     }
 
-
     return (
         <View style={style.baseContainer}>
             <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
@@ -90,7 +89,6 @@ const SaveTurn = ({ navigation }) => {
                                     </TouchableOpacity>
                                 </View>
                             }
-
 
                             {user.name === "Flor" && user.lastname === "Hasrun" ?
                                 <View style={style.mediumCard}>

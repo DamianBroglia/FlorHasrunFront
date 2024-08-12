@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
-import { Text, TextInput, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { Image } from 'react-native';
 import MyTurns from '../TurnComponent/MyTurns';
 import PutUser from './PutUser';
 import User from './User';
@@ -12,7 +12,7 @@ const Stack = createStackNavigator()
 
 const UserNavigator = () => {
     return (
-            <Stack.Navigator
+        <Stack.Navigator
             screenOptions={{
                 headerStyle: {
                     backgroundColor: "rgb(47,44,54)",
@@ -26,11 +26,11 @@ const UserNavigator = () => {
                     <Image style={style.imageStackLeft} source={require("../../assets/FloresD.png")} />
                 ),
             }}>
-                <Stack.Screen name="Opciones De Usuario" component={User} />
-                <Stack.Screen name="Modificar Usuario" component={PutUser} />
-                <Stack.Screen name="Mis Turnos" component={MyTurns} />
-                <Stack.Screen name="Opciones" component={UserOptions} />
-            </Stack.Navigator>
+            <Stack.Screen name="Opciones De Usuario" component={User} />
+            <Stack.Screen name="Modificar Usuario" component={PutUser} />
+            <Stack.Screen name="Mis Turnos" component={MyTurns} />
+            <Stack.Screen name="Opciones" component={UserOptions} />
+        </Stack.Navigator>
     );
 };
 

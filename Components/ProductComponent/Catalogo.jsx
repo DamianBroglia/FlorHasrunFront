@@ -31,8 +31,6 @@ const Catalogo = ({ navigation }) => {
 
         <View style={{ alignItems: "center", width: "100%", height: "100%" }} >
             <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
-
-
             {services.length ?
                 <FlatList
                     data={services}
@@ -90,9 +88,7 @@ const Catalogo = ({ navigation }) => {
                 <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "800", marginTop: 15 }}> No hay servicios para mostrar</Text>
             }
         </View>
-
     );
 };
-
 
 export default Catalogo;

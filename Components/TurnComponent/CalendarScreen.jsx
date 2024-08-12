@@ -16,7 +16,7 @@ const API_URL = Constants.expoConfig.extra.API_URL;
 
 moment.locale('es');
 
-const CalendarScreen = ({ navigation }) => {
+const CalendarScreen = () => {
 
   const dispatch = useDispatch()
   const user = useSelector((state) => state.users.user)
@@ -404,21 +404,6 @@ const CalendarScreen = ({ navigation }) => {
                   <FlatList
                     data={freeTurns}
                     style={{ width: "100%" }}
-                    // ListHeaderComponent={
-                    //   service.name === "Dia Bloqueado" &&
-                    //   <View>
-                    //     {freeTurns[0].name === "Dia Bloqueado" ?
-                    //       <TouchableOpacity style={style.smallButton} onPress={() => setDisblockDay(true)}>
-                    //         <Text style={style.buttonText} >Desbloquear dia</Text>
-                    //       </TouchableOpacity>
-                    //       :
-                    //       <TouchableOpacity style={style.smallButton} onPress={() => blockDay()}>
-                    //         <Text style={style.buttonText} >Bloquear dia</Text>
-                    //       </TouchableOpacity>
-                    //     }
-
-                    //   </View>
-                    // }
                     numColumns={3}
                     renderItem={({ item }) =>
                       service.name === "Dia Bloqueado" ?

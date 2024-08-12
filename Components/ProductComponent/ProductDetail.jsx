@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, Image, Button, TouchableOpacity, FlatList, ImageBackground, Alert } from 'react-native';
+import { ScrollView, View, Text, Image, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllViewServi } from '../../Redux/actions/serviceActions';
 import axios from "axios"
@@ -16,7 +16,6 @@ const ProductDetail = ({ navigation }) => {
     const dispatch = useDispatch()
     const countImage = [...service.image]
 
-
     const deleteService = async (id) => {
         const newProduct = await axios.put(`${API_URL}products`, { productId: id, view: false })
         if (newProduct.data) {
@@ -24,7 +23,6 @@ const ProductDetail = ({ navigation }) => {
             setViewModalDelete(true)
         }
     }
-
     const hideAlert = () => {
         setViewModalDelete(false)
         navigation.navigate("Servicios")
@@ -102,7 +100,6 @@ const ProductDetail = ({ navigation }) => {
         </View>
     );
 };
-
 
 
 export default ProductDetail;
