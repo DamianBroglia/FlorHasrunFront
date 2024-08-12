@@ -6,6 +6,7 @@ import { getUserByIdAction, getAllUserAction } from '../../Redux/actions/userAct
 import { validateUser } from './validateUser';
 import { style } from '../Styles';
 import { ModalAlert } from '../ModalAlert';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 const API_URL = Constants.expoConfig.extra.API_URL;
 
@@ -48,6 +49,8 @@ const Register = () => {
                         setNewUserLastname("")
                         setNewUserCelNumber("")
                         setNewUserPassword("")
+                        const jsonValue = JSON.stringify(infoUser.data);
+                        await AsyncStorage.setItem('@user_data', jsonValue);
                     }
                 }
             } catch (error) {

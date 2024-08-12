@@ -5,6 +5,7 @@ import { getUserByIdAction } from '../../Redux/actions/userActions';
 import { style } from '../Styles';
 import { ModalAlert } from '../ModalAlert';
 import axios from "axios"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 const API_URL = Constants.expoConfig.extra.API_URL;
 
@@ -31,6 +32,8 @@ function Login() {
                 setUserName("")
                 setUserLastname("")
                 setUserPassword("")
+                const jsonValue = JSON.stringify(user.data);
+                await AsyncStorage.setItem('@user_data', jsonValue);
             }
 
         } catch (error) {

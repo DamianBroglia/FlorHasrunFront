@@ -3,13 +3,15 @@ import { TouchableOpacity, View, Image, Text, Linking, ImageBackground } from 'r
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllViewServi } from '../Redux/actions/serviceActions';
-import { getAllUserAction } from '../Redux/actions/userActions';
+import { getAllUserAction, getUserByIdAction } from '../Redux/actions/userActions';
 import { style } from './Styles';
 import { Video } from 'expo-av'
 import { AboutFlorModal } from './AboutFlorModal';
 import moment from 'moment';
 import 'moment/locale/es';
 import * as Animatable from 'react-native-animatable';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
@@ -33,6 +35,20 @@ const Home = ({ navigation }) => {
     useEffect(() => {
         dispatch(getAllViewServi());
         dispatch(getAllUserAction());
+
+        const loadUserData = async () => {
+            try {
+                const jsonValue = await AsyncStorage.getItem('@user_data');
+                if (jsonValue !== null) {
+                    const userStorage = JSON.parse(jsonValue)
+                    dispatch(getUserByIdAction(userStorage.id));
+                }
+            } catch (e) {
+                console.error('Error loading user data', e);
+            }
+        };
+
+        loadUserData();
     }, []);
 
     useEffect(() => {

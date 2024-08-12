@@ -8,6 +8,7 @@ import { style } from '../Styles';
 import { ModalAlert } from '../ModalAlert';
 import { ModalCreditsState } from './ModalCreditsState';
 import axios from "axios"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 const API_URL = Constants.expoConfig.extra.API_URL;
 
@@ -37,7 +38,12 @@ const User = ({ navigation }) => {
         setFutureTurns(futureTurnsUser)
     }, [turnsUser])
 
-    const logOut = () => {
+    const logOut = async () => {
+        try {
+            await AsyncStorage.removeItem('@user_data');
+        } catch (e) {
+            console.error('Error clearing user data', e);
+        }
         dispatch(clearUser())
         navigation.navigate("Home")
     }
@@ -185,7 +191,7 @@ const User = ({ navigation }) => {
                 <View style={style.block}>
                     <View style={style.modalCard}>
                         <Text style={style.title}> Seguro que desea salir?</Text>
-                        <View style={{ flexDirection: "row-reverse", width:"90%", justifyContent:"space-around" }}>
+                        <View style={{ flexDirection: "row-reverse", width: "90%", justifyContent: "space-around" }}>
                             <TouchableOpacity style={style.smallButton} onPress={logOut}>
                                 <Text style={style.buttonText}>Si</Text>
                             </TouchableOpacity>
