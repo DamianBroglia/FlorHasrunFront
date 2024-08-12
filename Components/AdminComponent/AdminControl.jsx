@@ -80,10 +80,10 @@ const AdminControl = ({ navigation }) => {
                         <Image style={style.bigImage} source={require("../../assets/WarningGolden.png")} />
                         <Text style={style.bigText}>Seguro que deseas salir?</Text>
                         <View style={style.buttonsHorizontalContainer}>
-                            <TouchableOpacity style={style.mediumButton} onPress={() => logOut()}>
+                            <TouchableOpacity style={style.smallButton} onPress={() => logOut()}>
                                 <Text style={style.buttonText}>Salir</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={style.mediumButton} onPress={() => setShowAlert(false)}>
+                            <TouchableOpacity style={style.smallButton} onPress={() => setShowAlert(false)}>
                                 <Text style={style.buttonText}>Volver</Text>
                             </TouchableOpacity>
                         </View>
