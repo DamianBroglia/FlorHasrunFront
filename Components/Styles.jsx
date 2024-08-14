@@ -218,6 +218,12 @@ export const style = StyleSheet.create({
         ...textBase,
         fontSize: 12,
     },
+    redPoint:{
+        position:"absolute",
+        top:"30%",
+        right:"30%",
+        fontSize:10
+    },
     ////////////////////////////////////
     //                                //
     //             CARDS              //

@@ -82,7 +82,7 @@ const UserTurns = () => {
                     </TouchableOpacity>
                 </View>
                 <View style={style.mediumCard}>
-                    <Image style={style.bigImage} source={require("../../assets/Warning.png")} />
+                    <Image style={style.bigImage} source={require("../../assets/WarningGolden.png")} />
                     <TouchableOpacity style={style.button} onPress={getFailedTurns}>
                         <Text style={style.buttonText}>Fallados</Text>
                     </TouchableOpacity>

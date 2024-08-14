@@ -24,13 +24,13 @@ export const ModalCreditsState = ({ isVisible, onClose, getCredits, title, messa
                         <Text style={style.bigText}> Tienes {credits} creditos, puedes guardar {Math.floor(credits / 2)} turno/s</Text>
                     }
                     <Text style={{...style.bigText, width:"80%"}}>{message}</Text>
-                    <View style={{ flexDirection: "row" }}>
-                        <TouchableOpacity onPress={onClose} style={style.mediumButton}>
+                    <View style={style.buttonsHorizontalContainer}>
+                        <TouchableOpacity onPress={onClose} style={style.smallButton}>
                             <Text style={style.buttonText}>Volver</Text>
                         </TouchableOpacity>
                         {getCredits &&
-                            <TouchableOpacity onPress={getCredits} style={style.mediumButton}>
-                                <Text style={style.buttonText}>Solicitar Creditos</Text>
+                            <TouchableOpacity onPress={getCredits} style={style.smallButton}>
+                                <Text style={style.buttonText}>Solicitar</Text>
                             </TouchableOpacity>
                         }
                     </View>

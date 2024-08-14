@@ -349,8 +349,8 @@ const CalendarScreen = () => {
 
           {loading ?
             <View style={{ alignItems: "center", marginTop: 70 }}>
-              <ActivityIndicator size="large" color='rgb(252, 181, 180)' />
-              <Text style={style.titleStadistic}>Cargando turnos...</Text>
+              <ActivityIndicator size="large" color="rgb(203,171,148)" />
+              <Text style={style.title}>Cargando turnos...</Text>
             </View>
             :
             <View style={{ width: "98%" }}>

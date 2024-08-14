@@ -143,16 +143,17 @@ const User = ({ navigation }) => {
                             :
                             <TouchableOpacity onPress={() => setModalViewRequest(true)}>
                                 <Text style={style.mediumText}>Creditos  </Text>
-                                <Text style={style.creditsNumber}>?</Text>
-                                <Image style={style.smallImage} source={require("../../assets/Credit.png")} />
+                                <Text style={{ ...style.VerybigText, marginTop: "4%" }}>?</Text>
+                                <Image style={{ ...style.smallImage, position: "absolute", alignSelf: "center", top: "40%" }} source={require("../../assets/Credit.png")} />
                             </TouchableOpacity>
+                        }
+                        {user.credits < 2 && user.verified && futureTurns.length === 0 ?
+                            <Text style={style.redPoint}>🔴</Text> : null
                         }
                     </View>
                 }
 
-                {user.credits < 2 && user.verified && futureTurns.length === 0 ?
-                    <Text style={style.buttonNot}>🔴</Text> : null
-                }
+
             </View>
 
 
@@ -191,7 +192,7 @@ const User = ({ navigation }) => {
                 <View style={style.block}>
                     <View style={style.modalCard}>
                         <Text style={style.title}> Seguro que desea salir?</Text>
-                        <View style={{ flexDirection: "row-reverse", width: "90%", justifyContent: "space-around" }}>
+                        <View style={style.buttonsHorizontalContainer}>
                             <TouchableOpacity style={style.smallButton} onPress={logOut}>
                                 <Text style={style.buttonText}>Si</Text>
                             </TouchableOpacity>
