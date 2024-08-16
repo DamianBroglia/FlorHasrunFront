@@ -62,78 +62,78 @@ const Register = () => {
     };
 
     return (
-        <View>
-            <ImageBackground style={style.backgroundImage} source={require("../../assets/Fondo.png")} />
-            <View style={style.cardUsersRegis}>
-                <Image style={style.imageLogo} source={require("../../assets/LogoFlor.png")} />
+        <View style={style.baseContainer}>
+            <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
 
-                <View style={{ alignItems: "flex-start" }}>
-                    <Text style={style.titlePropForm}> Nombre: </Text>
-                    <TextInput
-                        style={style.loginInput}
-                        placeholder='Ej: Damián'
-                        onChangeText={name => setNewUserName(name.trim())}
-                        defaultValue={newUserName}
-                    />
-                </View>
+            <Image style={style.imageHomeLogo} source={require("../../assets/LogoFlor.png")} />
 
-                {errors.name ? <Text style={style.error}>{errors.name}</Text> : <Text style={style.ok}>✔Nombre</Text>}
-
-                <View style={{ alignItems: "flex-start", marginTop: 9 }}>
-                    <Text style={style.titlePropForm}> Apellido: </Text>
-                    <TextInput
-                        style={style.loginInput}
-                        placeholder='Ej: Garcia'
-                        onChangeText={lastname => setNewUserLastname(lastname.trim())}
-                        defaultValue={newUserLastname}
-                    />
-                </View>
-                {errors.lastname ? <Text style={style.error}>{errors.lastname}</Text> : <Text style={style.ok}>✔Apellido</Text>}
-
-                <View style={{ alignItems: "flex-start", marginTop: 9 }}>
-                    <Text style={style.titlePropForm}> Número de celular: </Text>
-                    <TextInput
-                        style={style.loginInput}
-                        placeholder='Número de celular'
-                        onChangeText={celNumber => setNewUserCelNumber(celNumber)}
-                        defaultValue={newUserCelNumber}
-                    />
-                </View>
-                {errors.celNumber ? <Text style={style.error}>{errors.celNumber}</Text> : <Text style={style.ok}>✔Número de celular</Text>}
-
-                <View style={{ alignItems: "flex-start", marginTop: 9 }}>
-                    <Text style={style.titlePropForm}> Contraseña: </Text>
-                    <TextInput
-                        style={style.loginInput}
-                        secureTextEntry={disguisePassword}
-                        placeholder='Ej: Damiangarcia123!!'
-                        onChangeText={password => setNewUserPassword(password.trim())}
-                        defaultValue={newUserPassword}
-                    />
-                    {disguisePassword ?
-                        <TouchableOpacity onPress={() => setDisguisePassword(false)}>
-                            <Image style={style.viewPassword} source={require("../../assets/OjoCerrado.png")} />
-                        </TouchableOpacity> :
-                        <TouchableOpacity onPress={() => setDisguisePassword(true)}>
-                            <Image style={style.viewPassword} source={require("../../assets/OjoAbierto.png")} />
-                        </TouchableOpacity>
-                    }
-                </View>
-                {errors.password ? <Text style={style.error}>{errors.password}</Text> : <Text style={style.ok}>✔Contraseña</Text>}
-
-                <View style={{ marginVertical: 15 }}>
-                    <TouchableOpacity style={style.button} onPress={postNewUser}>
-                        <Text style={style.buttonText}> Ingresar </Text>
-                    </TouchableOpacity>
-                </View>
-                <ModalAlert
-                    isVisible={isAlertVisible}
-                    onClose={hideAlert}
-                    title="Lo sentimos..."
-                    message="Faltan requisitos para registrarse"
+            <View style={{ alignItems: "flex-start", width:"70%" }}>
+                <Text style={style.bigText}> Nombre: </Text>
+                <TextInput
+                    style={style.loginInput}
+                    placeholder='Ej: Damián'
+                    onChangeText={name => setNewUserName(name.trim())}
+                    defaultValue={newUserName}
                 />
             </View>
+
+            {errors.name ? <Text style={style.smallText}>{errors.name}</Text> : <Text style={style.smallText}>✔Nombre</Text>}
+
+            <View style={{ alignItems: "flex-start", width:"70%", marginTop:"3%" }}>
+                <Text style={style.bigText}> Apellido: </Text>
+                <TextInput
+                    style={style.loginInput}
+                    placeholder='Ej: Garcia'
+                    onChangeText={lastname => setNewUserLastname(lastname.trim())}
+                    defaultValue={newUserLastname}
+                />
+            </View>
+            {errors.lastname ? <Text style={style.smallText}>{errors.lastname}</Text> : <Text style={style.smallText}>✔Apellido</Text>}
+
+            <View style={{ alignItems: "flex-start", width:"70%", marginTop:"3%" }}>
+                <Text style={style.bigText}> Número de celular: </Text>
+                <TextInput
+                    style={style.loginInput}
+                    placeholder='Número de celular'
+                    onChangeText={celNumber => setNewUserCelNumber(celNumber)}
+                    defaultValue={newUserCelNumber}
+                />
+            </View>
+            {errors.celNumber ? <Text style={style.smallText}>{errors.celNumber}</Text> : <Text style={style.smallText}>✔Número de celular</Text>}
+
+            <View style={{ alignItems: "flex-start", width:"70%", marginTop:"3%"}}>
+                <Text style={style.bigText}> Contraseña: </Text>
+                <TextInput
+                    style={style.loginInput}
+                    secureTextEntry={disguisePassword}
+                    placeholder='Ej: Damiangarcia123!!'
+                    onChangeText={password => setNewUserPassword(password.trim())}
+                    defaultValue={newUserPassword}
+                />
+                {disguisePassword ?
+                    <TouchableOpacity style={style.eyeContainer} onPress={() => setDisguisePassword(false)}>
+                        <Image style={style.eyeImage} source={require("../../assets/OjoCerrado.png")} />
+                    </TouchableOpacity> :
+                    <TouchableOpacity style={style.eyeContainer} onPress={() => setDisguisePassword(true)}>
+                        <Image style={style.eyeImage} source={require("../../assets/OjoAbierto.png")} />
+                    </TouchableOpacity>
+                }
+            </View>
+            {errors.password ? <Text style={style.smallText}>{errors.password}</Text> : <Text style={style.smallText}>✔Contraseña</Text>}
+
+            <View style={{ marginVertical: "4%" }}>
+                <TouchableOpacity style={style.smallButton} onPress={postNewUser}>
+                    <Text style={style.buttonText}> Ingresar </Text>
+                </TouchableOpacity>
+            </View>
+            <ModalAlert
+                isVisible={isAlertVisible}
+                onClose={hideAlert}
+                title="Lo sentimos..."
+                message="Faltan requisitos para registrarse"
+            />
         </View>
+
     );
 };
 

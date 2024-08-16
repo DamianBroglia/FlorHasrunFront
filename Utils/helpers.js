@@ -18,11 +18,12 @@ export const loadImageFromGalery = async (array) => {
     allowsEditing: true,
     aspect: array
   })
+ 
   if (result.canceled) {
     return response
   }
   response.status = true
-  response.image = result.uri
+  response.image = result.assets[0].uri
   return response
 }
 

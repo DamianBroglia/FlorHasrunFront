@@ -104,16 +104,16 @@ function Login() {
                     </TouchableOpacity>
                 </View>
 
-                <View style={{ marginVertical: 15 }}>
-                    <TouchableOpacity style={style.mediumButton} onPress={cargarFlor}>
-                        <Text style={style.buttonText}> cargar Flor </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ marginVertical: 15 }}>
-                    <TouchableOpacity style={style.mediumButton} onPress={cargarEma}>
-                        <Text style={style.buttonText}> cargar Emma </Text>
-                    </TouchableOpacity>
-                </View>
+                        {/* <View style={{ marginVertical: 15 }}>
+                            <TouchableOpacity style={style.mediumButton} onPress={cargarFlor}>
+                                <Text style={style.buttonText}> cargar Flor </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ marginVertical: 15 }}>
+                            <TouchableOpacity style={style.mediumButton} onPress={cargarEma}>
+                                <Text style={style.buttonText}> cargar Emma </Text>
+                            </TouchableOpacity>
+                        </View> */}
 
                 <ModalAlert
                     isVisible={isAlert}
