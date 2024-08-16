@@ -30,6 +30,8 @@ const Agenda = () => {
     const [loseForFaild, setLoseForFaild] = useState(0)
     const [futureCollect, setFutureCollect] = useState(0)
     const [cancelTurn, setCancelTurn] = useState(0)
+    const [dateNotFormat, setDateNotFormta] = useState(null)
+
 
     useEffect(() => {
         infoDay(turnsOfTheDay)
@@ -76,6 +78,7 @@ const Agenda = () => {
         if (moment(day.dateString).format("dddd") === "domingo" || moment(day.dateString).format("dddd") === "lunes") {
             return
         }
+        setDateNotFormta(moment(day.dateString))
         const dateStringSpanish = moment(day.dateString).format('dddd D [de] MMMM [de] YYYY');
         dispatch(getTurnByDayAction(dateStringSpanish))
         setViewCalendar(false)
@@ -134,6 +137,30 @@ const Agenda = () => {
         setIsAlert(false);
     };
 
+    const getOneDayBefore = () => {
+        if (dateNotFormat.format("dddd") === "martes") {
+            const restDays = dateNotFormat.subtract(3, "days")
+            setSelectdate(restDays.format('dddd D [de] MMMM [de] YYYY'))
+        } else {
+            const restDays = dateNotFormat.subtract(1, "days")
+            setSelectdate(restDays.format('dddd D [de] MMMM [de] YYYY'))
+        }
+        dispatch(getTurnByDayAction(selecDate))
+    }
+
+    const getOneDayAfter = () => {
+        if (dateNotFormat.format("dddd") === "sábado") {
+            const sumDays = dateNotFormat.add(3, "days")
+            setSelectdate(sumDays.format('dddd D [de] MMMM [de] YYYY'))
+
+        } else {
+            const sumDay = dateNotFormat.add(1, "days")
+            setSelectdate(sumDay.format('dddd D [de] MMMM [de] YYYY'))
+        }
+        dispatch(getTurnByDayAction(selecDate))
+
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <ImageBackground style={style.backgroundImage} source={require("../../assets/FondoGris.png")} />
@@ -151,17 +178,23 @@ const Agenda = () => {
                     data={turnsOfTheDay}
                     ListHeaderComponent={
                         <View>
-                            <View style={{ alignItems: "center" }}>
+                            <View style={style.buttonsHorizontalContainer}>
+                                <TouchableOpacity style={style.verySmallButton} onPress={getOneDayBefore}>
+                                    <Text style={style.title}>-</Text>
+                                </TouchableOpacity>
                                 <TouchableOpacity style={style.veryBigButton} onPress={viewCalenarHandler}>
                                     <Text style={style.bigText}>{selecDate}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={style.verySmallButton} onPress={getOneDayAfter}>
+                                    <Text style={style.buttonText}>+</Text>
                                 </TouchableOpacity>
                             </View>
 
                             {turnsOfTheDay.length && turnsOfTheDay[0].product.name === "Dia Bloqueado" ?
-                                <View style={style.cardModalUserTurns}>
+                                <View style={style.baseContainer}>
                                     <Image style={style.bigImage} source={require("../../assets/Candado.png")} />
-                                    <Text style={style.titleBig}>Dia Bloqueado!</Text>
-                                    <Text style={style.text}>Has bloqueado este día para que ningun cliente pueda guardar un turno</Text>
+                                    <Text style={style.title}>Dia Bloqueado!</Text>
+                                    <Text style={style.bigText}>Has bloqueado este día para que ningun cliente pueda guardar un turno</Text>
                                 </View>
                                 :
                                 <View style={style.fullWidthCard}>
@@ -223,21 +256,21 @@ const Agenda = () => {
                                     <Text style={style.smallText}>Duración</Text>
                                 </View>
                                 {item.state === "takedIt" &&
-                                    <View style={{...style.buttonsHorizontalContainer, width:"36%"}}>
-                                        <View style={{ alignItems: "center"}}>
+                                    <View style={{ ...style.buttonsHorizontalContainer, width: "36%" }}>
+                                        <View style={{ alignItems: "center" }}>
                                             <Image style={style.mediumImage} source={require("../../assets/OkGreen.png")} />
                                             <Text style={style.smallText}>Asistió</Text>
                                         </View>
                                         <View style={{ alignItems: "center" }}>
-                                            <Image style={{...style.mediumImage, opacity:0.6}} source={require("../../assets/Mal.png")} />
+                                            <Image style={{ ...style.mediumImage, opacity: 0.6 }} source={require("../../assets/Mal.png")} />
                                             <Text style={style.smallText}>No asistió</Text>
                                         </View>
                                     </View>
                                 }
                                 {item.state === "failed" &&
-                                    <View style={{...style.buttonsHorizontalContainer, width:"36%"}}>
-                                        <View style={{ alignItems: "center"}}>
-                                            <Image style={{...style.mediumImage, opacity:0.6}} source={require("../../assets/Bien.png")} />
+                                    <View style={{ ...style.buttonsHorizontalContainer, width: "36%" }}>
+                                        <View style={{ alignItems: "center" }}>
+                                            <Image style={{ ...style.mediumImage, opacity: 0.6 }} source={require("../../assets/Bien.png")} />
                                             <Text style={style.smallText}>Asistió</Text>
                                         </View>
                                         <View style={{ alignItems: "center" }}>
@@ -247,8 +280,8 @@ const Agenda = () => {
                                     </View>
                                 }
                                 {item.state === "toTake" && item.product.name !== "Turno Bloqueado" &&
-                                    <View style={{...style.buttonsHorizontalContainer, width:"36%"}}>
-                                        <View style={{ alignItems: "center"}}>
+                                    <View style={{ ...style.buttonsHorizontalContainer, width: "36%" }}>
+                                        <View style={{ alignItems: "center" }}>
                                             <TouchableOpacity onPress={() => setStateTurn(item.user.id, item.user.credits, item.id, "takedIt", item.price, item.product.duration, item.user.vip)}>
                                                 <Image style={style.mediumImage} source={require("../../assets/Bien.png")} />
                                             </TouchableOpacity>

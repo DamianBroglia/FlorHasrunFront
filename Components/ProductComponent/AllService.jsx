@@ -57,7 +57,7 @@ const AllService = () => {
                         </View>
                     }
                 /> :
-                <Text style={{ textAlign: "center", fontSize: 20 }}> No hay servicios para mostrar</Text>
+                <Text style={style.title}> No hay servicios para mostrar</Text>
             }
 
             <ModalAlert

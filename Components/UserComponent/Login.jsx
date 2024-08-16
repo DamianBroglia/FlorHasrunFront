@@ -104,7 +104,7 @@ function Login() {
                     </TouchableOpacity>
                 </View>
 
-                        {/* <View style={{ marginVertical: 15 }}>
+                        <View style={{ marginVertical: 15 }}>
                             <TouchableOpacity style={style.mediumButton} onPress={cargarFlor}>
                                 <Text style={style.buttonText}> cargar Flor </Text>
                             </TouchableOpacity>
@@ -113,7 +113,7 @@ function Login() {
                             <TouchableOpacity style={style.mediumButton} onPress={cargarEma}>
                                 <Text style={style.buttonText}> cargar Emma </Text>
                             </TouchableOpacity>
-                        </View> */}
+                        </View>
 
                 <ModalAlert
                     isVisible={isAlert}

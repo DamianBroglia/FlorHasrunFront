@@ -337,7 +337,7 @@ const CalendarScreen = () => {
         <View style={{ alignItems: "center" }}>
           <View style={style.buttonsHorizontalContainer}>
             <TouchableOpacity style={style.verySmallButton} onPress={getOneDayBefore}>
-              <Text style={{ ...style.title }}>-</Text>
+              <Text style={style.title }>-</Text>
             </TouchableOpacity>
             <TouchableOpacity style={style.veryBigButton} onPress={() => choiceDate()}>
               <Text style={style.bigText}> {selectedDate} </Text>
